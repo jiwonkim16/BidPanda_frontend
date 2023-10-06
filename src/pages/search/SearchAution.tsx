@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SearchList from "./SearchList";
 
 function SearchAution() {
   const [search, setSearch] = useState("");
@@ -47,6 +48,7 @@ function SearchAution() {
           </button>
         </div>
       </form>
+      <SearchList />
     </>
   );
 }
