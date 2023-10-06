@@ -1,4 +1,4 @@
-import CategoriesIcon from "./icons/CategoriesIcon";
+import CategoriesIcon from "../icons/CategoriesIcon";
 
 const Categories = () => {
   return (

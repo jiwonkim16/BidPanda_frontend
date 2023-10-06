@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 
 interface MobileLayoutProps {
   children: React.ReactNode;

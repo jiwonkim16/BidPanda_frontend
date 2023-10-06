@@ -1,6 +1,6 @@
-import Categories from "../components/Categories";
-import ItemCards from "../components/ItemCards";
-import MobileLayout from "./MobileLayout";
+import Categories from "../../components/layouts/Categories";
+import ItemCards from "../../components/layouts/ItemCards";
+import MobileLayout from "../../components/layouts/MobileLayout";
 import { Link } from "react-router-dom";
 
 const Main = () => {

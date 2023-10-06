@@ -1,7 +1,8 @@
-import MobileLayout from "./MobileLayout";
+import MobileLayout from "../../components/layouts/MobileLayout";
 import { useForm } from "react-hook-form";
-import { LoginAPi } from "../apis/UsersApi";
-import { Link } from "react-router-dom";
+import { LoginAPi } from "../../apis/UsersApi";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -9,9 +10,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const formToLogin = (data: any) => {
     LoginAPi(data);
+    toast.success("로그인에 성공하였습니다.");
+    navigate("/");
   };
 
   return (
