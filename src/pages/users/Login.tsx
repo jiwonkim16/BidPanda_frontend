@@ -1,6 +1,6 @@
 import MobileLayout from "../../components/layouts/MobileLayout";
 import { useForm } from "react-hook-form";
-import { LoginAPi } from "../../apis/UsersApi";
+import { LoginApi } from "../../apis/UsersApi";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,8 +13,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const formToLogin = (data: any) => {
-    LoginAPi(data);
+    LoginApi(data);
     toast.success("로그인에 성공하였습니다.");
+
     navigate("/");
   };
 
@@ -32,7 +33,9 @@ const Login = () => {
             id="username"
             className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
           />
-          {errors.username && <p>아이디를 입력해주세요.</p>}
+          {errors.username && (
+            <p className="text-sm text-red-500 mb-2">아이디를 입력해주세요.</p>
+          )}
           <label htmlFor="password">비밀번호</label>
           <input
             {...register("password", { required: true })}
@@ -40,7 +43,11 @@ const Login = () => {
             id="password"
             className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-7"
           />
-          {errors.password && <p>비밀번호를 입력해주세요.</p>}
+          {errors.password && (
+            <p className="text-sm text-red-500 mb-2">
+              비밀번호를 입력해주세요.
+            </p>
+          )}
           <div>
             <button className="w-[120px] h-[40px] bg-black text-white rounded-md mt-2 mr-2 ">
               로그인
