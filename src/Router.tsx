@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "./pages/Main";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Main from "./pages/lists/Main";
+import Login from "./pages/users/Login";
+import RegisterUser from "./pages/users/RegisterUser";
 
 const Router = () => {
   return (
@@ -9,7 +9,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegisterUser />} />
       </Routes>
     </BrowserRouter>
   );
