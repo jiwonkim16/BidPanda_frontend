@@ -1,25 +1,10 @@
-import AuctionDetail from "./components/auction-detail/AuctionDetail";
-import AuctionList from "./components/auction-list/AuctionList";
-import ModifierProduct from "./components/register/ModifierProduct";
-import RegisterProduct from "./components/register/RegisterProduct";
-import SearchAution from "./components/search/SearchAution";
+
+import "./App.css";
+import Router from "./Router";
 
 function App() {
-  return (
-    <>
-      <div>
-        <RegisterProduct />
-        <ModifierProduct />
-      </div>
-      <div>
-        <AuctionList />
-        <AuctionDetail />
-      </div>
-      <div>
-        <SearchAution />
-      </div>
-    </>
-  );
+  return <Router />;
+
 }
 
 export default App;
