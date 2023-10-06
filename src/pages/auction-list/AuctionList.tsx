@@ -18,7 +18,7 @@ function AuctionList() {
             Auction Item List
           </h1>
         </div>
-        <div>
+        <div className="flex justify-end">
           <select>
             <option>카테고리1</option>
             <option>카테고리2</option>
@@ -30,7 +30,7 @@ function AuctionList() {
           <button>
             <img
               className="p-8 rounded-t-lg"
-              src="../public/vite.svg"
+              src="/panda.jpg"
               alt="product image"
             />
           </button>
@@ -43,6 +43,9 @@ function AuctionList() {
             <div className="flex items-center mt-2.5 mb-5">
               <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
                 남은 시간 : 94:02:16
+              </span>
+              <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                현재 입찰 수 : 999,999
               </span>
             </div>
             <div className="flex items-center justify-between">
