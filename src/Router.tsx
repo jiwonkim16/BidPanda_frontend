@@ -7,10 +7,13 @@ import ModifierProduct from "./pages/auction-register/ModifierProduct";
 import AuctionDetail from "./pages/auction-detail/AuctionDetail";
 import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
+import Header from "./components/layouts/Header";
+import Footer from "./components/layouts/Footer";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -21,6 +24,7 @@ const Router = () => {
         <Route path="/keyword" element={<SearchAution />} />
         <Route path="/items/list" element={<AuctionList />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

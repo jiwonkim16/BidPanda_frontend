@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -5,33 +6,82 @@ interface IForm {
   title: string;
   content: string;
   price: number;
-  timer: number;
+  time: number;
   image: string;
+  category: string;
 }
 
 function RegisterProduct() {
+  const [images, setImages] = useState<File[]>([]);
+  const categoryList = [
+    "카테1",
+    "카테2",
+    "카테3",
+    "카테4",
+    "카테5",
+    "카테6",
+    "카테7",
+    "카테8",
+  ];
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
     getValues,
   } = useForm<IForm>({
     defaultValues: {},
     mode: "onBlur",
   });
   console.log(watch());
+  // 카테고리 등록
+  const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const category = event.currentTarget.value;
+    setValue("category", category);
+  };
 
+  // 이미지 관련 로직
+  // 이미지 onChange 함수
+  const addImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (images.length === 3) {
+      toast.warning("등록 가능한 이미지 갯수를 초과했습니다.");
+      return;
+    }
+    const imageFiles: FileList | null = event.target.files;
+
+    if (imageFiles) {
+      const newImages = [...images];
+      for (let i = 0; i < imageFiles.length; i++) {
+        newImages.push(imageFiles[i]);
+      }
+      setImages(newImages);
+    }
+  };
+  console.log(images);
   // 데이터가 유효할 경우 호출
   const onValid = (data: IForm) => {
-    // 서버로 데이터를 전달
     console.log(data);
-
-    // response status === 200 이면..toast
-    toast.success("상품이 등록되었습니다🔥");
-    // 리스트 페이지로 이동
-    reset();
+    // 카테고리를 선택하지 않았다면 warning, return
+    if (!data.category) {
+      toast.warning("카테고리를 선택해주세요!");
+      return;
+    } else {
+      // 서버로 데이터를 전달
+      const formData = new FormData();
+      formData.append(
+        "itemRequestDto",
+        new Blob([JSON.stringify(data)], { type: "application/json" })
+      );
+      for (let i = 0; i < images.length; i++) {
+        formData.append("image", images[i]);
+      }
+      toast.success("상품이 등록되었습니다🔥");
+      // 리스트 페이지로 이동
+      console.log(formData);
+      reset();
+    }
   };
 
   return (
@@ -78,6 +128,24 @@ function RegisterProduct() {
         <br />
         <span className="text-red-500">{errors.price?.message as string}</span>
         <br />
+        <div className="flex justify-between">
+          {categoryList.map((item, index) => (
+            <button
+              type="button"
+              key={index}
+              value={item}
+              onClick={onClickCategory}
+              className="rounded-full bg-blue-500 w-11 cursor-pointer text-white"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <br />
+        <span className="text-red-500">
+          {errors.category?.message as string}
+        </span>
+        <br />
         {/* 이미지... */}
         <label
           htmlFor="dropzone-file"
@@ -113,11 +181,12 @@ function RegisterProduct() {
             className="hidden"
             multiple
             accept="image/*"
+            onChange={addImage}
           />
         </label>
         {/* ------- */}
         <input
-          {...register("timer", {
+          {...register("time", {
             required: "경매 마감기한 설정은 필수입니다.",
           })}
           type="range"
@@ -126,9 +195,9 @@ function RegisterProduct() {
           placeholder="timer"
         />
         <br />
-        <span className="text-red-500">{errors.timer?.message as string}</span>
+        <span className="text-red-500">{errors.time?.message as string}</span>
         <br />
-        <span>마감기한 : {getValues("timer")}DAY</span>
+        <span>마감기한 : {getValues("time")}DAY</span>
         <br />
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           등록하기
