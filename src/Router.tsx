@@ -8,26 +8,36 @@ import ModifierProduct from "./pages/auction-register/ModifierProduct";
 import AuctionDetail from "./pages/auction-detail/AuctionDetail";
 import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
-import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
-
+import Header from "./components/layouts/Header";
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterUser />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/items/register" element={<RegisterProduct />} />
-        <Route path="/items/modifier/:itemId" element={<ModifierProduct />} />
-        <Route path="/items/detail/:itemId" element={<AuctionDetail />} />
-        <Route path="/keyword" element={<SearchAution />} />
-        <Route path="/items/list" element={<AuctionList />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div className="h-full">
+      <BrowserRouter>
+        <div className="h-[5%]">
+          <Header />
+        </div>
+        <div className="h-[83%]">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<RegisterUser />} />
+            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/items/register" element={<RegisterProduct />} />
+            <Route
+              path="/items/modifier/:itemId"
+              element={<ModifierProduct />}
+            />
+            <Route path="/items/detail/:itemId" element={<AuctionDetail />} />
+            <Route path="/keyword" element={<SearchAution />} />
+            <Route path="/items/list" element={<AuctionList />} />
+          </Routes>
+        </div>
+        <div className="h-[15%]">
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </div>
   );
 };
 

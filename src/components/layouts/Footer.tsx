@@ -4,7 +4,7 @@ import FooterIcon from "../icons/FooterIcon";
 const Footer = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row justify-center mt-10">
+    <div className="flex justify-center">
       <FooterIcon onClick={() => navigate("/")} />
       <FooterIcon />
       <FooterIcon />
