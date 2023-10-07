@@ -1,12 +1,10 @@
 import Categories from "../components/layouts/Categories";
 import ItemCards from "../components/layouts/ItemCards";
-import MobileLayout from "../components/layouts/MobileLayout";
-import Nav from "../components/layouts/Nav";
 
 const Main = () => {
   return (
-    <MobileLayout>
-      <Nav />
+    <>
+      <nav className="bg-gray-500 w-[390px] h-[200px]  rounded-b-none"></nav>
       <div className="flex justify-center mt-[18px] flex-wrap">
         <Categories />
       </div>
@@ -16,7 +14,7 @@ const Main = () => {
           <ItemCards />
         </div>
       </div>
-    </MobileLayout>
+    </>
   );
 };
 
