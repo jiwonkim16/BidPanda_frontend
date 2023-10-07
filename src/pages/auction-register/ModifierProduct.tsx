@@ -8,15 +8,28 @@ interface IForm {
   price: number;
   timer: number;
   image: string;
+  category: string;
 }
 
 function ModifierProduct() {
+  const [images, setImages] = useState<File[]>([]);
+  const categoryList = [
+    "카테1",
+    "카테2",
+    "카테3",
+    "카테4",
+    "카테5",
+    "카테6",
+    "카테7",
+    "카테8",
+  ];
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
     getValues,
   } = useForm<IForm>({
     defaultValues: {},
@@ -24,9 +37,14 @@ function ModifierProduct() {
   });
   console.log(watch());
 
-  // 이미지 관련 로직
-  const [images, setImages] = useState<File[]>([]);
+  // 카테고리 등록
+  const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(event.currentTarget.value);
+    const category = event.currentTarget.value;
+    setValue("category", category);
+  };
 
+  // 이미지 관련 로직
   // 이미지 onChange 함수
   const addImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length === 3) {
@@ -47,11 +65,25 @@ function ModifierProduct() {
 
   // 데이터가 유효할 경우 호출
   const onValid = (data: IForm) => {
-    // 데이터를 서버로 전달
-    console.log(data);
-    toast.success("상품이 수정되었습니다🔥");
-    // 다시 상세페이지로 이동
-    reset();
+    // 카테고리를 선택하지 않았다면 warning, return
+    if (!data.category) {
+      toast.warning("카테고리를 선택해주세요!");
+      return;
+    } else {
+      // 서버로 데이터를 전달
+      const formData = new FormData();
+      formData.append(
+        "itemRequestDto",
+        new Blob([JSON.stringify(data)], { type: "application/json" })
+      );
+      for (let i = 0; i < images.length; i++) {
+        formData.append("image", images[i]);
+      }
+      toast.success("상품이 등록되었습니다🔥");
+      // 리스트 페이지로 이동
+      console.log(formData);
+      reset();
+    }
   };
 
   return (
@@ -101,6 +133,24 @@ function ModifierProduct() {
         />
         <br />
         <span className="text-red-500">{errors.price?.message as string}</span>
+        <br />
+        <div className="flex justify-between">
+          {categoryList.map((item, index) => (
+            <button
+              type="button"
+              key={index}
+              value={item}
+              onClick={onClickCategory}
+              className="rounded-full bg-blue-500 w-11 cursor-pointer text-white"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <br />
+        <span className="text-red-500">
+          {errors.category?.message as string}
+        </span>
         <br />
         {/* 이미지... */}
         <label

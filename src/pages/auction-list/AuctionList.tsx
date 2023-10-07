@@ -1,13 +1,28 @@
 import { useState } from "react";
 
 function AuctionList() {
-  // const [auctionItem, setAuctionItem] = useState([])
-  // 데이터 받아와서 return해주고 state에 저장
+  const categoryList = [
+    "카테1",
+    "카테2",
+    "카테3",
+    "카테4",
+    "카테5",
+    "카테6",
+    "카테7",
+    "카테8",
+  ];
+  const [auctionItem, setAuctionItem] = useState([]);
+  // 데이터 받아와서 return해주고 state에 저장 / 또는 리액트 쿼리 사용!!!
   //   const auctionList = async ()=>{
   //     const response = await fetcher()
   //     setAuctionItem(response?.data)
   //   }
 
+  // 카테고리 클릭 시 해당 카테고리 데이터만 필터 처리
+  const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const select = event.currentTarget.value;
+    auctionItem.filter((item) => item.category === select);
+  };
   // 받아온 데이터를 auctionItem에 넣고 아래 JSX에 map으로 할당.
   return (
     <>
@@ -18,13 +33,18 @@ function AuctionList() {
             Auction Item List
           </h1>
         </div>
-        <div className="flex justify-end">
-          <select>
-            <option>카테고리1</option>
-            <option>카테고리2</option>
-            <option>카테고리3</option>
-            <option>카테고리4</option>
-          </select>
+        <div className="flex justify-center">
+          {categoryList.map((item, index) => (
+            <button
+              type="button"
+              key={index}
+              value={item}
+              onClick={onClickCategory}
+              className="rounded-full bg-blue-500 w-11 cursor-pointer text-white"
+            >
+              {item}
+            </button>
+          ))}
         </div>
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <button>
