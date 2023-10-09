@@ -3,11 +3,13 @@ import Main from "./pages/Mainpage";
 import Login from "./pages/users/Login";
 import RegisterUser from "./pages/users/RegisterUser";
 import Mypage from "./pages/users/Mypage";
+import EditUserInfo from "./pages/users/EditUserInfo";
 import RegisterProduct from "./pages/auction-register/RegisterProduct";
 import ModifierProduct from "./pages/auction-register/ModifierProduct";
 import AuctionDetail from "./pages/auction-detail/AuctionDetail";
 import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
+
 import App from "./App";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
