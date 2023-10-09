@@ -1,12 +1,22 @@
-import { LoginApi } from "../../apis/UsersApi";
+import { LoginApi, KakaoLoginApi } from "../../apis/UsersApi";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
+
+/**
+ * @author : Goya Gim
+ * @returns : React Hook Form을 사용하지 않은 단순한 State - Event Handler 구조.
+ *            로그인 기능 구현.
+ */
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const Rest_api_key = "e852feeb69305f69f3f15d58bf03437d";
+  const redirect_uri = "http://localhost:5173/login";
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   const onLoginHandler = (e: any) => {
     e.preventDefault();
@@ -15,8 +25,16 @@ const Login = () => {
     navigate("/");
   };
 
+  const kakaoLoginHandler = () => {
+    window.location.href = kakaoURL;
+    const kakaoOuthCode = new URL(window.location.href).searchParams.get(
+      "code"
+    );
+    KakaoLoginApi(kakaoOuthCode);
+  };
+
   return (
-    <div className="flex flex-col h-[650px] mt-[50px] justify-center items-center">
+    <div className="flex flex-col h-[650px] justify-center items-center">
       <div className="flex flex-col items-center font-bold">
         <label htmlFor="username">아이디</label>
         <input
@@ -47,7 +65,10 @@ const Login = () => {
           </button>
         </div>
       </div>
-      <button className="w-[250px] h-[40px] bg-yellow-300 text-black rounded-md mt-2 font-bold">
+      <button
+        onClick={kakaoLoginHandler}
+        className="w-[250px] h-[40px] bg-yellow-300 text-black rounded-md mt-2 font-bold"
+      >
         카카오 계정으로 로그인 하기
       </button>
     </div>
