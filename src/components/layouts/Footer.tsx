@@ -1,14 +1,19 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FooterIcon from "../icons/FooterIcon";
 
 const Footer = () => {
-  const navigate = useNavigate();
   return (
     <div className="flex justify-center">
-      <FooterIcon onClick={() => navigate("/")} />
+      <Link to="/">
+        <FooterIcon />
+      </Link>
+      <Link to="/keyword">
+        <FooterIcon />
+      </Link>
       <FooterIcon />
-      <FooterIcon />
-      <FooterIcon onClick={() => navigate("/mypage")} />
+      <Link to="/mypage">
+        <FooterIcon />
+      </Link>
     </div>
   );
 };

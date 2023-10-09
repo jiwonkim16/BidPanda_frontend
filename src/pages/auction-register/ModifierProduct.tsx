@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { categoryList } from "../../atoms/category";
 
 interface IForm {
   title: string;
@@ -13,16 +15,7 @@ interface IForm {
 
 function ModifierProduct() {
   const [images, setImages] = useState<File[]>([]);
-  const categoryList = [
-    "카테1",
-    "카테2",
-    "카테3",
-    "카테4",
-    "카테5",
-    "카테6",
-    "카테7",
-    "카테8",
-  ];
+  const categoryLi = useRecoilValue(categoryList);
   const {
     register,
     watch,
@@ -135,7 +128,7 @@ function ModifierProduct() {
         <span className="text-red-500">{errors.price?.message as string}</span>
         <br />
         <div className="flex justify-between">
-          {categoryList.map((item, index) => (
+          {categoryLi.map((item, index) => (
             <button
               type="button"
               key={index}
