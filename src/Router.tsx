@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "./pages/Mainpage";
 import Login from "./pages/users/Login";
 import RegisterUser from "./pages/users/RegisterUser";
@@ -9,38 +9,56 @@ import ModifierProduct from "./pages/auction-register/ModifierProduct";
 import AuctionDetail from "./pages/auction-detail/AuctionDetail";
 import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
-import Footer from "./components/layouts/Footer";
-import Header from "./components/layouts/Header";
-const Router = () => {
-  return (
-    <div className="h-full">
-      <BrowserRouter>
-        <div className="h-[7%]">
-          <Header />
-        </div>
-        <div className="h-[81%]">
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<RegisterUser />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/mypage/edit" element={<EditUserInfo />} />
-            <Route path="/items/register" element={<RegisterProduct />} />
-            <Route
-              path="/items/modifier/:itemId"
-              element={<ModifierProduct />}
-            />
-            <Route path="/items/detail/:itemId" element={<AuctionDetail />} />
-            <Route path="/keyword" element={<SearchAution />} />
-            <Route path="/items/list" element={<AuctionList />} />
-          </Routes>
-        </div>
-        <div className="h-[15%]">
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </div>
-  );
-};
 
-export default Router;
+import App from "./App";
+import NotFound from "./pages/error/NotFound";
+import ErrorComponent from "./pages/error/ErrorComponent";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <Main />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <RegisterUser />,
+      },
+      {
+        path: "mypage",
+        element: <Mypage />,
+      },
+      {
+        path: "items/register",
+        element: <RegisterProduct />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "items/modifier/:itemId",
+        element: <ModifierProduct />,
+      },
+      {
+        path: "items/detail/:itemId",
+        element: <AuctionDetail />,
+      },
+      {
+        path: "keyword",
+        element: <SearchAution />,
+      },
+      {
+        path: "items/list",
+        element: <AuctionList />,
+      },
+    ],
+    errorElement: <NotFound />,
+  },
+]);
+
+export default router;
