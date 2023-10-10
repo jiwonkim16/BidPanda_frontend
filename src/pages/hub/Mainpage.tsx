@@ -1,5 +1,5 @@
-import Categories from "../components/layouts/Categories";
-import ItemCards from "../components/layouts/ItemCards";
+import Categories from "../../components/layouts/Categories";
+import ItemCards from "../../components/layouts/ItemCards";
 
 const Main = () => {
   return (

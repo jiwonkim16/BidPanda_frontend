@@ -1,17 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "./pages/Mainpage";
+import App from "./App";
+import Main from "./pages/hub/Mainpage";
 import Login from "./pages/users/Login";
 import RegisterUser from "./pages/users/RegisterUser";
-import Mypage from "./pages/users/Mypage";
+import Mypage from "./pages/hub/Mypage";
+import EditUserInfo from "./pages/hub/EditUserInfo";
+
 import RegisterProduct from "./pages/auction-register/RegisterProduct";
 import ModifierProduct from "./pages/auction-register/ModifierProduct";
 import AuctionDetail from "./pages/auction-detail/AuctionDetail";
 import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
-
-import App from "./App";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
+
+/**
+ * @author : Jiwon Kim
+ * @returns : createBrowserRouter를 사용한 깔끔한 Route 설계.
+ */
 
 const router = createBrowserRouter([
   {
@@ -33,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "mypage",
         element: <Mypage />,
+      },
+      {
+        path: "mypage/edit",
+        element: <EditUserInfo />,
       },
       {
         path: "items/register",
