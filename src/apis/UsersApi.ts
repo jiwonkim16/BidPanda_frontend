@@ -1,12 +1,23 @@
 import axios from "axios";
-import { setToken } from "../utils/Tokens";
+
+import { toast } from "react-toastify";
+
+const config = {
+  withCredentials: true,
+  mode: "cors",
+};
 
 interface UserLoginData {
-  username: string;
+  membername: string;
   password: string;
 }
+
+type KakaoLoginCode = {
+  kakaoAuthCode: string | null;
+};
+
 interface UserRegisterData {
-  username: string;
+  membername: string;
   nickname: string;
   password: string;
   email: string;
@@ -19,83 +30,82 @@ interface EditUserData {
 export const LoginApi = async (data: UserLoginData) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/login`,
-      data
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/login`,
+      data,
+      config
     );
-    if (res.status === 200) {
-      console.log("로그인 성공");
-      setToken(res.headers.authorization);
-    }
+    toast.success("로그인에 성공하였습니다.");
+    return res;
   } catch (error) {
-    console.error(error);
+    toast.error("로그인에 실패했습니다.");
   }
 };
 
-export const KakaoLoginApi = async (data: any) => {
+export const KakaoLoginApi = async (data: KakaoLoginCode) => {
   try {
-    const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/kakao/callback`,
-      data
+    const res = await axios.get(
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/kakao/callback`,
+      {
+        params: {
+          kakaoAuthCode: data.kakaoAuthCode,
+        },
+      }
     );
-    if (res.status === 200) {
-      console.log("카카오 로그인 성공");
-      setToken(res.headers.authorization);
-    }
+    console.log(res);
+    toast.success("로그인에 성공하였습니다.");
+    return res;
   } catch (error) {
-    console.error(error);
+    toast.error("로그인에 실패했습니다.");
   }
 };
 
 export const UserRegisterApi = async (data: UserRegisterData) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/signup`,
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/signup`,
       data
     );
-    if (res.status === 200) {
-      console.log("회원가입 성공");
-    }
+    toast.success("회원가입에 성공하였습니다.");
+    return res;
+  } catch (error) {
+    toast.error("회원가입 기능에 문제가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
+};
+
+export const CheckUsernameApi = async (membername: string) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/${membername}/exists`,
+      membername,
+      config
+    );
+    console.log(res);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const CheckUsernameApi = async (data: string) => {
+export const CheckNicknameApi = async (nickname: string) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/{membername}/exists`,
-      data
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/${nickname}/exists`,
+      nickname,
+      config
     );
-    if (res.status === 200) {
-      console.log("이메일 중복확인 성공");
-    }
+    console.log(res);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const CheckNicknameApi = async (data: string) => {
+export const CheckValidateCodeApi = async (code: string) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/{nickname}/exists`,
-      data
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/email/verify`,
+      code,
+      config
     );
-    if (res.status === 200) {
-      console.log("닉네임 중복확인 성공");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const CheckValidateCodeApi = async (data: string) => {
-  try {
-    const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/`,
-      data
-    );
-    if (res.status === 200) {
-    }
+    console.log(res);
   } catch (error) {
     console.error(error);
   }
@@ -104,11 +114,10 @@ export const CheckValidateCodeApi = async (data: string) => {
 export const EditUserInfoApi = async (data: EditUserData) => {
   try {
     const res = await axios.put(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/{membersId}/mypage`,
+      `${import.meta.env.VITE_REACT_API_KEY}api/members/{membersId}/mypage`,
       data
     );
-    if (res.status === 200) {
-    }
+    return res;
   } catch (error) {
     console.error(error);
   }

@@ -1,7 +1,8 @@
 import { LoginApi, KakaoLoginApi } from "../../apis/UsersApi";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../../atoms/isLoggedIn";
 
 /**
  * @author : Goya Gim
@@ -10,27 +11,38 @@ import { useState } from "react";
  */
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const navigate = useNavigate();
 
-  const REST_API_KEY = "e852feeb69305f69f3f15d58bf03437d";
-  const REDIRECT_URI = "http://localhost:5173/login";
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
-  const onLoginHandler = (e: any) => {
+  const onLoginHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    LoginApi(e);
-    toast.success("로그인에 성공하였습니다.");
-    navigate("/");
+    const res = await LoginApi({ membername, password });
+    const accessToken = res?.headers.authorization;
+    const refreshToken = res?.headers.authorization_refresh;
+
+    if (res?.status === 200) {
+      localStorage.setItem("authorization", accessToken);
+      localStorage.setItem("authorization_refresh", refreshToken);
+      setIsLoggedIn(true);
+      navigate("/");
+    }
   };
 
-  const kakaoLoginHandler = () => {
+  const kakaoLoginHandler = async () => {
+    const REST_API_KEY = "e852feeb69305f69f3f15d58bf03437d";
+    const REDIRECT_URI = "http://localhost:5173/kakao";
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
-    const kakaoOuthCode = new URL(window.location.href).searchParams.get(
+    const kakaoAuthCode = new URL(window.location.href).searchParams.get(
       "code"
     );
-    KakaoLoginApi(kakaoOuthCode);
+    const res = await KakaoLoginApi({ kakaoAuthCode });
+    if (res?.status === 200) {
+      setIsLoggedIn(true);
+      navigate("/");
+    }
   };
 
   return (
@@ -40,8 +52,8 @@ const Login = () => {
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={membername}
+          onChange={(e) => setMembername(e.target.value)}
           className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
         />
 
