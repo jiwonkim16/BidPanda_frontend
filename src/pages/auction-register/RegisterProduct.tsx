@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
+import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
+import { useNavigate } from "react-router";
 
 interface IForm {
   title: string;
@@ -16,6 +18,7 @@ interface IForm {
 function RegisterProduct() {
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
+  const navigate = useNavigate();
   const {
     register,
     watch,
@@ -53,8 +56,9 @@ function RegisterProduct() {
     }
   };
   console.log(images);
+
   // 데이터가 유효할 경우 호출
-  const onValid = (data: IForm) => {
+  const onValid = async (data: IForm) => {
     console.log(data);
     // 카테고리를 선택하지 않았다면 warning, return
     if (!data.category) {
@@ -70,8 +74,13 @@ function RegisterProduct() {
       for (let i = 0; i < images.length; i++) {
         formData.append("image", images[i]);
       }
+      // 서버로부터 응답
+      const response = await auctionRegister(formData);
+      console.log(response);
+      // 성공 알림
       toast.success("상품이 등록되었습니다🔥");
       // 리스트 페이지로 이동
+      navigate("items/list");
       console.log(formData);
       reset();
     }
