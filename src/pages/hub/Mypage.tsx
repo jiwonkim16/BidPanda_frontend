@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+
+/**
+ * @author : Goya Gim
+ * @returns : 회원 페이지. useRef를 이용한 프로필 이미지 등록,
+ */
+
 const Mypage = () => {
   const [profileImage, setProfileImage] = useState(
     "https://static.thenounproject.com/png/5034901-200.png"
@@ -21,11 +27,11 @@ const Mypage = () => {
   };
 
   return (
-    <div className="flex flex-col h-[650px]justify-center items-center ">
+    <div className={wrapper}>
       <div>
-        <div className="flex justify-center items-center font-bold">
+        <div className={profileWrap}>
           <div className="flex flex-row mt-1">
-            <div className="bg-white rounded-[15px] mt-4 w-[310px] h-[200px] flex flex-row items-center">
+            <div className={profileCard}>
               <img
                 className="w-[100px] h-[100px] cursor-pointer overflow-hidden rounded-full"
                 src={profileImage}
@@ -71,5 +77,9 @@ const Mypage = () => {
     </div>
   );
 };
-
 export default Mypage;
+
+const wrapper = "flex flex-col h-[79vh] justify-center items-center";
+const profileWrap = "flex justify-center items-center font-bold";
+const profileCard =
+  "bg-white rounded-[15px] mt-4 w-[310px] h-[200px] flex flex-row items-center";

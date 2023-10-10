@@ -85,7 +85,7 @@ const EditUserInfo = () => {
           )}
         </div>
         <button className="w-[250px] h-[40px] bg-gray-600 text-white rounded-md mt-10 mr-2 ">
-          회원가입
+          수정 완료
         </button>
       </form>
     </div>

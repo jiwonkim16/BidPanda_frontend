@@ -5,15 +5,15 @@ import Header from "./components/layouts/Header";
 function App() {
   return (
     <>
-      <div className="bg-gray-300 w-screen h-screen fixed flex justify-center">
-        <div className="bg-white w-[390px] h-[844px] rounded-[37px] mt-[50px]">
+      <div className="w-[390px] h-[844px] flex justify-center">
+        <div className="bg-white w-[390px] ">
           <div className="h-[5%]">
             <Header />
           </div>
           <div className="h-[83%]">
             <Outlet />
           </div>
-          <div className="h-[15%]">
+          <div className="h-[7%]">
             <Footer />
           </div>
         </div>
@@ -21,5 +21,4 @@ function App() {
     </>
   );
 }
-
 export default App;

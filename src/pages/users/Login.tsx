@@ -14,9 +14,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const Rest_api_key = "e852feeb69305f69f3f15d58bf03437d";
-  const redirect_uri = "http://localhost:5173/login";
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+  const REST_API_KEY = "e852feeb69305f69f3f15d58bf03437d";
+  const REDIRECT_URI = "http://localhost:5173/login";
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const onLoginHandler = (e: any) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col h-[650px] justify-center items-center">
+    <div className="flex flex-col h-[78vh] justify-center items-center">
       <div className="flex flex-col items-center font-bold">
         <label htmlFor="username">아이디</label>
         <input
