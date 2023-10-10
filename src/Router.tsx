@@ -13,6 +13,7 @@ import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
+import Kakao from "./components/layouts/Kakao";
 
 /**
  * @author : Jiwon Kim
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "kakao",
+        element: <Kakao />,
       },
       {
         path: "register",

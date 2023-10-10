@@ -28,36 +28,21 @@ const RegisterUser = () => {
    */
 
   const checkUsernameHandler = async (data: any) => {
-    try {
-      await CheckUsernameApi(data);
-      setIsUsernameCheck(true);
-    } catch (error) {
-      toast.error("이미 가입한 아이디 입니다.");
-    }
+    await CheckUsernameApi(data.membername);
+    setIsUsernameCheck(true);
   };
   const checkNicknameHandler = async (data: any) => {
-    try {
-      await CheckNicknameApi(data);
-      setIsNicknameCheck(true);
-    } catch (error) {
-      toast.error("이미 존재하는 닉네임 입니다.");
-    }
+    await CheckNicknameApi(data.nickname);
+    setIsNicknameCheck(true);
   };
   const onValidEmailHandler = async (data: any) => {
-    try {
-      await CheckValidateCodeApi(data);
-      setIsValidEmailSent(true);
-    } catch (error) {
-      console.error(error);
-    }
+    await CheckValidateCodeApi(data);
+    setIsValidEmailSent(true);
   };
-  const onValCodeHandler = async (data: any) => {
-    try {
-      await setValidateCode(data);
-      setIsValCodeSent(true);
-    } catch (error) {
-      toast.error("인증코드가 틀렸습니다. 다시 확인해주세요.");
-    }
+  const onValCodeHandler = async (e: any) => {
+    e.preventDefault();
+    await CheckValidateCodeApi(e.target.value);
+    setIsValCodeSent(true);
   };
 
   /**
@@ -77,14 +62,8 @@ const RegisterUser = () => {
       toast.error("비밀번호가 서로 다릅니다.");
       return;
     }
-    try {
-      await UserRegisterApi(data);
-      toast.success("회원가입에 성공하였습니다.");
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
-      toast.error("회원가입에 실패하였습니다.");
-    }
+    await UserRegisterApi(data);
+    navigate("/login");
   };
 
   return (
@@ -93,10 +72,10 @@ const RegisterUser = () => {
         className="flex flex-col items-center font-bold"
         onSubmit={handleSubmit(formToRegister)}
       >
-        <label htmlFor="username">아이디</label>
+        <label htmlFor="membername">아이디</label>
         <div>
           <input
-            {...register("username", {
+            {...register("membername", {
               required: true,
               minLength: 1,
               pattern: {
@@ -106,12 +85,12 @@ const RegisterUser = () => {
               },
             })}
             type="text"
-            id="username"
+            id="membername"
             className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
           />
           {!isUsernameCheck ? (
             <button
-              onClick={() => checkUsernameHandler}
+              onClick={checkUsernameHandler}
               className="bg-gray-100 w-[35px] h-[35px] rounded-md"
             >
               ✔︎
@@ -122,9 +101,9 @@ const RegisterUser = () => {
             </button>
           )}
         </div>
-        {errors.username && (
+        {errors.membername && (
           <p className="text-sm w-[250px] text-red-500 mb-2">
-            {errors.username.message as ReactNode}
+            {errors.membername.message as ReactNode}
           </p>
         )}
         <label htmlFor="nickname">닉네임</label>
@@ -144,7 +123,7 @@ const RegisterUser = () => {
           />
           {!isNicknameCheck ? (
             <button
-              onClick={() => checkNicknameHandler}
+              onClick={checkNicknameHandler}
               className="bg-gray-100 w-[35px] h-[35px] rounded-md"
             >
               ✔︎
@@ -178,7 +157,7 @@ const RegisterUser = () => {
                 className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
               />
               <button
-                onClick={() => onValidEmailHandler}
+                onClick={onValidEmailHandler}
                 className="bg-gray-100 w-[35px] h-[35px] rounded-md"
               >
                 ✔︎
@@ -210,14 +189,14 @@ const RegisterUser = () => {
             <div>
               <input
                 value={validateCode}
-                onChange={() => setValidateCode}
+                onChange={(e) => setValidateCode(e.target.value)}
                 type="text"
                 id="code"
                 className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
               />
               {!isValCodeSent ? (
                 <button
-                  onClick={() => onValCodeHandler}
+                  onClick={onValCodeHandler}
                   className="bg-gray-100 w-[35px] h-[35px] rounded-md"
                 >
                   ✔︎
@@ -268,7 +247,7 @@ const RegisterUser = () => {
         )}
 
         <div>
-          {!isValCodeSent && !isUsernameCheck && !isNicknameCheck ? (
+          {!isValCodeSent || !isUsernameCheck || !isNicknameCheck ? (
             <></>
           ) : (
             <>
