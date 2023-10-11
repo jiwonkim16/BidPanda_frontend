@@ -1,11 +1,11 @@
 import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
 import { useQuery } from "react-query";
-import {
-  auctionCategory,
-  auctionList,
-} from "../../apis/auction-list/AuctionList";
+import { auctionList } from "../../apis/auction-list/AuctionList";
 import { useState } from "react";
+import AuctionCard from "./AuctionCard";
+import CountdownTimer from "./CountdownTimer";
+import { Link } from "react-router-dom";
 
 interface IAuction {
   auctionEndTime: string;
@@ -43,9 +43,7 @@ function AuctionList() {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     const select = event.currentTarget.value;
-    const response: IAuction[] = await auctionCategory(select);
     setSelectCategory(select);
-    console.log(response);
   };
 
   // -----------------------------------------------------
@@ -77,39 +75,40 @@ function AuctionList() {
         </div>
         {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
         {auctionItem &&
-          auctionItem.map((item) => (
-            <div
-              key={item.id}
-              className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-            >
-              <button>
-                <img
-                  className="p-8 rounded-t-lg"
-                  src="/panda.jpg"
-                  alt="product image"
-                />
-              </button>
-              <div className="px-5 pb-5">
-                <button>
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {item.title}😥
-                  </h5>
-                </button>
-                <div className="flex items-center mt-2.5 mb-5">
-                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                    남은 시간 : {item.auctionEndTime}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                    현재 입찰가 : {item.presentPrice}
-                  </span>
-                  <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    찜하기
-                  </button>
+          (selectCategory === "" ? (
+            auctionItem.map((item) => (
+              <div
+                key={item.id}
+                className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              >
+                <Link to={`/items/detail/${item.id}`}>
+                  <img
+                    className="p-8 rounded-t-lg"
+                    src={item.itemImages[0]}
+                    alt="product image"
+                  />
+                </Link>
+                <div className="px-5 pb-5">
+                  <Link to={`/items/detail/${item.id}`}>
+                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                      {item.title}😥
+                    </h5>
+                  </Link>
+                  <div className="flex items-center mt-2.5 mb-5">
+                    <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                      {<CountdownTimer endTime={item.auctionEndTime} />}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                      현재 입찰가 : {item.presentPrice}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))
+          ) : (
+            <AuctionCard category={selectCategory} />
           ))}
       </div>
     </>

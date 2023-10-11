@@ -30,7 +30,7 @@ interface EditUserData {
 export const LoginApi = async (data: UserLoginData) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/login`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/login`,
       data,
       config
     );
@@ -44,7 +44,7 @@ export const LoginApi = async (data: UserLoginData) => {
 export const KakaoLoginApi = async (data: KakaoLoginCode) => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/kakao/callback`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/kakao/callback`,
       {
         params: {
           kakaoAuthCode: data.kakaoAuthCode,
@@ -62,7 +62,7 @@ export const KakaoLoginApi = async (data: KakaoLoginCode) => {
 export const UserRegisterApi = async (data: UserRegisterData) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/signup`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/signup`,
       data
     );
     toast.success("회원가입에 성공하였습니다.");
@@ -75,7 +75,7 @@ export const UserRegisterApi = async (data: UserRegisterData) => {
 export const CheckUsernameApi = async (membername: string) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/${membername}/exists`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/${membername}/exists`,
       membername,
       config
     );
@@ -88,7 +88,7 @@ export const CheckUsernameApi = async (membername: string) => {
 export const CheckNicknameApi = async (nickname: string) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/${nickname}/exists`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/${nickname}/exists`,
       nickname,
       config
     );
@@ -101,7 +101,7 @@ export const CheckNicknameApi = async (nickname: string) => {
 export const CheckValidateCodeApi = async (code: string) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/email/verify`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/email/verify`,
       code,
       config
     );
@@ -114,7 +114,7 @@ export const CheckValidateCodeApi = async (code: string) => {
 export const EditUserInfoApi = async (data: EditUserData) => {
   try {
     const res = await axios.put(
-      `${import.meta.env.VITE_REACT_API_KEY}api/members/{membersId}/mypage`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members/{membersId}/mypage`,
       data
     );
     return res;
