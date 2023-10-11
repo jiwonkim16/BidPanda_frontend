@@ -70,7 +70,7 @@ function ModifierProduct() {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       for (let i = 0; i < images.length; i++) {
-        formData.append("image", images[i]);
+        formData.append("images", images[i]);
       }
       toast.success("상품이 등록되었습니다🔥");
       // 리스트 페이지로 이동
