@@ -1,8 +1,13 @@
-import { LoginApi, KakaoLoginApi } from "../../apis/UsersApi";
+import {
+  LoginApi,
+  KakaoLoginApi,
+  KakaoLoginCode,
+} from "../../apis/user-login/UserLoginApi";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "../../atoms/isLoggedIn";
+import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
@@ -15,6 +20,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isToken = localStorage.getItem("authorization");
+    if (isToken) {
+      toast.error("이미 로그인 된 유저입니다.");
+      navigate("/");
+    }
+  }, []);
 
   const onLoginHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -35,9 +48,25 @@ const Login = () => {
     const REDIRECT_URI = "http://localhost:5173/kakao";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
-    const kakaoAuthCode = new URL(window.location.href).searchParams.get(
-      "code"
-    );
+
+    const waitForKakaoAuth = () =>
+      new Promise<KakaoLoginCode>((resolve) => {
+        const checkForCode = () => {
+          const kakaoAuthCode = new URLSearchParams(window.location.search).get(
+            "code"
+          );
+          if (kakaoAuthCode) {
+            resolve({ kakaoAuthCode });
+          } else {
+            setTimeout(checkForCode, 1000); // 매 초마다 `code` 확인
+          }
+        };
+        checkForCode();
+      });
+
+    const kakaoLoginCode: KakaoLoginCode = await waitForKakaoAuth();
+    const kakaoAuthCode = kakaoLoginCode.kakaoAuthCode;
+    console.log(kakaoAuthCode);
     const res = await KakaoLoginApi({ kakaoAuthCode });
     if (res?.status === 200) {
       setIsLoggedIn(true);
