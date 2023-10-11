@@ -9,10 +9,11 @@ import { useNavigate } from "react-router";
 interface IForm {
   title: string;
   content: string;
-  price: number;
-  time: number;
-  image: string;
+  startPrice: number;
+  minBidPrice: number;
+  deadline: number;
   category: string;
+  auctionStatus: string;
 }
 
 function RegisterProduct() {
@@ -21,7 +22,6 @@ function RegisterProduct() {
   const navigate = useNavigate();
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors },
     reset,
@@ -31,7 +31,7 @@ function RegisterProduct() {
     defaultValues: {},
     mode: "onBlur",
   });
-  console.log(watch());
+
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
@@ -55,11 +55,9 @@ function RegisterProduct() {
       setImages(newImages);
     }
   };
-  console.log(images);
 
   // 데이터가 유효할 경우 호출
   const onValid = async (data: IForm) => {
-    console.log(data);
     // 카테고리를 선택하지 않았다면 warning, return
     if (!data.category) {
       toast.warning("카테고리를 선택해주세요!");
@@ -72,17 +70,17 @@ function RegisterProduct() {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       for (let i = 0; i < images.length; i++) {
-        formData.append("image", images[i]);
+        formData.append("images", images[i]);
       }
       // 서버로부터 응답
       const response = await auctionRegister(formData);
-      console.log(response);
-      // 성공 알림
-      toast.success("상품이 등록되었습니다🔥");
-      // 리스트 페이지로 이동
-      navigate("items/list");
-      console.log(formData);
-      reset();
+      if (response?.status === 200) {
+        // 성공 알림
+        toast.success("상품이 등록되었습니다🔥");
+        // 리스트 페이지로 이동
+        navigate("/items/list");
+        reset();
+      }
     }
   };
 
@@ -118,17 +116,27 @@ function RegisterProduct() {
         </span>
         <br />
         <input
-          {...register("price", {
+          {...register("startPrice", {
             required: "시작 경매가는 필수입니다.",
-            min: { message: "최소 경매가는 100원입니다.", value: "100" },
+            min: { message: "최소 경매가는 1원입니다.", value: "1" },
           })}
           type="number"
-          step="100"
           placeholder="원하는 경매 시작가를 입력하세요"
           className="w-64"
         />
+        <input
+          {...register("minBidPrice", {
+            required: "경매가 단위는 필수입니다.",
+            min: { message: "최소 단위는 1원입니다.", value: "1" },
+          })}
+          type="number"
+          placeholder="원하는 경매가 단위를 입력하세요"
+          className="w-64"
+        />
         <br />
-        <span className="text-red-500">{errors.price?.message as string}</span>
+        <span className="text-red-500">
+          {errors.startPrice?.message as string}
+        </span>
         <br />
         <div className="flex justify-between">
           {categoryLi.map((item, index) => (
@@ -188,7 +196,7 @@ function RegisterProduct() {
         </label>
         {/* ------- */}
         <input
-          {...register("time", {
+          {...register("deadline", {
             required: "경매 마감기한 설정은 필수입니다.",
           })}
           type="range"
@@ -197,9 +205,11 @@ function RegisterProduct() {
           placeholder="timer"
         />
         <br />
-        <span className="text-red-500">{errors.time?.message as string}</span>
+        <span className="text-red-500">
+          {errors.deadline?.message as string}
+        </span>
         <br />
-        <span>마감기한 : {getValues("time")}DAY</span>
+        <span>마감기한 : {getValues("deadline")}DAY</span>
         <br />
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           등록하기
