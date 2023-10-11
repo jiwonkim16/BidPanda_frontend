@@ -1,5 +1,10 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../../atoms/isLoggedIn";
+import { toast } from "react-toastify";
+import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 
 /**
  * @author : Goya Gim
@@ -7,16 +12,52 @@ import { Link } from "react-router-dom";
  */
 
 const Mypage = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const [profileImage, setProfileImage] = useState(
     "https://static.thenounproject.com/png/5034901-200.png"
   );
   const imageRef = useRef<any>();
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  interface UserData {
+    data: {
+      nickname: string;
+      profileImageUrl: string;
+      intro: string;
+    } | null;
+  }
+
+  useEffect(() => {
+    const isToken = localStorage.getItem("authorization");
+    if (!isToken) {
+      toast.error("로그인이 필요합니다.");
+      navigate("/login");
+    } else {
+      getUserInfoApi().then((data) => {
+        setUserData(data);
+      });
+    }
+  }, []);
+
+  const removeToken = () => {
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("authorization_refresh");
+  };
+
+  const handleUserDelete = () => {
+    UserDeleteApi();
+    removeToken();
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   const handleImageClick = () => {
     if (imageRef.current) {
       imageRef.current.click();
     }
   };
+
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     if (file) {
@@ -32,29 +73,41 @@ const Mypage = () => {
         <div className={profileWrap}>
           <div className="flex flex-row mt-1">
             <div className={profileCard}>
-              <img
-                className="w-[100px] h-[100px] cursor-pointer overflow-hidden rounded-full"
-                src={profileImage}
-                alt="profileImage"
-                onClick={handleImageClick}
-              />
-              <input
-                type="file"
-                accept=".jpg, .jpeg, .png, .svg, .webp"
-                style={{ display: "none" }}
-                ref={imageRef}
-                onChange={handleImageChange}
-              />
+              {userData && (
+                <>
+                  <img
+                    className="w-[100px] h-[100px] cursor-pointer rounded-full"
+                    src={userData.data?.profileImageUrl}
+                    alt=""
+                    onClick={handleImageClick}
+                  />
+                  <input
+                    type="file"
+                    accept=".jpg, .jpeg, .png, .svg, .webp"
+                    style={{ display: "none" }}
+                    ref={imageRef}
+                    onChange={handleImageChange}
+                  />
+                </>
+              )}
+
               <div>
                 <div className="ml-2">
-                  <p>닉네임</p>
-                  <p>회원 소개 내용</p>
+                  {userData && (
+                    <>
+                      <p>{userData.data ? userData.data.nickname : null}</p>
+                      <p>{userData.data ? userData.data.intro : null}</p>
+                    </>
+                  )}
                 </div>
                 <div>
                   <button className="w-[95px] h-[30px] bg-black text-white rounded-md mt-2 mx-1 ">
                     <Link to="/mypage/edit">회원정보 수정</Link>
                   </button>
-                  <button className="w-[95px] h-[30px] bg-red-400 text-white rounded-md mt-2 mx-1 ">
+                  <button
+                    onClick={handleUserDelete}
+                    className="w-[95px] h-[30px] bg-red-400 text-white rounded-md mt-2 mx-1 "
+                  >
                     회원 탈퇴
                   </button>
                 </div>

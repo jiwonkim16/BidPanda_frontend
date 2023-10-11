@@ -1,9 +1,10 @@
 import {
   UserRegisterApi,
   CheckValidateCodeApi,
-  CheckUsernameApi,
+  SendValidateEmailApi,
+  CheckMembernameApi,
   CheckNicknameApi,
-} from "../../apis/UsersApi";
+} from "../../apis/user-register/UserRegisterApi";
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -16,32 +17,39 @@ import { toast } from "react-toastify";
  */
 
 const RegisterUser = () => {
-  const [isUsernameCheck, setIsUsernameCheck] = useState(false);
+  const [isMembernameCheck, setIsMembernameCheck] = useState(false);
   const [isNicknameCheck, setIsNicknameCheck] = useState(false);
   const [isValidEmailSent, setIsValidEmailSent] = useState(false);
   const [isValCodeSent, setIsValCodeSent] = useState(false);
+  const [checkedPw, setCheckedPw] = useState("");
   const [validateCode, setValidateCode] = useState("");
+
   const navigate = useNavigate();
 
   /**
    * @includes : 중복 확인을 위한 이벤트 핸들러들의 모음
    */
 
-  const checkUsernameHandler = async (data: any) => {
-    await CheckUsernameApi(data.membername);
-    setIsUsernameCheck(true);
+  const checkMembernameHandler = async () => {
+    const valMembername = getValues("membername");
+    await CheckMembernameApi(valMembername);
+    setIsMembernameCheck(true);
   };
-  const checkNicknameHandler = async (data: any) => {
-    await CheckNicknameApi(data.nickname);
+  const checkNicknameHandler = async () => {
+    const valNickname = getValues("nickname");
+    await CheckNicknameApi(valNickname);
     setIsNicknameCheck(true);
   };
-  const onValidEmailHandler = async (data: any) => {
-    await CheckValidateCodeApi(data);
+  const onValidEmailHandler = async () => {
+    const valEmail = getValues("email");
+    await SendValidateEmailApi(valEmail);
     setIsValidEmailSent(true);
   };
-  const onValCodeHandler = async (e: any) => {
-    e.preventDefault();
-    await CheckValidateCodeApi(e.target.value);
+  const onValCodeHandler = async () => {
+    const valCode = validateCode;
+    const valEmail = getValues("email");
+    const codeData = { code: valCode, email: valEmail };
+    await CheckValidateCodeApi(codeData);
     setIsValCodeSent(true);
   };
 
@@ -52,12 +60,14 @@ const RegisterUser = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
   const formToRegister = async (data: any) => {
     const password = data.password;
-    const checkPassword = data.checkPassword;
+    const checkPassword = checkedPw;
+    console.log(password, checkPassword);
     if (password !== checkPassword) {
       toast.error("비밀번호가 서로 다릅니다.");
       return;
@@ -88,9 +98,9 @@ const RegisterUser = () => {
             id="membername"
             className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
           />
-          {!isUsernameCheck ? (
+          {!isMembernameCheck ? (
             <button
-              onClick={checkUsernameHandler}
+              onClick={checkMembernameHandler}
               className="bg-gray-100 w-[35px] h-[35px] rounded-md"
             >
               ✔︎
@@ -169,14 +179,6 @@ const RegisterUser = () => {
             <label htmlFor="email">이메일 주소</label>
             <div>
               <input
-                {...register("email", {
-                  required: true,
-                  minLength: 1,
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "올바른 형식의 이메일 주소를 사용해주세요.",
-                  },
-                })}
                 type="text"
                 id="email"
                 className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
@@ -185,13 +187,13 @@ const RegisterUser = () => {
                 ✔︎
               </button>
             </div>
-            <label htmlFor="email">이메일 인증코드</label>
+            <label htmlFor="validateCode">이메일 인증코드</label>
             <div>
               <input
                 value={validateCode}
                 onChange={(e) => setValidateCode(e.target.value)}
                 type="text"
-                id="code"
+                id="validateCode"
                 className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
               />
               {!isValCodeSent ? (
@@ -238,6 +240,8 @@ const RegisterUser = () => {
         <input
           type="password"
           id="checkPassword"
+          value={checkedPw}
+          onChange={(e) => setCheckedPw(e.target.value)}
           className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
         />
         {errors.checkPassword && (
@@ -247,7 +251,7 @@ const RegisterUser = () => {
         )}
 
         <div>
-          {!isValCodeSent || !isUsernameCheck || !isNicknameCheck ? (
+          {!isValCodeSent || !isMembernameCheck || !isNicknameCheck ? (
             <></>
           ) : (
             <>

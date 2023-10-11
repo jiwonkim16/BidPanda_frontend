@@ -11,7 +11,7 @@ function Header() {
   };
   const LogoutHandler = () => {
     try {
-      setIsLoggedIn(!isLoggedIn);
+      setIsLoggedIn(false);
       removeToken();
     } catch (error) {
       console.error(error);
@@ -19,7 +19,7 @@ function Header() {
   };
   return (
     <>
-      {!isLoggedIn ? (
+      {isLoggedIn === false ? (
         <nav className={navStyle}>
           <button className="text-gray-600 text-xl ml-[330px] ">
             <Link to={"/login"}>login</Link>

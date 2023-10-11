@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { EditUserInfoApi } from "../../apis/UsersApi";
+import { EditUserInfoApi } from "../../apis/user-mypage/UserEditApi";
 
 const EditUserInfo = () => {
   const navigate = useNavigate();
@@ -15,11 +14,9 @@ const EditUserInfo = () => {
   const formToRegister = async (data: any) => {
     try {
       await EditUserInfoApi(data);
-      toast.success("회원정보가 수정 되었습니다.");
-      navigate("/login");
+      navigate("/mypage");
     } catch (error) {
       console.error(error);
-      toast.error("서버와의 통신에 문제가 있습니다.");
     }
   };
 
@@ -37,7 +34,7 @@ const EditUserInfo = () => {
               minLength: 1,
               pattern: {
                 value: /^[A-za-z0-9가-힣]{1,10}$/,
-                message: "닉네임은 10자 이하으로 만들어 주세요.",
+                message: "닉네임은 10자 이하로 만들어 주세요.",
               },
             })}
             type="text"
@@ -50,6 +47,39 @@ const EditUserInfo = () => {
             </p>
           )}
         </div>
+        <label htmlFor="intro">사용자 소개</label>
+        <div>
+          <input
+            {...register("intro", {
+              pattern: {
+                value: /^[A-za-z0-9가-힣]{1,30}$/,
+                message: "자기소개는 30자 이하로 짧게 작성해주세요.",
+              },
+            })}
+            type="text"
+            id="intro"
+            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+          />
+          {errors.intro && (
+            <p className="text-sm w-[250px] text-red-500 mb-2">
+              {errors.intro.message as ReactNode}
+            </p>
+          )}
+        </div>
+        <label htmlFor="newPassword">새 비밀번호</label>
+        <div>
+          <input
+            {...register("newPassword", {
+              pattern: {
+                value: /^(?=.*[A-Z]).{6,}$/,
+                message: `비밀번호 변경을 원치 않으시면 비워두세요.`,
+              },
+            })}
+            type="password"
+            id="newPassword"
+            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+          />
+        </div>
         <label htmlFor="password">비밀번호</label>
         <div>
           <input
@@ -58,7 +88,7 @@ const EditUserInfo = () => {
               minLength: 1,
               pattern: {
                 value: /^(?=.*[A-Z]).{6,}$/,
-                message: `비밀번호는 6글자 이상이며, 영문 대문자 1개를 꼭 포함 합니다.`,
+                message: `회원정보 변경을 위해 꼭 입력해주세요.`,
               },
             })}
             type="password"
@@ -68,19 +98,6 @@ const EditUserInfo = () => {
           {errors.password && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
               {errors.password.message as ReactNode}
-            </p>
-          )}
-        </div>
-        <label htmlFor="checkPassword">비밀번호 확인</label>
-        <div>
-          <input
-            type="password"
-            id="checkPassword"
-            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
-          />
-          {errors.checkPassword && (
-            <p className="text-sm w-[250px] text-red-500 mb-2">
-              비밀번호가 서로 같지 않습니다.
             </p>
           )}
         </div>
