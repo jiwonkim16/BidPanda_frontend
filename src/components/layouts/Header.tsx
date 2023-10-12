@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { isLoggedInState } from "../../atoms/isLoggedIn";
+import { profileImage } from "../../atoms/profileImage";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-
+  const profileImages = useRecoilValue(profileImage);
+  const navigate = useNavigate();
   const removeToken = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
@@ -18,6 +20,7 @@ function Header() {
       console.error(error);
     }
   };
+
   return (
     <>
       {isLoggedIn === false ? (
@@ -28,7 +31,7 @@ function Header() {
         </nav>
       ) : (
         <nav className={navStyle}>
-          <button className="text-gray-600 text-xl ml-[210px]">
+          <button className="text-gray-600 text-xl ml-[180px]">
             <Link to={"/"}>notification</Link>
           </button>
           <button
@@ -37,6 +40,12 @@ function Header() {
           >
             logout
           </button>
+          <img
+            className="w-[30px] h-[30px] ml-1 cursor-pointer rounded-full"
+            src={profileImages}
+            alt="mypage&profile"
+            onClick={() => navigate("/mypage")}
+          />
         </nav>
       )}
     </>
@@ -44,4 +53,4 @@ function Header() {
 }
 export default Header;
 
-const navStyle = "bg-white w-[390px] h-100% flex flex-row";
+const navStyle = "bg-white w-[390px] h-100% flex flex-row p-1";

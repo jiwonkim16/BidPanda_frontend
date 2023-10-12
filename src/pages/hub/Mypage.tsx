@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../../atoms/isLoggedIn";
 import { toast } from "react-toastify";
 import Modal from "../../components/assets/Modal";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import Loading from "../../components/assets/Loading";
 import { ProfileImageApi } from "../../apis/user-mypage/UserImageApi";
-
+import { profileImage } from "../../atoms/profileImage";
 /**
  * @author : Goya Gim
  * @returns : 회원 페이지. useRef를 이용한 프로필 이미지 등록,
@@ -17,10 +17,8 @@ import { ProfileImageApi } from "../../apis/user-mypage/UserImageApi";
 const Mypage = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [forSureDelete, setForSureDelete] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-  const [profileImage, setProfileImage] = useState(
-    "https://static.thenounproject.com/png/5034901-200.png"
-  );
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setProfileImages = useSetRecoilState(profileImage);
   const [isLoading, setIsLoading] = useState(true);
   const imageRef = useRef<any>();
   const isToken = localStorage.getItem("authorization");
@@ -51,7 +49,7 @@ const Mypage = () => {
       setIsLoading(false);
     });
   }, []);
-
+  console.log(userData);
   const removeToken = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
@@ -79,13 +77,25 @@ const Mypage = () => {
     }
   };
 
-  const handleImageChange = (e: any) => {
-    const file = e.target.files[0];
-    if (file) {
-      const uploadedImage = file.name;
-      console.log("선택한 파일:", file);
-      ProfileImageApi(uploadedImage);
-      setProfileImage(uploadedImage);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFiles: FileList | null = e.target.files;
+    if (imageFiles) {
+      const formData = new FormData();
+      formData.append("file", imageFiles[0]);
+
+      ProfileImageApi(formData)
+        .then((res) => {
+          if (res && res.status === 200) {
+            toast.success("프로필 이미지가 변경되었습니다.");
+            // 이미지 파일을 사용자에게 표시
+            const uploadedImage = URL.createObjectURL(imageFiles[0]);
+            setProfileImages(uploadedImage);
+          }
+        })
+        .catch((error) => {
+          // 업로드 중 오류가 발생한 경우 처리
+          console.error(error);
+        });
     }
   };
 
@@ -109,7 +119,7 @@ const Mypage = () => {
                       />
                       <input
                         type="file"
-                        accept=".jpg, .jpeg, .png, .svg, .webp"
+                        accept="image/*"
                         style={{ display: "none" }}
                         ref={imageRef}
                         onChange={handleImageChange}

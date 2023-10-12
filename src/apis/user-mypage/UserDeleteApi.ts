@@ -3,10 +3,10 @@ import axios from "axios";
 
 export const UserDeleteApi = async () => {
   try {
-    const token = localStorage.getItem("authorization");
     await axios.delete(`${import.meta.env.VITE_REACT_API_KEY}/api/members`, {
       headers: {
-        Authorization: `${token}`,
+        Authorization: localStorage.getItem("authorization"),
+        Authorization_Refresh: localStorage.getItem("authorization_refresh"),
       },
     });
     toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
