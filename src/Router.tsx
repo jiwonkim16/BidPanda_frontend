@@ -70,12 +70,10 @@ const router = createBrowserRouter([
       {
         path: "items/list",
         element: <AuctionList />,
-        children: [
-          {
-            path: "items/list/:category",
-            element: <AuctionCard />,
-          },
-        ],
+      },
+      {
+        path: "items/list/:category",
+        element: <AuctionCard />,
       },
     ],
     errorElement: <NotFound />,

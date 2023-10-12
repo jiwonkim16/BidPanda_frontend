@@ -2,9 +2,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import { useQuery } from "react-query";
 import { auctionList } from "../../apis/auction-list/AuctionList";
-import AuctionCard from "./AuctionCard";
 import CountdownTimer from "./CountdownTimer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IAuction {
   auctionEndTime: string;
@@ -20,6 +19,7 @@ interface IAuction {
 function AuctionList() {
   const categoryLi = useRecoilValue(categoryList);
   const [selectCategory, setSelectCategory] = useRecoilState(category);
+  const navigate = useNavigate();
   // --------------------------------
   // mutation 활용 데이터 최신화
   // const queryClient = useQueryClient();
@@ -43,6 +43,7 @@ function AuctionList() {
   ) => {
     const select = event.currentTarget.value;
     setSelectCategory(select);
+    navigate(`/items/list/${select}`);
   };
 
   // -----------------------------------------------------
@@ -74,40 +75,36 @@ function AuctionList() {
         </div>
         {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
         {auctionItem &&
-          (selectCategory === "" ? (
-            auctionItem.map((item) => (
-              <div
-                key={item.id}
-                className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-              >
+          auctionItem.map((item) => (
+            <div
+              key={item.id}
+              className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            >
+              <Link to={`/items/detail/${item.id}`}>
+                <img
+                  className="p-8 rounded-t-lg"
+                  src={item.itemImages[0]}
+                  alt="product image"
+                />
+              </Link>
+              <div className="px-5 pb-5">
                 <Link to={`/items/detail/${item.id}`}>
-                  <img
-                    className="p-8 rounded-t-lg"
-                    src={item.itemImages[0]}
-                    alt="product image"
-                  />
+                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                    {item.title}😥
+                  </h5>
                 </Link>
-                <div className="px-5 pb-5">
-                  <Link to={`/items/detail/${item.id}`}>
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {item.title}😥
-                    </h5>
-                  </Link>
-                  <div className="flex items-center mt-2.5 mb-5">
-                    <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                      {<CountdownTimer endTime={item.auctionEndTime} />}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                      현재 입찰가 : {item.presentPrice}
-                    </span>
-                  </div>
+                <div className="flex items-center mt-2.5 mb-5">
+                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                    {<CountdownTimer endTime={item.auctionEndTime} />}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                    현재 입찰가 : {item.presentPrice}
+                  </span>
                 </div>
               </div>
-            ))
-          ) : (
-            <AuctionCard />
+            </div>
           ))}
       </div>
     </>
