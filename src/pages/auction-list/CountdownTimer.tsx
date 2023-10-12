@@ -43,4 +43,11 @@ function CountdownTimer({ endTime }: any) {
 
 export default CountdownTimer;
 
-// 남은 시간이 0이 되면 버튼 비활성화 등 페이지 수정 필요!
+// 남은 시간 !== 0 ? 진행중 : 비드카운트 === 0 ? 유찰 : 낙찰
+// 남은시간 === 0이면 등록한 유저는 수정, 삭제
+
+// 이 컴포넌트에서 진행중, 완료가 됬는지에 관한 state modifier
+// 비드카운트 === 0 일 때, setFn(prev => !prev)
+
+// modifier 컴포넌트로 가서 해당 state를 가져와서 완료(true)이면 JSX를 보여주고 false이면
+// <div>아직 진행 중인 상품입니다.</div>
