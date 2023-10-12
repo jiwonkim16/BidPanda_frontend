@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
 import CountdownTimer from "./CountdownTimer";
-import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { category } from "../../atoms/category";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 interface IAuction {
   auctionEndTime: string;
@@ -18,7 +16,16 @@ interface IAuction {
 
 function AuctionCard() {
   const [auctionData, setAuctionData] = useState<IAuction[]>([]);
-  const categoryIcon = useRecoilValue(category);
+  const params = useParams();
+  const navigate = useNavigate();
+  const categoryIcon: any = params.category;
+
+  useEffect(() => {
+    if (categoryIcon === "전체") {
+      navigate(`/items/list`);
+    }
+  }, [categoryIcon]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,7 +37,7 @@ function AuctionCard() {
     };
 
     fetchData();
-  }, [categoryIcon]);
+  }, []);
   return (
     <>
       {auctionData.map((item: IAuction) => (
