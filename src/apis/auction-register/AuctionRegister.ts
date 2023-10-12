@@ -2,7 +2,6 @@ import axios from "axios";
 
 // 상품 등록
 export const auctionRegister = async (data: any) => {
-  console.log(data);
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/items`,

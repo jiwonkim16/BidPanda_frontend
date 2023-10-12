@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   auctionDetail,
   bidInfo,
@@ -25,6 +25,16 @@ function AuctionDetail() {
   const params = useParams();
   const itemId = params.itemId;
   const [bidAmount, setBidAmount] = useState("");
+  const navigate = useNavigate();
+
+  // 로그인 유저가 아니면 로그인 페이지로~
+  useEffect(() => {
+    const accessToken = localStorage.getItem("authorization");
+    if (!accessToken) {
+      toast.error("로그인 후 이용가능합니다.");
+      navigate("/login");
+    }
+  }, []);
 
   // 리액트 쿼리 사용해서 데이터 get
   const { data, isLoading } = useQuery("auctionDetail", () =>

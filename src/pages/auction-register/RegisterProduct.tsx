@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
@@ -25,12 +25,23 @@ function RegisterProduct() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
     setValue,
-    getValues,
   } = useForm<IForm>({
     defaultValues: {},
     mode: "onBlur",
   });
+  // 이미지 미리보기 관련 state
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+  // 로그인된 유저가 아니면 로그인 페이지로~
+  useEffect(() => {
+    const accessToken = localStorage.getItem("authorization");
+    if (!accessToken) {
+      toast.error("로그인 후 이용가능합니다.");
+      navigate("/login");
+    }
+  }, []);
 
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,10 +60,13 @@ function RegisterProduct() {
 
     if (imageFiles) {
       const newImages = [...images];
+      const previews = imagePreviews.slice(); // 이미지 미리보기 배열의 복사본
       for (let i = 0; i < imageFiles.length; i++) {
         newImages.push(imageFiles[i]);
+        previews.push(URL.createObjectURL(imageFiles[i])); // 이미지 미리보기 URL 생성
       }
       setImages(newImages);
+      setImagePreviews(previews);
     }
   };
 
@@ -194,6 +208,17 @@ function RegisterProduct() {
             onChange={addImage}
           />
         </label>
+        {/* 이미지 미리보기 섹션 */}
+        <div>
+          {imagePreviews.map((preview, index) => (
+            <img
+              key={index}
+              src={preview}
+              alt={`미리보기 ${index + 1}`}
+              className="max-w-full h-auto mt-2"
+            />
+          ))}
+        </div>
         {/* ------- */}
         <input
           {...register("deadline", {
@@ -202,14 +227,13 @@ function RegisterProduct() {
           type="range"
           min="1"
           max="5"
-          placeholder="timer"
         />
         <br />
         <span className="text-red-500">
           {errors.deadline?.message as string}
         </span>
         <br />
-        <span>마감기한 : {getValues("deadline")}DAY</span>
+        <span>마감기한 : {watch("deadline")}DAY</span>
         <br />
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           등록하기

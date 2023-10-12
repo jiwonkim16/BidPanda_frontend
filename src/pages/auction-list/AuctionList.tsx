@@ -1,8 +1,7 @@
-import { useRecoilValue } from "recoil";
-import { categoryList } from "../../atoms/category";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { category, categoryList } from "../../atoms/category";
 import { useQuery } from "react-query";
 import { auctionList } from "../../apis/auction-list/AuctionList";
-import { useState } from "react";
 import AuctionCard from "./AuctionCard";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";
@@ -20,7 +19,7 @@ interface IAuction {
 
 function AuctionList() {
   const categoryLi = useRecoilValue(categoryList);
-  const [selectCategory, setSelectCategory] = useState("");
+  const [selectCategory, setSelectCategory] = useRecoilState(category);
   // --------------------------------
   // mutation 활용 데이터 최신화
   // const queryClient = useQueryClient();
@@ -108,7 +107,7 @@ function AuctionList() {
               </div>
             ))
           ) : (
-            <AuctionCard category={selectCategory} />
+            <AuctionCard />
           ))}
       </div>
     </>

@@ -10,7 +10,9 @@ const Footer = () => {
       <Link to="/keyword">
         <FooterIcon />
       </Link>
-      <FooterIcon />
+      <Link to="items/register">
+        <FooterIcon />
+      </Link>
       <Link to="/mypage">
         <FooterIcon />
       </Link>
