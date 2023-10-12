@@ -2,13 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
 
-
 const CategoriesIcon = () => {
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.currentTarget.value;
-
     navigate(`/items/list/${select}`);
   };
   return (

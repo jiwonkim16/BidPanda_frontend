@@ -16,7 +16,7 @@ function SearchAution() {
         <h1 className="text-2xl font-extrabold ">검색페이지</h1>
       </div> */}
       <form onSubmit={onSubmit}>
-        <div className="relative p-3 mt-5">
+        <div className="relative p-3">
           <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none">
             <svg
               className="w-4 h-4 text-gray-500 dark:text-gray-400"

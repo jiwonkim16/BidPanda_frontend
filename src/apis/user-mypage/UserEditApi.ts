@@ -16,13 +16,13 @@ interface EditUserData {
 export const EditUserInfoApi = async (data: EditUserData) => {
   console.log(data);
   try {
-    const token = localStorage.getItem("authorization");
     const res = await axios.put(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
       data,
       {
         headers: {
-          Authorization: `${token}`,
+          Authorization: localStorage.getItem("authorization"),
+          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );

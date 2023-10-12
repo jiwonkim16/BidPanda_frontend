@@ -3,12 +3,12 @@ import axios from "axios";
 
 export const getUserInfoApi = async () => {
   try {
-    const token = localStorage.getItem("authorization");
     const res = await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
       {
         headers: {
-          Authorization: `${token}`,
+          Authorization: localStorage.getItem("authorization"),
+          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
