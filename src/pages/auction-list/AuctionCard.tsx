@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { category } from "../../atoms/category";
 
 interface IAuction {
   auctionEndTime: string;
@@ -14,13 +16,13 @@ interface IAuction {
   title: string;
 }
 
-function AuctionCard({ category }: any) {
+function AuctionCard() {
   const [auctionData, setAuctionData] = useState<IAuction[]>([]);
-
+  const categoryIcon = useRecoilValue(category);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await auctionCategory(category);
+        const response = await auctionCategory(categoryIcon);
         setAuctionData(response);
       } catch (error) {
         console.error("Error fetching auction data:", error);
@@ -28,7 +30,7 @@ function AuctionCard({ category }: any) {
     };
 
     fetchData();
-  }, [category]);
+  }, [categoryIcon]);
   return (
     <>
       {auctionData.map((item: IAuction) => (
