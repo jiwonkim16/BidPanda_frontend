@@ -1,34 +1,50 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
+import { useNavigate, useParams } from "react-router";
+import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
 
 interface IForm {
   title: string;
   content: string;
-  price: number;
-  timer: number;
-  image: string;
+  startPrice: number;
+  minBidPrice: number;
+  deadline: number;
   category: string;
+  auctionStatus: string;
 }
 
 function ModifierProduct() {
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
+  const navigate = useNavigate();
+  const params = useParams();
+  console.log(params);
   const {
     register,
-    watch,
     handleSubmit,
     formState: { errors },
     reset,
     setValue,
-    getValues,
+    watch,
   } = useForm<IForm>({
     defaultValues: {},
     mode: "onBlur",
   });
-  console.log(watch());
+
+  // 이미지 미리보기 관련 state
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+  // 로그인 유저가 아니면 로그인 페이지로~
+  useEffect(() => {
+    const accessToken = localStorage.getItem("authorization");
+    if (!accessToken) {
+      toast.error("로그인 후 이용가능합니다.");
+      navigate("/login");
+    }
+  }, []);
 
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -48,16 +64,18 @@ function ModifierProduct() {
 
     if (imageFiles) {
       const newImages = [...images];
+      const previews = imagePreviews.slice(); // 이미지 미리보기 배열의 복사본
       for (let i = 0; i < imageFiles.length; i++) {
         newImages.push(imageFiles[i]);
+        previews.push(URL.createObjectURL(imageFiles[i])); // 이미지 미리보기 URL 생성
       }
       setImages(newImages);
+      setImagePreviews(previews);
     }
   };
-  console.log(images);
 
   // 데이터가 유효할 경우 호출
-  const onValid = (data: IForm) => {
+  const onValid = async (data: IForm) => {
     // 카테고리를 선택하지 않았다면 warning, return
     if (!data.category) {
       toast.warning("카테고리를 선택해주세요!");
@@ -72,10 +90,15 @@ function ModifierProduct() {
       for (let i = 0; i < images.length; i++) {
         formData.append("images", images[i]);
       }
-      toast.success("상품이 등록되었습니다🔥");
-      // 리스트 페이지로 이동
-      console.log(formData);
-      reset();
+      // 서버로부터 응답
+      const response = await auctionModifier(params.itemId, formData);
+      if (response?.status === 200) {
+        // 성공 알림
+        toast.success("상품이 등록되었습니다🔥");
+        // 리스트 페이지로 이동
+        navigate("/items/list");
+        reset();
+      }
     }
   };
 
@@ -113,9 +136,9 @@ function ModifierProduct() {
           {errors.content?.message as string}
         </span>
         <br />
-        <label htmlFor="price">시작 경매가</label>
+        <label htmlFor="startPrice">시작 경매가</label>
         <input
-          {...register("price", {
+          {...register("startPrice", {
             min: { message: "최소 경매가는 100원입니다.", value: "100" },
           })}
           type="number"
@@ -124,8 +147,19 @@ function ModifierProduct() {
           id="price"
           className="w-64"
         />
+        <input
+          {...register("minBidPrice", {
+            required: "경매가 단위는 필수입니다.",
+            min: { message: "최소 단위는 1원입니다.", value: "1" },
+          })}
+          type="number"
+          placeholder="원하는 경매가 단위를 입력하세요"
+          className="w-64"
+        />
         <br />
-        <span className="text-red-500">{errors.price?.message as string}</span>
+        <span className="text-red-500">
+          {errors.startPrice?.message as string}
+        </span>
         <br />
         <div className="flex justify-between">
           {categoryLi.map((item, index) => (
@@ -183,10 +217,21 @@ function ModifierProduct() {
             onChange={addImage}
           />
         </label>
+        {/* 이미지 미리보기 섹션 */}
+        <div>
+          {imagePreviews.map((preview, index) => (
+            <img
+              key={index}
+              src={preview}
+              alt={`미리보기 ${index + 1}`}
+              className="max-w-full h-auto mt-2"
+            />
+          ))}
+        </div>
         {/* ------- */}
         <label htmlFor="timer">마감 기한</label>
         <input
-          {...register("timer")}
+          {...register("deadline")}
           type="range"
           min="1"
           max="5"
@@ -194,9 +239,11 @@ function ModifierProduct() {
           id="timer"
         />
         <br />
-        <span className="text-red-500">{errors.timer?.message as string}</span>
+        <span className="text-red-500">
+          {errors.deadline?.message as string}
+        </span>
         <br />
-        <span>마감기한 : {getValues("timer")}DAY</span>
+        <span>마감기한 : {watch("deadline")}DAY</span>
         <br />
         <br />
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

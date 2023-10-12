@@ -14,6 +14,7 @@ import AuctionList from "./pages/auction-list/AuctionList";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
 import Kakao from "./components/layouts/Kakao";
+import AuctionCard from "./pages/auction-list/AuctionCard";
 
 /**
  * @author : Jiwon Kim
@@ -69,6 +70,12 @@ const router = createBrowserRouter([
       {
         path: "items/list",
         element: <AuctionList />,
+        children: [
+          {
+            path: "items/list/:category",
+            element: <AuctionCard />,
+          },
+        ],
       },
     ],
     errorElement: <NotFound />,
