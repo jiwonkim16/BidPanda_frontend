@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
@@ -24,6 +25,7 @@ const CategoriesIcon = () => {
           </button>
         </Link>
       ))}
+
     </>
   );
 };

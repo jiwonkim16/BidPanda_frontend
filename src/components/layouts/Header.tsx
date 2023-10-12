@@ -9,6 +9,7 @@ function Header() {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
   };
+
   const LogoutHandler = () => {
     try {
       setIsLoggedIn(false);
