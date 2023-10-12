@@ -4,7 +4,7 @@ import {
   SendValidateEmailApi,
   CheckMembernameApi,
   CheckNicknameApi,
-} from "../../apis/user-register/UserRegisterApi";
+} from "../../apis/user-log/UserRegisterApi";
 import { ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,6 @@ const RegisterUser = () => {
   const [isValCodeSent, setIsValCodeSent] = useState(false);
   const [checkedPw, setCheckedPw] = useState("");
   const [validateCode, setValidateCode] = useState("");
-
   const navigate = useNavigate();
 
   /**
@@ -67,7 +66,7 @@ const RegisterUser = () => {
   const formToRegister = async (data: any) => {
     const password = data.password;
     const checkPassword = checkedPw;
-    console.log(password, checkPassword);
+
     if (password !== checkPassword) {
       toast.error("비밀번호가 서로 다릅니다.");
       return;

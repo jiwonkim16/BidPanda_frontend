@@ -16,7 +16,7 @@ interface UserRegisterData {
 export const UserRegisterApi = async (data: UserRegisterData) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members/signup`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
       data
     );
     toast.success("회원가입에 성공하였습니다.");
@@ -55,7 +55,6 @@ export const SendValidateEmailApi = async (data: string) => {
       { email: data },
       config
     );
-
     return res;
   } catch (error) {
     console.error(error);
@@ -67,11 +66,10 @@ export const CheckValidateCodeApi = async (data: {
   email: any;
 }) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email/verify`,
       { authKey: data.code, email: data.email }
     );
-    console.log(res);
     toast.success("이메일 인증에 성공하였습니다.");
   } catch (error) {
     console.error(error);

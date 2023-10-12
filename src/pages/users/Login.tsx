@@ -2,7 +2,7 @@ import {
   LoginApi,
   KakaoLoginApi,
   KakaoLoginCode,
-} from "../../apis/user-login/UserLoginApi";
+} from "../../apis/user-log/UserLoginApi";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
