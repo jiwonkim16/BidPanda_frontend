@@ -5,6 +5,9 @@ import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
 import { useNavigate, useParams } from "react-router";
 import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
+import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
+import { useQuery } from "react-query";
+import { auctionDetail } from "../../apis/auction-detail/AuctionDetail";
 
 interface IForm {
   title: string;
@@ -16,23 +19,42 @@ interface IForm {
   auctionStatus: string;
 }
 
+interface IAuctionDetail {
+  auctionEndTime: string;
+  auctionStatus: string;
+  content: string;
+  id: number;
+  nickname: string;
+  itemImages: string[];
+  minBidPrice: number;
+  presentPrice: number;
+  title: string;
+}
+
 function ModifierProduct() {
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
+  const itemId = params.itemId;
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     setValue,
+    getValues,
     watch,
   } = useForm<IForm>({
     defaultValues: {},
     mode: "onBlur",
   });
+
+  // 리액트 쿼리 사용해서 데이터 get
+  const { data } = useQuery("auctionDetail", () =>
+    auctionDetail(Number(params.itemId))
+  );
+  const detailItem: IAuctionDetail = data?.data;
 
   // 이미지 미리보기 관련 state
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -48,7 +70,6 @@ function ModifierProduct() {
 
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.value);
     const category = event.currentTarget.value;
     setValue("category", category);
   };
@@ -102,13 +123,25 @@ function ModifierProduct() {
     }
   };
 
+  // 삭제하기 버튼 클릭
+  const deleteItem = async () => {
+    if (itemId !== undefined) {
+      const response = await auctionDelete(itemId);
+      if (response?.status === 200) {
+        toast.error("삭제 완료");
+        navigate("/keyword");
+      }
+    }
+  };
+
   return (
     <>
       <div>
         <h1 className="text-2xl font-extrabold">아이템 수정</h1>
       </div>
       <form onSubmit={handleSubmit(onValid)}>
-        <label htmlFor="title">제품명</label>
+        <label htmlFor="title">제품명</label>&nbsp;
+        {detailItem?.title}
         <input
           {...register("title")}
           type="text"
@@ -118,7 +151,8 @@ function ModifierProduct() {
         <br />
         <span className="text-red-500">{errors.title?.message as string}</span>
         <br />
-        <label htmlFor="content">상세설명</label>
+        <label htmlFor="content">상세설명</label>&nbsp;
+        {detailItem?.content}
         <input
           {...register("content", {
             minLength: {
@@ -136,7 +170,8 @@ function ModifierProduct() {
           {errors.content?.message as string}
         </span>
         <br />
-        <label htmlFor="startPrice">시작 경매가</label>
+        <label htmlFor="startPrice">시작 경매가</label>&nbsp;
+        {detailItem?.presentPrice}
         <input
           {...register("startPrice", {
             min: { message: "최소 경매가는 100원입니다.", value: "100" },
@@ -147,12 +182,16 @@ function ModifierProduct() {
           id="price"
           className="w-64"
         />
+        &nbsp;
+        <label htmlFor="minBidPrice">경매가 단위</label>&nbsp;
+        {detailItem?.minBidPrice}
         <input
           {...register("minBidPrice", {
             required: "경매가 단위는 필수입니다.",
             min: { message: "최소 단위는 1원입니다.", value: "1" },
           })}
           type="number"
+          id="minBidPrice"
           placeholder="원하는 경매가 단위를 입력하세요"
           className="w-64"
         />
@@ -168,7 +207,9 @@ function ModifierProduct() {
               key={index}
               value={item}
               onClick={onClickCategory}
-              className="rounded-full bg-blue-500 w-11 cursor-pointer text-white"
+              className={`rounded-full ${
+                getValues("category") === item ? " bg-blue-500" : "bg-gray-300"
+              } w-11 cursor-pointer text-white`}
             >
               {item}
             </button>
@@ -207,6 +248,7 @@ function ModifierProduct() {
             <p className="text-xs text-gray-500">
               최대 3장까지 등록 가능합니다
             </p>
+            {<img src={detailItem?.itemImages[0]} />}
           </div>
           <input
             id="dropzone-file"
@@ -250,6 +292,12 @@ function ModifierProduct() {
           수정하기
         </button>
       </form>
+      <button
+        onClick={deleteItem}
+        className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+      >
+        삭제하기
+      </button>
     </>
   );
 }

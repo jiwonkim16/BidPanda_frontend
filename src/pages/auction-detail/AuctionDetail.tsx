@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   auctionDetail,
@@ -8,13 +8,13 @@ import {
 } from "../../apis/auction-detail/AuctionDetail";
 import CountdownTimer from "../auction-list/CountdownTimer";
 import { toast } from "react-toastify";
-import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
 
 interface IAuctionDetail {
   auctionEndTime: string;
   auctionStatus: string;
   content: string;
   id: number;
+  nickname: string;
   itemImages: string[];
   minBidPrice: number;
   presentPrice: number;
@@ -26,7 +26,7 @@ function AuctionDetail() {
   const itemId = params.itemId;
   const [bidAmount, setBidAmount] = useState("");
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   // 로그인 유저가 아니면 로그인 페이지로~
   useEffect(() => {
     const accessToken = localStorage.getItem("authorization");
@@ -54,6 +54,7 @@ function AuctionDetail() {
       if (response?.status === 200) {
         toast.success("입찰 완료");
         setBidAmount("");
+        queryClient.refetchQueries("auctionDetail"); // 쿼리를 다시 실행해서 최신정보를 가져오도록 함.
       }
     }
   };
@@ -64,16 +65,6 @@ function AuctionDetail() {
       const response = await favoriteItem(itemId);
       if (response?.status === 200) {
         toast.success("찜하기 완료");
-      }
-    }
-  };
-
-  // 삭제하기 버튼 클릭
-  const deleteItem = async () => {
-    if (itemId !== undefined) {
-      const response = await auctionDelete(itemId);
-      if (response?.status === 200) {
-        toast.error("삭제 완료");
       }
     }
   };
@@ -143,16 +134,6 @@ function AuctionDetail() {
                 </button>
               </div>
             </div>
-            {/* 등록한 유저의 입장 */}
-            {/* <div className="flex mt-[25px]">
-            <Link to={`/items/modifier/${itemId}`}></Link>
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          수정하기
-        </button>
-                <button onClick={deleteItem} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          삭제하기
-        </button>
-      </div> */}
           </div>
         </div>
       )}

@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
 import CountdownTimer from "./CountdownTimer";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { category, categoryList } from "../../atoms/category";
 
 interface IAuction {
   auctionEndTime: string;
-  auctionStatus: string;
+  bidCount: number;
   content: string;
   id: number;
   itemImages: string[];
@@ -19,6 +21,8 @@ function AuctionCard() {
   const params = useParams();
   const navigate = useNavigate();
   const categoryIcon: any = params.category;
+  const categoryLi = useRecoilValue(categoryList);
+  const [selectCategory, setSelectCategory] = useRecoilState(category);
 
   useEffect(() => {
     if (categoryIcon === "전체") {
@@ -37,9 +41,34 @@ function AuctionCard() {
     };
 
     fetchData();
-  }, []);
+  }, [categoryIcon]);
+
+  const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const select = event.currentTarget.value;
+    setSelectCategory(select);
+    navigate(`/items/list/${select}`);
+  };
+
   return (
     <>
+      <div className="title">
+        <h1 className="text-3xl font-extrabold my-[20px]">Auction Item List</h1>
+      </div>
+      <div className="flex justify-center">
+        {categoryLi.map((item, index) => (
+          <button
+            type="button"
+            key={index}
+            value={item}
+            onClick={onClickCategory}
+            className={`rounded-full ${
+              selectCategory === item ? " bg-blue-500" : "bg-gray-300"
+            } w-11 cursor-pointer text-white`}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
       {auctionData.map((item: IAuction) => (
         <div
           key={item.id}
@@ -60,7 +89,12 @@ function AuctionCard() {
             </Link>
             <div className="flex items-center mt-2.5 mb-5">
               <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                {<CountdownTimer endTime={item.auctionEndTime} />}
+                {
+                  <CountdownTimer
+                    endTime={item.auctionEndTime}
+                    bidCount={item.bidCount}
+                  />
+                }
               </span>
             </div>
             <div className="flex items-center justify-between">
