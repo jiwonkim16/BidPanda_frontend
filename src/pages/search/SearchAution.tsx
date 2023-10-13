@@ -1,15 +1,31 @@
 import { useState } from "react";
-import SearchList from "./SearchList";
+import SearchList from "./SearchResult";
+import { searchAuction } from "../../apis/search/SearchAuction";
+
+interface IResult {
+  auctionEndTime: string;
+  content: string;
+  id: number;
+  itemImages: string[];
+  minBidPrice: number;
+  presentPrice: number;
+  title: string;
+}
 
 function SearchAution() {
   const [search, setSearch] = useState("");
+  const [result, setResult] = useState<IResult>();
   const searchInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
     // state에 검색어 저장
     setSearch(event.target.value);
   };
-  const onSubmit = () => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     // 서버로 search state 보내는 역할
+    const response = await searchAuction(search);
+    setResult(response);
   };
+
   return (
     <>
       {/* <div>
@@ -27,9 +43,9 @@ function SearchAution() {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
               />
             </svg>
@@ -48,7 +64,7 @@ function SearchAution() {
           </button>
         </div>
       </form>
-      <SearchList />
+      <SearchList result={result} />
     </>
   );
 }

@@ -4,22 +4,30 @@ import { useQuery } from "react-query";
 import { auctionList } from "../../apis/auction-list/AuctionList";
 import CountdownTimer from "./CountdownTimer";
 import { Link, useNavigate } from "react-router-dom";
+import { auctionStatus } from "../../atoms/auctionStatus";
+import jwtDecode from "jwt-decode";
 
 interface IAuction {
   auctionEndTime: string;
-  auctionStatus: string;
+  bidCount: number;
   content: string;
   id: number;
+  nickname: string;
   itemImages: string[];
   minBidPrice: number;
   presentPrice: number;
   title: string;
 }
 
+interface IDecodeToken {
+  nickname: string;
+}
+
 function AuctionList() {
   const categoryLi = useRecoilValue(categoryList);
   const [selectCategory, setSelectCategory] = useRecoilState(category);
   const navigate = useNavigate();
+  const status = useRecoilValue(auctionStatus);
   // --------------------------------
   // mutation 활용 데이터 최신화
   // const queryClient = useQueryClient();
@@ -29,7 +37,11 @@ function AuctionList() {
   //   },
   // });
   // mutation.mutate();
-
+  //------------------------------------
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
   // -----------------------------------
   const { data, isLoading } = useQuery("auctionList", auctionList);
   const auctionItem: IAuction[] = data?.content;
@@ -80,7 +92,15 @@ function AuctionList() {
               key={item.id}
               className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
-              <Link to={`/items/detail/${item.id}`}>
+              <Link
+                to={
+                  item.nickname === userNickname
+                    ? status
+                      ? `/items/detail/${item.id}`
+                      : `/items/modifier/${item.id}`
+                    : `/items/detail/${item.id}`
+                }
+              >
                 <img
                   className="p-8 rounded-t-lg"
                   src={item.itemImages[0]}
@@ -88,14 +108,27 @@ function AuctionList() {
                 />
               </Link>
               <div className="px-5 pb-5">
-                <Link to={`/items/detail/${item.id}`}>
+                <Link
+                  to={
+                    item.nickname === userNickname
+                      ? status
+                        ? `/items/detail/${item.id}`
+                        : `/items/modifier/${item.id}`
+                      : `/items/detail/${item.id}`
+                  }
+                >
                   <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     {item.title}😥
                   </h5>
                 </Link>
                 <div className="flex items-center mt-2.5 mb-5">
                   <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                    {<CountdownTimer endTime={item.auctionEndTime} />}
+                    {
+                      <CountdownTimer
+                        endTime={item.auctionEndTime}
+                        bidCount={item.bidCount}
+                      />
+                    }
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

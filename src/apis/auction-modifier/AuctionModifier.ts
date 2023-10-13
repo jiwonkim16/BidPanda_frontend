@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { toast } from "react-toastify";
 // 상품 수정
 export const auctionModifier = async (id: any, data: any) => {
   try {
@@ -14,7 +14,7 @@ export const auctionModifier = async (id: any, data: any) => {
       }
     );
     return response;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    toast.warning(error.response.data.message);
   }
 };

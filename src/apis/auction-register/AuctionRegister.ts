@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // 상품 등록
 export const auctionRegister = async (data: any) => {
@@ -14,7 +15,7 @@ export const auctionRegister = async (data: any) => {
       }
     );
     return response;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    toast.warning(error.response.data.message);
   }
 };
