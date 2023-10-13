@@ -44,7 +44,7 @@ export const getBidListApi = async () => {
 export const getPostedListApi = async () => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/bids`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/items/my-items`,
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
