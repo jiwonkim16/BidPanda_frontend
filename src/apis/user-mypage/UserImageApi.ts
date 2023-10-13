@@ -1,7 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const ProfileImageApi = async (data: any) => {
+/**
+ * @author : Goya Gim
+ * @returns :
+ */
+
+export const profileImageApi = async (data: any) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/profile-image`,

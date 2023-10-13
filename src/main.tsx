@@ -1,14 +1,18 @@
-import ReactDOM from "react-dom/client";
 import "./index.css";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router";
+import { RecoilRoot } from "recoil";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RecoilRoot } from "recoil";
-import { RouterProvider } from "react-router";
 import router from "./Router.tsx";
-import { QueryClientProvider, QueryClient } from "react-query";
+
+/**
+ * @author : Jiwon Kim
+ * @returns :
+ */
 
 const queryClient = new QueryClient();
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
     <RecoilRoot>

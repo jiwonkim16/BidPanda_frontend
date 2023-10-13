@@ -1,7 +1,12 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 
-export const UserDeleteApi = async () => {
+/**
+ * @author : Goya Gim
+ * @returns :
+ */
+
+export const userDeleteApi = async () => {
   try {
     await axios.delete(`${import.meta.env.VITE_REACT_API_KEY}/api/members`, {
       headers: {

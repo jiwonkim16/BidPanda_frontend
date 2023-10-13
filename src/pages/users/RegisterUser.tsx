@@ -1,14 +1,14 @@
-import {
-  UserRegisterApi,
-  CheckValidateCodeApi,
-  SendValidateEmailApi,
-  CheckMembernameApi,
-  CheckNicknameApi,
-} from "../../apis/user-log/UserRegisterApi";
 import { ReactNode, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import {
+  userRegisterApi,
+  checkValidateCodeApi,
+  sendValidateEmailApi,
+  checkMembernameApi,
+  checkNicknameApi,
+} from "../../apis/user-log/UserRegisterApi";
 
 /**
  * @author : Goya Gim
@@ -31,24 +31,24 @@ const RegisterUser = () => {
 
   const checkMembernameHandler = async () => {
     const valMembername = getValues("membername");
-    await CheckMembernameApi(valMembername);
+    await checkMembernameApi(valMembername);
     setIsMembernameCheck(true);
   };
   const checkNicknameHandler = async () => {
     const valNickname = getValues("nickname");
-    await CheckNicknameApi(valNickname);
+    await checkNicknameApi(valNickname);
     setIsNicknameCheck(true);
   };
   const onValidEmailHandler = async () => {
     const valEmail = getValues("email");
-    await SendValidateEmailApi(valEmail);
+    await sendValidateEmailApi(valEmail);
     setIsValidEmailSent(true);
   };
   const onValCodeHandler = async () => {
     const valCode = validateCode;
     const valEmail = getValues("email");
     const codeData = { code: valCode, email: valEmail };
-    await CheckValidateCodeApi(codeData);
+    await checkValidateCodeApi(codeData);
     setIsValCodeSent(true);
   };
 
@@ -71,7 +71,7 @@ const RegisterUser = () => {
       toast.error("비밀번호가 서로 다릅니다.");
       return;
     }
-    await UserRegisterApi(data);
+    await userRegisterApi(data);
     navigate("/login");
   };
 

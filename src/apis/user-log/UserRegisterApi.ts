@@ -13,7 +13,12 @@ interface UserRegisterData {
   email: string;
 }
 
-export const UserRegisterApi = async (data: UserRegisterData) => {
+/**
+ * @author : Goya Gim
+ * @returns :
+ */
+
+export const userRegisterApi = async (data: UserRegisterData) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
@@ -26,7 +31,7 @@ export const UserRegisterApi = async (data: UserRegisterData) => {
   }
 };
 
-export const CheckMembernameApi = async (membername: any) => {
+export const checkMembernameApi = async (membername: any) => {
   try {
     await axios.get(
       `${
@@ -38,7 +43,7 @@ export const CheckMembernameApi = async (membername: any) => {
   }
 };
 
-export const CheckNicknameApi = async (nickname: any) => {
+export const checkNicknameApi = async (nickname: any) => {
   try {
     await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/nickname/${nickname}`
@@ -48,7 +53,7 @@ export const CheckNicknameApi = async (nickname: any) => {
   }
 };
 
-export const SendValidateEmailApi = async (data: string) => {
+export const sendValidateEmailApi = async (data: string) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email`,
@@ -61,7 +66,7 @@ export const SendValidateEmailApi = async (data: string) => {
   }
 };
 
-export const CheckValidateCodeApi = async (data: {
+export const checkValidateCodeApi = async (data: {
   code: string;
   email: any;
 }) => {

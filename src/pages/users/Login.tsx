@@ -1,13 +1,11 @@
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
-  LoginApi,
-  KakaoLoginApi,
+  loginApi,
+  kakaoLoginApi,
   KakaoLoginCode,
 } from "../../apis/user-log/UserLoginApi";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { isLoggedInState } from "../../atoms/isLoggedIn";
-import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
@@ -18,7 +16,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,14 +28,13 @@ const Login = () => {
 
   const onLoginHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await LoginApi({ membername, password });
+    const res = await loginApi({ membername, password });
     const accessToken = res?.headers.authorization;
     const refreshToken = res?.headers.authorization_refresh;
 
     if (res?.status === 200) {
       localStorage.setItem("authorization", accessToken);
       localStorage.setItem("authorization_refresh", refreshToken);
-      setIsLoggedIn(true);
       navigate("/");
     }
   };
@@ -67,9 +63,8 @@ const Login = () => {
     const kakaoLoginCode: KakaoLoginCode = await waitForKakaoAuth();
     const kakaoAuthCode = kakaoLoginCode.kakaoAuthCode;
     console.log(kakaoAuthCode);
-    const res = await KakaoLoginApi({ kakaoAuthCode });
+    const res = await kakaoLoginApi({ kakaoAuthCode });
     if (res?.status === 200) {
-      setIsLoggedIn(true);
       navigate("/");
     }
   };

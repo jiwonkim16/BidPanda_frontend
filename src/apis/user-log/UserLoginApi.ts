@@ -15,7 +15,12 @@ export type KakaoLoginCode = {
   kakaoAuthCode: string | null;
 };
 
-export const LoginApi = async (data: UserLoginData) => {
+/**
+ * @author : Goya Gim
+ * @returns :
+ */
+
+export const loginApi = async (data: UserLoginData) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/login`,
@@ -29,7 +34,7 @@ export const LoginApi = async (data: UserLoginData) => {
   }
 };
 
-export const KakaoLoginApi = async (data: any) => {
+export const kakaoLoginApi = async (data: any) => {
   try {
     const res = await axios.get(
       `${
