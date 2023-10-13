@@ -1,55 +1,61 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
+import { profileImageState } from "../../atoms/profileImage";
 import { useSetRecoilState } from "recoil";
-import { isLoggedInState } from "../../atoms/isLoggedIn";
 import { toast } from "react-toastify";
-import Modal from "../../components/assets/Modal";
+import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
+import { userDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import Loading from "../../components/assets/Loading";
-import { ProfileImageApi } from "../../apis/user-mypage/UserImageApi";
-import { profileImage } from "../../atoms/profileImage";
+import Modal from "../../components/assets/Modal";
+import Mylists from "../../components/modules/Mylists";
+
+interface UserData {
+  nickname: string;
+  profileImageUrl: string;
+  intro: string;
+}
+
 /**
  * @author : Goya Gim
- * @returns : 회원 페이지. useRef를 이용한 프로필 이미지 등록,
+ * @returns : 마이페이지. useRef를 이용한 프로필 이미지 등록,
  */
 
 const Mypage = () => {
+  const setProfileImages = useSetRecoilState(profileImageState);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [forSureDelete, setForSureDelete] = useState(false);
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const setProfileImages = useSetRecoilState(profileImage);
+  const [selectedTab, setSelectedTab] = useState("interest");
   const [isLoading, setIsLoading] = useState(true);
-  const imageRef = useRef<any>();
+  const imageRef = useRef<HTMLInputElement>(null);
   const isToken = localStorage.getItem("authorization");
-
   const navigate = useNavigate();
-  interface UserData {
-    data: {
-      nickname: string;
-      profileImageUrl: string;
-      intro: string;
-    } | null;
-  }
 
-  useEffect(() => {
-    if (!isToken) {
-      setIsLoggedIn(false);
-      toast.error("로그인이 필요합니다.");
-      navigate("/login");
-    } else {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  /**
+   * @includes : 유저 정보 Get.
+   */
 
   useEffect(() => {
     setIsLoading(true);
     getUserInfoApi().then((data) => {
       setUserData(data);
+      setProfileImages(data.profileImageUrl);
       setIsLoading(false);
     });
   }, []);
-  console.log(userData);
+
+  useEffect(() => {
+    if (!isToken) {
+      toast.error("로그인이 필요합니다.");
+      navigate("/login");
+    }
+    return;
+  }, []);
+
+  /**
+   * @includes : 회원 탈퇴 관련 코드.
+   */
+
   const removeToken = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("authorization_refresh");
@@ -59,17 +65,20 @@ const Mypage = () => {
     setForSureDelete(true);
     setTimeout(() => {
       setForSureDelete(false);
-    }, 5000);
+    }, 4500);
   };
 
-  const handleUserDelete = () => {
+  const handleUserDelete = async () => {
     if (isToken) {
-      UserDeleteApi();
-      setIsLoggedIn(false);
+      await userDeleteApi();
       navigate("/");
       removeToken();
     }
   };
+
+  /**
+   * @includes : 프로필 이미지 변경 관련 코드.
+   */
 
   const handleImageClick = () => {
     if (imageRef.current) {
@@ -79,21 +88,17 @@ const Mypage = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFiles: FileList | null = e.target.files;
+
     if (imageFiles) {
       const formData = new FormData();
       formData.append("file", imageFiles[0]);
-
-      ProfileImageApi(formData)
+      profileImageApi(formData)
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
-            // 이미지 파일을 사용자에게 표시
-            const uploadedImage = URL.createObjectURL(imageFiles[0]);
-            setProfileImages(uploadedImage);
           }
         })
         .catch((error) => {
-          // 업로드 중 오류가 발생한 경우 처리
           console.error(error);
         });
     }
@@ -113,7 +118,7 @@ const Mypage = () => {
                     <>
                       <img
                         className="w-[100px] h-[100px] cursor-pointer rounded-full"
-                        src={userData.data?.profileImageUrl}
+                        src={userData?.profileImageUrl}
                         alt=""
                         onClick={handleImageClick}
                       />
@@ -130,8 +135,8 @@ const Mypage = () => {
                     <div className="ml-2">
                       {userData && (
                         <>
-                          <p>{userData.data ? userData.data.nickname : null}</p>
-                          <p>{userData.data ? userData.data.intro : null}</p>
+                          <p>{userData ? userData.nickname : null}</p>
+                          <p>{userData ? userData.intro : null}</p>
                         </>
                       )}
                     </div>
@@ -152,14 +157,27 @@ const Mypage = () => {
             </div>
           </div>
           <div className="bg-white text-gray-600 font-bold w-[390px] flex justify-center flex-row">
-            <p className="m-2">등록 상품</p>
-            <p className="m-2">찜한 상품</p>
-            <p className="m-2">참여 상품</p>
-            <p className="m-2">낙찰 상품</p>
+            <p
+              className={`m-2 ${selectedTab === "liked" ? "text-black" : ""}`}
+              onClick={() => setSelectedTab("liked")}
+            >
+              찜한 상품
+            </p>
+            <p
+              className={`m-2 ${selectedTab === "bid" ? "text-black" : ""}`}
+              onClick={() => setSelectedTab("bid")}
+            >
+              참여 상품
+            </p>
+            <p
+              className={`m-2 ${selectedTab === "posted" ? "text-black" : ""}`}
+              onClick={() => setSelectedTab("posted")}
+            >
+              등록 상품
+            </p>
           </div>
           <div className="h-[500px] flex justify-center p-1">
-            <div className="bg-gray-300 rounded-[15px] w-[170px] h-[200px] mt-5 mx-2" />
-            <div className="bg-gray-300 rounded-[15px] w-[170px] h-[200px] mt-5 mx-2" />
+            <Mylists selectedTab={selectedTab} />
           </div>
           {forSureDelete && (
             <>

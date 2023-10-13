@@ -7,7 +7,7 @@ interface FooterIconProps {
 
 const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
   return (
-    <>
+    <div className="bg-white flex justify-center w-[100%]  p-4">
       <Link to="/">
         <div onClick={onClick}>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
@@ -36,7 +36,7 @@ const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
           </button>
         </div>
       </Link>
-    </>
+    </div>
   );
 };
 export default FooterIcon;

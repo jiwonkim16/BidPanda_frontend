@@ -1,14 +1,10 @@
+import { toast } from "react-toastify";
 import axios from "axios";
 
-/**
- * @author : Goya Gim
- * @returns :
- */
-
-export const getUserInfoApi = async () => {
+export const getTopTenListApi = async () => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
+      `${import.meta.env.VITE_REACT_API_KEY}/api/items/top-price`,
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
@@ -18,6 +14,6 @@ export const getUserInfoApi = async () => {
     );
     return res.data;
   } catch (error) {
-    console.error(error);
+    toast.error("잠시 후 다시 시도해주세요.");
   }
 };

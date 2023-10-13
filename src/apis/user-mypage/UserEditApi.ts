@@ -1,10 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
-
-const config = {
-  withCredentials: true,
-  mode: "cors",
-};
 
 interface EditUserData {
   nickname: string;
@@ -13,8 +7,12 @@ interface EditUserData {
   newPassword: string;
 }
 
-export const EditUserInfoApi = async (data: EditUserData) => {
-  console.log(data);
+/**
+ * @author : Goya Gim
+ * @returns :
+ */
+
+export const editUserInfoApi = async (data: EditUserData) => {
   try {
     const res = await axios.put(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members`,

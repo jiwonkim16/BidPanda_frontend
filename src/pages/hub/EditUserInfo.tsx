@@ -1,7 +1,12 @@
 import { ReactNode } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { EditUserInfoApi } from "../../apis/user-mypage/UserEditApi";
+import { useForm } from "react-hook-form";
+import { editUserInfoApi } from "../../apis/user-mypage/UserEditApi";
+
+/**
+ * @author : Goya Gim
+ * @returns : 회원정보 수정 페이지.
+ */
 
 const EditUserInfo = () => {
   const navigate = useNavigate();
@@ -13,7 +18,7 @@ const EditUserInfo = () => {
 
   const formToRegister = async (data: any) => {
     try {
-      await EditUserInfoApi(data);
+      await editUserInfoApi(data);
       navigate("/mypage");
     } catch (error) {
       console.error(error);
