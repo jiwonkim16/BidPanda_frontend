@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function Header() {
   const [profileImage, setProfileImage] = useState("");
@@ -23,6 +24,7 @@ function Header() {
     try {
       if (isToken) {
         removeToken();
+        toast.success("로그아웃 되었습니다.");
       }
     } catch (error) {
       console.error(error);

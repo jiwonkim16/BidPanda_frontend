@@ -39,11 +39,14 @@ function CountdownTimer({ endTime, bidCount }: any) {
     <>
       <div>
         {remainingTime !== 0 ? (
-          <div>남은 시간 : {format}</div>
+          <>
+            <div>진행중</div>
+            <div>남은 시간 : {format}</div>
+          </>
         ) : bidCount === 0 ? (
-          <div>유찰된 상품입니다.</div>
+          <div>유찰</div>
         ) : (
-          <div>낙찰된 상품입니다.</div>
+          <div>낙찰</div>
         )}
       </div>
     </>
