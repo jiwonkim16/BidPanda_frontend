@@ -1,6 +1,8 @@
 import { useState } from "react";
-import SearchList from "./SearchResult";
+
 import { searchAuction } from "../../apis/search/SearchAuction";
+import SearchResult from "./SearchResult";
+import { toast } from "react-toastify";
 
 interface IResult {
   auctionEndTime: string;
@@ -14,7 +16,7 @@ interface IResult {
 
 function SearchAution() {
   const [search, setSearch] = useState("");
-  const [result, setResult] = useState<IResult>();
+  const [result, setResult] = useState<IResult[]>();
   const searchInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
     // state에 검색어 저장
     setSearch(event.target.value);
@@ -23,14 +25,15 @@ function SearchAution() {
     event.preventDefault();
     // 서버로 search state 보내는 역할
     const response = await searchAuction(search);
-    setResult(response);
+    if (response.length > 0) {
+      setResult(response);
+    } else {
+      toast.error("검색 결과가 없습니다.");
+    }
   };
 
   return (
     <>
-      {/* <div>
-        <h1 className="text-2xl font-extrabold ">검색페이지</h1>
-      </div> */}
       <form onSubmit={onSubmit}>
         <div className="relative p-3">
           <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none">
@@ -64,7 +67,15 @@ function SearchAution() {
           </button>
         </div>
       </form>
-      <SearchList result={result} />
+      <div className="overflow-hidden">
+        {result &&
+          result.map((item: IResult) => {
+            return <SearchResult data={item} key={item.id} />;
+          })}
+        {/* <SearchResult result={result} /> */}
+        {/* SearchAution 렌더링 되면 <SearchResult /> result=undefined 인 상태로 렌더링 검색 진행 -> setResult(response)*/}
+        {/* 리렌더링 처리 -> <SearchResult result={[...]} /> */}
+      </div>
     </>
   );
 }
