@@ -17,7 +17,7 @@ function CountdownTimer({ endTime, bidCount }: any) {
     const intervalId = setInterval(() => {
       const newRemainingTime = Math.max(end.diff(moment()), 0);
       setRemainingTime(newRemainingTime);
-      setProgress(true);
+
       if (newRemainingTime <= 0) {
         setProgress(false);
       }
@@ -27,7 +27,7 @@ function CountdownTimer({ endTime, bidCount }: any) {
     // clearInterval 함수를 사용해서 컴포넌트가 소멸되거나 마감시간이 변경됬을 경우 불필요한 인터벌이 일어나지 않도록 함.
     // interval 시 인터벌의 id를 반환하는데 이를 정리함으로서 불필요한 메모리 누수를 방지.
     return () => clearInterval(intervalId);
-  }, [end, setProgress]);
+  }, [end, progress]);
 
   // milliseconds를 duration 객체로 변환 -> moment.duration은 모먼트 객체로부터 지속시간을 생성한다.
   const duration = moment.duration(remainingTime);
