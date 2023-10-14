@@ -90,7 +90,7 @@ function AuctionList() {
           auctionItem.map((item) => (
             <div
               key={item.id}
-              className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="flex flex-col justify-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
               <Link
                 to={
@@ -102,7 +102,7 @@ function AuctionList() {
                 }
               >
                 <img
-                  className="p-8 rounded-t-lg"
+                  className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
                   src={item.itemImages[0]}
                   alt="product image"
                 />
@@ -122,7 +122,7 @@ function AuctionList() {
                   </h5>
                 </Link>
                 <div className="flex items-center mt-2.5 mb-5">
-                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                  <span>
                     {
                       <CountdownTimer
                         endTime={item.auctionEndTime}

@@ -25,6 +25,7 @@ function Header() {
       if (isToken) {
         removeToken();
         toast.success("로그아웃 되었습니다.");
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -51,7 +52,7 @@ function Header() {
             logout
           </button>
           <img
-            className="w-[35px] h-[35px] ml-2 cursor-pointer rounded-full shadow-md"
+            className="w-[35px] h-[35px] ml-2 cursor-pointer rounded-full object-cover shadow-md"
             src={profileImage}
             alt="mypage&profile"
             onClick={() => navigate("/mypage")}

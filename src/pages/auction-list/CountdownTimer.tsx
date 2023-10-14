@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import moment from "moment";
 import { useRecoilState } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
+import moment from "moment";
 
 function CountdownTimer({ endTime, bidCount }: any) {
   // 진행 여부에 관한 Recoil state
@@ -40,13 +40,30 @@ function CountdownTimer({ endTime, bidCount }: any) {
       <div>
         {remainingTime !== 0 ? (
           <>
-            <div>진행중</div>
-            <div>남은 시간 : {format}</div>
+            <div className="flex flex-row w-[67px] text-sm items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
+              <div className="bg-green-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+              <div>진행중</div>
+            </div>
+            {duration.hours() <= 12 ? (
+              <div className="bg-gray-100 text-red-500  p-1 mt-1 text-sm rounded font-semibold">
+                {format}
+              </div>
+            ) : (
+              <div className="bg-gray-100 text-green-600  p-1 mt-1 text-sm rounded font-semibold">
+                {format}
+              </div>
+            )}
           </>
         ) : bidCount === 0 ? (
-          <div>유찰</div>
+          <div className="flex flex-row items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
+            <div className="bg-red-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <span>유찰</span>
+          </div>
         ) : (
-          <div>낙찰</div>
+          <div className="flex flex-row items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
+            <div className="bg-blue-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <span>낙찰</span>
+          </div>
         )}
       </div>
     </>

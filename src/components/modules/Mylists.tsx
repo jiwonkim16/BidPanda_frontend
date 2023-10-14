@@ -55,7 +55,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] w-[170px] h-[200px] mt-5 mr-2 flex flex-wrap">
+      <div className="rounded-[15px] w-[180px] h-[240px] mt-5 mr-2 flex flex-wrap">
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
@@ -63,19 +63,19 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
           >
             <Link to={`/items/detail/${item.id}`}>
               <img
-                className="p-4 rounded-t-lg"
+                className="p-3 rounded-lg w-[170px] h-[130px] object-cover"
                 src={item.itemImages[0]}
                 alt="product image"
               />
             </Link>
-            <div className="px-5 pb-2">
+            <div className="px-4">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-lg font-bold text-gray-900 dark:text-white">
                   {item.title}
                 </h5>
               </Link>
-              <div className="flex items-center mt-2.5 mb-5">
-                <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+              <div className="flex items-center mt-1 mb-1">
+                <span>
                   <CountdownTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
@@ -83,8 +83,8 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xl font-bold text-gray-900 dark:text-white">
-                  현재 입찰가 : {item.presentPrice}
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  {item.presentPrice}원
                 </span>
               </div>
             </div>

@@ -33,7 +33,7 @@ function SearchResult({ data }: any) {
       >
         <button onClick={() => onClick(data)}>
           <img
-            className="p-8 rounded-t-lg"
+            className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
             src={data.itemImages[0]}
             alt="product image"
           />
@@ -45,9 +45,7 @@ function SearchResult({ data }: any) {
             </h5>
           </button>
           <div className="flex items-center mt-2.5 mb-5">
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-              {<CountdownTimer endTime={data.auctionEndTime} />}
-            </span>
+            <span>{<CountdownTimer endTime={data.auctionEndTime} />}</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">

@@ -12,8 +12,8 @@ import SearchAution from "./pages/search/SearchAution";
 import AuctionList from "./pages/auction-list/AuctionList";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
-import Kakao from "./components/layouts/Kakao";
 import AuctionCard from "./pages/auction-list/AuctionCard";
+import Kakao from "./components/modules/Kakao";
 
 /**
  * @author : Jiwon Kim

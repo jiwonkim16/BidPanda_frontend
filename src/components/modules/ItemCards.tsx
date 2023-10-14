@@ -22,23 +22,23 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: Items) => (
         <div
           key={item.id}
-          className="w-[170px] h-[220px] bg-white border border-gray-200 mt-3 mr-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
-              className="p-2 rounded-lg w-[170px] h-[120px]"
+              className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
               src={item.itemImages[0]}
               alt="product image"
             />
           </Link>
           <div className="px-3">
             <Link to={`/items/detail/${item.id}`}>
-              <h5 className="font-semibold text-gray-900 dark:text-white">
+              <h5 className="text-lg font-bold text-gray-900 dark:text-white">
                 {item.title}
               </h5>
             </Link>
             <div className="flex">
-              <span className="bg-blue-100 text-blue-800 text-xs font-semibold mx-4 rounded dark:bg-blue-200 dark:text-blue-800">
+              <span>
                 <CountdownTimer
                   endTime={item.auctionEndTime}
                   bidCount={item.bidCount}
@@ -46,7 +46,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className=" font-bold text-gray-900 dark:text-white">
+              <span className=" font-semibold text-gray-900 dark:text-white">
                 {item.presentPrice}원
               </span>
             </div>

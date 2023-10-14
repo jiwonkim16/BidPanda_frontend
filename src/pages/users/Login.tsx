@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  loginApi,
-  kakaoLoginApi,
-  KakaoLoginCode,
-} from "../../apis/user-log/UserLoginApi";
+import { loginApi } from "../../apis/user-log/UserLoginApi";
 
 /**
  * @author : Goya Gim
@@ -39,34 +35,11 @@ const Login = () => {
     }
   };
 
-  const kakaoLoginHandler = async () => {
-    const REST_API_KEY = "e852feeb69305f69f3f15d58bf03437d";
+  const kakaoLogin = () => {
+    const REST_API_KEY = "fbc4abc5fd980187c0270233cea954bc";
     const REDIRECT_URI = "http://localhost:5173/kakao";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
-
-    const waitForKakaoAuth = () =>
-      new Promise<KakaoLoginCode>((resolve) => {
-        const checkForCode = () => {
-          const kakaoAuthCode = new URLSearchParams(window.location.search).get(
-            "code"
-          );
-          if (kakaoAuthCode) {
-            resolve({ kakaoAuthCode });
-          } else {
-            setTimeout(checkForCode, 1000); // 매 초마다 `code` 확인
-          }
-        };
-        checkForCode();
-      });
-
-    const kakaoLoginCode: KakaoLoginCode = await waitForKakaoAuth();
-    const kakaoAuthCode = kakaoLoginCode.kakaoAuthCode;
-    console.log(kakaoAuthCode);
-    const res = await kakaoLoginApi({ kakaoAuthCode });
-    if (res?.status === 200) {
-      navigate("/");
-    }
   };
 
   return (
@@ -102,7 +75,7 @@ const Login = () => {
         </div>
       </div>
       <button
-        onClick={kakaoLoginHandler}
+        onClick={kakaoLogin}
         className="w-[250px] h-[40px] bg-yellow-300 text-black rounded-md mt-2 font-bold"
       >
         카카오 계정으로 로그인 하기
@@ -110,4 +83,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

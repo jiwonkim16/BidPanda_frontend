@@ -96,6 +96,7 @@ const Mypage = () => {
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
+            window.location.reload();
           }
         })
         .catch((error) => {
@@ -117,7 +118,7 @@ const Mypage = () => {
                   {userData && (
                     <>
                       <img
-                        className="w-[100px] h-[100px] cursor-pointer rounded-full"
+                        className="w-[100px] h-[100px] cursor-pointer rounded-full object-cover"
                         src={userData?.profileImageUrl}
                         alt=""
                         onClick={handleImageClick}

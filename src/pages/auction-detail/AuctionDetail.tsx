@@ -108,10 +108,10 @@ function AuctionDetail() {
             </div>
           </div>
           <div>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+            <span className="bg-gray-100 text-gray-600 p-1 rounded font-semibold">
               <CountdownTimer endTime={detailItem.auctionEndTime} />
             </span>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+            <span className="bg-gray-100 text-gray-600 p-1 rounded font-semibold">
               현재 최고 입찰가 : {detailItem.presentPrice}
             </span>
             {/* 받아온 data의 닉네임과 현재 로그인된 유저의 닉네임이 같다면 아래 등록한 유저에 해당하는 태그,
