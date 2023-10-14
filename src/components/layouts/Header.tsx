@@ -15,7 +15,7 @@ function Header() {
   useEffect(() => {
     if (isToken) {
       getUserInfoApi().then((data) => {
-        setProfileImage(data.profileImageUrl);
+        setProfileImage(data.data.profileImageUrl);
       });
     }
   }, []);
