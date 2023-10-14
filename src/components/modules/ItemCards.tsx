@@ -33,12 +33,12 @@ const ItemCards = ({ topItems }: TopItemProps) => {
           </Link>
           <div className="px-3">
             <Link to={`/items/detail/${item.id}`}>
-              <h5 className="font-semibold text-gray-900 dark:text-white">
+              <h5 className="text-lg font-bold text-gray-900 dark:text-white">
                 {item.title}
               </h5>
             </Link>
             <div className="flex">
-              <span className="bg-blue-100 text-blue-800 text-xs font-semibold mx-4 rounded dark:bg-blue-200 dark:text-blue-800">
+              <span>
                 <CountdownTimer
                   endTime={item.auctionEndTime}
                   bidCount={item.bidCount}
@@ -46,7 +46,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className=" font-bold text-gray-900 dark:text-white">
+              <span className=" font-semibold text-gray-900 dark:text-white">
                 {item.presentPrice}원
               </span>
             </div>
