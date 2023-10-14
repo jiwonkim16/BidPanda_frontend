@@ -25,6 +25,7 @@ function Header() {
       if (isToken) {
         removeToken();
         toast.success("로그아웃 되었습니다.");
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
