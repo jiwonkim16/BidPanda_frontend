@@ -26,7 +26,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
-              className="p-2 rounded-lg w-[170px] h-[120px]"
+              className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
               src={item.itemImages[0]}
               alt="product image"
             />

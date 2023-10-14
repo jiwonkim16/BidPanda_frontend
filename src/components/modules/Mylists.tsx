@@ -63,7 +63,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
           >
             <Link to={`/items/detail/${item.id}`}>
               <img
-                className="p-4 rounded-t-lg"
+                className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
                 src={item.itemImages[0]}
                 alt="product image"
               />

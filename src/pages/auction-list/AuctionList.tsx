@@ -90,7 +90,7 @@ function AuctionList() {
           auctionItem.map((item) => (
             <div
               key={item.id}
-              className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className="flex flex-col justify-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
               <Link
                 to={
@@ -102,7 +102,7 @@ function AuctionList() {
                 }
               >
                 <img
-                  className="p-8 rounded-t-lg"
+                  className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
                   src={item.itemImages[0]}
                   alt="product image"
                 />

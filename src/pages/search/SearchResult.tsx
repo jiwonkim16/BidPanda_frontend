@@ -33,7 +33,7 @@ function SearchResult({ data }: any) {
       >
         <button onClick={() => onClick(data)}>
           <img
-            className="p-8 rounded-t-lg"
+            className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
             src={data.itemImages[0]}
             alt="product image"
           />

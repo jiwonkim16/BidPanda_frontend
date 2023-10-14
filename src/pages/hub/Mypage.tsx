@@ -117,7 +117,7 @@ const Mypage = () => {
                   {userData && (
                     <>
                       <img
-                        className="w-[100px] h-[100px] cursor-pointer rounded-full"
+                        className="w-[100px] h-[100px] cursor-pointer rounded-full object-cover"
                         src={userData?.profileImageUrl}
                         alt=""
                         onClick={handleImageClick}
