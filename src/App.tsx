@@ -12,10 +12,10 @@ function App() {
     <>
       <div className="w-[390px] h-[844px] flex justify-center p-1">
         <div className="bg-white w-[390px] ">
-          <div className="h-[6%]">
+          <div className="h-[5.5%]">
             <Header />
           </div>
-          <div className="h-[81%]">
+          <div className="h-[81.5%]">
             <Outlet />
           </div>
           <div className="h-[13%]">

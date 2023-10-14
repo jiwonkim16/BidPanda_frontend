@@ -96,6 +96,7 @@ const Mypage = () => {
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
+            window.location.reload();
           }
         })
         .catch((error) => {

@@ -51,7 +51,7 @@ function Header() {
             logout
           </button>
           <img
-            className="w-[35px] h-[35px] ml-2 cursor-pointer rounded-full shadow-md"
+            className="w-[35px] h-[35px] ml-2 cursor-pointer rounded-full object-cover shadow-md"
             src={profileImage}
             alt="mypage&profile"
             onClick={() => navigate("/mypage")}

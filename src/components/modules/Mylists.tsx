@@ -55,7 +55,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] w-[170px] h-[200px] mt-5 mr-2 flex flex-wrap">
+      <div className="rounded-[15px] w-[180px] h-[240px] mt-5 mr-2 flex flex-wrap">
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
@@ -63,18 +63,18 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
           >
             <Link to={`/items/detail/${item.id}`}>
               <img
-                className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
+                className="p-3 rounded-lg w-[170px] h-[130px] object-cover"
                 src={item.itemImages[0]}
                 alt="product image"
               />
             </Link>
-            <div className="px-5 pb-2">
+            <div className="px-4">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-lg font-bold text-gray-900 dark:text-white">
                   {item.title}
                 </h5>
               </Link>
-              <div className="flex items-center mt-2 mb-2">
+              <div className="flex items-center mt-1 mb-1">
                 <span>
                   <CountdownTimer
                     endTime={item.auctionEndTime}

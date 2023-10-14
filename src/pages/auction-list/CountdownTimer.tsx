@@ -40,8 +40,8 @@ function CountdownTimer({ endTime, bidCount }: any) {
       <div>
         {remainingTime !== 0 ? (
           <>
-            <div className="flex flex-row w-[75px] items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
-              <div className="bg-green-500 w-[12px] h-[12px] shadow rounded-full mr-1" />
+            <div className="flex flex-row w-[67px] text-sm items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
+              <div className="bg-green-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
               <div>진행중</div>
             </div>
             {duration.hours() <= 12 ? (
@@ -56,12 +56,12 @@ function CountdownTimer({ endTime, bidCount }: any) {
           </>
         ) : bidCount === 0 ? (
           <div className="flex flex-row items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
-            <div className="bg-red-500 w-[12px] h-[12px] shadow rounded-full mr-1" />
+            <div className="bg-red-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>유찰</span>
           </div>
         ) : (
           <div className="flex flex-row items-center px-2 bg-gray-100 text-gray-600  p-1 rounded font-semibold">
-            <div className="bg-blue-500 w-[12px] h-[12px] shadow rounded-full mr-1" />
+            <div className="bg-blue-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>낙찰</span>
           </div>
         )}

@@ -22,7 +22,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: Items) => (
         <div
           key={item.id}
-          className="w-[170px] h-[220px] bg-white border border-gray-200 mt-3 mr-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
