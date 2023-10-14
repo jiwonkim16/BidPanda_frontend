@@ -8,6 +8,7 @@ import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
 import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
 import { useQuery } from "react-query";
 import { auctionDetail } from "../../apis/auction-detail/AuctionDetail";
+import { auctionStatus } from "../../atoms/auctionStatus";
 
 interface IForm {
   title: string;
@@ -133,6 +134,9 @@ function ModifierProduct() {
       }
     }
   };
+
+  const status = useRecoilValue(auctionStatus);
+  console.log(status);
 
   return (
     <>

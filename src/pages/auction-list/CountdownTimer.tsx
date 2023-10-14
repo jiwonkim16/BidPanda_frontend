@@ -18,7 +18,7 @@ function CountdownTimer({ endTime, bidCount }: any) {
       const newRemainingTime = Math.max(end.diff(moment()), 0);
       setRemainingTime(newRemainingTime);
 
-      if (newRemainingTime <= 0) {
+      if (newRemainingTime === 0) {
         setProgress(false);
       }
     }, 1000);

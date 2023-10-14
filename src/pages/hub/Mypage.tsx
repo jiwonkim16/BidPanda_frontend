@@ -38,7 +38,7 @@ const Mypage = () => {
   useEffect(() => {
     setIsLoading(true);
     getUserInfoApi().then((data) => {
-      setUserData(data);
+      setUserData(data.data);
       setProfileImages(data.profileImageUrl);
       setIsLoading(false);
     });

@@ -8,6 +8,9 @@ import {
 } from "../../apis/auction-detail/AuctionDetail";
 import CountdownTimer from "../auction-list/CountdownTimer";
 import { toast } from "react-toastify";
+import { useRecoilValue } from "recoil";
+import { auctionStatus } from "../../atoms/auctionStatus";
+import jwtDecode from "jwt-decode";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -19,6 +22,10 @@ interface IAuctionDetail {
   minBidPrice: number;
   presentPrice: number;
   title: string;
+}
+
+interface IDecodeToken {
+  nickname: string;
 }
 
 function AuctionDetail() {
@@ -68,6 +75,13 @@ function AuctionDetail() {
       }
     }
   };
+  const status = useRecoilValue(auctionStatus);
+  console.log(status);
+
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   return (
     <>
@@ -132,6 +146,11 @@ function AuctionDetail() {
                 >
                   찜!하기
                 </button>
+                {userNickname === detailItem.nickname && !status ? (
+                  <Link to={`/items/modifier/${itemId}`}>
+                    <button>수정하기</button>
+                  </Link>
+                ) : null}
               </div>
             </div>
           </div>
