@@ -15,13 +15,14 @@ const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
           </button>
         </div>
       </Link>
-      <Link to="/">
+      <Link to="/keyword">
         <div onClick={onClick}>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
-            채팅
+            검색
           </button>
         </div>
       </Link>
+
       <Link to="items/register">
         <div onClick={onClick}>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
@@ -29,10 +30,10 @@ const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
           </button>
         </div>
       </Link>
-      <Link to="/keyword">
+      <Link to="/chat">
         <div onClick={onClick}>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
-            검색
+            채팅
           </button>
         </div>
       </Link>

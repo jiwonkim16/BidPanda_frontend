@@ -35,7 +35,7 @@ const Login = () => {
     }
   };
 
-  const kakaoLogin = () => {
+  const kakaoLogin: any = () => {
     const REST_API_KEY = "fbc4abc5fd980187c0270233cea954bc";
     const REDIRECT_URI = "http://localhost:5173/kakao";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
