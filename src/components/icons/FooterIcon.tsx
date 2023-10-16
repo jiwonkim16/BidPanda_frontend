@@ -1,22 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { Link, useNavigate } from "react-router-dom";
 
-interface FooterIconProps {
-  onClick?: () => void;
+interface IDecodeToken {
+  nickname: string;
 }
 
-const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
+const FooterIcon = () => {
+  const navigate = useNavigate();
+
+  // // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
+
+  const onClick = () => {
+    const nickname = userNickname;
+    navigate(`/chattingList/${nickname}`);
+  };
   return (
     <div className="bg-white flex justify-center w-[100%]  p-4">
       <Link to="/">
-        <div onClick={onClick}>
+        <div>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
             홈
           </button>
         </div>
       </Link>
       <Link to="/keyword">
-        <div onClick={onClick}>
+        <div>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
             검색
           </button>
@@ -24,19 +35,17 @@ const FooterIcon: React.FC<FooterIconProps> = ({ onClick }) => {
       </Link>
 
       <Link to="items/register">
-        <div onClick={onClick}>
+        <div>
           <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
             경매품 등록
           </button>
         </div>
       </Link>
-      <Link to="/chat">
-        <div onClick={onClick}>
-          <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
-            채팅
-          </button>
-        </div>
-      </Link>
+      <div onClick={onClick}>
+        <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
+          채팅
+        </button>
+      </div>
     </div>
   );
 };
