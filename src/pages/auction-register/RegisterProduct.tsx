@@ -94,6 +94,8 @@ function RegisterProduct() {
         // 리스트 페이지로 이동
         navigate("/items/list");
         reset();
+      } else {
+        toast.error("이미지를 첨부해주세요~");
       }
     }
   };
