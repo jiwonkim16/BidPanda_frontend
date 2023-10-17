@@ -14,6 +14,8 @@ import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
 import AuctionCard from "./pages/auction-list/AuctionCard";
 import Kakao from "./components/modules/Kakao";
+import ChattingList from "./pages/chat/ChattingList";
+import ChattingRoom from "./pages/chat/ChattingRoom";
 
 /**
  * @author : Jiwon Kim
@@ -73,6 +75,14 @@ const router = createBrowserRouter([
       {
         path: "items/list/:category",
         element: <AuctionCard />,
+      },
+      {
+        path: "chattingList/:nickname",
+        element: <ChattingList />,
+      },
+      {
+        path: "chattingRoom/:item_id",
+        element: <ChattingRoom />,
       },
     ],
     errorElement: <NotFound />,

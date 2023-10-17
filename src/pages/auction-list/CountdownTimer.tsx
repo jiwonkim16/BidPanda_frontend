@@ -44,7 +44,7 @@ function CountdownTimer({ endTime, bidCount }: any) {
               <div className="bg-green-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
               <div>진행중</div>
             </div>
-            {duration.hours() <= 12 ? (
+            {duration.hours() <= 12 && days <= 0 ? (
               <div className="bg-gray-100 text-red-500  p-1 mt-1 text-sm rounded font-semibold">
                 {format}
               </div>
