@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { getTopTenListApi } from "../../apis/auction-list/TopTenList";
-import Categories from "../../components/modules/Categories";
 import ItemCards from "../../components/modules/ItemCards";
+const Categories = React.lazy(
+  () => import("../../components/modules/Categories")
+);
 
 /**
  * @author : Goya Gim
@@ -25,7 +27,9 @@ const Main = () => {
     <>
       <nav className="bg-gray-200 w-[390px] h-[210px]"></nav>
       <div className="flex justify-center mt-[13px] flex-wrap">
-        <Categories />
+        <Suspense>
+          <Categories />
+        </Suspense>
       </div>
       <div className="flex flex-col justify-left mt-4 ml-5 flex-wrap font-bold text-gray-700">
         최고 낙찰가 상품
