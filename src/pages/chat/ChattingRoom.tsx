@@ -1,41 +1,36 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import SockJS from "sockjs-client";
+import { profileImageState } from "./../../atoms/profileImage";
 import * as Stomp from "stompjs";
 
+interface IDecodeToken {
+  nickname: string;
+}
 function ChattingRoom() {
-  const [record_id, setRecord_id] = useState("");
-  const [message, setMessage] = useState("");
+  const [inputMessage, setInputMessage] = useState("");
+  const [record_id, setRecordId] = useState<string | null>("");
   const [receive, setRecive] = useState([]);
-  console.log(receive);
-  let sock;
-  let ws: any;
+  const [history, setHistory] = useState();
+  const profileImage = useRecoilValue(profileImageState);
+  console.log(history, receive);
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.currentTarget.value);
-  };
-
-  const sendMessage = () => {
-    ws.send(
-      "/app/chat/message",
-      {},
-      JSON.stringify({ type: "TEXT", record_id, message })
-    );
-    setMessage("");
-  };
-
-  const receiveMessage = (recv: any) => {
-    setRecive(recv);
-  };
+  let stomp_client: any;
 
   useEffect(() => {
-    setRecord_id(localStorage.getItem("record_id") || "");
+    const recordId = localStorage.getItem("record_id");
+    setRecordId(recordId);
     const chatHistory = async () => {
       try {
         const response = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_API_KEY
-          }/api/chat/rooms/${record_id}/messages`,
+          `${import.meta.env.VITE_REACT_API_KEY}
+api/chat/rooms/${recordId}/messages`,
           {
             headers: {
               Authorization: localStorage.getItem("authorization"),
@@ -46,6 +41,7 @@ function ChattingRoom() {
           }
         );
         console.log(response);
+        setHistory(response.data);
         connectWebSocket();
       } catch (error) {
         console.log(error);
@@ -54,35 +50,61 @@ function ChattingRoom() {
     chatHistory();
   }, []);
 
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputMessage(event.currentTarget.value);
+  };
+
+  const sendMessage = () => {
+    stomp_client?.send(
+      "/app/chat/message",
+      {},
+      JSON.stringify({ type: "TEXT", record_id, content: inputMessage })
+    );
+    setInputMessage("");
+  };
+
+  const receiveMessage = (recv: any) => {
+    setRecive(recv);
+  };
+
   const connectWebSocket = () => {
-    sock = new SockJS("/ws/chat");
-    ws = Stomp.over(sock);
+    let sock = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
+    stomp_client = Stomp.over(sock);
 
-    ws.connect({}, () => {
-      ws.subscribe(`/topic/chat/room/${record_id}`, (message: any) => {
-        console.log("구독 후 콜백함수 실행", message);
-        const recv = JSON.parse(message.body);
-        receiveMessage(recv);
-      });
+    stomp_client.connect({}, () => {
+      stomp_client.subscribe(
+        `/topic/chat/room/${record_id}`,
+        (message: any) => {
+          console.log("구독 후 콜백함수 실행", message);
+          const recv = JSON.parse(message.body);
+          receiveMessage(recv);
+        }
+      );
 
-      ws.send(
+      stomp_client.send(
         `/app/chat/message`,
         {},
-        JSON.stringify({ type: "ENTER", record_id, message })
+        JSON.stringify({
+          type: "ENTER",
+          record_id,
+          nickname: userNickname,
+          profileURL: profileImage,
+        })
       );
     });
   };
   return (
     <>
       <div>
-        {/* 말풍선 */}
+        {/* <div>과거 채팅 기록</div> */}
+        {receive}
         <div>{/* {receive.map(()=><li></li>)} 받은 메세지*/}</div>
         <div>{/* 내가 보낸 메세지*/}</div>
         <div>
           <input
             type="text"
             placeholder="내용을 입력하세요"
-            value={message}
+            value={inputMessage}
             onChange={onChange}
           />
           <button onClick={sendMessage}>보내기</button>

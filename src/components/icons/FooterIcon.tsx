@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface IDecodeToken {
   nickname: string;
@@ -14,6 +15,12 @@ const FooterIcon = () => {
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   const onClick = () => {
+    const accessToken = localStorage.getItem("authorization");
+    if (!accessToken) {
+      toast.error("로그인 후 이용가능합니다.");
+      navigate("/login");
+      return;
+    }
     const nickname = userNickname;
     navigate(`/chattingList/${nickname}`);
   };
