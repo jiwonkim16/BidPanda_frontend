@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 채팅방 조회
-export const chattingList = async () => {
+export const chattingListApi = async () => {
   try {
     const response = await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/chat/rooms`,

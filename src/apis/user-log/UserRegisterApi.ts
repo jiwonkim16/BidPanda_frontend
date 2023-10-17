@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import axios from "axios";
 
 const config = {
@@ -24,10 +23,9 @@ export const userRegisterApi = async (data: UserRegisterData) => {
       `${import.meta.env.VITE_REACT_API_KEY}/api/members`,
       data
     );
-    toast.success("회원가입에 성공하였습니다.");
     return res;
   } catch (error) {
-    toast.error("회원가입 기능에 문제가 있습니다. 잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };
 
@@ -75,7 +73,6 @@ export const checkValidateCodeApi = async (data: {
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email/verify`,
       { authKey: data.code, email: data.email }
     );
-    toast.success("이메일 인증에 성공하였습니다.");
   } catch (error) {
     console.error(error);
   }

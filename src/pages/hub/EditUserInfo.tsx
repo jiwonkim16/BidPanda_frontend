@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { editUserInfoApi } from "../../apis/user-mypage/UserEditApi";
+import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
@@ -19,6 +20,7 @@ const EditUserInfo = () => {
   const formToRegister = async (data: any) => {
     try {
       await editUserInfoApi(data);
+      toast.success("회원정보가 정상적으로 수정 되었습니다.");
       navigate("/mypage");
     } catch (error) {
       console.error(error);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { getTopTenListApi } from "../../apis/auction-list/TopTenList";
+import Loading from "../../components/assets/Loading";
 import ItemCards from "../../components/modules/ItemCards";
 const Categories = React.lazy(
   () => import("../../components/modules/Categories")
@@ -27,7 +28,7 @@ const Main = () => {
     <>
       <nav className="bg-gray-200 w-[390px] h-[210px]"></nav>
       <div className="flex justify-center mt-[13px] flex-wrap">
-        <Suspense>
+        <Suspense fallback={<Loading />}>
           <Categories />
         </Suspense>
       </div>

@@ -1,7 +1,12 @@
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { chattingList, enterChattingRoom } from "../../apis/chat/ChattingList";
+import {
+  chattingListApi,
+  enterChattingRoom,
+} from "../../apis/chat/ChattingListApi";
 import { toast } from "react-toastify";
+import Loading from "../../components/assets/Loading";
+import jwtDecode from "jwt-decode";
 
 interface IChatList {
   itemId: number;
@@ -10,7 +15,17 @@ interface IChatList {
   title: string;
 }
 
+/**
+ * @author : Jiwon Kim, Goya Gim
+ * @returns :
+ */
+
 function ChattingList() {
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
+
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery("chattingRoom", chattingList);
@@ -35,7 +50,9 @@ function ChattingList() {
   return (
     <>
       {isLoading ? (
-        <div>Loading....</div>
+        <>
+          <Loading />
+        </>
       ) : (
         <div className="h-[100%]">
           <div>
