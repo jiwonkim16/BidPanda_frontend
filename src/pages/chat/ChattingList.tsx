@@ -2,71 +2,61 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { chattingList, enterChattingRoom } from "../../apis/chat/ChattingList";
 import { toast } from "react-toastify";
-import jwtDecode from "jwt-decode";
 
-// interface IChattingList {
-//   my: {
-//     nickname: string;
-//   };
-//   opened: {
-//     title: string;
-//     item_id: number;
-//     partner: string;
-//     record_id: string;
-//   }[];
-//   not_opened: {
-//     title: string;
-//     item_id: number;
-//   }[];
-// }
-interface IDecodeToken {
-  nickname: string;
+interface IChatList {
+  itemId: number;
+  partner: string;
+  recordId: string;
+  title: string;
 }
 
 function ChattingList() {
-  // jwt 디코딩
-  const token: string | null = localStorage.getItem("authorization");
-  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
-  const userNickname: string = decodedToken ? decodedToken.nickname : "";
-
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery("chattingRoom", () =>
-    chattingList(userNickname)
-  );
-  const item_id = data.not_opened.item_id;
+  const { data, isLoading } = useQuery("chattingRoom", chattingList);
+  console.log(data);
 
   // 채팅방 입장
-  const enterChat = async () => {
-    const response = await enterChattingRoom(item_id);
-    if (response === 200) {
-      localStorage.setItem("record_id", response.record_id);
+  const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const itemId = Number(event.currentTarget.value);
+    console.log(itemId);
+
+    const response = await enterChattingRoom(itemId);
+    console.log(response);
+
+    if (response?.status === 200) {
+      localStorage.setItem("record_id", response?.data.recordId);
       toast.success("채팅방 입장");
-      navigate(`/chattingRoom/${item_id}`);
+      navigate(`/chattingRoom/${itemId}`);
+    } else {
+      toast.error("해당 상품이 존재하지 않습니다..");
     }
   };
   return (
-    <div>
+    <>
       {isLoading ? (
-        <div>Loading.....</div>
+        <div>Loading....</div>
       ) : (
-        <>
+        <div className="h-[100%]">
           <div>
             <h3>채팅방 리스트</h3>
           </div>
           <div>
-            {/* 1. 진행 중인 채팅방 : 아이템 title, 파트너
-        2. 비활 채팅방 : 아이템 title, 파트너(파트너가 없음..ㅠ) */}
-            {/* 활성 / 비활성 따로 배열을 map으로.. */}
-
-            <div onClick={enterChat}>
-              <div>{data?.opened[0].title}</div>
-              <div>{data?.opened[0].partner}</div>
+            <div>
+              {data?.map((item: IChatList) => (
+                <div key={item.itemId}>
+                  <span>{item.title}</span>
+                  <span>{item.partner}</span>
+                  <button onClick={enterChat} value={item.itemId}>
+                    입장하기
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
