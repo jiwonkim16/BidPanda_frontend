@@ -1,33 +1,52 @@
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { chattingList, enterChattingRoom } from "../../apis/chat/ChattingList";
+import {
+  chattingListApi,
+  enterChattingRoom,
+} from "../../apis/chat/ChattingListApi";
 import { toast } from "react-toastify";
+import Loading from "../../components/assets/Loading";
+import jwtDecode from "jwt-decode";
 
-interface IChattingList {
-  my: {
-    nickname: string;
-  };
-  opened: {
-    title: string;
-    item_id: number;
-    partner: string;
-    record_id: string;
-  }[];
-  not_opened: {
-    title: string;
-    item_id: number;
-  }[];
+// interface IChattingList {
+//   my: {
+//     nickname: string;
+//   };
+//   opened: {
+//     title: string;
+//     item_id: number;
+//     partner: string;
+//     record_id: string;
+//   }[];
+//   not_opened: {
+//     title: string;
+//     item_id: number;
+//   }[];
+// }
+interface IDecodeToken {
+  nickname: string;
 }
 
+/**
+ * @author : Jiwon Kim, Goya Gim
+ * @returns :
+ */
+
 function ChattingList() {
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
+
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery("chattingRoom", chattingList);
-  const item_id = data.not_opened.item_id;
+
+  const { data, isLoading } = useQuery("chattingRoom", () => chattingListApi());
+  const item_id = data.opened.item_id;
 
   // 채팅방 입장
   const enterChat = async () => {
     const response = await enterChattingRoom(item_id);
-    if (response === 201) {
+    if (response === 200) {
       localStorage.setItem("record_id", response.record_id);
       toast.success("채팅방 입장");
       navigate(`/chattingRoom/${item_id}`);
@@ -36,7 +55,9 @@ function ChattingList() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading.....</div>
+        <>
+          <Loading />
+        </>
       ) : (
         <>
           <div>

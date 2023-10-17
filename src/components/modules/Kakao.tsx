@@ -31,9 +31,10 @@ const Kakao = () => {
         if (res.status === 200) {
           toast.success("카카오 계정을 통해 로그인 되었습니다.");
           localStorage.setItem("authorization", res.headers.authorization);
-          //  localStorage.setItem("authorization_refresh", refreshToken);
+
           navigate("/");
         }
+        window.location.reload();
       } catch (error) {
         toast.error("카카오 로그인에 문제가 생겼습니다.");
       }

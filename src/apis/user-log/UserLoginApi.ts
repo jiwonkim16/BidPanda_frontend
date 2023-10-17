@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const config = {
   withCredentials: true,
@@ -23,9 +22,8 @@ export const loginApi = async (data: UserLoginData) => {
       data,
       config
     );
-    toast.success("로그인에 성공하였습니다.");
     return res;
   } catch (error) {
-    toast.error("로그인에 실패했습니다.");
+    console.error(error);
   }
 };

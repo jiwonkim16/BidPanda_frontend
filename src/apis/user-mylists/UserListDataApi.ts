@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import axios from "axios";
 
 /**
@@ -19,7 +18,7 @@ export const getLikedListApi = async () => {
     );
     return res.data;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };
 
@@ -37,7 +36,7 @@ export const getBidListApi = async () => {
 
     return res.data;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };
 
@@ -55,6 +54,6 @@ export const getPostedListApi = async () => {
 
     return res.data;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };

@@ -1,24 +1,28 @@
 import axios from "axios";
 
-interface IChattingList {
-  my: {
-    nickname: string;
-  };
-  opened: {
-    title: string;
-    item_id: number;
-    partner: string;
-    record_id: string;
-  }[];
-  not_opened: {
-    title: string;
-    item_id: number;
-  }[];
-}
+// interface IChattingList {
+//   my: {
+//     nickname: string;
+//   };
+//   opened: {
+//     title: string;
+//     item_id: number;
+//     partner: string;
+//     record_id: string;
+//   }[];
+//   not_opened: {
+//     title: string;
+//     item_id: number;
+//   }[];
+// }
 
-// /api/chat/rooms?user={seller|winner}
+/**
+ * @author : Jiwon Kim
+ * @returns
+ */
+
 // 채팅방 조회
-export const chattingList = async () => {
+export const chattingListApi = async () => {
   try {
     const response = await axios.get(
       `${
@@ -33,13 +37,12 @@ export const chattingList = async () => {
     );
     return response.data;
   } catch (error) {
-    // console.log(error)
+    console.error(error);
   }
 };
 
-// /api/chat/room
 // 채팅방 입장
-export const enterChattingRoom = async (item_id) => {
+export const enterChattingRoom = async (item_id: string) => {
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/chat/room`,
@@ -53,6 +56,6 @@ export const enterChattingRoom = async (item_id) => {
     );
     return response.data;
   } catch (error) {
-    // console.log(error)
+    console.error(error);
   }
 };

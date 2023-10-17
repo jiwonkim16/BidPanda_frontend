@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CountdownTimer from "../../pages/auction-list/CountdownTimer";
+import { memo } from "react";
 
 interface Items {
   auctionEndTime: string;
@@ -57,4 +58,4 @@ const ItemCards = ({ topItems }: TopItemProps) => {
   );
 };
 
-export default ItemCards;
+export default memo(ItemCards);

@@ -50,6 +50,9 @@ const RegisterUser = () => {
     const codeData = { code: valCode, email: valEmail };
     await checkValidateCodeApi(codeData);
     setIsValCodeSent(true);
+    if (isValCodeSent) {
+      toast.success("이메일 인증에 성공하였습니다.");
+    }
   };
 
   /**
@@ -72,7 +75,12 @@ const RegisterUser = () => {
       return;
     }
     await userRegisterApi(data);
-    navigate("/login");
+    if (data) {
+      toast.success("회원가입에 성공하였습니다.");
+      navigate("/login");
+    } else {
+      toast.error("회원가입에 실패 했습니다.");
+    }
   };
 
   return (

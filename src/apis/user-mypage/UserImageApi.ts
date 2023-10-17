@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
@@ -20,6 +19,6 @@ export const profileImageApi = async (data: any) => {
     );
     return res;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };

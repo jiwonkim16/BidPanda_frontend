@@ -71,6 +71,7 @@ const Mypage = () => {
   const handleUserDelete = async () => {
     if (isToken) {
       await userDeleteApi();
+      toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
       navigate("/");
       removeToken();
     }
@@ -133,7 +134,7 @@ const Mypage = () => {
                     </>
                   )}
                   <div>
-                    <div className="ml-2">
+                    <div className="ml-[10px]">
                       {userData && (
                         <>
                           <p>{userData ? userData.nickname : null}</p>
