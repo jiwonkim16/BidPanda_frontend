@@ -21,32 +21,31 @@ function ChattingRoom() {
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   // let stompClient: any;
+  const chatHistory = async () => {
+    try {
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_API_KEY
+        }/api/chat/rooms/${record_id}/messages`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("authorization"),
+            Authorization_Refresh: localStorage.getItem(
+              "authorization_refresh"
+            ),
+          },
+        }
+      );
+      setHistory(response.data);
+      connectWebSocket();
+    } catch (error) {
+      console.log("에러러러러러");
+    }
+  };
 
   useEffect(() => {
     const recordId = localStorage.getItem("record_id");
     setRecordId(recordId);
-    const chatHistory = async () => {
-      try {
-        const response = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_API_KEY
-          }/api/chat/rooms/${recordId}/messages`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("authorization"),
-              Authorization_Refresh: localStorage.getItem(
-                "authorization_refresh"
-              ),
-            },
-          }
-        );
-        setHistory(response.data);
-
-        connectWebSocket();
-      } catch (error) {
-        console.log("에러러러러러");
-      }
-    };
     chatHistory();
   }, []);
 
@@ -84,22 +83,17 @@ function ChattingRoom() {
   };
 
   const sendMessage = () => {
-
-    if (stompClient) {
-      stompClient.send(
-        `/app/chat/message`,
-        {},
-        JSON.stringify({
-          type: "TEXT",
-          record_id,
-          content: inputMessage,
-          sender: userNickname,
-        })
-      );
-      setInputMessage("");
-    } else {
-      console.log("에러이러밍러ㅣㅁㄴ러ㅣㅇㅁ널");
-    }
+    stompClient.send(
+      `/app/chat/message`,
+      {},
+      JSON.stringify({
+        type: "TEXT",
+        record_id,
+        content: inputMessage,
+        sender: userNickname,
+      })
+    );
+    setInputMessage("");
   };
 
   const receiveMessage = (recv: any) => {
@@ -109,7 +103,6 @@ function ChattingRoom() {
     <>
       <div>
         <div>
-
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
@@ -124,7 +117,6 @@ function ChattingRoom() {
                 </div>
               )}
             </div>
-
           ))}
         </div>
         <div>{inputMessage}</div>
