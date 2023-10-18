@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import SockJS from "sockjs-client";
 import { profileImageState } from "./../../atoms/profileImage";
-import * as Stomp from "stompjs";
+import { Stomp } from "@stomp/stompjs";
 
 interface IDecodeToken {
   nickname: string;
@@ -15,13 +15,13 @@ function ChattingRoom() {
   const [receive, setRecive] = useState([]);
   const [history, setHistory] = useState();
   const profileImage = useRecoilValue(profileImageState);
-  console.log(history, receive);
+
   // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
-  let stomp_client: any;
+  let stompClient: any;
 
   useEffect(() => {
     const recordId = localStorage.getItem("record_id");
@@ -29,8 +29,9 @@ function ChattingRoom() {
     const chatHistory = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_REACT_API_KEY}
-api/chat/rooms/${recordId}/messages`,
+          `${
+            import.meta.env.VITE_REACT_API_KEY
+          }/api/chat/rooms/${recordId}/messages`,
           {
             headers: {
               Authorization: localStorage.getItem("authorization"),
@@ -40,11 +41,10 @@ api/chat/rooms/${recordId}/messages`,
             },
           }
         );
-        console.log(response);
         setHistory(response.data);
         connectWebSocket();
       } catch (error) {
-        console.log(error);
+        console.log("에러러러러러");
       }
     };
     chatHistory();
@@ -55,7 +55,7 @@ api/chat/rooms/${recordId}/messages`,
   };
 
   const sendMessage = () => {
-    stomp_client?.send(
+    stompClient?.send(
       "/app/chat/message",
       {},
       JSON.stringify({ type: "TEXT", record_id, content: inputMessage })
@@ -68,20 +68,18 @@ api/chat/rooms/${recordId}/messages`,
   };
 
   const connectWebSocket = () => {
-    let sock = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
-    stomp_client = Stomp.over(sock);
+    const socket = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
+    stompClient = Stomp.over(() => socket);
 
-    stomp_client.connect({}, () => {
-      stomp_client.subscribe(
-        `/topic/chat/room/${record_id}`,
-        (message: any) => {
-          console.log("구독 후 콜백함수 실행", message);
-          const recv = JSON.parse(message.body);
-          receiveMessage(recv);
-        }
-      );
+    stompClient.connect({}, (frame: any) => {
+      console.log("연결 성공", frame);
+      stompClient.subscribe(`/topic/chat/room/${record_id}`, (message: any) => {
+        console.log("구독 후 콜백함수 실행", message);
+        const recv = JSON.parse(message.body);
+        receiveMessage(recv);
+      });
 
-      stomp_client.send(
+      stompClient.send(
         `/app/chat/message`,
         {},
         JSON.stringify({
@@ -98,7 +96,11 @@ api/chat/rooms/${recordId}/messages`,
       <div>
         {/* <div>과거 채팅 기록</div> */}
         {receive}
-        <div>{/* {receive.map(()=><li></li>)} 받은 메세지*/}</div>
+        <div>
+          {receive.map((item) => (
+            <li>{item}</li>
+          ))}
+        </div>
         <div>{/* 내가 보낸 메세지*/}</div>
         <div>
           <input
