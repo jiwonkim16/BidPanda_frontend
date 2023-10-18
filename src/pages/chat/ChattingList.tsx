@@ -53,13 +53,18 @@ function ChattingList() {
             <h3>채팅방 리스트</h3>
           </div>
           <div>
-            <div>
+            <div className="flex flex-col justify-center items-center">
               {data?.map((item: IChatList) => (
-                <div key={item.itemId}>
-                  <span>{item.title}</span>
-                  <span>{item.partner}</span>
+                <div
+                  key={item.itemId}
+                  className="w-[370px] h-[100px] p-3 py-7 mb-2 bg-white rounded-lg shadow-md"
+                >
+                  <div>
+                    <span>{item.partner}</span>
+                    <span className="font-bold text-lg ml-2">{item.title}</span>
+                  </div>
                   <button onClick={enterChat} value={item.itemId}>
-                    입장하기
+                    ▶︎ Enter
                   </button>
                 </div>
               ))}

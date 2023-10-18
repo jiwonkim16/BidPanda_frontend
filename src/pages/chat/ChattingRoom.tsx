@@ -84,6 +84,7 @@ function ChattingRoom() {
   };
 
   const sendMessage = () => {
+
     if (stompClient) {
       stompClient.send(
         `/app/chat/message`,
@@ -108,6 +109,7 @@ function ChattingRoom() {
     <>
       <div>
         <div>
+
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
@@ -122,12 +124,14 @@ function ChattingRoom() {
                 </div>
               )}
             </div>
+
           ))}
         </div>
         <div>{inputMessage}</div>
         <div>
           <input
             type="text"
+            id="chat"
             placeholder="내용을 입력하세요"
             value={inputMessage}
             onChange={onChange}

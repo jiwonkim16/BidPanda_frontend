@@ -88,6 +88,7 @@ function AuctionList() {
           ))}
         </div>
         {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
+
         {auctionItem &&
           auctionItem.map((item) => (
             <div

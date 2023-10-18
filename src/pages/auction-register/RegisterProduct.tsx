@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
+import { category } from "../../atoms/category";
 import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
 import { useNavigate } from "react-router";
 
@@ -17,6 +18,7 @@ interface IForm {
 }
 
 function RegisterProduct() {
+  const selectCategory = useRecoilValue(category);
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
@@ -163,12 +165,13 @@ function RegisterProduct() {
               required: "경매 마감기한 설정은 필수입니다.",
             })}
             type="range"
+            id="dueDate"
             min="1"
             max="5"
             className="mt-2"
           />
 
-          <span className="text-red-500">
+          <span className="text-red-500 font-semibold text-[14px]">
             {errors.deadline?.message as string}
           </span>
         </div>
@@ -179,22 +182,29 @@ function RegisterProduct() {
               key={index}
               value={item}
               onClick={onClickCategory}
-              className="flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
+              className={`${
+                selectCategory === item
+                  ? "flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
+                  : "flex-row rounded-md m-0.5 mt-3 p-1 bg-gray-700 w-[40px] font-semibold cursor-pointer text-white"
+              } text-white`}
             >
               {item}
             </button>
           ))}
         </div>
-        <span className="text-red-500">
+        <span className="text-red-500 font-semibold text-[14px]">
           {errors.category?.message as string}
         </span>
         <input
           {...register("title", { required: "제품명은 필수입니다." })}
           type="text"
+          id="title"
           placeholder=" 상품 이름"
           className="w-[350px] h-[35px] border-2 rounded-lg mt-3 mb-2"
         />
-        <span className="text-red-500">{errors.title?.message as string}</span>
+        <span className="text-red-500 font-semibold text-[14px]">
+          {errors.title?.message as string}
+        </span>
         <div className="flex flex-row">
           <input
             {...register("startPrice", {
@@ -202,6 +212,7 @@ function RegisterProduct() {
               min: { message: "최소 경매가는 1원입니다.", value: "1" },
             })}
             type="number"
+            id="valueForStart"
             placeholder=" 경매 시작가"
             className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
           />
@@ -211,13 +222,14 @@ function RegisterProduct() {
               min: { message: "최소 단위는 1원입니다.", value: "1" },
             })}
             type="number"
+            id="valuePerBid"
             placeholder=" 경매가 단위"
             className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
           />
-          <span className="text-red-500">
-            {errors.startPrice?.message as string}
-          </span>
         </div>
+        <span className="text-red-500 font-semibold text-[14px]">
+          {errors.startPrice?.message as string}
+        </span>
         <span className="font-semibold text-[14px]">
           상품 설명을 부탁드립니다. 최소 10자 이상 작성해야 합니다.
         </span>
@@ -230,9 +242,10 @@ function RegisterProduct() {
             },
           })}
           type="text"
+          id="desc"
           className="w-[350px] h-[105px] border-2 rounded-lg mt-2 mb-2"
         />
-        <span className="text-red-500">
+        <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
         </span>
         <button className="w-[165px] h-[40px] bg-gray-800 text-white font-semibold rounded-lg mt-5 mr-2 ">
