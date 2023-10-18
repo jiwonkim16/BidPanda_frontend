@@ -21,31 +21,31 @@ function ChattingRoom() {
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   // let stompClient: any;
-  const chatHistory = async () => {
-    try {
-      const response = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_API_KEY
-        }/api/chat/rooms/${record_id}/messages`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("authorization"),
-            Authorization_Refresh: localStorage.getItem(
-              "authorization_refresh"
-            ),
-          },
-        }
-      );
-      setHistory(response.data);
-      connectWebSocket();
-    } catch (error) {
-      console.log("에러러러러러");
-    }
-  };
 
   useEffect(() => {
     const recordId = localStorage.getItem("record_id");
     setRecordId(recordId);
+    const chatHistory = async () => {
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_REACT_API_KEY
+          }/api/chat/rooms/${recordId}/messages`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("authorization"),
+              Authorization_Refresh: localStorage.getItem(
+                "authorization_refresh"
+              ),
+            },
+          }
+        );
+        setHistory(response.data);
+        connectWebSocket();
+      } catch (error) {
+        console.log("에러러러러러");
+      }
+    };
     chatHistory();
   }, []);
 
