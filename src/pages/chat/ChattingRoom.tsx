@@ -9,6 +9,7 @@ import { Stomp } from "@stomp/stompjs";
 interface IDecodeToken {
   nickname: string;
 }
+
 function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
   const [record_id, setRecordId] = useState<string | null>("");
@@ -20,13 +21,13 @@ function ChattingRoom() {
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
-  // let stompClient: any;
-
   useEffect(() => {
+    console.log("렌더렌더렌더");
     const recordId = localStorage.getItem("record_id");
     setRecordId(recordId);
     const chatHistory = async () => {
       try {
+        console.log("데이터 불러오기!!");
         const response = await axios.get(
           `${
             import.meta.env.VITE_REACT_API_KEY
@@ -47,48 +48,74 @@ function ChattingRoom() {
       }
     };
     chatHistory();
+    return () => {
+      // 컴포넌트 언마운트 시 stompClient 연결 해제
+      if (stompClient) {
+        stompClient.disconnect();
+      }
+    };
   }, []);
+
+  // subscribe 프레임 2번째 인자......
+  const getMessageCallback = (message: any) => {
+    try {
+      console.log("구독 후 콜백함수 실행", message);
+      const recv = JSON.parse(message.body);
+      console.log("recv", recv);
+      receiveMessage(recv);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const connectWebSocket = () => {
     const socket = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
-    const stompClient = Stomp.over(() => socket);
-    setStompClient(stompClient);
-
-    stompClient.connect({}, (frame: any) => {
+    const newStompClient = Stomp.over(() => socket);
+    newStompClient.onStompError = (frame: any) => {
+      console.error("웹소켓 오류:", frame);
+      // 오류 처리, 예를 들어 다시 연결 시도
+    };
+    newStompClient.connect({}, (frame: any) => {
       console.log("연결 성공", frame);
-      stompClient.subscribe(`/topic/chat/room/${record_id}`, (message: any) => {
-        try {
-          console.log("구독 후 콜백함수 실행", message);
-          const recv = JSON.parse(message.body);
-          receiveMessage(recv);
-        } catch (error) {
-          console.log(error);
-        }
-      });
+      newStompClient.subscribe(
+        `/topic/chat/room/${record_id}`,
+        getMessageCallback
+      );
 
-      stompClient.send(
+      newStompClient.send(
         `/app/chat/message`,
         {},
         JSON.stringify({
           type: "ENTER",
-          record_id,
+          record_id: record_id,
           nickname: userNickname,
           profileURL: profileImage,
         })
       );
+      setStompClient(newStompClient);
     });
   };
+
+  const receiveMessage = (recv: any) => {
+    setHistory((prev) => [...prev, recv]);
+  };
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(event.currentTarget.value);
   };
 
   const sendMessage = () => {
+    stompClient.onStompError = (frame: any) => {
+      console.error("웹소켓 오류:", frame);
+      // 오류 처리, 예를 들어 다시 연결 시도
+    };
+    console.log(stompClient);
     stompClient.send(
       `/app/chat/message`,
       {},
       JSON.stringify({
         type: "TEXT",
-        record_id,
+        record_id: record_id,
         content: inputMessage,
         sender: userNickname,
       })
@@ -96,9 +123,6 @@ function ChattingRoom() {
     setInputMessage("");
   };
 
-  const receiveMessage = (recv: any) => {
-    setHistory((prev) => [...prev, recv]);
-  };
   return (
     <>
       <div>
@@ -106,9 +130,9 @@ function ChattingRoom() {
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
-                <div>{item.sender} 님이 입장하셨습니다.</div>
+                <div className="text-xs">{item.sender} 님이 입장했습니다.</div>
               ) : item.type === "TEXT" ? (
-                <div>
+                <div className="text-xs">
                   <strong>You:</strong> {item.content}
                 </div>
               ) : (
