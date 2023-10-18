@@ -12,8 +12,7 @@ interface IDecodeToken {
 function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
   const [record_id, setRecordId] = useState<string | null>("");
-  const [receive, setRecive] = useState([]);
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState<any[]>([]);
   const profileImage = useRecoilValue(profileImageState);
   const [stompClient, setStompClient] = useState<any>(null);
   // jwt 디코딩
@@ -84,15 +83,14 @@ function ChattingRoom() {
     setInputMessage(event.currentTarget.value);
   };
 
-  const sendMessage = async () => {
-    console.log(stompClient);
+  const sendMessage = () => {
     if (stompClient) {
-      await stompClient.send(
+      stompClient.send(
         `/app/chat/message`,
         {},
         JSON.stringify({
           type: "TEXT",
-          recordId: record_id,
+          record_id,
           content: inputMessage,
           sender: userNickname,
         })
@@ -104,21 +102,27 @@ function ChattingRoom() {
   };
 
   const receiveMessage = (recv: any) => {
-    setRecive(recv);
+    setHistory((prev) => [...prev, recv]);
   };
   return (
     <>
       <div>
         <div>
-          {history?.map((item: any, index) => (
-            <div key={index}>과거 채팅 이력{item.content}</div>
+          {history?.map((item: any, index: number) => (
+            <div key={index}>
+              {item.type === "ENTER" ? (
+                <div>{item.sender} 님이 입장하셨습니다.</div>
+              ) : item.type === "TEXT" ? (
+                <div>
+                  <strong>You:</strong> {item.content}
+                </div>
+              ) : (
+                <div>
+                  <strong>{item.sender}:</strong> {item.content}
+                </div>
+              )}
+            </div>
           ))}
-        </div>
-        {/* {receive} */}
-        <div>
-          {/* {receive.map((item) => (
-            <li>{item}</li>
-          ))} */}
         </div>
         <div>{inputMessage}</div>
         <div>
