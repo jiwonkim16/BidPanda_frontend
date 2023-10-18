@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
+import Loading from "../../components/assets/Loading";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -84,81 +85,74 @@ function AuctionDetail() {
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   return (
-    <>
+    <div className="w-[360px] h-[95%] py-4 ml-4 justify-center items-center">
       {isLoading ? (
-        <div className="text-xl font-extrabold">Loading...</div>
+        <>
+          <Loading />
+        </>
       ) : (
         <div>
           <div>
-            <h1 className="text-2xl font-extrabold mt-[20px]">상세페이지</h1>
-          </div>
-          <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <img
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+              className="object-cover w-[360px] rounded-t-lg h-56"
               src={detailItem.itemImages[0]}
               alt=""
             />
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {detailItem.title}😥
-              </h5>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <div className="flex flex-col mt-4 ">
+              <div className="flex flex-row items-center mb-3">
+                <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {detailItem.title}
+                </h5>
+                <CountdownTimer endTime={detailItem.auctionEndTime} />
+              </div>
+              <p className="mb-2 font-semibold text-gray-700 dark:text-gray-400">
                 {detailItem.content}
               </p>
             </div>
           </div>
           <div>
-            <span className="bg-gray-100 text-gray-600 p-1 rounded font-semibold">
-              <CountdownTimer endTime={detailItem.auctionEndTime} />
-            </span>
-            <span className="bg-gray-100 text-gray-600 p-1 rounded font-semibold">
-              현재 최고 입찰가 : {detailItem.presentPrice}
-            </span>
-            {/* 받아온 data의 닉네임과 현재 로그인된 유저의 닉네임이 같다면 아래 등록한 유저에 해당하는 태그,
-                다르다면 아래 태그 */}
-            {/* 입찰하는 사람의 입장 */}
-            <div className="flex">
-              <input
-                className="w-80"
-                type="number"
-                placeholder={`최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다.`}
-                value={bidAmount}
-                step={detailItem.minBidPrice}
-                onChange={onChange}
-              />
-              <div className="flex flex-col gap-2">
+            <div className="flex flex-col">
+              <span className=" text-gray-800 font-semibold">
+                실시간 최고 입찰가 :: {detailItem.presentPrice} 원
+              </span>
+              <div className="flex flex-row font-semibold">
+                <input
+                  className="w-[250px] h-[40px] border-2 rounded-lg text-sm m-2"
+                  type="number"
+                  placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다.`}
+                  value={bidAmount}
+                  step={detailItem.minBidPrice}
+                  onChange={onChange}
+                />
                 <button
                   type="submit"
                   onClick={onSubmit}
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="w-[120px] h-[39px] bg-gray-800 text-white rounded-lg mt-2 "
                 >
                   입찰하기
                 </button>
-                <Link to={"/"}>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2 font-semibold">
+              <button
+                onClick={likeBtn}
+                className="w-[120px] h-[39px] bg-blue-600 text-white rounded-lg mt-2 "
+              >
+                관심 목록에 넣기
+              </button>
+              {userNickname === detailItem.nickname && !status ? (
+                <Link to={`/items/modifier/${itemId}`}>
                   <button className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                    뒤로 가기
+                    수정하기
                   </button>
                 </Link>
-
-                <button
-                  onClick={likeBtn}
-                  className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                >
-                  찜!하기
-                </button>
-                {userNickname === detailItem.nickname && !status ? (
-                  <Link to={`/items/modifier/${itemId}`}>
-                    <button className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                      수정하기
-                    </button>
-                  </Link>
-                ) : null}
-              </div>
+              ) : null}
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

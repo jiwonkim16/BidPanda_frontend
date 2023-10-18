@@ -46,7 +46,7 @@ const EditUserInfo = () => {
             })}
             type="text"
             id="nickname"
-            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
           />
           {errors.nickname && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -65,7 +65,7 @@ const EditUserInfo = () => {
             })}
             type="text"
             id="intro"
-            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
           />
           {errors.intro && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -84,7 +84,7 @@ const EditUserInfo = () => {
             })}
             type="password"
             id="newPassword"
-            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
           />
         </div>
         <label htmlFor="password">비밀번호</label>
@@ -100,7 +100,7 @@ const EditUserInfo = () => {
             })}
             type="password"
             id="password"
-            className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
           />
           {errors.password && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -108,7 +108,7 @@ const EditUserInfo = () => {
             </p>
           )}
         </div>
-        <button className="w-[250px] h-[40px] bg-gray-600 text-white rounded-md mt-10 mr-2 ">
+        <button className="w-[250px] h-[40px] bg-green-500 text-gray-800 rounded-lg mt-10 mr-2 ">
           수정 완료
         </button>
       </form>

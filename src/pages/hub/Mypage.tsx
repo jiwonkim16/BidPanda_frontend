@@ -107,19 +107,19 @@ const Mypage = () => {
   };
 
   return (
-    <div className={wrapper}>
+    <div className="flex flex-col h-[79vh] justify-center items-center">
       {isLoading ? (
         <Loading />
       ) : (
         <>
           <div>
-            <div className={profileWrap}>
-              <div className="flex flex-row mt-1">
-                <div className={profileCard}>
+            <div className="flex justify-center items-center font-bold">
+              <div>
+                <div className="bg-white rounded-[15px] mt-4 w-[370px] h-[200px] flex flex-row justify-center  items-center">
                   {userData && (
                     <>
                       <img
-                        className="w-[100px] h-[100px] cursor-pointer rounded-full object-cover"
+                        className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
                         src={userData?.profileImageUrl}
                         alt=""
                         onClick={handleImageClick}
@@ -134,7 +134,7 @@ const Mypage = () => {
                     </>
                   )}
                   <div>
-                    <div className="ml-[10px]">
+                    <div className="ml-[5px] text-gray-800">
                       {userData && (
                         <>
                           <p>{userData ? userData.nickname : null}</p>
@@ -143,12 +143,12 @@ const Mypage = () => {
                       )}
                     </div>
                     <div>
-                      <button className="w-[95px] h-[30px] bg-black text-white rounded-md mt-2 mx-1 ">
+                      <button className="w-[95px] h-[30px] bg-gray-800 text-white rounded-lg mt-2 mx-1 ">
                         <Link to="/mypage/edit">회원정보 수정</Link>
                       </button>
                       <button
                         onClick={askUserDelete}
-                        className="w-[95px] h-[30px] bg-red-500 text-white rounded-md mt-2 mx-1 "
+                        className="w-[95px] h-[30px] bg-red-500 text-white rounded-lg mt-2 mx-1 "
                       >
                         회원 탈퇴
                       </button>
@@ -160,19 +160,25 @@ const Mypage = () => {
           </div>
           <div className="bg-white text-gray-600 font-bold w-[390px] flex justify-center flex-row">
             <p
-              className={`m-2 ${selectedTab === "liked" ? "text-black" : ""}`}
+              className={`m-1 shadow-md rounded-lg px-2 ${
+                selectedTab === "liked" ? "text-black" : ""
+              }`}
               onClick={() => setSelectedTab("liked")}
             >
               찜한 상품
             </p>
             <p
-              className={`m-2 ${selectedTab === "bid" ? "text-black" : ""}`}
+              className={`m-1 shadow-md rounded-lg px-2 ${
+                selectedTab === "bid" ? "text-black" : ""
+              }`}
               onClick={() => setSelectedTab("bid")}
             >
               참여 상품
             </p>
             <p
-              className={`m-2 ${selectedTab === "posted" ? "text-black" : ""}`}
+              className={`m-1 shadow-md rounded-lg px-2 ${
+                selectedTab === "posted" ? "text-black" : ""
+              }`}
               onClick={() => setSelectedTab("posted")}
             >
               등록 상품
@@ -192,8 +198,3 @@ const Mypage = () => {
   );
 };
 export default Mypage;
-
-const wrapper = "flex flex-col h-[79vh] justify-center items-center";
-const profileWrap = "flex justify-center items-center font-bold";
-const profileCard =
-  "bg-white rounded-[15px] mt-4 w-[310px] h-[200px] flex flex-row items-center";
