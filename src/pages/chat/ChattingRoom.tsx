@@ -84,15 +84,15 @@ function ChattingRoom() {
     setInputMessage(event.currentTarget.value);
   };
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     console.log(stompClient);
     if (stompClient) {
-      await stompClient.send(
+      stompClient.send(
         `/app/chat/message`,
         {},
         JSON.stringify({
           type: "TEXT",
-          recordId: record_id,
+          record_id,
           content: inputMessage,
           sender: userNickname,
         })
@@ -111,19 +111,14 @@ function ChattingRoom() {
       <div>
         <div>
           {history?.map((item: any, index) => (
-            <div key={index}>과거 채팅 이력{item.content}</div>
+            <div key={index}>과거 채팅 이력 : {item.content}</div>
           ))}
-        </div>
-        {/* {receive} */}
-        <div>
-          {/* {receive.map((item) => (
-            <li>{item}</li>
-          ))} */}
         </div>
         <div>{inputMessage}</div>
         <div>
           <input
             type="text"
+            id="chat"
             placeholder="내용을 입력하세요"
             value={inputMessage}
             onChange={onChange}
