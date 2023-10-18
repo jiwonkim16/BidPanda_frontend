@@ -6,7 +6,6 @@ import {
 } from "../../apis/chat/ChattingListApi";
 import { toast } from "react-toastify";
 import Loading from "../../components/assets/Loading";
-import jwtDecode from "jwt-decode";
 
 interface IChatList {
   itemId: number;
@@ -21,14 +20,9 @@ interface IChatList {
  */
 
 function ChattingList() {
-  // jwt 디코딩
-  const token: string | null = localStorage.getItem("authorization");
-  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
-  const userNickname: string = decodedToken ? decodedToken.nickname : "";
-
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery("chattingRoom", chattingList);
+  const { data, isLoading } = useQuery("chattingRoom", chattingListApi);
   console.log(data);
 
   // 채팅방 입장
