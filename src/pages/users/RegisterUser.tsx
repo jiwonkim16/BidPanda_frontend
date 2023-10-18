@@ -103,17 +103,17 @@ const RegisterUser = () => {
             })}
             type="text"
             id="membername"
-            className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[215px] h-[35px] border-2 rounded-lg rounded-r-none mt-2 mb-2"
           />
           {!isMembernameCheck ? (
             <button
               onClick={checkMembernameHandler}
-              className="bg-gray-100 w-[35px] h-[35px] rounded-md"
+              className="bg-gray-100 w-[35px] h-[35px] rounded-l-none rounded-lg"
             >
               ✔︎
             </button>
           ) : (
-            <button className="bg-green-400 w-[35px] h-[35px] rounded-md">
+            <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
               ✔︎
             </button>
           )}
@@ -136,17 +136,17 @@ const RegisterUser = () => {
             })}
             type="text"
             id="nickname"
-            className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
+            className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
           />
           {!isNicknameCheck ? (
             <button
               onClick={checkNicknameHandler}
-              className="bg-gray-100 w-[35px] h-[35px] rounded-md"
+              className="bg-gray-100 w-[35px] h-[35px] rounded-l-none rounded-lg"
             >
               ✔︎
             </button>
           ) : (
-            <button className="bg-green-400 w-[35px] h-[35px] rounded-md">
+            <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
               ✔︎
             </button>
           )}
@@ -171,11 +171,11 @@ const RegisterUser = () => {
                 })}
                 type="text"
                 id="email"
-                className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
+                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
               />
               <button
                 onClick={onValidEmailHandler}
-                className="bg-gray-100 w-[35px] h-[35px] rounded-md"
+                className="bg-gray-100 w-[35px] h-[35px] rounded-l-none rounded-lg"
               >
                 ✔︎
               </button>
@@ -188,9 +188,9 @@ const RegisterUser = () => {
               <input
                 type="text"
                 id="email"
-                className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
+                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
               />
-              <button className="bg-green-400 w-[35px] h-[35px] rounded-md">
+              <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
                 ✔︎
               </button>
             </div>
@@ -201,17 +201,17 @@ const RegisterUser = () => {
                 onChange={(e) => setValidateCode(e.target.value)}
                 type="text"
                 id="validateCode"
-                className="w-[215px] h-[35px] border-2 rounded-md mt-2 mb-2"
+                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
               />
               {!isValCodeSent ? (
                 <button
                   onClick={onValCodeHandler}
-                  className="bg-gray-100 w-[35px] h-[35px] rounded-md"
+                  className="bg-gray-100 w-[35px] h-[35px] rounded-l-none rounded-lg"
                 >
                   ✔︎
                 </button>
               ) : (
-                <button className="bg-green-400 w-[35px] h-[35px] rounded-md">
+                <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
                   ✔︎
                 </button>
               )}
@@ -236,7 +236,7 @@ const RegisterUser = () => {
           })}
           type="password"
           id="password"
-          className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
         />
         {errors.password && (
           <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -249,7 +249,7 @@ const RegisterUser = () => {
           id="checkPassword"
           value={checkedPw}
           onChange={(e) => setCheckedPw(e.target.value)}
-          className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
         />
         {errors.checkPassword && (
           <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -262,7 +262,7 @@ const RegisterUser = () => {
             <></>
           ) : (
             <>
-              <button className="w-[250px] h-[40px] bg-green-500 text-white rounded-md mt-10 mr-2 ">
+              <button className="w-[250px] h-[40px] bg-green-500 text-gray-800  rounded-lg mt-10 mr-2 ">
                 회원가입
               </button>
             </>

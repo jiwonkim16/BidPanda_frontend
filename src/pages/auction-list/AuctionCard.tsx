@@ -51,19 +51,18 @@ function AuctionCard() {
 
   return (
     <>
-      <div className="title">
-        <h1 className="text-3xl font-extrabold my-[20px]">Auction Item List</h1>
-      </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center py-2">
         {categoryLi.map((item, index) => (
           <button
             type="button"
             key={index}
             value={item}
             onClick={onClickCategory}
-            className={`rounded-full ${
-              selectCategory === item ? " bg-blue-500" : "bg-gray-300"
-            } w-11 cursor-pointer text-white`}
+            className={`${
+              selectCategory === item
+                ? "flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
+                : "flex-row rounded-md m-0.5 mt-3 p-1 bg-gray-700 w-[40px] font-semibold cursor-pointer text-white"
+            } text-white`}
           >
             {item}
           </button>
@@ -72,7 +71,7 @@ function AuctionCard() {
       {auctionData.map((item: IAuction) => (
         <div
           key={item.id}
-          className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
@@ -87,8 +86,8 @@ function AuctionCard() {
                 {item.title}
               </h5>
             </Link>
-            <div className="flex items-center mt-2.5 mb-5">
-              <span className="bg-gray-100 text-gray-600 p-1 rounded font-semibold">
+            <div className="flex items-center mt-2 mb-2">
+              <span>
                 {
                   <CountdownTimer
                     endTime={item.auctionEndTime}
@@ -98,8 +97,8 @@ function AuctionCard() {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                현재 입찰가 : {item.presentPrice}
+              <span className="text-md font-bold text-gray-900 dark:text-white">
+                {item.presentPrice} 원
               </span>
             </div>
           </div>

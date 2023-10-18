@@ -55,7 +55,7 @@ const Login = () => {
           id="username"
           value={membername}
           onChange={(e) => setMembername(e.target.value)}
-          className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-2"
+          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
         />
 
         <label htmlFor="password">비밀번호</label>
@@ -64,25 +64,30 @@ const Login = () => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-[250px] h-[35px] border-2 rounded-md mt-2 mb-7"
+          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-7"
         />
         <div>
           <button
             onClick={onLoginHandler}
-            className="w-[120px] h-[40px] bg-black text-white rounded-md mt-2 mr-2 "
+            className="w-[120px] h-[40px] bg-black text-white rounded-lg mt-2 mr-2 "
           >
             로그인
           </button>
-          <button className="w-[120px] h-[40px] bg-gray-200 text-black rounded-md mt-2 ">
+          <button className="w-[120px] h-[40px] bg-gray-200 text-black rounded-lg mt-2 ">
             <Link to={"/register"}>회원가입</Link>
           </button>
         </div>
       </div>
       <button
         onClick={kakaoLogin}
-        className="w-[250px] h-[40px] bg-yellow-300 text-black rounded-md mt-2 font-bold"
+        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-2 font-bold"
       >
-        카카오 계정으로 로그인 하기
+        <img
+          src="src/imgs/kakaoLogin.png"
+          alt="kakaoLogo"
+          className="w-[33px] h-[33px]"
+        />
+        <span>카카오 계정으로 로그인</span>
       </button>
     </div>
   );

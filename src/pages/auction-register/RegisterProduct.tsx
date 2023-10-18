@@ -101,85 +101,29 @@ function RegisterProduct() {
   };
 
   return (
-    <>
-      <div>
-        <h1 className="text-2xl font-extrabold">아이템 등록</h1>
-      </div>
-      <form onSubmit={handleSubmit(onValid)}>
-        <input
-          {...register("title", { required: "제품명은 필수입니다." })}
-          type="text"
-          placeholder="제품명을 입력하세요"
-        />
-        <br />
-        <span className="text-red-500">{errors.title?.message as string}</span>
-        <br />
-        <input
-          {...register("content", {
-            required: "제품 설명은 필수입니다.",
-            minLength: {
-              message: "설명은 최소 10글자 이상이어야 합니다.",
-              value: 10,
-            },
-          })}
-          type="text"
-          placeholder="제품 설명을 입력하세요. 단, 최소 10자 이상 작성해야 합니다."
-          className="w-80"
-        />
-        <br />
-        <span className="text-red-500">
-          {errors.content?.message as string}
-        </span>
-        <br />
-        <input
-          {...register("startPrice", {
-            required: "시작 경매가는 필수입니다.",
-            min: { message: "최소 경매가는 1원입니다.", value: "1" },
-          })}
-          type="number"
-          placeholder="원하는 경매 시작가를 입력하세요"
-          className="w-64"
-        />
-        <input
-          {...register("minBidPrice", {
-            required: "경매가 단위는 필수입니다.",
-            min: { message: "최소 단위는 1원입니다.", value: "1" },
-          })}
-          type="number"
-          placeholder="원하는 경매가 단위를 입력하세요"
-          className="w-64"
-        />
-        <br />
-        <span className="text-red-500">
-          {errors.startPrice?.message as string}
-        </span>
-        <br />
-        <div className="flex justify-between">
-          {categoryLi.map((item, index) => (
-            <button
-              type="button"
-              key={index}
-              value={item}
-              onClick={onClickCategory}
-              className="rounded-full bg-blue-500 w-11 cursor-pointer text-white"
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <br />
-        <span className="text-red-500">
-          {errors.category?.message as string}
-        </span>
-        <br />
-        {/* 이미지... */}
+    <div className="flex flex-col py-3">
+      <form
+        onSubmit={handleSubmit(onValid)}
+        className="flex flex-col justify-center items-center mt-3"
+      >
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-64 h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+          className="flex flex-col items-center justify-center w-[350px] h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            {/* 이미지 미리보기 섹션 */}
+            <div>
+              {imagePreviews.map((preview, index) => (
+                <img
+                  key={index}
+                  src={preview}
+                  alt={`미리보기 ${index + 1}`}
+                  className="max-w-[165px] h-auto mt-7"
+                />
+              ))}
+            </div>
             <svg
-              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              className="w-8 h-8 mb-4 text-gray-800 dark:text-gray-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -193,12 +137,12 @@ function RegisterProduct() {
                 d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
               />
             </svg>
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mb-2 text-sm text-gray-800 dark:text-gray-400">
               <span className="font-semibold">버튼을 클릭하거나</span> 또는
               드래그
             </p>
             <p className="text-xs text-gray-500">
-              최대 3장까지 등록 가능합니다
+              최대 3장까지 등록 가능합니다.
             </p>
           </div>
           <input
@@ -210,38 +154,92 @@ function RegisterProduct() {
             onChange={addImage}
           />
         </label>
-        {/* 이미지 미리보기 섹션 */}
-        <div>
-          {imagePreviews.map((preview, index) => (
-            <img
+        <div className="flex flex-row fonst-semibold">
+          <span className="font-semibold mx-2 mt-2">
+            마감 + {watch("deadline")} Days
+          </span>
+          <input
+            {...register("deadline", {
+              required: "경매 마감기한 설정은 필수입니다.",
+            })}
+            type="range"
+            min="1"
+            max="5"
+            className="mt-2"
+          />
+
+          <span className="text-red-500">
+            {errors.deadline?.message as string}
+          </span>
+        </div>
+        <div className="flex justify-between">
+          {categoryLi.map((item, index) => (
+            <button
+              type="button"
               key={index}
-              src={preview}
-              alt={`미리보기 ${index + 1}`}
-              className="max-w-full h-auto mt-2"
-            />
+              value={item}
+              onClick={onClickCategory}
+              className="flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
+            >
+              {item}
+            </button>
           ))}
         </div>
-        {/* ------- */}
-        <input
-          {...register("deadline", {
-            required: "경매 마감기한 설정은 필수입니다.",
-          })}
-          type="range"
-          min="1"
-          max="5"
-        />
-        <br />
         <span className="text-red-500">
-          {errors.deadline?.message as string}
+          {errors.category?.message as string}
         </span>
-        <br />
-        <span>마감기한 : {watch("deadline")}DAY</span>
-        <br />
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          등록하기
+        <input
+          {...register("title", { required: "제품명은 필수입니다." })}
+          type="text"
+          placeholder=" 상품 이름"
+          className="w-[350px] h-[35px] border-2 rounded-lg mt-3 mb-2"
+        />
+        <span className="text-red-500">{errors.title?.message as string}</span>
+        <div className="flex flex-row">
+          <input
+            {...register("startPrice", {
+              required: "시작 경매가는 필수입니다.",
+              min: { message: "최소 경매가는 1원입니다.", value: "1" },
+            })}
+            type="number"
+            placeholder=" 경매 시작가"
+            className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
+          />
+          <input
+            {...register("minBidPrice", {
+              required: "경매가 단위는 필수입니다.",
+              min: { message: "최소 단위는 1원입니다.", value: "1" },
+            })}
+            type="number"
+            placeholder=" 경매가 단위"
+            className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
+          />
+          <span className="text-red-500">
+            {errors.startPrice?.message as string}
+          </span>
+        </div>
+        <span className="font-semibold text-[14px]">
+          상품 설명을 부탁드립니다. 최소 10자 이상 작성해야 합니다.
+        </span>
+        <input
+          {...register("content", {
+            required: "제품 설명은 필수입니다.",
+            minLength: {
+              message: "설명은 최소 10글자 이상이어야 합니다.",
+              value: 10,
+            },
+          })}
+          type="text"
+          className="w-[350px] h-[105px] border-2 rounded-lg mt-2 mb-2"
+        />
+        <span className="text-red-500">
+          {errors.content?.message as string}
+        </span>
+        <button className="w-[165px] h-[40px] bg-gray-800 text-white font-semibold rounded-lg mt-5 mr-2 ">
+          경매 시작하기
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

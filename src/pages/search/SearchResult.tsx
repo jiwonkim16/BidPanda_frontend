@@ -29,7 +29,7 @@ function SearchResult({ data }: any) {
     <>
       <div
         key={data.id}
-        className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        className="w-[93%] max-w-sm bg-white border border-gray-300 rounded-lg shadow"
       >
         <button onClick={() => onClick(data)}>
           <img
@@ -40,17 +40,17 @@ function SearchResult({ data }: any) {
         </button>
         <div className="px-5 pb-5">
           <button onClick={() => onClick(data)}>
-            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-              {data.title}😥
+            <h5 className="text-3xl font-bold tracking-tight text-gray-800 dark:text-white">
+              {data.title}
             </h5>
           </button>
-          <div className="flex items-center mt-2.5 mb-5">
-            <span>{<CountdownTimer endTime={data.auctionEndTime} />}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold text-gray-900 dark:text-white">
-              현재 입찰가 : {data.presentPrice}
+          <div className="flex items-center justify-between mt-1">
+            <span className="text-xl font-bold text-gray-800 dark:text-white">
+              {data.presentPrice}원
             </span>
+          </div>
+          <div className="flex items-center mt-2 mb-2">
+            <span>{<CountdownTimer endTime={data.auctionEndTime} />}</span>
           </div>
         </div>
       </div>
