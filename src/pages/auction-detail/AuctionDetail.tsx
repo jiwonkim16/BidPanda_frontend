@@ -119,6 +119,7 @@ function AuctionDetail() {
                 <input
                   className="w-[250px] h-[40px] border-2 rounded-lg text-sm m-2"
                   type="number"
+                  id="bid"
                   placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다.`}
                   value={bidAmount}
                   step={detailItem.minBidPrice}
