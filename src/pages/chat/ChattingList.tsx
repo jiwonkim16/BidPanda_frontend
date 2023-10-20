@@ -5,7 +5,6 @@ import {
   enterChattingRoom,
 } from "../../apis/chat/ChattingListApi";
 import { toast } from "react-toastify";
-import Loading from "../../components/assets/Loading";
 
 interface IChatList {
   itemId: number;
@@ -22,7 +21,7 @@ interface IChatList {
 function ChattingList() {
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery("chattingRoom", chattingListApi);
+  const { data } = useQuery("chattingRoom", chattingListApi);
   console.log(data);
 
   // 채팅방 입장
@@ -42,37 +41,29 @@ function ChattingList() {
     }
   };
   return (
-    <>
-      {isLoading ? (
-        <>
-          <Loading />
-        </>
-      ) : (
-        <div className="h-[100%]">
-          <div>
-            <h3>채팅방 리스트</h3>
-          </div>
-          <div>
-            <div className="flex flex-col justify-center items-center">
-              {data?.map((item: IChatList) => (
-                <div
-                  key={item.itemId}
-                  className="w-[370px] h-[100px] p-3 py-7 mb-2 bg-white rounded-lg shadow-md"
-                >
-                  <div>
-                    <span>{item.partner}</span>
-                    <span className="font-bold text-lg ml-2">{item.title}</span>
-                  </div>
-                  <button onClick={enterChat} value={item.itemId}>
-                    ▶︎ Enter
-                  </button>
-                </div>
-              ))}
+    <div className="h-[100%]">
+      <div>
+        <h3>채팅방 리스트</h3>
+      </div>
+      <div>
+        <div className="flex flex-col justify-center items-center">
+          {data?.map((item: IChatList) => (
+            <div
+              key={item.itemId}
+              className="w-[370px] h-[100px] p-3 py-7 mb-2 bg-white rounded-lg shadow-md"
+            >
+              <div>
+                <span>{item.partner}</span>
+                <span className="font-bold text-lg ml-2">{item.title}</span>
+              </div>
+              <button onClick={enterChat} value={item.itemId}>
+                ▶︎ Enter
+              </button>
             </div>
-          </div>
+          ))}
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
 
