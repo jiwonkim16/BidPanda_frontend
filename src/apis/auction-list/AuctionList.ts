@@ -3,7 +3,7 @@ import axios from "axios";
 // 상품 리스트 조회
 export const auctionList = async () => {
   const response = await axios.get(
-    `${import.meta.env.VITE_REACT_API_KEY}/api/items`
+    `${import.meta.env.VITE_REACT_API_KEY}/api/items?page=1&size=20`
   );
   return response.data;
 };

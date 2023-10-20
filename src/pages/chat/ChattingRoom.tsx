@@ -12,7 +12,7 @@ interface IDecodeToken {
 
 function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
-  const [record_id, setRecordId] = useState<string | null>("");
+  // const [record_id, setRecordId] = useState<string | null>("");
   const [history, setHistory] = useState<any[]>([]);
   const profileImage = useRecoilValue(profileImageState);
   const [stompClient, setStompClient] = useState<any>(null);
@@ -20,18 +20,18 @@ function ChattingRoom() {
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
+  const record_id = localStorage.getItem("record_id");
 
   useEffect(() => {
     console.log("렌더렌더렌더");
-    const recordId = localStorage.getItem("record_id");
-    setRecordId(recordId);
+    // setRecordId(recordId);
     const chatHistory = async () => {
       try {
         console.log("데이터 불러오기!!");
         const response = await axios.get(
           `${
             import.meta.env.VITE_REACT_API_KEY
-          }/api/chat/rooms/${recordId}/messages`,
+          }/api/chat/rooms/${record_id}/messages`,
           {
             headers: {
               Authorization: localStorage.getItem("authorization"),
@@ -71,19 +71,21 @@ function ChattingRoom() {
   const connectWebSocket = () => {
     const socket = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
     const newStompClient = Stomp.over(() => socket);
+    console.log(newStompClient);
     newStompClient.onStompError = (frame: any) => {
       console.error("웹소켓 오류:", frame);
       // 오류 처리, 예를 들어 다시 연결 시도
     };
     newStompClient.connect({}, (frame: any) => {
       console.log("연결 성공", frame);
+      console.log(record_id);
       newStompClient.subscribe(
         `/topic/chat/room/${record_id}`,
         getMessageCallback
       );
 
       newStompClient.send(
-        `/app/chat/message`,
+        `/app/chat/message/${record_id}`,
         {},
         JSON.stringify({
           type: "ENTER",
@@ -109,9 +111,10 @@ function ChattingRoom() {
       console.error("웹소켓 오류:", frame);
       // 오류 처리, 예를 들어 다시 연결 시도
     };
-    console.log(stompClient);
+    console.log("레코드 아이디", record_id);
+    console.log("스톰프프", stompClient);
     stompClient.send(
-      `/app/chat/message`,
+      `/app/chat/message/${record_id}`,
       {},
       JSON.stringify({
         type: "TEXT",

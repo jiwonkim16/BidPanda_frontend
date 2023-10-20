@@ -17,10 +17,12 @@ function App() {
           <div className="h-[5.5%] z-30 relative">
             <Header />
           </div>
-          <div className="h-[82.5%] relative">
-            <Suspense fallback={<Loading />}>
+          <div className="h-[82.5%] relative overflow-hidden">
+            <div className="overflow-y-scroll overflow-x-hidden max-h-full scrollbar-hide">
+               <Suspense fallback={<Loading />}>
               <Outlet />
-            </Suspense>
+               </Suspense>
+            </div>
           </div>
           <div className="h-[12%]">
             <Footer />

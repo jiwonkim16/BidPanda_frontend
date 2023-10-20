@@ -6,6 +6,9 @@ import CountdownTimer from "./CountdownTimer";
 import { Link, useNavigate } from "react-router-dom";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
+import Loading from "../../components/assets/Loading";
+import { Tab } from "@headlessui/react";
+
 
 interface IAuction {
   auctionEndTime: string;
@@ -28,16 +31,6 @@ function AuctionList() {
   const [selectCategory, setSelectCategory] = useRecoilState(category);
   const navigate = useNavigate();
   const status = useRecoilValue(auctionStatus);
-  // --------------------------------
-  // mutation 활용 데이터 최신화
-  // const queryClient = useQueryClient();
-  // const mutation = useMutation(auctionList, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries("auctionList");
-  //   },
-  // });
-  // mutation.mutate();
-  //------------------------------------
   // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
@@ -45,11 +38,7 @@ function AuctionList() {
   // -----------------------------------
   const { data } = useQuery("auctionList", auctionList);
   const auctionItem: IAuction[] = data?.content;
-  // console.log(auctionItem);
 
-  // ------------------------------------------------------
-  // 카테고리 클릭 시 해당 카테고리 데이터만 필터 처리 로직
-  // 카테고리 버튼을 눌렀을 때 state로 관리, response는 해당 카테고리의 데이터들.
   const onClickCategory = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -58,28 +47,30 @@ function AuctionList() {
     navigate(`/items/list/${select}`);
   };
 
-  // -----------------------------------------------------
-  // 받아온 데이터를 auctionItem에 넣고 아래 JSX에 map으로 할당.
   return (
-    <div>
-      <div className="flex justify-center py-2">
-        {categoryLi.map((item, index) => (
-          <button
-            type="button"
-            key={index}
-            value={item}
-            onClick={onClickCategory}
-            className={`${
-              selectCategory === item
-                ? "flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
-                : "flex-row rounded-md m-0.5 mt-3 p-1 bg-gray-700 w-[40px] font-semibold cursor-pointer text-white"
-            } text-white`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-      {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
+      <div>
+        <div className="flex justify-center">
+          <Tab.Group>
+            <Tab.List className="flex space-x-5 rounded-xl bg-blue-900/20 p-1">
+              {categoryLi.map((item, index) => (
+                <Tab
+                  type="button"
+                  key={index}
+                  value={item}
+                  onClick={onClickCategory}
+                  className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+                    selectCategory === item
+                      ? "bg-white shadow"
+                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                  }`}
+                >
+                  {item}
+                </Tab>
+              ))}
+            </Tab.List>
+          </Tab.Group>
+        </div>
+        {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
 
       {auctionItem &&
         auctionItem.map((item) => (
@@ -127,7 +118,7 @@ function AuctionList() {
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-md font-bold text-gray-900 dark:text-white">
+                <span className="text-md font-bold text-gray-900">
                   {item.presentPrice} 원
                 </span>
               </div>
