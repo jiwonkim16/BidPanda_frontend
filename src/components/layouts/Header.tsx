@@ -47,7 +47,7 @@ function Header() {
       ) : (
         <nav className={navStyle}>
           <button className="text-gray-600 text-xl ml-[175px]">
-            <Link to={"/"}>notification</Link>
+            <Link to={"/notification"}>notification</Link>
           </button>
           <button
             onClick={LogoutHandler}

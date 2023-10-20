@@ -23,7 +23,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: Items) => (
         <div
           key={item.id}
-          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
@@ -34,9 +34,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
           </Link>
           <div className="px-3">
             <Link to={`/items/detail/${item.id}`}>
-              <h5 className="text-lg font-bold text-gray-900 dark:text-white">
-                {item.title}
-              </h5>
+              <h5 className="text-lg font-bold text-gray-900">{item.title}</h5>
             </Link>
             <div className="flex">
               <span>
@@ -47,7 +45,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className=" font-semibold text-gray-900 dark:text-white">
+              <span className=" font-semibold text-gray-900">
                 {item.presentPrice}원
               </span>
             </div>
