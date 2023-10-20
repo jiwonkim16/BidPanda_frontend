@@ -1,25 +1,39 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+
 import App from "./App";
 import Main from "./pages/hub/Mainpage";
-import Login from "./pages/users/Login";
-import RegisterUser from "./pages/users/RegisterUser";
-import Mypage from "./pages/hub/Mypage";
-import EditUserInfo from "./pages/hub/EditUserInfo";
-import RegisterProduct from "./pages/auction-register/RegisterProduct";
-import ModifierProduct from "./pages/auction-register/ModifierProduct";
-import AuctionDetail from "./pages/auction-detail/AuctionDetail";
-import SearchAution from "./pages/search/SearchAution";
-import AuctionList from "./pages/auction-list/AuctionList";
+import Kakao from "./components/modules/Kakao";
 import NotFound from "./pages/error/NotFound";
 import ErrorComponent from "./pages/error/ErrorComponent";
-import AuctionCard from "./pages/auction-list/AuctionCard";
-import Kakao from "./components/modules/Kakao";
-import ChattingList from "./pages/chat/ChattingList";
-import ChattingRoom from "./pages/chat/ChattingRoom";
+
+const Login = React.lazy(() => import("./pages/users/Login"));
+const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
+const Mypage = React.lazy(() => import("./pages/hub/Mypage"));
+const EditUserInfo = React.lazy(() => import("./pages/hub/EditUserInfo"));
+const SearchAution = React.lazy(() => import("./pages/search/SearchAution"));
+const ChattingList = React.lazy(() => import("./pages/chat/ChattingList"));
+const ChattingRoom = React.lazy(() => import("./pages/chat/ChattingRoom"));
+const RegisterProduct = React.lazy(
+  () => import("./pages/auction-register/RegisterProduct")
+);
+const ModifierProduct = React.lazy(
+  () => import("./pages/auction-register/ModifierProduct")
+);
+const AuctionDetail = React.lazy(
+  () => import("./pages/auction-detail/AuctionDetail")
+);
+const AuctionList = React.lazy(
+  () => import("./pages/auction-list/AuctionList")
+);
+const AuctionCard = React.lazy(
+  () => import("./pages/auction-list/AuctionCard")
+);
 
 /**
- * @author : Jiwon Kim
+ * @author : Jiwon Kim, Goya Gim
  * @returns : createBrowserRouter를 사용한 깔끔한 Route 설계.
+ *            React lazy를 이용한 초기 번들 사이즈 최적화.
  */
 
 const router = createBrowserRouter([

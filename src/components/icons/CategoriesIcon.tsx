@@ -15,7 +15,7 @@ const CategoriesIcon = () => {
         <button
           key={index}
           value={item}
-          className="w-[76px] h-[76px] shadow-md rounded-[17px] m-1"
+          className="w-[76px] h-[76px] shadow-md rounded-[17px] font-semibold m-1"
           onClick={onClickCategory}
         >
           {item}

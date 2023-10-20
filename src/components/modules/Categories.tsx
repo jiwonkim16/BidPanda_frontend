@@ -1,11 +1,9 @@
+// import CategoriesIcon from "../icons/CategoriesIcon";
+import { memo } from "react";
 import CategoriesIcon from "../icons/CategoriesIcon";
 
 const Categories = () => {
-  return (
-    <>
-      <CategoriesIcon />
-    </>
-  );
+  return <CategoriesIcon />;
 };
 
-export default Categories;
+export default memo(Categories);

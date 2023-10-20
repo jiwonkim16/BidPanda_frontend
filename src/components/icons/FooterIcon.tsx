@@ -25,17 +25,17 @@ const FooterIcon = () => {
     navigate(`/chattingList/${nickname}`);
   };
   return (
-    <div className="bg-white flex justify-center w-[100%]  p-4">
+    <div className="bg-white font-semibold flex justify-center w-[100%] border-t-[1.5px] border-b-none shadow-md py-4 rounded-t-[23px]">
       <Link to="/">
         <div>
-          <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
+          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
             홈
           </button>
         </div>
       </Link>
       <Link to="/keyword">
         <div>
-          <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
+          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
             검색
           </button>
         </div>
@@ -43,13 +43,13 @@ const FooterIcon = () => {
 
       <Link to="items/register">
         <div>
-          <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
-            경매품 등록
+          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
+            등록
           </button>
         </div>
       </Link>
       <div onClick={onClick}>
-        <button className="w-[76px] h-[76px] bg-gray-100 rounded-[17px] m-1">
+        <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
           채팅
         </button>
       </div>
