@@ -179,7 +179,7 @@ const Mypage = () => {
           등록 상품
         </p>
       </div>
-      <div className="h-[500px] flex justify-center p-1">
+      <div className="h-[500px]">
         <Mylists selectedTab={selectedTab} />
       </div>
       {forSureDelete && (
