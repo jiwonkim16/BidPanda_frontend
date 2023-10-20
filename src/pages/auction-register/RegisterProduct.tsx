@@ -6,6 +6,7 @@ import { categoryList } from "../../atoms/category";
 import { category } from "../../atoms/category";
 import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
 import { useNavigate } from "react-router";
+import imageCompression from "browser-image-compression";
 
 interface IForm {
   title: string;
@@ -53,7 +54,7 @@ function RegisterProduct() {
 
   // 이미지 관련 로직
   // 이미지 onChange 함수
-  const addImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const addImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length === 3) {
       toast.warning("등록 가능한 이미지 갯수를 초과했습니다.");
       return;
@@ -64,9 +65,20 @@ function RegisterProduct() {
       const newImages = [...images];
       const previews = imagePreviews.slice(); // 이미지 미리보기 배열의 복사본
       for (let i = 0; i < imageFiles.length; i++) {
-        newImages.push(imageFiles[i]);
-        previews.push(URL.createObjectURL(imageFiles[i])); // 이미지 미리보기 URL 생성
+        try {
+          // 이미지를 상태에 추가하기 전에 이미지를 압축합니다.
+          const compressedImage = await imageCompression(imageFiles[i], {
+            maxSizeMB: 0.5, // 필요에 따라 최대 크기를 조정하세요.
+            maxWidthOrHeight: 800, // 필요에 따라 최대 너비 또는 높이를 조정하세요.
+          });
+          newImages.push(compressedImage);
+          previews.push(URL.createObjectURL(compressedImage)); // 이미지 미리보기 URL 생성
+        } catch (error) {
+          console.error("이미지 압축 중 오류:", error);
+          toast.error("이미지 압축 중 오류가 발생했습니다.");
+        }
       }
+
       setImages(newImages);
       setImagePreviews(previews);
     }
