@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { userDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
-import Loading from "../../components/assets/Loading";
 import Modal from "../../components/assets/Modal";
 import Mylists from "../../components/modules/Mylists";
 
@@ -108,93 +107,88 @@ const Mypage = () => {
 
   return (
     <div className="flex flex-col h-[79vh] justify-center items-center">
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
+      <div>
+        <div className="flex justify-center items-center font-bold">
           <div>
-            <div className="flex justify-center items-center font-bold">
+            <div className="bg-white rounded-[15px] mt-4 w-[370px] h-[200px] flex flex-row justify-center  items-center">
+              {userData && (
+                <>
+                  <img
+                    className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
+                    src={userData?.profileImageUrl}
+                    alt=""
+                    onClick={handleImageClick}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    ref={imageRef}
+                    onChange={handleImageChange}
+                  />
+                </>
+              )}
               <div>
-                <div className="bg-white rounded-[15px] mt-4 w-[370px] h-[200px] flex flex-row justify-center  items-center">
+                <div className="ml-[5px] text-gray-800">
                   {userData && (
                     <>
-                      <img
-                        className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
-                        src={userData?.profileImageUrl}
-                        alt=""
-                        onClick={handleImageClick}
-                      />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        ref={imageRef}
-                        onChange={handleImageChange}
-                      />
+                      <p>{userData ? userData.nickname : null}</p>
+                      <p>{userData ? userData.intro : null}</p>
                     </>
                   )}
-                  <div>
-                    <div className="ml-[5px] text-gray-800">
-                      {userData && (
-                        <>
-                          <p>{userData ? userData.nickname : null}</p>
-                          <p>{userData ? userData.intro : null}</p>
-                        </>
-                      )}
-                    </div>
-                    <div>
-                      <button className="w-[95px] h-[30px] bg-gray-800 text-white rounded-lg mt-2 mx-1 ">
-                        <Link to="/mypage/edit">회원정보 수정</Link>
-                      </button>
-                      <button
-                        onClick={askUserDelete}
-                        className="w-[95px] h-[30px] bg-red-500 text-white rounded-lg mt-2 mx-1 "
-                      >
-                        회원 탈퇴
-                      </button>
-                    </div>
-                  </div>
+                </div>
+                <div>
+                  <button className="w-[95px] h-[30px] bg-gray-800 text-white rounded-lg mt-2 mx-1 ">
+                    <Link to="/mypage/edit">회원정보 수정</Link>
+                  </button>
+                  <button
+                    onClick={askUserDelete}
+                    className="w-[95px] h-[30px] bg-red-500 text-white rounded-lg mt-2 mx-1 "
+                  >
+                    회원 탈퇴
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-white text-gray-600 font-bold w-[390px] flex justify-center flex-row">
-            <p
-              className={`m-1 shadow-md rounded-lg px-2 ${
-                selectedTab === "liked" ? "text-black" : ""
-              }`}
-              onClick={() => setSelectedTab("liked")}
-            >
-              찜한 상품
-            </p>
-            <p
-              className={`m-1 shadow-md rounded-lg px-2 ${
-                selectedTab === "bid" ? "text-black" : ""
-              }`}
-              onClick={() => setSelectedTab("bid")}
-            >
-              참여 상품
-            </p>
-            <p
-              className={`m-1 shadow-md rounded-lg px-2 ${
-                selectedTab === "posted" ? "text-black" : ""
-              }`}
-              onClick={() => setSelectedTab("posted")}
-            >
-              등록 상품
-            </p>
-          </div>
-          <div className="h-[500px] flex justify-center p-1">
-            <Mylists selectedTab={selectedTab} />
-          </div>
-          {forSureDelete && (
-            <>
-              <Modal handleUserDelete={handleUserDelete} />
-            </>
-          )}
+        </div>
+      </div>
+      <div className="bg-white text-gray-600 font-bold w-[390px] flex justify-center flex-row">
+        <p
+          className={`m-1 shadow-md rounded-lg px-2 ${
+            selectedTab === "liked" ? "text-black" : ""
+          }`}
+          onClick={() => setSelectedTab("liked")}
+        >
+          찜한 상품
+        </p>
+        <p
+          className={`m-1 shadow-md rounded-lg px-2 ${
+            selectedTab === "bid" ? "text-black" : ""
+          }`}
+          onClick={() => setSelectedTab("bid")}
+        >
+          참여 상품
+        </p>
+        <p
+          className={`m-1 shadow-md rounded-lg px-2 ${
+            selectedTab === "posted" ? "text-black" : ""
+          }`}
+          onClick={() => setSelectedTab("posted")}
+        >
+          등록 상품
+        </p>
+      </div>
+      <div className="h-[500px] flex justify-center p-1">
+        <Mylists selectedTab={selectedTab} />
+      </div>
+      {forSureDelete && (
+        <>
+          <Modal handleUserDelete={handleUserDelete} />
         </>
       )}
     </div>
   );
 };
+
 export default Mypage;

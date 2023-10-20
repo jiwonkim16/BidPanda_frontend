@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router";
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
+import Loading from "./components/assets/Loading";
 
 /**
  * @author : Jiwon Kim
@@ -12,15 +14,17 @@ function App() {
     <>
       <div className="w-[390px] h-[844px] flex justify-center p-1">
         <div className="bg-white w-[390px] ">
-          <div className="h-[5.5%] ">
+          <div className="h-[5.5%] z-30 relative">
             <Header />
           </div>
-          <div className="h-[81.5%] overflow-hidden">
+          <div className="h-[82.5%] relative overflow-hidden">
             <div className="overflow-y-scroll overflow-x-hidden max-h-full scrollbar-hide">
+               <Suspense fallback={<Loading />}>
               <Outlet />
+               </Suspense>
             </div>
           </div>
-          <div className="h-[13%]">
+          <div className="h-[12%]">
             <Footer />
           </div>
         </div>

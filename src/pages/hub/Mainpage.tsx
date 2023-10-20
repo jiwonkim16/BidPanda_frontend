@@ -1,10 +1,7 @@
-import React, { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { getTopTenListApi } from "../../apis/auction-list/TopTenList";
-import Loading from "../../components/assets/Loading";
 import ItemCards from "../../components/modules/ItemCards";
-const Categories = React.lazy(
-  () => import("../../components/modules/Categories")
-);
+import Categories from "../../components/modules/Categories";
 
 /**
  * @author : Goya Gim
@@ -25,12 +22,16 @@ const Main = () => {
   }, []);
 
   return (
-    <>
-      <nav className="bg-gray-200 w-[390px] h-[210px]"></nav>
+    <div className="py-1">
+      <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
+        <img
+          src="src/imgs/sampleBann.jpeg"
+          className="h-full max-w-fit"
+          alt="banner"
+        />
+      </nav>
       <div className="flex justify-center mt-[13px] flex-wrap">
-        <Suspense fallback={<Loading />}>
-          <Categories />
-        </Suspense>
+        <Categories />
       </div>
       <div className="flex flex-col justify-left mt-4 ml-5 flex-wrap font-bold text-gray-700">
         최고 낙찰가 상품
@@ -38,7 +39,7 @@ const Main = () => {
           <ItemCards topItems={topItems} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

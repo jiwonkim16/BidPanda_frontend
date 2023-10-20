@@ -9,6 +9,7 @@ import jwtDecode from "jwt-decode";
 import Loading from "../../components/assets/Loading";
 import { Tab } from "@headlessui/react";
 
+
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;
@@ -35,7 +36,7 @@ function AuctionList() {
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
   // -----------------------------------
-  const { data, isLoading } = useQuery("auctionList", auctionList);
+  const { data } = useQuery("auctionList", auctionList);
   const auctionItem: IAuction[] = data?.content;
 
   const onClickCategory = async (
@@ -47,13 +48,6 @@ function AuctionList() {
   };
 
   return (
-    <>
-      {isLoading ? (
-        <>
-          <Loading />
-        </>
-      ) : null}
-
       <div>
         <div className="flex justify-center">
           <Tab.Group>
@@ -78,12 +72,28 @@ function AuctionList() {
         </div>
         {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
 
-        {auctionItem &&
-          auctionItem.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
+      {auctionItem &&
+        auctionItem.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
+          >
+            <Link
+              to={
+                item.nickname === userNickname
+                  ? status
+                    ? `/items/detail/${item.id}`
+                    : `/items/modifier/${item.id}`
+                  : `/items/detail/${item.id}`
+              }
             >
+              <img
+                className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
+                src={item.itemImages[0]}
+                alt="product image"
+              />
+            </Link>
+            <div className="px-5 pb-5">
               <Link
                 to={
                   item.nickname === userNickname
@@ -93,46 +103,29 @@ function AuctionList() {
                     : `/items/detail/${item.id}`
                 }
               >
-                <img
-                  className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
-                  src={item.itemImages[0]}
-                  alt="product image"
-                />
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                  {item.title}
+                </h5>
               </Link>
-              <div className="px-5 pb-5">
-                <Link
-                  to={
-                    item.nickname === userNickname
-                      ? status
-                        ? `/items/detail/${item.id}`
-                        : `/items/modifier/${item.id}`
-                      : `/items/detail/${item.id}`
+              <div className="flex items-center mt-2 mb-2">
+                <span>
+                  {
+                    <CountdownTimer
+                      endTime={item.auctionEndTime}
+                      bidCount={item.bidCount}
+                    />
                   }
-                >
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {item.title}
-                  </h5>
-                </Link>
-                <div className="flex items-center mt-2 mb-2">
-                  <span>
-                    {
-                      <CountdownTimer
-                        endTime={item.auctionEndTime}
-                        bidCount={item.bidCount}
-                      />
-                    }
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-md font-bold text-gray-900">
-                    {item.presentPrice} 원
-                  </span>
-                </div>
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-md font-bold text-gray-900">
+                  {item.presentPrice} 원
+                </span>
               </div>
             </div>
-          ))}
-      </div>
-    </>
+          </div>
+        ))}
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Loading from "../assets/Loading";
 import { useEffect } from "react";
 
 /**
@@ -42,11 +41,7 @@ const Kakao = () => {
     fetchData();
   }, []);
 
-  return (
-    <div className="flex flex-col justify-center items-center h-[100%]">
-      <Loading />
-    </div>
-  );
+  return <></>;
 };
 
 export default Kakao;
