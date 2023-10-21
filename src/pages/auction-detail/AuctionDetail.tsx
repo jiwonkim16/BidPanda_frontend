@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
+import Loading from "../../components/assets/Loading";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -35,7 +39,24 @@ function AuctionDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // 페이지 접근 인가
+  // jwt 디코딩
+  const token: string | null = localStorage.getItem("authorization");
+  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
+  const userNickname: string = decodedToken ? decodedToken.nickname : "";
+  const status = useRecoilValue(auctionStatus);
+
+  const [visible, setVisible] = useState(0);
+  const nextBtn = () => {
+    setVisible((prev) => (prev === 2 ? 2 : prev + 1));
+    console.log(visible);
+  };
+  const prevBtn = () => {
+    setVisible((prev) => (prev === 0 ? 0 : prev - 1));
+    console.log(visible);
+  };
+
+  // 로그인 유저가 아니면 로그인 페이지로~
+
   useEffect(() => {
     const accessToken = localStorage.getItem("authorization");
     if (!accessToken) {
@@ -76,13 +97,28 @@ function AuctionDetail() {
       }
     }
   };
-  const status = useRecoilValue(auctionStatus);
-  console.log(status);
 
-  // jwt 디코딩
-  const token: string | null = localStorage.getItem("authorization");
-  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
-  const userNickname: string = decodedToken ? decodedToken.nickname : "";
+  const box = {
+    invisible: {
+      x: 500,
+      opacity: 0,
+      scale: 0,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 2,
+      },
+    },
+    exit: {
+      x: -500,
+      opacity: 0,
+      scale: 0,
+      transition: { duration: 1 },
+    },
+  };
 
   return (
     <>
@@ -91,22 +127,30 @@ function AuctionDetail() {
       ) : (
         <div className="w-[360px] h-[95%] py-4 ml-4 justify-center items-center">
           <div>
-            <div>
-              <img
-                className="object-cover w-[360px] h-[440px] rounded-t-lg"
-                src={detailItem.itemImages[0]}
-                alt=""
-              />
-              <div className="flex flex-col mt-4 ">
-                <div className="flex flex-row items-center mb-3">
-                  <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {detailItem.title}
-                  </h5>
-                  <CountdownTimer endTime={detailItem.auctionEndTime} />
-                </div>
-                <p className="mb-2 font-semibold text-gray-700 dark:text-gray-400">
-                  {detailItem.content}
-                </p>
+            <AnimatePresence>
+              {[0, 1, 2].map((i) =>
+                i === visible ? (
+                  <motion.img
+                    variants={box}
+                    initial="invisible"
+                    animate="visible"
+                    exit="exit"
+                    key={i}
+                    className="object-cover w-[360px] rounded-t-lg h-56"
+                    src={detailItem.itemImages[i]}
+                    alt=""
+                  />
+                ) : null
+              )}
+            </AnimatePresence>
+            <button onClick={nextBtn}>Next</button>
+            <button onClick={prevBtn}>prev</button>
+            <div className="flex flex-col mt-4 ">
+              <div className="flex flex-row items-center mb-3">
+                <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {detailItem.title}
+                </h5>
+                <CountdownTimer endTime={detailItem.auctionEndTime} /
               </div>
             </div>
             <div>

@@ -50,6 +50,7 @@ function ChattingRoom() {
       // 컴포넌트 언마운트 시 stompClient 연결 해제
       if (stompClient) {
         stompClient.disconnect();
+        localStorage.removeItem("record_id");
       }
     };
   }, []);

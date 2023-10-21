@@ -1,12 +1,13 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
-import { useQuery } from "react-query";
-import { auctionList } from "../../apis/auction-list/AuctionList";
 import CountdownTimer from "./CountdownTimer";
 import { Link, useNavigate } from "react-router-dom";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
 import { Tab } from "@headlessui/react";
+import React, { useEffect, useRef, useState } from "react";
+import { auctionList } from "./../../apis/auction-list/AuctionList";
+
 
 interface IAuction {
   auctionEndTime: string;
@@ -34,8 +35,38 @@ function AuctionList() {
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
   // -----------------------------------
-  const { data } = useQuery("auctionList", auctionList);
-  const auctionItem: IAuction[] = data?.content;
+  const target = useRef<HTMLDivElement | null>(null);
+  const [loading, setLoading] = useState(false);
+  const page = useRef(1);
+  const [auctionItem, setAuctionItem] = useState<IAuction[]>([]);
+
+  useEffect(() => {
+    if (target.current) {
+      observer.observe(target.current);
+    }
+  }, []);
+
+  const getItems = async () => {
+    setLoading(true);
+    const response = await auctionList(page.current);
+    if (!(response.totalElement >= auctionItem.length)) {
+      setAuctionItem((prev) => [...prev, ...response.content]);
+      setLoading(false);
+    } else {
+      // 페이지가 끝났으면 observer를 disconnect하여 더 이상 호출되지 않도록 함
+      observer.disconnect();
+    }
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      if (loading) return;
+
+      getItems();
+      page.current += 1;
+    });
+  });
 
   const onClickCategory = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -70,12 +101,9 @@ function AuctionList() {
       </div>
       {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
 
-      {auctionItem &&
-        auctionItem.map((item) => (
-          <div
-            key={item.id}
-            className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
-          >
+      {auctionItem.map((item, index) => (
+        <React.Fragment key={index}>
+          <div className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow ">
             <Link
               to={
                 item.nickname === userNickname
@@ -101,7 +129,7 @@ function AuctionList() {
                     : `/items/detail/${item.id}`
                 }
               >
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900">
                   {item.title}
                 </h5>
               </Link>
@@ -122,7 +150,11 @@ function AuctionList() {
               </div>
             </div>
           </div>
-        ))}
+        </React.Fragment>
+      ))}
+      <div ref={target} className="text-white">
+        dddd
+      </div>
     </div>
   );
 }
