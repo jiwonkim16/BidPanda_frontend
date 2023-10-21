@@ -5,20 +5,15 @@ import { enterChattingRoom } from "../../apis/chat/ChattingListApi";
 const Notification = () => {
   const navigate = useNavigate();
 
-  const checkNoti = async (e: any) => {
-    const itemId = e.currentTarget.value;
-    console.log(itemId);
-
-    const res = await enterChattingRoom(itemId);
-    console.log(res);
-
-    if (res?.status === 200) {
-      localStorage.setItem("record_id", res?.data.recordId);
-      navigate(`/chattingRoom/${itemId}`);
-    } else {
-      toast.error("해당 상품이 존재하지 않습니다..");
-    }
-  };
+  // const checkNoti = async () => {
+  //   const res = await
+  //   if (res?.status === 200) {
+  //     localStorage.setItem("record_id", res?.data.recordId);
+  //     navigate(`/chattingRoom/${itemId}`);
+  //   } else {
+  //     toast.error("해당 상품이 존재하지 않습니다..");
+  //   }
+  // };
   return (
     <div className="h-[100%]">
       <div>
