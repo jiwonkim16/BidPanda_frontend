@@ -22,24 +22,24 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="py-1">
-      <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
-        <img
-          src="src/imgs/sampleBann.jpeg"
-          className="h-full max-w-fit"
-          alt="banner"
-        />
-      </nav>
-      <div className="flex justify-center mt-[13px] flex-wrap">
-        <Categories />
-      </div>
-      <div className="flex flex-col justify-left mt-4 ml-5 flex-wrap font-bold text-gray-700">
-        최고 낙찰가 상품
-        <div>
-          <ItemCards topItems={topItems} />
+    <>
+      <div className="py-1">
+        <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
+          <img
+            src="src/imgs/sampleBann.jpeg"
+            className="h-full max-w-fit"
+            alt="banner"
+          />
+        </nav>
+        <div className="flex justify-center mt-[13px] flex-wrap">
+          <Categories />
         </div>
       </div>
-    </div>
+      <div>최고 낙찰가 상품</div>
+      <div className="flex items-center justify-start flex-wrap mt-4 ml-3 font-bold text-gray-700">
+        <ItemCards topItems={topItems} />
+      </div>
+    </>
   );
 };
 
