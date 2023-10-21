@@ -19,9 +19,9 @@ function App() {
           </div>
           <div className="h-[82.5%] relative overflow-hidden">
             <div className="overflow-y-scroll overflow-x-hidden max-h-full scrollbar-hide">
-               <Suspense fallback={<Loading />}>
-              <Outlet />
-               </Suspense>
+              <Suspense fallback={<Loading />}>
+                <Outlet />
+              </Suspense>
             </div>
           </div>
           <div className="h-[12%]">

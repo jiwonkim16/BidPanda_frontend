@@ -15,7 +15,6 @@ import Loading from "../../components/assets/Loading";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
-
 interface IAuctionDetail {
   auctionEndTime: string;
   auctionStatus: string;
@@ -123,34 +122,36 @@ function AuctionDetail() {
   return (
     <>
       {isLoading ? (
-        <></>
+        <Loading />
       ) : (
         <div className="w-[360px] h-[95%] py-4 ml-4 justify-center items-center">
           <div>
-            <AnimatePresence>
-              {[0, 1, 2].map((i) =>
-                i === visible ? (
-                  <motion.img
-                    variants={box}
-                    initial="invisible"
-                    animate="visible"
-                    exit="exit"
-                    key={i}
-                    className="object-cover w-[360px] rounded-t-lg h-56"
-                    src={detailItem.itemImages[i]}
-                    alt=""
-                  />
-                ) : null
-              )}
-            </AnimatePresence>
-            <button onClick={nextBtn}>Next</button>
-            <button onClick={prevBtn}>prev</button>
+            <div className="flex">
+              <button onClick={prevBtn}>⬅</button>
+              <AnimatePresence>
+                {[0, 1, 2].map((i) =>
+                  i === visible ? (
+                    <motion.img
+                      variants={box}
+                      initial="invisible"
+                      animate="visible"
+                      exit="exit"
+                      key={i}
+                      className="object-cover w-[320px] rounded-t-lg h-56"
+                      src={detailItem.itemImages[i]}
+                      alt=""
+                    />
+                  ) : null
+                )}
+              </AnimatePresence>
+              <button onClick={nextBtn}>➡</button>
+            </div>
             <div className="flex flex-col mt-4 ">
               <div className="flex flex-row items-center mb-3">
                 <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {detailItem.title}
                 </h5>
-                <CountdownTimer endTime={detailItem.auctionEndTime} /
+                <CountdownTimer endTime={detailItem.auctionEndTime} />
               </div>
             </div>
             <div>
