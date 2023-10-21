@@ -12,6 +12,7 @@ const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
 const Mypage = React.lazy(() => import("./pages/hub/Mypage"));
 const EditUserInfo = React.lazy(() => import("./pages/hub/EditUserInfo"));
 const SearchAution = React.lazy(() => import("./pages/search/SearchAution"));
+const Notification = React.lazy(() => import("./pages/hub/Notification"));
 const ChattingList = React.lazy(() => import("./pages/chat/ChattingList"));
 const ChattingRoom = React.lazy(() => import("./pages/chat/ChattingRoom"));
 const RegisterProduct = React.lazy(
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "kakao",
         element: <Kakao />,
+      },
+      {
+        path: "notification",
+        element: <Notification />,
       },
       {
         path: "register",

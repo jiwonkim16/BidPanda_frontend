@@ -6,9 +6,7 @@ import CountdownTimer from "./CountdownTimer";
 import { Link, useNavigate } from "react-router-dom";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
-import Loading from "../../components/assets/Loading";
 import { Tab } from "@headlessui/react";
-
 
 interface IAuction {
   auctionEndTime: string;
@@ -48,29 +46,29 @@ function AuctionList() {
   };
 
   return (
-      <div>
-        <div className="flex justify-center">
-          <Tab.Group>
-            <Tab.List className="flex space-x-5 rounded-xl bg-blue-900/20 p-1">
-              {categoryLi.map((item, index) => (
-                <Tab
-                  type="button"
-                  key={index}
-                  value={item}
-                  onClick={onClickCategory}
-                  className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-                    selectCategory === item
-                      ? "bg-white shadow"
-                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                  }`}
-                >
-                  {item}
-                </Tab>
-              ))}
-            </Tab.List>
-          </Tab.Group>
-        </div>
-        {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
+    <div>
+      <div className="flex justify-center">
+        <Tab.Group>
+          <Tab.List className="flex space-x-5 rounded-xl bg-blue-900/20 p-1">
+            {categoryLi.map((item, index) => (
+              <Tab
+                type="button"
+                key={index}
+                value={item}
+                onClick={onClickCategory}
+                className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+                  selectCategory === item
+                    ? "bg-white shadow"
+                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                }`}
+              >
+                {item}
+              </Tab>
+            ))}
+          </Tab.List>
+        </Tab.Group>
+      </div>
+      {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
 
       {auctionItem &&
         auctionItem.map((item) => (

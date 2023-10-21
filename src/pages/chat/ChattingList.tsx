@@ -20,17 +20,12 @@ interface IChatList {
 
 function ChattingList() {
   const navigate = useNavigate();
-
   const { data } = useQuery("chattingRoom", chattingListApi);
-  console.log(data);
 
   // 채팅방 입장
   const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const itemId = Number(event.currentTarget.value);
-    console.log(itemId);
-
     const response = await enterChattingRoom(itemId);
-    console.log(response);
 
     if (response?.status === 200) {
       localStorage.setItem("record_id", response?.data.recordId);
@@ -42,9 +37,6 @@ function ChattingList() {
   };
   return (
     <div className="h-[100%]">
-      <div>
-        <h3>채팅방 리스트</h3>
-      </div>
       <div>
         <div className="flex flex-col justify-center items-center">
           {data?.map((item: IChatList) => (

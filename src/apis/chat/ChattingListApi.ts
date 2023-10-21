@@ -20,7 +20,6 @@ export const chattingListApi = async () => {
 
 // 채팅방 입장
 export const enterChattingRoom = async (item_id: number) => {
-  console.log(item_id);
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/chat/room`,
