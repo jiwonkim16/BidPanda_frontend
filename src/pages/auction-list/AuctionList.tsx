@@ -8,6 +8,7 @@ import { Tab } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { auctionList } from "./../../apis/auction-list/AuctionList";
 
+
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;

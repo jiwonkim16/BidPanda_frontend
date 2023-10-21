@@ -23,11 +23,9 @@ function ChattingRoom() {
   const record_id = localStorage.getItem("record_id");
 
   useEffect(() => {
-    console.log("렌더렌더렌더");
     // setRecordId(recordId);
     const chatHistory = async () => {
       try {
-        console.log("데이터 불러오기!!");
         const response = await axios.get(
           `${
             import.meta.env.VITE_REACT_API_KEY
@@ -44,7 +42,7 @@ function ChattingRoom() {
         setHistory(response.data);
         connectWebSocket();
       } catch (error) {
-        console.log("에러러러러러");
+        console.log(error);
       }
     };
     chatHistory();
@@ -60,9 +58,7 @@ function ChattingRoom() {
   // subscribe 프레임 2번째 인자......
   const getMessageCallback = (message: any) => {
     try {
-      console.log("구독 후 콜백함수 실행", message);
       const recv = JSON.parse(message.body);
-      console.log("recv", recv);
       receiveMessage(recv);
     } catch (error) {
       console.log(error);
@@ -72,14 +68,12 @@ function ChattingRoom() {
   const connectWebSocket = () => {
     const socket = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
     const newStompClient = Stomp.over(() => socket);
-    console.log(newStompClient);
     newStompClient.onStompError = (frame: any) => {
       console.error("웹소켓 오류:", frame);
       // 오류 처리, 예를 들어 다시 연결 시도
     };
     newStompClient.connect({}, (frame: any) => {
       console.log("연결 성공", frame);
-      console.log(record_id);
       newStompClient.subscribe(
         `/topic/chat/room/${record_id}`,
         getMessageCallback
@@ -110,10 +104,7 @@ function ChattingRoom() {
   const sendMessage = () => {
     stompClient.onStompError = (frame: any) => {
       console.error("웹소켓 오류:", frame);
-      // 오류 처리, 예를 들어 다시 연결 시도
     };
-    console.log("레코드 아이디", record_id);
-    console.log("스톰프프", stompClient);
     stompClient.send(
       `/app/chat/message/${record_id}`,
       {},
@@ -130,33 +121,54 @@ function ChattingRoom() {
   return (
     <>
       <div>
-        <div>
+        <div className="h-[619px] mt-4 mx-3 overflow-y-auto">
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
-                <div className="text-xs">{item.sender} 님이 입장했습니다.</div>
-              ) : item.type === "TEXT" ? (
-                <div className="text-xs">
-                  <strong>You:</strong> {item.content}
+                <div className="text-xs text-gray-400 text-center py-1">
+                  {item.sender} 님이 입장했습니다.
+                </div>
+              ) : item.type === "TEXT" && item.sender === userNickname ? (
+                <div className="text-sm flex flex-row-reverse">
+                  <div className="flex flex-col items-end">
+                    <div className="text-right mb-1 font-semibold">
+                      {userNickname}
+                    </div>
+                    <div className="py-1.5 px-2 rounded-lg bg-gray-700 text-white shadow mb-2 w-fit ">
+                      {item.content}
+                    </div>
+                  </div>
                 </div>
               ) : (
-                <div>
-                  <strong>{item.sender}:</strong> {item.content}
+                <div className="text-sm flex flex-row">
+                  <div className="flex flex-col items-start">
+                    <div className="text-right mb-1 font-semibold">
+                      {item.sender}
+                    </div>
+                    <div className="py-1 px-2 rounded-lg bg-gray-200 shadow mb-2 w-fit">
+                      {item.content}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
           ))}
         </div>
-        <div>{inputMessage}</div>
-        <div>
+        <div className="border-t-2 border-b-none py-2 flex items-center font-semibold">
           <input
             type="text"
             id="chat"
-            placeholder="내용을 입력하세요"
+            className="border-2 rounded-lg mx-3 w-[300px] h-[37px]"
+            placeholder=" 내용을 입력하세요"
             value={inputMessage}
             onChange={onChange}
           />
-          <button onClick={sendMessage}>보내기</button>
+          <button
+            className="w-[55px] h-[35px] bg-gray-800 text-white rounded-lg"
+            onClick={sendMessage}
+          >
+            보내기
+          </button>
         </div>
       </div>
     </>

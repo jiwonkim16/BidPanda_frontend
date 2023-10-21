@@ -55,11 +55,11 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] w-[180px] h-[240px] mt-5 mr-2 flex flex-wrap">
+      <div className="rounded-[15px] mt-4 ml-2 flex flex-wrap">
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
-            className="w-full max-w-sm bg-white border border-gray-200 mx-2 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="bg-white border border-gray-200 m-2 rounded-lg shadow"
           >
             <Link to={`/items/detail/${item.id}`}>
               <img
