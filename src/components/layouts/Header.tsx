@@ -69,4 +69,4 @@ function Header() {
 export default Header;
 
 const navStyle =
-  "bg-white w-[390px] h-[105%] flex flex-row py-1 shadow-sm border-b-2 rounded-b-[15px]";
+  "bg-white w-[390px] h-[105%] flex flex-row py-1 border-b-2 rounded-b-[15px]";

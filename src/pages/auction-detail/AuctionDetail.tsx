@@ -15,7 +15,6 @@ import Loading from "../../components/assets/Loading";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 
-
 interface IAuctionDetail {
   auctionEndTime: string;
   auctionStatus: string;
@@ -150,7 +149,7 @@ function AuctionDetail() {
                 <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {detailItem.title}
                 </h5>
-                <CountdownTimer endTime={detailItem.auctionEndTime} /
+                <CountdownTimer endTime={detailItem.auctionEndTime} />
               </div>
             </div>
             <div>
