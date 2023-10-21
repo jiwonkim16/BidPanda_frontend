@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 import { Tab } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { auctionList } from "./../../apis/auction-list/AuctionList";
-
+import Loading from "./../../components/assets/Loading";
 
 interface IAuction {
   auctionEndTime: string;
@@ -152,8 +152,8 @@ function AuctionList() {
           </div>
         </React.Fragment>
       ))}
-      <div ref={target} className="text-white">
-        dddd
+      <div ref={target}>
+        {loading ? <Loading /> : <span className="text-white">dd</span>}
       </div>
     </div>
   );
