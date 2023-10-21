@@ -55,7 +55,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] py-4 ml-2 flex flex-wrap">
+      <div className="rounded-[15px] mt-4 ml-2 flex flex-wrap">
         {itemsData.map((item: Items) => (
           <div
             key={item.id}

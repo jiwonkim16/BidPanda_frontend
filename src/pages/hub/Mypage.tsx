@@ -106,7 +106,7 @@ const Mypage = () => {
   };
 
   return (
-    <div className="flex flex-col h-[79vh] justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <div>
         <div className="flex justify-center items-center font-bold">
           <div>
@@ -138,12 +138,12 @@ const Mypage = () => {
                   )}
                 </div>
                 <div>
-                  <button className="w-[95px] h-[30px] bg-gray-800 text-white rounded-lg mt-2 mx-1 ">
-                    <Link to="/mypage/edit">회원정보 수정</Link>
+                  <button className="w-[95px] h-[30px] bg-gray-200 text-gray-800 shadow-sm rounded-lg mt-2 mx-1 ">
+                    <Link to="/mypage/edit">프로필 수정</Link>
                   </button>
                   <button
                     onClick={askUserDelete}
-                    className="w-[95px] h-[30px] bg-red-500 text-white rounded-lg mt-2 mx-1 "
+                    className="w-[95px] h-[30px] bg-red-500 text-white shadow-sm  rounded-lg mt-2 mx-1 "
                   >
                     회원 탈퇴
                   </button>
@@ -153,33 +153,33 @@ const Mypage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white text-gray-600 font-bold w-[390px] flex justify-center flex-row">
+      <div className="text-gray-800 font-semibold w-[390px] flex justify-center flex-row">
         <p
-          className={`m-1 shadow-md rounded-lg px-2 ${
-            selectedTab === "liked" ? "text-black" : ""
+          className={`m-1 bg-gray-100 shadow-md rounded-md p-1 ${
+            selectedTab === "liked" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("liked")}
         >
           찜한 상품
         </p>
         <p
-          className={`m-1 shadow-md rounded-lg px-2 ${
-            selectedTab === "bid" ? "text-black" : ""
+          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
+            selectedTab === "bid" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("bid")}
         >
           참여 상품
         </p>
         <p
-          className={`m-1 shadow-md rounded-lg px-2 ${
-            selectedTab === "posted" ? "text-black" : ""
+          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
+            selectedTab === "posted" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("posted")}
         >
           등록 상품
         </p>
       </div>
-      <div className="h-[500px]">
+      <div className="h-[500px] flex flex-col">
         <Mylists selectedTab={selectedTab} />
       </div>
       {forSureDelete && (
