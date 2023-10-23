@@ -86,14 +86,14 @@ function AuctionCard() {
     <>
       <div className="flex justify-center">
         <Tab.Group>
-          <Tab.List className="flex space-x-5 rounded-xl bg-blue-900/20 p-1">
+          <Tab.List className="flex space-x-3 rounded-xl bg-blue-900/20 p-1 mt-[10px]">
             {categoryLi.map((item, index) => (
               <Tab
                 type="button"
                 key={index}
                 value={item}
                 onClick={onClickCategory}
-                className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+                className={`w-[35px] rounded-lg py-2 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
                   selectCategory === item
                     ? "bg-white shadow"
                     : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
@@ -108,11 +108,11 @@ function AuctionCard() {
       {auctionData.map((item: IAuction, index) => (
         <div
           key={index}
-          className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
+          className="flex flex-col justify-center ml-2 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
-              className="p-8 rounded-t-lg"
+              className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
               src={item.itemImages[0]}
               alt="product image"
             />

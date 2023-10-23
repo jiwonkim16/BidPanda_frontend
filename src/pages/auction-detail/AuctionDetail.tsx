@@ -100,22 +100,22 @@ function AuctionDetail() {
   const box = {
     invisible: {
       x: 500,
-      opacity: 0,
-      scale: 0,
+      opacity: 0.3,
+      scale: 0.5,
     },
     visible: {
       x: 0,
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 2,
+        duration: 0.8,
       },
     },
     exit: {
-      x: -500,
-      opacity: 0,
-      scale: 0,
-      transition: { duration: 1 },
+      x: -400,
+      opacity: 0.3,
+      scale: 0.5,
+      transition: { duration: 0.6 },
     },
   };
 
@@ -127,7 +127,15 @@ function AuctionDetail() {
         <div className="w-[360px] h-[95%] py-4 ml-4 justify-center items-center">
           <div>
             <div className="flex">
-              <button onClick={prevBtn}>⬅</button>
+              <button onClick={prevBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="2em"
+                  viewBox="0 0 320 512"
+                >
+                  <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                </svg>
+              </button>
               <AnimatePresence>
                 {[0, 1, 2].map((i) =>
                   i === visible ? (
@@ -137,14 +145,26 @@ function AuctionDetail() {
                       animate="visible"
                       exit="exit"
                       key={i}
-                      className="object-cover w-[320px] rounded-t-lg h-56"
-                      src={detailItem.itemImages[i]}
+                      className="object-cover w-[320px] rounded-lg h-56"
+                      src={
+                        detailItem.itemImages && detailItem.itemImages[i]
+                          ? detailItem.itemImages[i]
+                          : "/noimage.png"
+                      }
                       alt=""
                     />
                   ) : null
                 )}
               </AnimatePresence>
-              <button onClick={nextBtn}>➡</button>
+              <button onClick={nextBtn}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="2em"
+                  viewBox="0 0 320 512"
+                >
+                  <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
+                </svg>
+              </button>
             </div>
             <div className="flex flex-col mt-4 ">
               <div className="flex flex-row items-center mb-3">

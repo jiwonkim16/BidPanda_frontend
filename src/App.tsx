@@ -12,7 +12,7 @@ import Loading from "./components/assets/Loading";
 function App() {
   return (
     <>
-      <div className="w-[390px] h-[844px] flex justify-center p-1">
+      <div className="w-[390px] h-[844px] flex m-auto justify-center p-1">
         <div className="bg-white w-[390px] ">
           <div className="h-[5.5%] z-30 relative">
             <Header />

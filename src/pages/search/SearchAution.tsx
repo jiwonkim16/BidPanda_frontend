@@ -72,9 +72,6 @@ function SearchAution() {
           result.map((item: IResult) => {
             return <SearchResult data={item} key={item.id} />;
           })}
-        {/* <SearchResult result={result} /> */}
-        {/* SearchAution 렌더링 되면 <SearchResult /> result=undefined 인 상태로 렌더링 검색 진행 -> setResult(response)*/}
-        {/* 리렌더링 처리 -> <SearchResult result={[...]} /> */}
       </div>
     </>
   );
