@@ -235,15 +235,14 @@ function ModifierProduct() {
         <span className="text-red-500">
           {errors.category?.message as string}
         </span>
-        <br />
         {/* 이미지... */}
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-64 h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+          className="flex flex-col items-center justify-center w-[350px] h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
-              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              className="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -264,7 +263,7 @@ function ModifierProduct() {
             <p className="text-xs text-gray-500">
               최대 3장까지 등록 가능합니다
             </p>
-            {<img src={detailItem?.itemImages[0]} />}
+            {/* {<img src={detailItem?.itemImages[0]} />} */}
           </div>
           <input
             id="dropzone-file"
@@ -276,13 +275,13 @@ function ModifierProduct() {
           />
         </label>
         {/* 이미지 미리보기 섹션 */}
-        <div>
+        <div className="w-[350px] h-32 bg-gray-100 border-none mt-4 flex justify-center items-center rounded-xl">
           {imagePreviews.map((preview, index) => (
             <img
               key={index}
               src={preview}
               alt={`미리보기 ${index + 1}`}
-              className="max-w-full h-auto mt-2"
+              className="max-w-[115px] h-[128px] object-cover"
             />
           ))}
         </div>
@@ -302,18 +301,18 @@ function ModifierProduct() {
         </span>
         <br />
         <span>마감기한 : {watch("deadline")}DAY</span>
-        <br />
-        <br />
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          수정하기
-        </button>
+        <div className="flex items-center justify-center mt-[10px]">
+          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            수정하기
+          </button>
+          <button
+            onClick={deleteItem}
+            className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ml-[10px]"
+          >
+            삭제하기
+          </button>
+        </div>
       </form>
-      <button
-        onClick={deleteItem}
-        className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-      >
-        삭제하기
-      </button>
     </>
   );
 }

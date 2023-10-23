@@ -80,14 +80,14 @@ function AuctionList() {
     <div>
       <div className="flex justify-center">
         <Tab.Group>
-          <Tab.List className="flex space-x-5 rounded-xl bg-blue-900/20 p-1">
+          <Tab.List className="flex space-x-3 rounded-xl bg-blue-900/20 p-1 mt-[10px]">
             {categoryLi.map((item, index) => (
               <Tab
                 type="button"
                 key={index}
                 value={item}
                 onClick={onClickCategory}
-                className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+                className={`w-[35px] rounded-lg py-2 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
                   selectCategory === item
                     ? "bg-white shadow"
                     : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
