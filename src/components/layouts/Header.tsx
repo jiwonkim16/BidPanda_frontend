@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useSetRecoilState } from "recoil";
 import { profileImageState } from "./../../atoms/profileImage";
+
+/**
+ * @author : Goya Gim
+ * @returns : 클라이언트 네비게이션 바 구현
+ */
 
 function Header() {
   const [profileImage, setProfileImage] = useState("");

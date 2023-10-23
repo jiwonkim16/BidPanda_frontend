@@ -1,9 +1,9 @@
 import CountdownTimer from "../auction-list/CountdownTimer";
-import { useRecoilValue } from "recoil";
-import { auctionStatus } from "../../atoms/auctionStatus";
+// import { useRecoilValue } from "recoil";
+// import { auctionStatus } from "../../atoms/auctionStatus";
 
 function SearchResult({ data }: any) {
-  const status = useRecoilValue(auctionStatus);
+  // const status = useRecoilValue(auctionStatus);
   const onClick = (result: any) => {
     window.location.href = `/items/detail/${result.id}`;
   };

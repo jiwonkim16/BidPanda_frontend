@@ -1,4 +1,10 @@
+import { memo } from "react";
 import spinner from "../../imgs/spinner.gif";
+
+/**
+ * @author : Goya Gim
+ * @returns : 브라우저 isLoading 처리를 위한 스피너 이미지
+ */
 
 const Loading = () => {
   return (
@@ -7,5 +13,4 @@ const Loading = () => {
     </div>
   );
 };
-
-export default Loading;
+export default memo(Loading);

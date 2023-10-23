@@ -1,3 +1,8 @@
+/**
+ * @author : Goya Gim
+ * @returns : 회원탈퇴 유예를 위한 컴포넌트.
+ */
+
 const Modal = ({ handleUserDelete }: any) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-20">
