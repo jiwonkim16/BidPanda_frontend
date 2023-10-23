@@ -1,11 +1,9 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "./App";
 import Main from "./pages/hub/Mainpage";
+import App from "./App";
 import Kakao from "./components/modules/Kakao";
-import NotFound from "./pages/error/NotFound";
-import ErrorComponent from "./pages/error/ErrorComponent";
 
 const Login = React.lazy(() => import("./pages/users/Login"));
 const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
@@ -15,6 +13,8 @@ const SearchAution = React.lazy(() => import("./pages/search/SearchAution"));
 const Notification = React.lazy(() => import("./pages/hub/Notification"));
 const ChattingList = React.lazy(() => import("./pages/chat/ChattingList"));
 const ChattingRoom = React.lazy(() => import("./pages/chat/ChattingRoom"));
+const NotFound = React.lazy(() => import("./pages/error/NotFound"));
+const ErrorComponent = React.lazy(() => import("./pages/error/ErrorComponent"));
 const RegisterProduct = React.lazy(
   () => import("./pages/auction-register/RegisterProduct")
 );

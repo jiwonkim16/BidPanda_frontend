@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { enterChattingRoom } from "../../apis/chat/ChattingListApi";
+// import { useNavigate } from "react-router-dom";
 
 const Notification = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const checkNoti = async () => {
   //   const res = await
@@ -36,5 +34,4 @@ const Notification = () => {
     </div>
   );
 };
-
 export default Notification;

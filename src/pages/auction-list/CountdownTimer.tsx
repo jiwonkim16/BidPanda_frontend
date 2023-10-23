@@ -40,16 +40,16 @@ function CountdownTimer({ endTime, bidCount }: any) {
       <div>
         {remainingTime !== 0 ? (
           <>
-            <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded shadow-md font-semibold">
-              <div className="bg-green-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800 p-1 rounded font-semibold">
+              <div className="bg-green-500 w-[10px] h-[10px] shadow-sm rounded-full mr-1" />
               <div>진행중</div>
             </div>
             {duration.hours() <= 12 && days <= 0 ? (
-              <div className="bg-gray-100 text-red-500  p-1 mt-1 text-sm rounded font-semibold">
+              <div className="bg-gray-100 text-red-500  p-1 mt-1 text-sm rounded shadow-sm font-semibold">
                 {format}
               </div>
             ) : (
-              <div className="bg-gray-100 text-green-600  p-1 mt-1 text-sm rounded font-semibold">
+              <div className="bg-gray-100 text-green-600  p-1 mt-1 text-sm rounded shadow-sm font-semibold">
                 {format}
               </div>
             )}

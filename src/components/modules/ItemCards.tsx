@@ -27,7 +27,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       scrollbar={{
         hide: true,
       }}
-      slidesPerView={2.1}
+      slidesPerView={2.2}
       centeredSlides={false}
       modules={[Scrollbar]}
       loop={true}

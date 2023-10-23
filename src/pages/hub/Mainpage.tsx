@@ -27,7 +27,7 @@ const Main = () => {
         <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
           <img
             src="src/imgs/sampleBann.jpeg"
-            className="h-full max-w-fit"
+            className="h-full max-w-fit -ml-2"
             alt="banner"
           />
         </nav>
@@ -35,8 +35,8 @@ const Main = () => {
           <Categories />
         </div>
       </div>
-      <div>최고 낙찰가 상품</div>
-      <div className="flex items-center justify-start flex-wrap mt-4 ml-3 font-bold text-gray-700">
+      <div className="ml-4 mt-4 font-semibold">최고 낙찰가 상품</div>
+      <div className="flex items-center justify-start flex-wrap mt-1 ml-4 font-bold text-gray-700">
         <ItemCards topItems={topItems} />
       </div>
     </>
