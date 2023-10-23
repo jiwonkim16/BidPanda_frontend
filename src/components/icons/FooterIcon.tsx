@@ -9,7 +9,7 @@ interface IDecodeToken {
 const FooterIcon = () => {
   const navigate = useNavigate();
 
-  // // jwt 디코딩
+  // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
@@ -40,7 +40,6 @@ const FooterIcon = () => {
           </button>
         </div>
       </Link>
-
       <Link to="items/register">
         <div>
           <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">

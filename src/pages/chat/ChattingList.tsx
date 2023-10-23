@@ -42,7 +42,7 @@ function ChattingList() {
           {data?.map((item: IChatList) => (
             <div
               key={item.itemId}
-              className="w-[370px] h-[100px] p-3 py-7 mb-2 bg-white rounded-lg shadow-md"
+              className="w-[370px] h-[100px] mt-2 p-3 py-7 mb-2 bg-white rounded-lg shadow"
             >
               <div>
                 <span>{item.partner}</span>

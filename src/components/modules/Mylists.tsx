@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import CountdownTimer from "../../pages/auction-list/CountdownTimer";
 import {
@@ -13,6 +13,7 @@ import {
  *            Mypage에서 selectedTab이라는 state를 만들어, 버튼마다 각기
  *            다른 state value를 지정하고, selectedTab을 props로 가져와
  *            서로 다른 get api를 호출하기 위한 조건으로 사용하였다.
+ *            React memo를 사용하여 불필요한 렌더링을 예방하였다.
  */
 
 interface MypageProps {
@@ -95,4 +96,4 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
   );
 };
 
-export default Mylists;
+export default memo(Mylists);
