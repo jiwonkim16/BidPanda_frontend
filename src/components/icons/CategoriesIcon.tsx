@@ -9,6 +9,7 @@ const CategoriesIcon = () => {
     const select = event.currentTarget.value;
     navigate(`/items/list/${select}`);
   };
+
   return (
     <>
       {categoryLi.map((item, index) => (

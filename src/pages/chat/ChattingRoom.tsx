@@ -15,6 +15,7 @@ function ChattingRoom() {
   // const [record_id, setRecordId] = useState<string | null>("");
   const [history, setHistory] = useState<any[]>([]);
   const profileImage = useRecoilValue(profileImageState);
+  const [partnersURL, setPartnersURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
   // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
@@ -39,6 +40,7 @@ function ChattingRoom() {
             },
           }
         );
+
         setHistory(response.data);
         connectWebSocket();
       } catch (error) {
@@ -89,12 +91,18 @@ function ChattingRoom() {
           profileURL: profileImage,
         })
       );
+
       setStompClient(newStompClient);
     });
   };
 
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
+    console.log(recv);
+    // api 수정 대기중 : 상대방 유저의 프로필 이미지를 Enter 메소드에서 넘겨받을 예정
+    // if (userNickname !== recv.sender) {
+    //   setPartnersURL(recv.profileURL);
+    // }
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,7 +139,7 @@ function ChattingRoom() {
               ) : item.type === "TEXT" && item.sender === userNickname ? (
                 <div className="text-sm flex flex-row-reverse">
                   <div className="flex flex-col items-end">
-                    <div className="text-right mb-1 font-semibold">
+                    <div className="mb-1 font-semibold text-end">
                       {userNickname}
                     </div>
                     <div className="py-1.5 px-2 rounded-lg bg-gray-700 text-white shadow mb-2 w-fit ">
@@ -145,8 +153,15 @@ function ChattingRoom() {
                     <div className="text-right mb-1 font-semibold">
                       {item.sender}
                     </div>
-                    <div className="py-1 px-2 rounded-lg bg-gray-200 shadow mb-2 w-fit">
-                      {item.content}
+                    <div className="flex flex-row-reverse">
+                      <div className="py-1 px-2 rounded-lg bg-gray-200 shadow mb-2 ml-2 w-fit">
+                        {item.content}
+                      </div>
+                      <img
+                        className="w-[35px] h-[35px] cursor-pointer rounded-full object-cover shadow-md"
+                        src={partnersURL}
+                        alt="partnersURL"
+                      />
                     </div>
                   </div>
                 </div>

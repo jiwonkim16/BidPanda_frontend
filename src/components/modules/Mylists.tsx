@@ -7,15 +7,6 @@ import {
   getPostedListApi,
 } from "../../apis/user-mylists/UserListDataApi";
 
-/**
- * @author : Goya Gim
- * @returns : 마이페이지에서 버튼으로 분기되는 리스트를 구현하기 위한 컴포넌트.
- *            Mypage에서 selectedTab이라는 state를 만들어, 버튼마다 각기
- *            다른 state value를 지정하고, selectedTab을 props로 가져와
- *            서로 다른 get api를 호출하기 위한 조건으로 사용하였다.
- *            React memo를 사용하여 불필요한 렌더링을 예방하였다.
- */
-
 interface MypageProps {
   selectedTab: string;
 }
@@ -31,6 +22,15 @@ interface Items {
   presentPrice: number;
   title: string;
 }
+
+/**
+ * @author : Goya Gim
+ * @returns : 마이페이지에서 버튼으로 분기되는 리스트를 구현하기 위한 컴포넌트.
+ *            Mypage에서 selectedTab이라는 state를 만들어, 버튼마다 각기
+ *            다른 state value를 지정하고, selectedTab을 props로 가져와
+ *            서로 다른 get api를 호출하기 위한 조건으로 사용하였다.
+ *            React memo를 사용하여 불필요한 렌더링을 예방하였다.
+ */
 
 const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
   const [itemsData, setItemsData] = useState<Items[]>([]);

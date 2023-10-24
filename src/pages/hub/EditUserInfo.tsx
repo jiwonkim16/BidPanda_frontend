@@ -4,6 +4,13 @@ import { useForm } from "react-hook-form";
 import { editUserInfoApi } from "../../apis/user-mypage/UserEditApi";
 import { toast } from "react-toastify";
 
+interface EditInfoType {
+  nickname: string;
+  intro: string;
+  password: string;
+  newPassword: string;
+}
+
 /**
  * @author : Goya Gim
  * @returns : 회원정보 수정 페이지.
@@ -15,9 +22,9 @@ const EditUserInfo = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+  } = useForm<EditInfoType>({ mode: "onBlur" });
 
-  const formToRegister = async (data: any) => {
+  const formToRegister = async (data: EditInfoType) => {
     try {
       await editUserInfoApi(data);
       toast.success("회원정보가 정상적으로 수정 되었습니다.");

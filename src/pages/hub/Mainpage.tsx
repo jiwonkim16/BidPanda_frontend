@@ -3,17 +3,29 @@ import { getTopTenListApi } from "../../apis/auction-list/TopTenList";
 import ItemCards from "../../components/modules/ItemCards";
 import Categories from "../../components/modules/Categories";
 
+export interface TopItemType {
+  auctionEndTime: string;
+  bidCount: number;
+  content: string;
+  id: number;
+  itemImages: string[];
+  minBidPrice: number;
+  nickname: string;
+  presentPrice: number;
+  title: string;
+}
+
 /**
  * @author : Goya Gim
  * @returns : 메인페이지.
  */
 
 const Main = () => {
-  const [topItems, setTopItems] = useState<any[]>([]);
+  const [topItems, setTopItems] = useState<TopItemType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getTopTenListApi();
+      const data: TopItemType[] = await getTopTenListApi();
       if (data) {
         setTopItems(data);
       }
