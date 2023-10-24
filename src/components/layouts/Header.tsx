@@ -45,23 +45,26 @@ function Header() {
     <>
       {!isToken ? (
         <nav className={navStyle}>
-          <button className="text-gray-600 text-xl ml-[330px] ">
+          <Link to={"/"}>
+            <img src="/textlogo.webp" alt="logo" />
+          </Link>
+          <button className="text-gray-600 text-xl mr-2">
             <Link to={"/login"}>login</Link>
           </button>
         </nav>
       ) : (
         <nav className={navStyle}>
-          <button className="text-gray-600 text-xl ml-[175px]">
+          <Link to={"/"}>
+            <img src="/textlogo.webp" alt="logo" />
+          </Link>
+          <button className="text-gray-600 -mr-6">
             <Link to={"/notification"}>notification</Link>
           </button>
-          <button
-            onClick={LogoutHandler}
-            className="text-gray-600 text-xl ml-2 "
-          >
+          <button onClick={LogoutHandler} className="text-gray-600 -mr-6">
             logout
           </button>
           <img
-            className="w-[35px] h-[35px] ml-2 cursor-pointer rounded-full object-cover shadow-md"
+            className="w-[35px] h-[35px] mr-3 cursor-pointer rounded-full object-cover shadow-md"
             src={profileImage}
             alt="mypage&profile"
             onClick={() => navigate("/mypage")}
@@ -74,4 +77,4 @@ function Header() {
 export default Header;
 
 const navStyle =
-  "bg-white w-[390px] h-[105%] flex flex-row py-1 border-b-2 rounded-b-[15px]";
+  "bg-white w-[390px] h-[105%] flex flex-row justify-between py-1 border-b-2 rounded-b-[15px]";

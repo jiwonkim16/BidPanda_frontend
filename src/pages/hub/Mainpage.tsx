@@ -37,11 +37,7 @@ const Main = () => {
     <>
       <div className="py-1">
         <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
-          <img
-            src="../../../public/banner.png"
-            className="w-fit -mt-3"
-            alt="banner"
-          />
+          <img src="/banner.png" className="w-full -mt-3" alt="banner" />
         </nav>
         <div className="flex justify-center mt-[13px] flex-wrap">
           <Categories />
