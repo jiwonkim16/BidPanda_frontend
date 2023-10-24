@@ -1,10 +1,5 @@
 import axios from "axios";
 
-const config = {
-  withCredentials: true,
-  mode: "cors",
-};
-
 interface UserRegisterData {
   membername: string;
   nickname: string;
@@ -14,7 +9,8 @@ interface UserRegisterData {
 
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 유저 회원가입에 필요한 2개의 중복 체크, 2개의 이메일 인증 관련 api,
+ *            회원가입 api가 구현 되어있습니다.
  */
 
 export const userRegisterApi = async (data: UserRegisterData) => {
@@ -29,7 +25,7 @@ export const userRegisterApi = async (data: UserRegisterData) => {
   }
 };
 
-export const checkMembernameApi = async (membername: any) => {
+export const checkMembernameApi = async (membername: UserRegisterData) => {
   try {
     await axios.get(
       `${
@@ -41,7 +37,7 @@ export const checkMembernameApi = async (membername: any) => {
   }
 };
 
-export const checkNicknameApi = async (nickname: any) => {
+export const checkNicknameApi = async (nickname: UserRegisterData) => {
   try {
     await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/nickname/${nickname}`
@@ -52,6 +48,11 @@ export const checkNicknameApi = async (nickname: any) => {
 };
 
 export const sendValidateEmailApi = async (data: string) => {
+  const config = {
+    withCredentials: true,
+    mode: "cors",
+  };
+
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email`,

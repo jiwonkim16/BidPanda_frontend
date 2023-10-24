@@ -10,6 +10,14 @@ import {
   checkNicknameApi,
 } from "../../apis/user-log/UserRegisterApi";
 
+interface registeredData {
+  membername: string;
+  nickname: string;
+  email: string;
+  password: string;
+  checkPassword: string;
+}
+
 /**
  * @author : Goya Gim
  * @returns : React Hook Form을 사용하여 formData를 Post.
@@ -64,9 +72,9 @@ const RegisterUser = () => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+  } = useForm<registeredData>({ mode: "onBlur" });
 
-  const formToRegister = async (data: any) => {
+  const formToRegister = async (data: registeredData) => {
     const password = data.password;
     const checkPassword = checkedPw;
 

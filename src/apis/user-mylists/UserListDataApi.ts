@@ -33,7 +33,6 @@ export const getBidListApi = async () => {
         },
       }
     );
-
     return res.data;
   } catch (error) {
     console.error(error);
@@ -51,7 +50,6 @@ export const getPostedListApi = async () => {
         },
       }
     );
-
     return res.data;
   } catch (error) {
     console.error(error);

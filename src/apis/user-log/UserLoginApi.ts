@@ -1,10 +1,5 @@
 import axios from "axios";
 
-const config = {
-  withCredentials: true,
-  mode: "cors",
-};
-
 interface UserLoginData {
   membername: string;
   password: string;
@@ -16,6 +11,10 @@ interface UserLoginData {
  */
 
 export const loginApi = async (data: UserLoginData) => {
+  const config = {
+    withCredentials: true,
+    mode: "cors",
+  };
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/login`,
