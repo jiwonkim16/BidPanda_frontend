@@ -1,9 +1,10 @@
 ## Bid Panda ( Frontend Dev )
-
 판매 스트레스가 없는 경매 방식으로 당신의 애장품과 물건에 새로운 쓰임을 !
 
-## Team & Stack
+## System Architecture
+<img width="3794" alt="BidPanda (1)" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/4b9be96d-41c9-4636-acfc-72323b9089a7">
 
+## Team & Stack
 ```ts
 김지원 ( Jiwon Kim )
 김고야 ( Goya Gim )
