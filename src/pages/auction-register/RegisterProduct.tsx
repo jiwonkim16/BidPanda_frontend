@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
 import { category } from "../../atoms/category";
 import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
@@ -19,7 +19,7 @@ interface IForm {
 }
 
 function RegisterProduct() {
-  const selectCategory = useRecoilValue(category);
+  const [selectCategory, setSelectCategory] = useRecoilState(category);
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function RegisterProduct() {
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
+    setSelectCategory(category);
     setValue("category", category);
   };
 
@@ -87,7 +88,7 @@ function RegisterProduct() {
   // 데이터가 유효할 경우 호출
   const onValid = async (data: IForm) => {
     // 카테고리를 선택하지 않았다면 warning, return
-    if (!data.category) {
+    if (!data.category || data.category === "전체") {
       toast.warning("카테고리를 선택해주세요!");
       return;
     } else {

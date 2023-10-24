@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { categoryList } from "../../atoms/category";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { category, categoryList } from "../../atoms/category";
 import { useNavigate, useParams } from "react-router";
 import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
 import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
@@ -35,6 +35,7 @@ interface IAuctionDetail {
 
 function ModifierProduct() {
   const [images, setImages] = useState<File[]>([]);
+  const [selectCategory, setSelectCategory] = useRecoilState(category);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
   const params = useParams();
@@ -45,7 +46,6 @@ function ModifierProduct() {
     formState: { errors },
     reset,
     setValue,
-    getValues,
     watch,
   } = useForm<IForm>({
     defaultValues: {},
@@ -73,6 +73,7 @@ function ModifierProduct() {
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
+    setSelectCategory(category);
     setValue("category", category);
   };
 
@@ -111,7 +112,7 @@ function ModifierProduct() {
   // 데이터가 유효할 경우 호출
   const onValid = async (data: IForm) => {
     // 카테고리를 선택하지 않았다면 warning, return
-    if (!data.category) {
+    if (!data.category || data.category === "전체") {
       toast.warning("카테고리를 선택해주세요!");
       return;
     } else {
@@ -223,9 +224,11 @@ function ModifierProduct() {
               key={index}
               value={item}
               onClick={onClickCategory}
-              className={`rounded-full ${
-                getValues("category") === item ? " bg-blue-500" : "bg-gray-300"
-              } w-11 cursor-pointer text-white`}
+              className={`${
+                selectCategory === item
+                  ? "flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
+                  : "flex-row rounded-md m-0.5 mt-3 p-1 bg-gray-700 w-[40px] font-semibold cursor-pointer text-white"
+              } text-white`}
             >
               {item}
             </button>
