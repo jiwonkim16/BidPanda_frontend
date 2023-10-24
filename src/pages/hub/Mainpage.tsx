@@ -38,8 +38,8 @@ const Main = () => {
       <div className="py-1">
         <nav id="banner" className=" w-[390px] h-[210px] -mt-3">
           <img
-            src="../../../public/sampleBann.jpeg"
-            className="h-full max-w-fit -ml-2"
+            src="../../../public/banner.png"
+            className="w-fit -mt-3"
             alt="banner"
           />
         </nav>
