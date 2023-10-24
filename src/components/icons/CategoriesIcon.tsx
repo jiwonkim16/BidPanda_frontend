@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 const CategoriesIcon = () => {
   const categoryLi = [
-    "/category2/전체.webp",
-    "/category2/신발.webp",
-    "/category2/테크.webp",
-    "/category2/패션.webp",
-    "/category2/펫.webp",
-    "/category2/유아.webp",
-    "/category2/리빙.webp",
-    "/category2/취미.webp",
+    "/categories/전체.webp",
+    "/categories/신발.webp",
+    "/categories/테크.webp",
+    "/categories/패션.webp",
+    "/categories/펫.webp",
+    "/categories/유아.webp",
+    "/categories/리빙.webp",
+    "/categories/취미.webp",
   ];
   // const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
