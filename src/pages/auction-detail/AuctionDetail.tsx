@@ -168,7 +168,7 @@ function AuctionDetail() {
             </div>
             <div className="flex flex-col mt-4 ">
               <div className="flex flex-row items-center mb-3">
-                <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900">
                   {detailItem.title}
                 </h5>
                 <CountdownTimer endTime={detailItem.auctionEndTime} />

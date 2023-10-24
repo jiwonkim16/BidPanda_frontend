@@ -12,7 +12,6 @@ interface IDecodeToken {
 
 function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
-  // const [record_id, setRecordId] = useState<string | null>("");
   const [history, setHistory] = useState<any[]>([]);
   const profileImage = useRecoilValue(profileImageState);
   const [stompClient, setStompClient] = useState<any>(null);
@@ -23,7 +22,6 @@ function ChattingRoom() {
   const record_id = localStorage.getItem("record_id");
 
   useEffect(() => {
-    // setRecordId(recordId);
     const chatHistory = async () => {
       try {
         const response = await axios.get(
