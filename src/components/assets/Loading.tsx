@@ -1,5 +1,5 @@
 import { memo } from "react";
-import spinner from "../../imgs/spinner.gif";
+import spinner from "../../../public/spinner.gif";
 
 /**
  * @author : Goya Gim
