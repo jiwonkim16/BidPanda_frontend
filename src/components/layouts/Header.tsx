@@ -44,7 +44,7 @@ function Header() {
   return (
     <>
       {!isToken ? (
-        <nav className="items-center bg-white w-[390px] h-[100%] flex  justify-between border-b-2 rounded-b-[15px]">
+        <nav className="items-center bg-white w-[390px] h-[105%] flex  justify-between border-b-2 rounded-b-[15px]">
           <Link to={"/"}>
             <img src="/textlogo.webp" alt="logo" className="w-[140px]" />
           </Link>
