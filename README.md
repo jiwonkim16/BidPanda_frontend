@@ -5,10 +5,10 @@
 <img width="3794" alt="BidPanda (1)" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/4b9be96d-41c9-4636-acfc-72323b9089a7">
 
 ## Team & Stack
-```ts
-김지원 ( Jiwon Kim )
-김고야 ( Goya Gim )
-```
+
+### 김지원 ( Jiwon Kim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://hi-wonn.tistory.com/)
+### 김고야 ( Goya Gim )
+
 ```ts
 {/*  */}
 > React-hook-form
