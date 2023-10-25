@@ -1,15 +1,15 @@
 import axios from "axios";
 
-interface profileImageType {
-  profileURL: string;
-}
+// interface profileImageType {
+//   profileURL: string;
+// }
 
 /**
  * @author : Goya Gim
  * @returns :
  */
 
-export const profileImageApi = async (data: profileImageType) => {
+export const profileImageApi = async (data: any) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/profile-image`,
