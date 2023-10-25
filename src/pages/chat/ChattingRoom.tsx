@@ -14,7 +14,7 @@ function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
   const [history, setHistory] = useState<any[]>([]);
   const profileImage = useRecoilValue(profileImageState);
-  const [partnersURL, setPartnersURL] = useState("");
+  // const [partnersURL, setPartnersURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
   // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
@@ -157,7 +157,7 @@ function ChattingRoom() {
                       </div>
                       <img
                         className="w-[35px] h-[35px] cursor-pointer rounded-full object-cover shadow-md"
-                        src={partnersURL}
+                        // src={partnersURL}
                         alt="partnersURL"
                       />
                     </div>

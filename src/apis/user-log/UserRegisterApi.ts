@@ -25,7 +25,7 @@ export const userRegisterApi = async (data: UserRegisterData) => {
   }
 };
 
-export const checkMembernameApi = async (membername: UserRegisterData) => {
+export const checkMembernameApi = async (membername: string) => {
   try {
     await axios.get(
       `${
@@ -37,7 +37,7 @@ export const checkMembernameApi = async (membername: UserRegisterData) => {
   }
 };
 
-export const checkNicknameApi = async (nickname: UserRegisterData) => {
+export const checkNicknameApi = async (nickname: string) => {
   try {
     await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/nickname/${nickname}`
