@@ -82,7 +82,7 @@ const Login = () => {
         className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-2 font-bold"
       >
         <img
-          src="../../../public/kakaoLogin.png"
+          src="/kakaoLogin.png"
           alt="kakaoLogo"
           className="w-[33px] h-[33px]"
         />
