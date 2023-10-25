@@ -47,11 +47,9 @@ function AuctionDetail() {
   const [visible, setVisible] = useState(0);
   const nextBtn = () => {
     setVisible((prev) => (prev === 2 ? 2 : prev + 1));
-    console.log(visible);
   };
   const prevBtn = () => {
     setVisible((prev) => (prev === 0 ? 0 : prev - 1));
-    console.log(visible);
   };
 
   // 로그인 유저가 아니면 로그인 페이지로~

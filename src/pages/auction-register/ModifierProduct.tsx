@@ -260,8 +260,7 @@ function ModifierProduct() {
               />
             </svg>
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-              <span className="font-semibold">버튼을 클릭하거나</span> 또는
-              드래그
+              <span className="font-semibold">버튼을 클릭하세요!</span>
             </p>
             <p className="text-xs text-gray-500">
               최대 3장까지 등록 가능합니다
