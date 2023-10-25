@@ -1,9 +1,5 @@
 import axios from "axios";
 
-// interface profileImageType {
-//   profileURL: string;
-// }
-
 /**
  * @author : Goya Gim
  * @returns :
