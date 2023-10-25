@@ -21,15 +21,17 @@
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>  <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
+<img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white"/>
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"/>
 
-```ts
-{/*  */}
-> React-hook-form
-> React-toastify
-> Stompjs
-> Sockjs
-> Moment.js
-> JWT Decode
-> Browser-image-compression
-> Headless UI
-```
+### 📚Library
+
+<img src="https://img.shields.io/badge/React Hook Form-EC5990?style=flat&logo=React Hook Form&logoColor=white"/>  <img src="https://img.shields.io/badge/React Toasitfy-38096C?style=flat&logo=Taco Bell&logoColor=white"/>
+<img src="https://img.shields.io/badge/StompJS-F5455C?style=flat&logo=Rocket.Chat&logoColor=white"/>
+<img src="https://img.shields.io/badge/SockJS-010101?style=flat&logo=Socket.io&logoColor=white"/>
+<img src="https://img.shields.io/badge/SockJS-010101?style=flat&logo=Socket.io&logoColor=white"/>
+<img src="https://img.shields.io/badge/MomentJS-03A9F4?style=flat&logo=Clockify&logoColor=white"/>
+<img src="https://img.shields.io/badge/JWT Token-000000?style=flat&logo=Json Web Tokens&logoColor=white"/>
+<img src="https://img.shields.io/badge/Headless UI-66E3FF?style=flat&logo=Headless UI&logoColor=white"/>
+
+
