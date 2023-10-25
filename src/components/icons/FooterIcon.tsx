@@ -1,6 +1,12 @@
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import {
+  AiFillHome,
+  AiOutlineSearch,
+  AiFillPlusCircle,
+  AiFillMessage,
+} from "react-icons/ai";
 
 interface IDecodeToken {
   nickname: string;
@@ -28,28 +34,44 @@ const FooterIcon = () => {
     <div className="bg-white font-semibold flex justify-center w-[100%] border-t-[1.5px] border-b-none shadow-md py-4 rounded-t-[23px]">
       <Link to="/">
         <div>
-          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
-            홈
+          <button className="w-[73px] h-[73px] bg-white shadow-md border-gray-400 rounded-[17px] mx-1.5">
+            <div className="flex justify-center items-center">
+              <AiFillHome
+                style={{ width: "40px", height: "40px", color: "#292929" }}
+              />
+            </div>
           </button>
         </div>
       </Link>
       <Link to="/keyword">
         <div>
-          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
-            검색
+          <button className="w-[73px] h-[73px] bg-white shadow-md border-gray-400 rounded-[17px] mx-1.5">
+            <div className="flex justify-center items-center">
+              <AiOutlineSearch
+                style={{ width: "40px", height: "40px", color: "#292929" }}
+              />
+            </div>
           </button>
         </div>
       </Link>
       <Link to="items/register">
         <div>
-          <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
-            등록
+          <button className="w-[73px] h-[73px] bg-white shadow-md border-gray-400  rounded-[17px] mx-1.5">
+            <div className="flex justify-center items-center">
+              <AiFillPlusCircle
+                style={{ width: "40px", height: "40px", color: "#292929" }}
+              />
+            </div>
           </button>
         </div>
       </Link>
       <div onClick={onClick}>
-        <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">
-          채팅
+        <button className="w-[73px] h-[73px] bg-white shadow-md border-gray-400  rounded-[17px] mx-1.5">
+          <div className="flex justify-center items-center">
+            <AiFillMessage
+              style={{ width: "40px", height: "40px", color: "#292929" }}
+            />
+          </div>
         </button>
       </div>
     </div>

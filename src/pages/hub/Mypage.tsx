@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { profileImageState } from "../../atoms/profileImage";
-import { useSetRecoilState } from "recoil";
 import { toast } from "react-toastify";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { userDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
@@ -21,8 +19,8 @@ interface UserData {
  */
 
 const Mypage = () => {
-  const setProfileImages = useSetRecoilState(profileImageState);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [profileImage, setProfileImage] = useState("");
   const [forSureDelete, setForSureDelete] = useState(false);
   const [selectedTab, setSelectedTab] = useState("interest");
   const imageRef = useRef<HTMLInputElement>(null);
@@ -44,7 +42,8 @@ const Mypage = () => {
   useEffect(() => {
     getUserInfoApi().then((data) => {
       setUserData(data.data);
-      setProfileImages(data.profileImageUrl);
+      const imageData = data.data.profileImageUrl;
+      setProfileImage(imageData);
     });
   }, []);
 
@@ -85,7 +84,6 @@ const Mypage = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFiles: FileList | null = e.target.files;
-
     if (imageFiles) {
       const formData = new FormData();
       formData.append("file", imageFiles[0]);
@@ -94,6 +92,7 @@ const Mypage = () => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
             window.location.href = `/`;
+
           }
         })
         .catch((error) => {
@@ -112,7 +111,7 @@ const Mypage = () => {
                 <>
                   <img
                     className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
-                    src={userData?.profileImageUrl}
+                    src={profileImage}
                     alt=""
                     onClick={handleImageClick}
                   />
