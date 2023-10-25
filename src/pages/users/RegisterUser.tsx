@@ -82,12 +82,16 @@ const RegisterUser = () => {
       toast.error("비밀번호가 서로 다릅니다.");
       return;
     }
-    await userRegisterApi(data);
-    if (data) {
-      toast.success("회원가입에 성공하였습니다.");
-      navigate("/login");
+    if (isValCodeSent && isMembernameCheck && isNicknameCheck) {
+      await userRegisterApi(data);
+      if (data) {
+        toast.success("회원가입에 성공하였습니다.");
+        navigate("/login");
+      } else {
+        toast.error("회원가입에 실패 했습니다.");
+      }
     } else {
-      toast.error("회원가입에 실패 했습니다.");
+      return;
     }
   };
 
@@ -264,7 +268,6 @@ const RegisterUser = () => {
             비밀번호가 서로 같지 않습니다.
           </p>
         )}
-
         <div>
           {!isValCodeSent || !isMembernameCheck || !isNicknameCheck ? (
             <></>

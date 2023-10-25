@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import SockJS from "sockjs-client";
 import { profileImageState } from "./../../atoms/profileImage";
@@ -16,11 +16,21 @@ function ChattingRoom() {
   const profileImage = useRecoilValue(profileImageState);
   // const [partnersURL, setPartnersURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
-  // jwt 디코딩
+  const messagesEndRef = useRef<any>(null);
+
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
   const record_id = localStorage.getItem("record_id");
+
+  // 메시지가 추가될 때마다 스크롤을 아래로 이동
+  useEffect(() => {
+    scrollToBottom();
+  }, [history]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const chatHistory = async () => {
@@ -167,6 +177,7 @@ function ChattingRoom() {
               )}
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <div className="border-t-2 border-b-none py-2 flex items-center font-semibold">
           <form onSubmit={sendMessage}>

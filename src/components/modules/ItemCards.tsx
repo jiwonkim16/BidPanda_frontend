@@ -25,7 +25,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: TopItemType) => (
         <SwiperSlide
           key={item.id}
-          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
+          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow-md"
         >
           <Link to={`/items/detail/${item.id}`}>
             <img
