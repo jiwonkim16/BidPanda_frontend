@@ -20,7 +20,6 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       slidesPerView={2.2}
       centeredSlides={false}
       modules={[Scrollbar]}
-      loop={true}
       className="mySwiper w-full flex flex-row"
     >
       {topItems.map((item: TopItemType) => (
