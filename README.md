@@ -6,20 +6,9 @@
 
 ## Team & Stack
 
-### 김지원 ( Jiwon Kim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://hi-wonn.tistory.com/)
-### 김고야 ( Goya Gim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://velog.io/@gimgoya)
+### FE1 :김고야 ( Goya Gim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://velog.io/@gimgoya)
+### FE2 : 김지원 ( Jiwon Kim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://hi-wonn.tistory.com/)
 
-```ts
-{/*  */}
-> React-hook-form
-> React-toastify
-> Stompjs
-> Sockjs
-> Moment.js
-> JWT Decode
-> Browser-image-compression
-> Headless UI
-```
 ### ⭐Skills
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
@@ -32,3 +21,15 @@
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>  <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
+
+```ts
+{/*  */}
+> React-hook-form
+> React-toastify
+> Stompjs
+> Sockjs
+> Moment.js
+> JWT Decode
+> Browser-image-compression
+> Headless UI
+```
