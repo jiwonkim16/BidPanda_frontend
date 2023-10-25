@@ -26,9 +26,8 @@
 
 ### 📚Library
 
-<img src="https://img.shields.io/badge/React Hook Form-EC5990?style=flat&logo=React Hook Form&logoColor=white"/>  <img src="https://img.shields.io/badge/React Toasitfy-38096C?style=flat&logo=Taco Bell&logoColor=white"/>
+<img src="https://img.shields.io/badge/React Hook Form-09D3AC?style=flat&logo=Create React App&logoColor=white"/>  <img src="https://img.shields.io/badge/React Toasitfy-38096C?style=flat&logo=Taco Bell&logoColor=white"/>
 <img src="https://img.shields.io/badge/StompJS-F5455C?style=flat&logo=Rocket.Chat&logoColor=white"/>
-<img src="https://img.shields.io/badge/SockJS-010101?style=flat&logo=Socket.io&logoColor=white"/>
 <img src="https://img.shields.io/badge/SockJS-010101?style=flat&logo=Socket.io&logoColor=white"/>
 <img src="https://img.shields.io/badge/MomentJS-03A9F4?style=flat&logo=Clockify&logoColor=white"/>
 <img src="https://img.shields.io/badge/JWT Token-000000?style=flat&logo=Json Web Tokens&logoColor=white"/>
