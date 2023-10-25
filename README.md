@@ -6,7 +6,7 @@
 
 ## Team & Stack
 ```ts
-김지원 ( Jiwon Kim )  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://hi-wonn.tistory.com/)
+김지원 ( Jiwon Kim )
 김고야 ( Goya Gim )
 ```
 ```ts
@@ -25,8 +25,7 @@
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
 
-<img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>
-<img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=React Query&logoColor=white"/>
+<img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>  <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=React Query&logoColor=white"/>
 <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=Tailwind CSS&logoColor=white"/>
 
 ### 🌐Tools
