@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import { toast } from "react-toastify";
-import { profileImageState } from "./../../atoms/profileImage";
 
 /**
  * @author : Goya Gim
@@ -12,7 +10,6 @@ import { profileImageState } from "./../../atoms/profileImage";
 
 function Header() {
   const [profileImage, setProfileImage] = useState("");
-  const setProfileImg = useSetRecoilState(profileImageState);
   const navigate = useNavigate();
   const removeToken = () => {
     localStorage.removeItem("authorization");
@@ -23,11 +20,11 @@ function Header() {
   useEffect(() => {
     if (isToken) {
       getUserInfoApi().then((data) => {
-        setProfileImage(data.data.profileImageUrl);
-        setProfileImg(data.data.profileImageUrl);
+        const imageData = data.data.profileImageUrl;
+        setProfileImage(imageData);
       });
     }
-  }, []);
+  }, [profileImage]);
 
   const LogoutHandler = () => {
     try {

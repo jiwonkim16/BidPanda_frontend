@@ -24,7 +24,7 @@ const CategoriesIcon = () => {
         <button
           key={index}
           value={item}
-          className="w-[76px] h-[76px] shadow-md border p-[7px] border-slate-100 rounded-full font-semibold m-1"
+          className="w-[76px] h-[76px] shadow-md border p-[7px] border-gray-200 rounded-full font-semibold m-1"
           onClick={onClickCategory}
         >
           <img src={item} className="rounded-2xl w-[60px] h-[60px]" />
