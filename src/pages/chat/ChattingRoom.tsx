@@ -107,7 +107,8 @@ function ChattingRoom() {
     setInputMessage(event.currentTarget.value);
   };
 
-  const sendMessage = () => {
+  const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     stompClient.onStompError = (frame: any) => {
       console.error("웹소켓 오류:", frame);
     };
@@ -168,20 +169,19 @@ function ChattingRoom() {
           ))}
         </div>
         <div className="border-t-2 border-b-none py-2 flex items-center font-semibold">
-          <input
-            type="text"
-            id="chat"
-            className="border-2 rounded-lg mx-3 w-[300px] h-[37px]"
-            placeholder=" 내용을 입력하세요"
-            value={inputMessage}
-            onChange={onChange}
-          />
-          <button
-            className="w-[55px] h-[35px] bg-gray-800 text-white rounded-lg"
-            onClick={sendMessage}
-          >
-            보내기
-          </button>
+          <form onSubmit={sendMessage}>
+            <input
+              type="text"
+              id="chat"
+              className="border-2 rounded-lg mx-3 w-[300px] h-[37px]"
+              placeholder=" 내용을 입력하세요"
+              value={inputMessage}
+              onChange={onChange}
+            />
+            <button className="w-[55px] h-[35px] bg-gray-800 text-white rounded-lg">
+              보내기
+            </button>
+          </form>
         </div>
       </div>
     </>
