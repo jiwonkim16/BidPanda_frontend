@@ -39,7 +39,7 @@ const Login = () => {
     }
   };
 
-  const kakaoLogin: any = () => {
+  const kakaoLogin: () => void = () => {
     const REST_API_KEY = "fbc4abc5fd980187c0270233cea954bc";
     const REDIRECT_URI = "http://localhost:5173/kakao";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -57,7 +57,6 @@ const Login = () => {
           onChange={(e) => setMembername(e.target.value)}
           className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
         />
-
         <label htmlFor="password">비밀번호</label>
         <input
           type="password"
@@ -83,7 +82,7 @@ const Login = () => {
         className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-2 font-bold"
       >
         <img
-          src="src/imgs/kakaoLogin.png"
+          src="../../../public/kakaoLogin.png"
           alt="kakaoLogo"
           className="w-[33px] h-[33px]"
         />
@@ -92,5 +91,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

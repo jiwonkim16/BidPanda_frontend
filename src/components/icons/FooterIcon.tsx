@@ -9,7 +9,6 @@ interface IDecodeToken {
 const FooterIcon = () => {
   const navigate = useNavigate();
 
-  // // jwt 디코딩
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
@@ -24,6 +23,7 @@ const FooterIcon = () => {
     const nickname = userNickname;
     navigate(`/chattingList/${nickname}`);
   };
+
   return (
     <div className="bg-white font-semibold flex justify-center w-[100%] border-t-[1.5px] border-b-none shadow-md py-4 rounded-t-[23px]">
       <Link to="/">
@@ -40,7 +40,6 @@ const FooterIcon = () => {
           </button>
         </div>
       </Link>
-
       <Link to="items/register">
         <div>
           <button className="w-[73px] h-[73px] bg-gray-100 rounded-[17px] mx-1.5">

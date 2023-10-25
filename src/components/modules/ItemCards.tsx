@@ -1,24 +1,14 @@
-import { Link } from "react-router-dom";
-import CountdownTimer from "../../pages/auction-list/CountdownTimer";
 import { memo } from "react";
+import { Link } from "react-router-dom";
+import { TopItemType } from "src/pages/hub/Mainpage";
+import CountdownTimer from "../../pages/auction-list/CountdownTimer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
 
-interface Items {
-  auctionEndTime: string;
-  auctionStatus: string;
-  bidCount: number;
-  content: string;
-  id: number;
-  itemImages: string[];
-  minBidPrice: number;
-  presentPrice: number;
-  title: string;
-}
 interface TopItemProps {
-  topItems: Items[];
+  topItems: TopItemType[];
 }
 
 const ItemCards = ({ topItems }: TopItemProps) => {
@@ -27,13 +17,13 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       scrollbar={{
         hide: true,
       }}
-      slidesPerView={2.1}
+      slidesPerView={2.2}
       centeredSlides={false}
       modules={[Scrollbar]}
       loop={true}
       className="mySwiper w-full flex flex-row"
     >
-      {topItems.map((item: Items) => (
+      {topItems.map((item: TopItemType) => (
         <SwiperSlide
           key={item.id}
           className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"

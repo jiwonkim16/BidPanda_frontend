@@ -25,23 +25,9 @@ const Mypage = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [forSureDelete, setForSureDelete] = useState(false);
   const [selectedTab, setSelectedTab] = useState("interest");
-  const [isLoading, setIsLoading] = useState(true);
   const imageRef = useRef<HTMLInputElement>(null);
   const isToken = localStorage.getItem("authorization");
   const navigate = useNavigate();
-
-  /**
-   * @includes : 유저 정보 Get.
-   */
-
-  useEffect(() => {
-    setIsLoading(true);
-    getUserInfoApi().then((data) => {
-      setUserData(data.data);
-      setProfileImages(data.profileImageUrl);
-      setIsLoading(false);
-    });
-  }, []);
 
   useEffect(() => {
     if (!isToken) {
@@ -49,6 +35,17 @@ const Mypage = () => {
       navigate("/login");
     }
     return;
+  }, []);
+
+  /**
+   * @includes : 유저 정보 Get.
+   */
+
+  useEffect(() => {
+    getUserInfoApi().then((data) => {
+      setUserData(data.data);
+      setProfileImages(data.profileImageUrl);
+    });
   }, []);
 
   /**
@@ -143,7 +140,7 @@ const Mypage = () => {
                   </button>
                   <button
                     onClick={askUserDelete}
-                    className="w-[95px] h-[30px] bg-red-500 text-white shadow-sm  rounded-lg mt-2 mx-1 "
+                    className="w-[95px] h-[30px] bg-red-500 text-white shadow-sm rounded-lg mt-2 mx-1 "
                   >
                     회원 탈퇴
                   </button>
@@ -155,7 +152,7 @@ const Mypage = () => {
       </div>
       <div className="text-gray-800 font-semibold w-[390px] flex justify-center flex-row">
         <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1 ${
+          className={`m-1 bg-gray-100 shadow-md rounded-sm p-1 ${
             selectedTab === "liked" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("liked")}
@@ -163,7 +160,7 @@ const Mypage = () => {
           찜한 상품
         </p>
         <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
+          className={`m-1 bg-gray-100 shadow-md rounded-sm p-1  ${
             selectedTab === "bid" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("bid")}
@@ -171,7 +168,7 @@ const Mypage = () => {
           참여 상품
         </p>
         <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
+          className={`m-1 bg-gray-100 shadow-md rounded-sm p-1  ${
             selectedTab === "posted" ? "bg-gray-800 text-white" : ""
           }`}
           onClick={() => setSelectedTab("posted")}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryList } from "../../atoms/category";
 import { category } from "../../atoms/category";
 import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
@@ -19,7 +19,7 @@ interface IForm {
 }
 
 function RegisterProduct() {
-  const selectCategory = useRecoilValue(category);
+  const [selectCategory, setSelectCategory] = useRecoilState(category);
   const [images, setImages] = useState<File[]>([]);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function RegisterProduct() {
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
+    setSelectCategory(category);
     setValue("category", category);
   };
 
@@ -87,7 +88,7 @@ function RegisterProduct() {
   // 데이터가 유효할 경우 호출
   const onValid = async (data: IForm) => {
     // 카테고리를 선택하지 않았다면 warning, return
-    if (!data.category) {
+    if (!data.category || data.category === "전체") {
       toast.warning("카테고리를 선택해주세요!");
       return;
     } else {
@@ -122,20 +123,9 @@ function RegisterProduct() {
       >
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-[350px] h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+          className="flex flex-col items-center justify-center w-[350px] h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            {/* 이미지 미리보기 섹션 */}
-            <div>
-              {imagePreviews.map((preview, index) => (
-                <img
-                  key={index}
-                  src={preview}
-                  alt={`미리보기 ${index + 1}`}
-                  className="max-w-[165px] h-auto mt-7"
-                />
-              ))}
-            </div>
             <svg
               className="w-8 h-8 mb-4 text-gray-800 dark:text-gray-400"
               aria-hidden="true"
@@ -168,6 +158,17 @@ function RegisterProduct() {
             onChange={addImage}
           />
         </label>
+        {/* 이미지 미리보기 섹션 */}
+        <div className="w-[350px] h-32 bg-gray-100 border-none mt-4 flex justify-center items-center rounded-xl">
+          {imagePreviews.map((preview, index) => (
+            <img
+              key={index}
+              src={preview}
+              alt={`미리보기 ${index + 1}`}
+              className="max-w-[115px] h-[128px] object-cover"
+            />
+          ))}
+        </div>
         <div className="flex flex-row fonst-semibold">
           <span className="font-semibold mx-2 mt-2">
             마감 + {watch("deadline")} Days
@@ -255,7 +256,7 @@ function RegisterProduct() {
           })}
           type="text"
           id="desc"
-          className="w-[350px] h-[105px] border-2 rounded-lg mt-2 mb-2"
+          className="w-[350px] h-[105px] border-2 rounded-lg mt-2 mb-2 overflow-y-auto"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
