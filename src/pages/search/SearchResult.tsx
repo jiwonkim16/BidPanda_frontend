@@ -1,4 +1,5 @@
-import CountdownTimer from "../../components/modules/CountdownTimer";
+import ListTimer from "../auction-list/ListTimer";
+import { Link } from "react-router-dom";
 
 function SearchResult({ data }: any) {
   const onClick = (result: any) => {
@@ -9,25 +10,27 @@ function SearchResult({ data }: any) {
     <>
       <div
         key={data.id}
-        className="w-[93%] max-w-sm bg-white border border-gray-300 rounded-lg shadow mb-2"
+        className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow "
       >
-        <button onClick={() => onClick(data)}>
+        <Link to={`/items/detail/${data.id}`}>
           <img
-            className="p-4 rounded-lg w-[360px] h-[200px] object-cover"
+            className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
             src={data.itemImages[0]}
             alt="product image"
           />
-        </button>
+        </Link>
         <div className="px-5 pb-5">
           <button onClick={() => onClick(data)}>
-            <h5 className="text-xl font-bold tracking-tight text-gray-800 ">
+            <h5 className="text-xl font-semibold tracking-tight text-gray-800 ">
               {data.title}
             </h5>
             <div className="flex items-center mt-2 mb-2">
-              <span>{<CountdownTimer endTime={data.auctionEndTime} />}</span>
+              <span>
+                <ListTimer endTime={data.auctionEndTime} />
+              </span>
             </div>
           </button>
-          <div className="flex items-center justify-between mt-1">
+          <div className="flex items-center justify-between">
             <span className="text-md font-bold text-gray-800 ">
               {data.presentPrice}원
             </span>
