@@ -60,7 +60,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
-            className="bg-white border border-gray-200 m-2 rounded-lg shadow"
+            className="bg-white border border-gray-200 m-2 rounded-lg shadow "
           >
             <Link to={`/items/detail/${item.id}`}>
               <img

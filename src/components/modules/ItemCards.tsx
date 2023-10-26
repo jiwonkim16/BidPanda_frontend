@@ -25,31 +25,35 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: TopItemType) => (
         <SwiperSlide
           key={item.id}
-          className="w-[170px] h-[240px] bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow-md"
+          className="bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
         >
-          <Link to={`/items/detail/${item.id}`}>
-            <img
-              className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
-              src={item.itemImages[0]}
-              alt="product image"
-            />
-          </Link>
-          <div className="px-3">
+          <div className="w-[168px] h-[240px]">
             <Link to={`/items/detail/${item.id}`}>
-              <h5 className="text-lg font-bold text-gray-900">{item.title}</h5>
+              <img
+                className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
+                src={item.itemImages[0]}
+                alt="product image"
+              />
             </Link>
-            <div className="flex">
-              <span>
-                <CountdownTimer
-                  endTime={item.auctionEndTime}
-                  bidCount={item.bidCount}
-                />
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className=" font-semibold text-gray-900">
-                {item.presentPrice}원
-              </span>
+            <div className="px-3">
+              <Link to={`/items/detail/${item.id}`}>
+                <h5 className="text-lg font-bold text-gray-900 mb-1">
+                  {item.title}
+                </h5>
+              </Link>
+              <div className="flex items-center justify-between">
+                <span className=" font-semibold text-gray-900">
+                  {item.presentPrice}원
+                </span>
+              </div>
+              <div className="flex mt-1">
+                <span>
+                  <CountdownTimer
+                    endTime={item.auctionEndTime}
+                    bidCount={item.bidCount}
+                  />
+                </span>
+              </div>
             </div>
           </div>
         </SwiperSlide>

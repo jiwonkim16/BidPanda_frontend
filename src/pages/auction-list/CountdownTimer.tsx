@@ -33,34 +33,35 @@ function CountdownTimer({ endTime, bidCount }: any) {
   const duration = moment.duration(remainingTime);
   const days = duration.days();
   // 00days hh:mm:ss 형식으로 포맷팅
-  const format = `${days}일 ${duration.hours()}:${duration.minutes()}:${duration.seconds()}`;
+  const format = `${days}days 
+  ${duration.hours()}:${duration.minutes()}:${duration.seconds()}`;
 
   return (
     <>
       <div>
         {remainingTime !== 0 ? (
-          <>
-            <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800 p-1 rounded font-semibold">
+          <div className="flex justify-between">
+            <div className="flex flex-row w-fit h-fit text-sm items-center px-2 bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
               <div className="bg-green-500 w-[10px] h-[10px] shadow-sm rounded-full mr-1" />
               <div>진행중</div>
             </div>
             {duration.hours() <= 12 && days <= 0 ? (
-              <div className="bg-gray-100 text-red-500  p-1 mt-1 text-sm rounded shadow-sm font-semibold">
+              <div className="bg-red-500 text-white -mt-[167px] ml-[13px] px-3 w-16 h-16 flex flex-col items-center justify-center text-xs rounded-full shadow-md font-semibold">
                 {format}
               </div>
             ) : (
-              <div className="bg-gray-100 text-green-600  p-1 mt-1 text-sm rounded shadow-sm font-semibold">
+              <div className="bg-green-500 text-gray-800 -mt-[167px] ml-[13px] px-[10px] w-16 h-16 flex flex-col items-center justify-center text-xs rounded-full shadow-md font-semibold">
                 {format}
               </div>
             )}
-          </>
+          </div>
         ) : bidCount === 0 ? (
-          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded shadow-md  font-semibold">
+          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md  font-semibold">
             <div className="bg-red-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>유찰</span>
           </div>
         ) : (
-          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded shadow-md  font-semibold">
+          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md  font-semibold">
             <div className="bg-blue-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>낙찰</span>
           </div>
