@@ -158,7 +158,7 @@ function ChattingRoom() {
                 </div>
               ) : (
                 <div className="text-sm flex flex-row">
-                  <div className="flex flex-col items-start">
+                  <div className="flex flex-col items-start mt-4">
                     <div className="text-right mb-1 font-semibold">
                       {item.sender}
                     </div>

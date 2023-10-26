@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "../../components/modules/CountdownTimer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";

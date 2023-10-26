@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AiOutlineEdit } from "react-icons/ai";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { userDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
@@ -91,7 +92,7 @@ const Mypage = () => {
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
-            window.location.href = `/`;
+            window.location.href = `/mypage`;
           }
         })
         .catch((error) => {
@@ -105,7 +106,7 @@ const Mypage = () => {
       <div>
         <div className="flex justify-center items-center font-bold">
           <div>
-            <div className="bg-white rounded-[15px] mt-4 w-[370px] h-[200px] flex flex-row justify-center  items-center">
+            <div className="bg-white rounded-[15px] mt-2 w-[370px] h-[200px] flex flex-row justify-center items-center">
               {userData && (
                 <>
                   <img
@@ -126,29 +127,26 @@ const Mypage = () => {
               <div>
                 <div className="ml-[5px] text-gray-800">
                   {userData && (
-                    <>
-                      <p>{userData ? userData.nickname : null}</p>
-                      <p>{userData ? userData.intro : null}</p>
-                    </>
+                    <div className="flex flex-col">
+                      <div className="flex items-center">
+                        <p>{userData ? userData.nickname : null}</p>
+                        <Link to="/mypage/edit" style={{ marginLeft: "5px" }}>
+                          <AiOutlineEdit />
+                        </Link>
+                      </div>
+                      <>
+                        <p>{userData ? userData.intro : null}</p>
+                      </>
+                    </div>
                   )}
                 </div>
-                <div>
-                  <button className="w-[95px] h-[30px] bg-gray-200 text-gray-800 shadow-sm rounded-lg mt-2 mx-1 ">
-                    <Link to="/mypage/edit">프로필 수정</Link>
-                  </button>
-                  <button
-                    onClick={askUserDelete}
-                    className="w-[95px] h-[30px] bg-red-500 text-white shadow-sm rounded-lg mt-2 mx-1 "
-                  >
-                    회원 탈퇴
-                  </button>
-                </div>
+                <div></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="text-gray-800 font-semibold w-[390px] flex justify-center flex-row">
+      <div className="text-gray-800 font-semibold w-[380px] flex justify-center flex-row">
         <p
           className={`m-1 bg-gray-100 shadow-md rounded-sm p-1 ${
             selectedTab === "liked" ? "bg-gray-800 text-white" : ""
@@ -173,6 +171,15 @@ const Mypage = () => {
         >
           등록 상품
         </p>
+        <button className=" bg-gray-100 shadow-md rounded-md m-1 p-1">
+          <Link to="/mypage/password">PW 수정</Link>
+        </button>
+        <button
+          onClick={askUserDelete}
+          className=" bg-gray-100 text-red-500 shadow-md rounded-md m-1 p-1"
+        >
+          회원 탈퇴
+        </button>
       </div>
       <div className="h-[500px] flex flex-col">
         <Mylists selectedTab={selectedTab} />

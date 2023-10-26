@@ -1,4 +1,4 @@
-import CountdownTimer from "../auction-list/CountdownTimer";
+import CountdownTimer from "../../components/modules/CountdownTimer";
 
 function SearchResult({ data }: any) {
   const onClick = (result: any) => {

@@ -6,7 +6,7 @@ import {
   bidInfo,
   favoriteItem,
 } from "../../apis/auction-detail/AuctionDetail";
-import CountdownTimer from "../auction-list/CountdownTimer";
+import CountdownTimer from "../../components/modules/CountdownTimer";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
