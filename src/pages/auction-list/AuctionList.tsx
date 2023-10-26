@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
-import CountdownTimer from "./CountdownTimer";
+import ListTimer from "./ListTimer";
 import { Link, useNavigate } from "react-router-dom";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
@@ -136,7 +136,7 @@ function AuctionList() {
               <div className="flex items-center mt-2 mb-2">
                 <span>
                   {
-                    <CountdownTimer
+                    <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}
                     />

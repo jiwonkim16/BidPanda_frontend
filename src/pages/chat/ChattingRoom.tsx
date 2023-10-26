@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import SockJS from "sockjs-client";
 import { profileImageState } from "./../../atoms/profileImage";
@@ -16,11 +16,21 @@ function ChattingRoom() {
   const profileImage = useRecoilValue(profileImageState);
   // const [partnersURL, setPartnersURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
-  // jwt 디코딩
+  const messagesEndRef = useRef<any>(null);
+
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
   const record_id = localStorage.getItem("record_id");
+
+  // 메시지가 추가될 때마다 스크롤을 아래로 이동
+  useEffect(() => {
+    scrollToBottom();
+  }, [history]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const chatHistory = async () => {
@@ -97,10 +107,6 @@ function ChattingRoom() {
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
     console.log(recv);
-    // api 수정 대기중 : 상대방 유저의 프로필 이미지를 Enter 메소드에서 넘겨받을 예정
-    // if (userNickname !== recv.sender) {
-    //   setPartnersURL(recv.profileURL);
-    // }
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +134,7 @@ function ChattingRoom() {
   return (
     <>
       <div>
-        <div className="h-[619px] mt-4 mx-3 overflow-y-auto">
+        <div className="h-[619px] mt-4 mx-3 overflow-y-auto scrollbar-hide">
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
@@ -148,7 +154,7 @@ function ChattingRoom() {
                 </div>
               ) : (
                 <div className="text-sm flex flex-row">
-                  <div className="flex flex-col items-start">
+                  <div className="flex flex-col items-start mt-4">
                     <div className="text-right mb-1 font-semibold">
                       {item.sender}
                     </div>
@@ -167,6 +173,7 @@ function ChattingRoom() {
               )}
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <div className="border-t-2 border-b-none py-2 flex items-center font-semibold">
           <form onSubmit={sendMessage}>
