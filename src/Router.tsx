@@ -9,6 +9,7 @@ const Login = React.lazy(() => import("./pages/users/Login"));
 const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
 const Mypage = React.lazy(() => import("./pages/hub/Mypage"));
 const EditUserInfo = React.lazy(() => import("./pages/hub/EditUserInfo"));
+const EditPassword = React.lazy(() => import("./pages/hub/EditPassword"));
 const SearchAution = React.lazy(() => import("./pages/search/SearchAution"));
 const Notification = React.lazy(() => import("./pages/hub/Notification"));
 const ChattingList = React.lazy(() => import("./pages/chat/ChattingList"));
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "mypage/edit",
         element: <EditUserInfo />,
+      },
+      {
+        path: "mypage/password",
+        element: <EditPassword />,
       },
       {
         path: "items/register",

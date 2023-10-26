@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { TopItemType } from "src/pages/hub/Mainpage";
-import CountdownTimer from "../../pages/auction-list/CountdownTimer";
+import CountdownTimer from "./CountdownTimer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
@@ -30,7 +30,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
           <div className="w-[168px] h-[240px]">
             <Link to={`/items/detail/${item.id}`}>
               <img
-                className="p-2 rounded-lg w-[170px] h-[120px] object-cover"
+                className="p-2 rounded-lg w-[170px] h-[140px] object-cover"
                 src={item.itemImages[0]}
                 alt="product image"
               />

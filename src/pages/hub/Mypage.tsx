@@ -92,7 +92,7 @@ const Mypage = () => {
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("프로필 이미지가 변경되었습니다.");
-            window.location.href = `/`;
+            window.location.href = `/mypage`;
           }
         })
         .catch((error) => {
@@ -172,7 +172,7 @@ const Mypage = () => {
           등록 상품
         </p>
         <button className=" bg-gray-100 shadow-md rounded-md m-1 p-1">
-          PW 수정
+          <Link to="/mypage/password">PW 수정</Link>
         </button>
         <button
           onClick={askUserDelete}

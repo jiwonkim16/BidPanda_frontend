@@ -1,6 +1,6 @@
 import { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
-import CountdownTimer from "../../pages/auction-list/CountdownTimer";
+import CountdownTimer from "./CountdownTimer";
 import {
   getLikedListApi,
   getBidListApi,
@@ -60,33 +60,35 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
-            className="bg-white border border-gray-200 m-2 rounded-lg shadow "
+            className="bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
           >
-            <Link to={`/items/detail/${item.id}`}>
-              <img
-                className="p-3 rounded-lg w-[170px] h-[130px] object-cover"
-                src={item.itemImages[0]}
-                alt="product image"
-              />
-            </Link>
-            <div className="px-4">
+            <div className="w-[168px] h-[240px]">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-lg font-bold text-gray-900 dark:text-white">
-                  {item.title}
-                </h5>
+                <img
+                  className="p-2 rounded-lg w-[170px] h-[140px] object-cover"
+                  src={item.itemImages[0]}
+                  alt="product image"
+                />
               </Link>
-              <div className="flex items-center mt-1 mb-1">
-                <span>
-                  <CountdownTimer
-                    endTime={item.auctionEndTime}
-                    bidCount={item.bidCount}
-                  />
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-gray-900 dark:text-white">
-                  {item.presentPrice}원
-                </span>
+              <div className="px-3">
+                <Link to={`/items/detail/${item.id}`}>
+                  <h5 className="text-lg font-bold text-gray-900 mb-1">
+                    {item.title}
+                  </h5>
+                </Link>
+                <div className="flex items-center justify-between">
+                  <span className=" font-semibold text-gray-900">
+                    {item.presentPrice}원
+                  </span>
+                </div>
+                <div className="flex mt-1">
+                  <span>
+                    <CountdownTimer
+                      endTime={item.auctionEndTime}
+                      bidCount={item.bidCount}
+                    />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
