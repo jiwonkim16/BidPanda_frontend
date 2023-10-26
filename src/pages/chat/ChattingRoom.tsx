@@ -107,10 +107,6 @@ function ChattingRoom() {
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
     console.log(recv);
-    // api 수정 대기중 : 상대방 유저의 프로필 이미지를 Enter 메소드에서 넘겨받을 예정
-    // if (userNickname !== recv.sender) {
-    //   setPartnersURL(recv.profileURL);
-    // }
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,7 +134,7 @@ function ChattingRoom() {
   return (
     <>
       <div>
-        <div className="h-[619px] mt-4 mx-3 overflow-y-auto">
+        <div className="h-[619px] mt-4 mx-3 overflow-y-auto scrollbar-hide">
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
