@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
-import CountdownTimer from "../../components/modules/CountdownTimer";
+import ListTimer from "../auction-list/ListTimer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
@@ -126,7 +126,7 @@ function AuctionCard() {
             <div className="flex items-center mt-2 mb-2">
               <span>
                 {
-                  <CountdownTimer
+                  <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
                   />
