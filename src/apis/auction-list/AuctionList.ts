@@ -4,7 +4,7 @@ import axios from "axios";
 export const auctionList = async (pageParam: number) => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/items?page=${pageParam}&size=5`
+      `${import.meta.env.VITE_REACT_API_KEY}/api/items?page=${pageParam}&size=4`
     );
     return response.data;
   } catch (error) {
@@ -17,7 +17,7 @@ export const auctionCategory = async (category: string, pageParam: number) => {
   const response = await axios.get(
     `${
       import.meta.env.VITE_REACT_API_KEY
-    }/api/items/category/${category}?page=${pageParam}&size=5`
+    }/api/items/category/${category}?page=${pageParam}&size=4`
   );
   return response.data;
 };

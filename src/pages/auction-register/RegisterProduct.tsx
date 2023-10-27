@@ -7,6 +7,10 @@ import { category } from "../../atoms/category";
 import { auctionRegister } from "../../apis/auction-register/AuctionRegister";
 import { useNavigate } from "react-router";
 import imageCompression from "browser-image-compression";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper/modules";
+import "swiper/css/scrollbar";
+import "swiper/css";
 
 interface IForm {
   title: string;
@@ -119,11 +123,41 @@ function RegisterProduct() {
     <div className="flex flex-col py-3">
       <form
         onSubmit={handleSubmit(onValid)}
-        className="flex flex-col justify-center items-center mt-3"
+        className="flex flex-col justify-center items-center"
       >
+        <Swiper
+          scrollbar={{
+            hide: true,
+          }}
+          slidesPerView={5}
+          centeredSlides={false}
+          modules={[Scrollbar]}
+          className="flex w-full mb-3 mySwiper"
+        >
+          {categoryLi.map((item) => (
+            <SwiperSlide>
+              <button
+                type="button"
+                key={item}
+                value={item}
+                onClick={onClickCategory}
+                className={`${
+                  selectCategory === item
+                    ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
+                    : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
+                } text-white`}
+              >
+                {item}
+              </button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <span className="text-red-500 font-semibold text-[14px]">
+          {errors.category?.message as string}
+        </span>
         <label
           htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-[350px] h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+          className="flex flex-col items-center justify-center w-[350px] h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 my-2"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <svg
@@ -158,7 +192,7 @@ function RegisterProduct() {
           />
         </label>
         {/* 이미지 미리보기 섹션 */}
-        <div className="w-[350px] h-32 bg-gray-100 border-none mt-4 flex justify-center items-center rounded-xl">
+        <div className="w-[350px] h-32 bg-gray-50 border-none my-2 flex justify-center items-center rounded-xl">
           {imagePreviews.map((preview, index) => (
             <img
               key={index}
@@ -168,82 +202,15 @@ function RegisterProduct() {
             />
           ))}
         </div>
-        <div className="flex flex-row fonst-semibold">
-          <span className="font-semibold mx-2 mt-2">
-            마감 + {watch("deadline")} Days
-          </span>
-          <input
-            {...register("deadline", {
-              required: "경매 마감기한 설정은 필수입니다.",
-            })}
-            type="range"
-            id="dueDate"
-            min="1"
-            max="5"
-            className="mt-2"
-          />
-
-          <span className="text-red-500 font-semibold text-[14px]">
-            {errors.deadline?.message as string}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          {categoryLi.map((item, index) => (
-            <button
-              type="button"
-              key={index}
-              value={item}
-              onClick={onClickCategory}
-              className={`${
-                selectCategory === item
-                  ? "flex-row rounded-md m-0.5 mt-3 p-1 bg-blue-600 w-[40px] font-semibold cursor-pointer text-white"
-                  : "flex-row rounded-md m-0.5 mt-3 p-1 bg-gray-700 w-[40px] font-semibold cursor-pointer text-white"
-              } text-white`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <span className="text-red-500 font-semibold text-[14px]">
-          {errors.category?.message as string}
-        </span>
         <input
           {...register("title", { required: "제품명은 필수입니다." })}
           type="text"
           id="title"
-          placeholder=" 상품 이름"
-          className="w-[350px] h-[35px] border-2 rounded-lg mt-3 mb-2"
+          placeholder="상품 이름"
+          className="w-[350px] h-[35px] border-none bg-[#b8e994] text-black rounded-lg my-2 text-center"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.title?.message as string}
-        </span>
-        <div className="flex flex-row">
-          <input
-            {...register("startPrice", {
-              required: "시작 경매가는 필수입니다.",
-              min: { message: "최소 경매가는 1원입니다.", value: "1" },
-            })}
-            type="number"
-            id="valueForStart"
-            placeholder=" 경매 시작가"
-            className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
-          />
-          <input
-            {...register("minBidPrice", {
-              required: "경매가 단위는 필수입니다.",
-              min: { message: "최소 단위는 1원입니다.", value: "1" },
-            })}
-            type="number"
-            id="valuePerBid"
-            placeholder=" 경매가 단위"
-            className="w-[171px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
-          />
-        </div>
-        <span className="text-red-500 font-semibold text-[14px]">
-          {errors.startPrice?.message as string}
-        </span>
-        <span className="font-semibold text-[14px]">
-          상품 설명을 부탁드립니다. 최소 10자 이상 작성해야 합니다.
         </span>
         <input
           {...register("content", {
@@ -255,14 +222,65 @@ function RegisterProduct() {
           })}
           type="text"
           id="desc"
-          className="w-[350px] h-[105px] border-2 rounded-lg mt-2 mb-2 overflow-y-auto"
+          placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
+          className="w-[350px] h-[80px] border-none bg-[#b8e994] text-black text-center rounded-lg my-2 overflow-y-auto"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
         </span>
-        <button className="w-[165px] h-[40px] bg-gray-800 text-white font-semibold rounded-lg mt-5 mr-2 ">
-          경매 시작하기
-        </button>
+        <div className="flex flex-col justify-center w-[350px] font-semibold my-2">
+          <div>마감기한 설정</div>
+          <div>
+            <input
+              {...register("deadline", {
+                required: "경매 마감기한 설정은 필수입니다.",
+              })}
+              type="range"
+              id="dueDate"
+              min="1"
+              max="5"
+              className="mt-2 w-[280px] h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer"
+            />
+            <span className="font-semibold mx-2">{watch("deadline")} Days</span>
+          </div>
+          <span className="text-red-500 font-semibold text-[14px]">
+            {errors.deadline?.message as string}
+          </span>
+        </div>
+        <div className="flex flex-col justify-center w-[350px] my-2">
+          <span>경매 시작 가격</span>
+          <input
+            {...register("startPrice", {
+              required: "시작 경매가는 필수입니다.",
+              min: { message: "최소 경매가는 1원입니다.", value: "1" },
+            })}
+            type="number"
+            id="valueForStart"
+            placeholder=" 경매 시작가"
+            className="w-[350px] h-[35px] border-2 rounded-lg mx-1"
+          />
+          <div className="my-3">
+            <span>경매가 최소 단위</span>
+            <input
+              {...register("minBidPrice", {
+                required: "경매가 단위는 필수입니다.",
+                min: { message: "최소 단위는 1원입니다.", value: "1" },
+              })}
+              type="number"
+              id="valuePerBid"
+              placeholder=" 경매가 단위"
+              className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
+            />
+          </div>
+        </div>
+        <span className="text-red-500 font-semibold text-[14px]">
+          {errors.startPrice?.message as string}
+        </span>
+        <div className="flex justify-center items-center">
+          <button className="w-[350px] h-[40px] bg-[#009432] text-white font-semibold rounded-lg mr-2 ">
+            경매 시작하기
+          </button>
+        </div>
       </form>
     </div>
   );

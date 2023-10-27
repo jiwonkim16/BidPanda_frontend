@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { TopItemType } from "src/pages/hub/Mainpage";
-import CountdownTimer from "./CountdownTimer";
+import ListTimer from "../../pages/auction-list/ListTimer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
@@ -37,13 +37,10 @@ const ItemCards = ({ topItems }: TopItemProps) => {
             </Link>
             <div className="px-3">
               <Link to={`/items/detail/${item.id}`}>
-                <h5
-                  className="text-lg font-bold text-gray-900 mb-1
-                ${item.title.length > 8 ? 'overflow-ellipsis' : ''}"
-                >
-                  {item.title.length > 8
-                    ? `${item.title.slice(0, 8)} ...`
-                    : item.title}
+
+                <h5 className="text-lg font-bold text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                  {item.title}
+
                 </h5>
               </Link>
               <div className="flex items-center justify-between">
@@ -51,13 +48,13 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                   {item.presentPrice}원
                 </span>
               </div>
-              <div className="flex mt-1">
-                <span>
-                  <CountdownTimer
+              <div className="relative">
+                <div className="absolute -top-[200px] -right-[20px]">
+                  <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
                   />
-                </span>
+                </div>
               </div>
             </div>
           </div>

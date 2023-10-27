@@ -4,11 +4,13 @@ import ListTimer from "./ListTimer";
 import { Link, useNavigate } from "react-router-dom";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
-import { Tab } from "@headlessui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { auctionList } from "./../../apis/auction-list/AuctionList";
 import Loading from "./../../components/assets/Loading";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper/modules";
+import "swiper/css/scrollbar";
+import "swiper/css";
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;
@@ -78,48 +80,39 @@ function AuctionList() {
 
   return (
     <div>
-      <div className="flex justify-center">
-        <Tab.Group>
-          <Tab.List className="flex space-x-3 rounded-xl bg-blue-900/20 p-1 mt-[10px]">
-            {categoryLi.map((item, index) => (
-              <Tab
+      <div className="flex justify-center w-full mt-3">
+        <Swiper
+          scrollbar={{
+            hide: true,
+          }}
+          slidesPerView={5}
+          centeredSlides={false}
+          modules={[Scrollbar]}
+          className="flex w-full mb-3 mySwiper"
+        >
+          {categoryLi.map((item) => (
+            <SwiperSlide key={item}>
+              <button
                 type="button"
-                key={index}
+                key={item}
                 value={item}
                 onClick={onClickCategory}
-                className={`w-[35px] rounded-lg py-2 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+                className={`${
                   selectCategory === item
-                    ? "bg-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                }`}
+                    ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
+                    : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
+                } text-white`}
               >
                 {item}
-              </Tab>
-            ))}
-          </Tab.List>
-        </Tab.Group>
+              </button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
-      {/* 데이터가 로드되기 전에 렌더링을 막기 위해 아래와 같은 조건문을 사용. auctionItem이 존재하는 경우에만 map 함수 호출. */}
-
-      {auctionItem.map((item, index) => (
-        <React.Fragment key={index}>
-          <div className="flex flex-col justify-center ml-2.5 mt-2 w-[370px] bg-white border border-gray-200 rounded-lg shadow ">
-            <Link
-              to={
-                item.nickname === userNickname
-                  ? status
-                    ? `/items/detail/${item.id}`
-                    : `/items/modifier/${item.id}`
-                  : `/items/detail/${item.id}`
-              }
-            >
-              <img
-                className="p-4 ml-[10px] rounded-lg w-[360px] h-[200px] object-cover"
-                src={item.itemImages[0]}
-                alt="product image"
-              />
-            </Link>
-            <div className="px-5 pb-5">
+      <div className="w-[100%] grid grid-cols-2 gap-2">
+        {auctionItem.map((item, index) => (
+          <React.Fragment key={index}>
+            <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-lg shadow ">
               <Link
                 to={
                   item.nickname === userNickname
@@ -129,29 +122,48 @@ function AuctionList() {
                     : `/items/detail/${item.id}`
                 }
               >
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900">
-                  {item.title}
-                </h5>
+                <img
+                  className="p-2 m-auto rounded-3xl w-[150px] h-[150px] object-cover"
+                  src={item.itemImages[0]}
+                  alt="product image"
+                />
               </Link>
-              <div className="flex items-center mt-2 mb-2">
-                <span>
-                  {
+              <div className="px-5 pb-5">
+                <Link
+                  to={
+                    item.nickname === userNickname
+                      ? status
+                        ? `/items/detail/${item.id}`
+                        : `/items/modifier/${item.id}`
+                      : `/items/detail/${item.id}`
+                  }
+                >
+                  <h5 className="text-lg font-semibold tracking-tight overflow-hidden text-ellipsis whitespace-nowrap text-gray-900">
+                    {item.title}
+                  </h5>
+                </Link>
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  <span className="text-sm">{item.content}</span>
+                </div>
+                <div className="flex flex-col items-start justify-center">
+                  <div className="text-gray-500">현재 입찰가</div>
+                  <span className="text-md font-bold text-gray-900">
+                    {item.presentPrice.toLocaleString()}
+                  </span>
+                </div>
+                <div className="relative">
+                  <div className="absolute -top-[270px] -right-[40px]">
                     <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}
                     />
-                  }
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-md font-bold text-gray-900">
-                  {item.presentPrice} 원
-                </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </React.Fragment>
-      ))}
+          </React.Fragment>
+        ))}
+      </div>
       <div ref={target}>
         {loading ? <Loading /> : <span className="text-white">dd</span>}
       </div>
