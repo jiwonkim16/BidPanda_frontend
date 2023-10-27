@@ -88,7 +88,7 @@ function AuctionCard() {
 
   return (
     <>
-      <div className="flex justify-center w-full mt-3">
+      <div className="flex justify-center w-full my-2 mt-4">
         <Swiper
           scrollbar={{
             hide: true,
@@ -96,7 +96,7 @@ function AuctionCard() {
           slidesPerView={5}
           centeredSlides={false}
           modules={[Scrollbar]}
-          className="flex w-full mb-3 mySwiper"
+          className="flex w-full mySwiper"
         >
           {categoryLi.map((item) => (
             <SwiperSlide key={item}>
@@ -109,7 +109,7 @@ function AuctionCard() {
                   selectCategory === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
                     : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
-                } text-white`}
+                } text-bold `}
               >
                 {item}
               </button>
@@ -117,7 +117,7 @@ function AuctionCard() {
           ))}
         </Swiper>
       </div>
-      <div className="w-[100%] grid grid-cols-2 gap-2">
+      <div className="item-center justify-center ml-4 mt-4 w-[90%] grid grid-cols-2 gap-2">
         {auctionData.map((item: IAuction) => (
           <div
             key={item.id}
