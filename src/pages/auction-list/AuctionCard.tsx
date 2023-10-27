@@ -109,7 +109,7 @@ function AuctionCard() {
                   selectCategory === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
                     : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
-                } text-white`}
+                } `}
               >
                 {item}
               </button>
