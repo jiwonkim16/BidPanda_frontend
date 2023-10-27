@@ -29,7 +29,7 @@ const Main = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1300);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -46,7 +46,7 @@ const Main = () => {
       }
     };
     fetchData();
-  }, [!showSplash]);
+  }, []);
 
   return (
     <>
