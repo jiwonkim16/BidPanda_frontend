@@ -1,9 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
 import SockJS from "sockjs-client";
-import { profileImageState } from "./../../atoms/profileImage";
 import { Stomp } from "@stomp/stompjs";
 
 interface IDecodeToken {
@@ -13,8 +11,7 @@ interface IDecodeToken {
 function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
   const [history, setHistory] = useState<any[]>([]);
-  const profileImage = useRecoilValue(profileImageState);
-  // const [partnersURL, setPartnersURL] = useState("");
+  const [partnerURL, setPartnerURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
   const messagesEndRef = useRef<any>(null);
 
@@ -48,8 +45,9 @@ function ChattingRoom() {
             },
           }
         );
-
-        setHistory(response.data);
+        console.log(response);
+        setHistory(response.data.history);
+        setPartnerURL(response.data.partnerProfileUrl);
         connectWebSocket();
       } catch (error) {
         console.log(error);
@@ -96,7 +94,6 @@ function ChattingRoom() {
           type: "ENTER",
           record_id: record_id,
           nickname: userNickname,
-          profileURL: profileImage,
         })
       );
 
@@ -164,7 +161,7 @@ function ChattingRoom() {
                       </div>
                       <img
                         className="w-[35px] h-[35px] cursor-pointer rounded-full object-cover shadow-md"
-                        // src={partnersURL}
+                        src={partnerURL}
                         alt="partnersURL"
                       />
                     </div>
