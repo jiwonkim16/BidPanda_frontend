@@ -2,8 +2,9 @@ import { useState, useEffect, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import moment from "moment";
+import { closeAlarm } from "./../../apis/timer/closeAlarm";
 
-function CountdownTimer({ endTime, bidCount }: any) {
+function CountdownTimer({ endTime, bidCount, itemId }: any) {
   // 진행 여부에 관한 Recoil state
   const [progress, setProgress] = useRecoilState(auctionStatus);
   const end = useMemo(() => moment(endTime), [endTime]);
@@ -19,7 +20,9 @@ function CountdownTimer({ endTime, bidCount }: any) {
       setRemainingTime(newRemainingTime);
 
       if (newRemainingTime === 0) {
+        console.log(progress);
         setProgress(false);
+        // closeAlarm(itemId);
       }
     }, 1000);
 
@@ -36,6 +39,9 @@ function CountdownTimer({ endTime, bidCount }: any) {
   const format = `${days}days 
   ${duration.hours()}:${duration.minutes()}:${duration.seconds()}`;
 
+  if (remainingTime === 0) {
+    closeAlarm(itemId);
+  }
   return (
     <>
       <div>

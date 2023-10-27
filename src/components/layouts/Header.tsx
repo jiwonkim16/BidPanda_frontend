@@ -41,11 +41,11 @@ function Header() {
   return (
     <>
       {!isToken ? (
-        <nav className="items-center bg-white w-[390px] h-[105%] flex  justify-between border-b-2 rounded-b-[15px]">
+        <nav className="items-center bg-white w-[390px] h-[105%] flex justify-between border-b-2 rounded-b-[15px]">
           <Link to={"/"}>
             <img src="/textlogo.webp" alt="logo" className="w-[140px]" />
           </Link>
-          <button className="text-gray-600 text-xl mt-[20px]">
+          <button className="text-gray-600 mt-6 text-lg">
             <Link to={"/login"} className="mr-[40px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ function Header() {
               </svg>
             </button>
             <img
-              className="w-[30px] h-[30px] mr-3 cursor-pointer rounded-full object-cover shadow-md"
+              className="w-[33px] h-[33px] mr-3 cursor-pointer rounded-full object-cover shadow-md"
               src={profileImage}
               alt="mypage&profile"
               onClick={() => navigate("/mypage")}

@@ -25,20 +25,22 @@ const Main = () => {
   const [topItems, setTopItems] = useState<TopItemType[]>([]);
   const [showSplash, setShowSplash] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const isIn = sessionStorage.getItem("isIn");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 1300);
-
-    return () => clearTimeout(timer);
+    sessionStorage.setItem("isIn", "true");
+    if (showSplash) {
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+      }, 3000);
+      clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play();
     }
-
     const fetchData = async () => {
       const data: TopItemType[] = await getTopTenListApi();
       if (data) {
@@ -46,12 +48,12 @@ const Main = () => {
       }
     };
     fetchData();
-  }, [!showSplash]);
+  }, []);
 
   return (
     <>
       <>
-        {showSplash ? (
+        {showSplash && !isIn ? (
           <Splash />
         ) : (
           <>
@@ -74,7 +76,7 @@ const Main = () => {
               </div>
             </div>
             <div className="ml-5 mt-5 font-bold">최고 낙찰가 상품 TOP 10</div>
-            <div className="flex items-center justify-start flex-wrap mt-1 ml-4 font-bold text-gray-700">
+            <div className="flex items-center justify-start flex-wrap mt-1 ml-4 font-bold text-gray-800">
               <ItemCards topItems={topItems} />
             </div>
           </>
