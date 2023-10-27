@@ -26,7 +26,7 @@ function SearchResult({ data }: any) {
             </h5>
             <div className="flex items-center mt-2 mb-2">
               <span>
-                <ListTimer endTime={data.auctionEndTime} />
+                <ListTimer itemId={data.id} endTime={data.auctionEndTime} />
               </span>
             </div>
           </button>

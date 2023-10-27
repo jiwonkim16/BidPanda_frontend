@@ -53,6 +53,7 @@ function RegisterProduct() {
   // 카테고리 등록
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
+
     setSelectCategory(category);
     setValue("category", category);
   };

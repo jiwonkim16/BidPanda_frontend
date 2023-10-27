@@ -158,6 +158,7 @@ function AuctionList() {
                     <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}
+                      itemId={item.id}
                     />
                   </div>
                 </div>

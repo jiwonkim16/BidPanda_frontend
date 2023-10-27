@@ -24,7 +24,7 @@ function AuctionCard() {
   const [auctionData, setAuctionData] = useState<IAuction[]>([]);
   const params = useParams();
   const navigate = useNavigate();
-  const categoryIcon: any = params?.category?.slice(2, 4);
+  const categoryIcon: any = params?.category;
   const categoryLi = useRecoilValue(categoryList);
   const [selectCategory, setSelectCategory] = useRecoilState(category);
 
@@ -50,7 +50,7 @@ function AuctionCard() {
   };
 
   useEffect(() => {
-    if (categoryIcon === "") {
+    if (categoryIcon === "전체") {
       navigate(`/items/list`);
     }
   }, [categoryIcon]);
@@ -152,6 +152,7 @@ function AuctionCard() {
                   <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
+                    itemId={item.id}
                   />
                 </div>
               </div>

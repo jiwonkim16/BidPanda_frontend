@@ -32,7 +32,7 @@ const Main = () => {
     if (showSplash) {
       const timer = setTimeout(() => {
         setShowSplash(false);
-      }, 2000);
+      }, 3000);
       clearTimeout(timer);
     }
   }, []);
