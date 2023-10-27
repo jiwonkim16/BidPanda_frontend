@@ -37,8 +37,10 @@ const ItemCards = ({ topItems }: TopItemProps) => {
             </Link>
             <div className="px-3">
               <Link to={`/items/detail/${item.id}`}>
+
                 <h5 className="text-lg font-bold text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
                   {item.title}
+
                 </h5>
               </Link>
               <div className="flex items-center justify-between">

@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Main from "./pages/hub/Mainpage";
 import App from "./App";
+import Splash from "./pages/hub/Splash";
 import Kakao from "./components/modules/Kakao";
 
 const Login = React.lazy(() => import("./pages/users/Login"));
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Main />,
+      },
+      {
+        path: "enter",
+        element: <Splash />,
       },
       {
         path: "login",

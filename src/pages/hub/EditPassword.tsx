@@ -1,8 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { editUserPasswordApi } from "../../apis/user-mypage/UserEditApi";
 import { toast } from "react-toastify";
+import { userDeleteApi } from "../../apis/user-mypage/UserDeleteApi";
+import Modal from "../../components/assets/Modal";
 
 interface EditPasswordData {
   password: string;
@@ -15,7 +17,14 @@ interface EditPasswordData {
  */
 
 const EditPassword = () => {
+  const [forSureDelete, setForSureDelete] = useState(false);
   const navigate = useNavigate();
+  const isToken = localStorage.getItem("authorization");
+
+  /**
+   * @includes : 회원 정보 수정. React-hook-form.
+   */
+
   const {
     register,
     handleSubmit,
@@ -31,10 +40,35 @@ const EditPassword = () => {
       console.error(error);
     }
   };
+
+  /**
+   * @includes : 회원 탈퇴 관련 코드.
+   */
+
+  const removeToken = () => {
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("authorization_refresh");
+  };
+
+  const askUserDelete = () => {
+    setForSureDelete(true);
+    setTimeout(() => {
+      setForSureDelete(false);
+    }, 4500);
+  };
+
+  const handleUserDelete = async () => {
+    if (isToken) {
+      await userDeleteApi();
+      toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
+      navigate("/");
+      removeToken();
+    }
+  };
   return (
-    <div className="flex flex-col h-[650px] justify-center">
+    <div className="flex flex-col h-[650px] justify-center items-center">
       <form
-        className="flex flex-col items-center font-bold"
+        className="flex flex-col items-center justify-center font-semibold"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="newPassword">새 비밀번호</label>
@@ -72,10 +106,21 @@ const EditPassword = () => {
             </p>
           )}
         </div>
-        <button className="w-[250px] h-[40px] bg-green-500 text-gray-800 rounded-lg mt-10 mr-2 ">
+        <button className="w-[250px] h-[40px] bg-green-500 text-gray-800 rounded-lg mt-10 ">
           수정 완료
         </button>
       </form>
+      <button
+        onClick={askUserDelete}
+        className="w-[250px] h-[40px] mt-2 font-semibold bg-red-500 text-white shadow-md rounded-md m-1 p-1"
+      >
+        회원 탈퇴
+      </button>
+      {forSureDelete && (
+        <>
+          <Modal handleUserDelete={handleUserDelete} />
+        </>
+      )}
     </div>
   );
 };
