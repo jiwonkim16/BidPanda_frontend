@@ -1,37 +1,50 @@
-// import { useNavigate } from "react-router-dom";
+import { memo } from "react";
+import { useQuery } from "react-query";
+import { NotificationListApi } from "../../apis/user-mylists/NotificationListApi";
+
+interface notiList {
+  notificationId: number;
+  content: string;
+  notificationType: string;
+  isRead: boolean;
+}
 
 const Notification = () => {
-  // const navigate = useNavigate();
+  const { data } = useQuery("notification", NotificationListApi);
+  const notifications = data?.data || [];
+  console.log(data);
 
-  // const checkNoti = async () => {
-  //   const res = await
-  //   if (res?.status === 200) {
-  //     localStorage.setItem("record_id", res?.data.recordId);
-  //     navigate(`/chattingRoom/${itemId}`);
-  //   } else {
-  //     toast.error("해당 상품이 존재하지 않습니다..");
-  //   }
-  // };
   return (
     <div className="h-[100%]">
       <div>
-        <div className="flex flex-col justify-center items-center">
-          {/* {data?.map((item) => (
+        <div className="flex flex-col justify-center items-center mt-1">
+          {notifications?.map((noti: notiList) => (
             <div
-              key={item.itemId}
-              onClick={}
-              className="w-[370px] h-[100px] p-3 py-7 mb-2 bg-white rounded-lg shadow-md"
+              key={noti.notificationId}
+              className="w-[370px] h-[60px] p-2 py-[17px] my-1 bg-white rounded-lg shadow-md"
             >
-              <div>
-                <span>{item.partner}</span>
-                <span className="font-bold text-lg ml-2">{item.title}</span>
+              <div className="flex flex-row justify-start items-center">
+                <div className="font-semibold text-lg px-1 mr-3 bg-gray-800 text-gray-100 rounded-lg">
+                  {noti.notificationType}
+                </div>
+                <div className="w-full flex justify-between">
+                  <div className="text-gray-800 font-semibold">
+                    {noti.content}
+                  </div>
+                  {!noti.isRead ? (
+                    <>
+                      <div className="text-red-500 text-sm">●</div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
-              <button>▶︎ Enter</button>
             </div>
-          ))} */}
+          ))}
         </div>
       </div>
     </div>
   );
 };
-export default Notification;
+export default memo(Notification);
