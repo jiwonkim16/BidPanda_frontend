@@ -22,6 +22,10 @@ const Login = () => {
     }
   }, []);
 
+  /**
+   * @includes : 로그인, 카카오 소셜 로그인 기능
+   */
+
   const onLoginHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const res = await loginApi({ membername, password });
