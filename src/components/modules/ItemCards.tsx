@@ -37,8 +37,13 @@ const ItemCards = ({ topItems }: TopItemProps) => {
             </Link>
             <div className="px-3">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-lg font-bold text-gray-900 mb-1">
-                  {item.title}
+                <h5
+                  className="text-lg font-bold text-gray-900 mb-1
+                ${item.title.length > 8 ? 'overflow-ellipsis' : ''}"
+                >
+                  {item.title.length > 8
+                    ? `${item.title.slice(0, 8)} ...`
+                    : item.title}
                 </h5>
               </Link>
               <div className="flex items-center justify-between">
