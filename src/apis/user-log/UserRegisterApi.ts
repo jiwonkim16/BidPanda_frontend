@@ -27,11 +27,12 @@ export const userRegisterApi = async (data: UserRegisterData) => {
 
 export const checkMembernameApi = async (membername: string) => {
   try {
-    await axios.get(
+    const res = await axios.get(
       `${
         import.meta.env.VITE_REACT_API_KEY
       }/api/members/membername/${membername}`
     );
+    return res;
   } catch (error) {
     console.error(error);
   }
@@ -39,9 +40,10 @@ export const checkMembernameApi = async (membername: string) => {
 
 export const checkNicknameApi = async (nickname: string) => {
   try {
-    await axios.get(
+    const res = await axios.get(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/nickname/${nickname}`
     );
+    return res;
   } catch (error) {
     console.error(error);
   }
@@ -52,7 +54,6 @@ export const sendValidateEmailApi = async (data: string) => {
     withCredentials: true,
     mode: "cors",
   };
-
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email`,
@@ -70,10 +71,11 @@ export const checkValidateCodeApi = async (data: {
   email: any;
 }) => {
   try {
-    await axios.post(
+    const res = await axios.post(
       `${import.meta.env.VITE_REACT_API_KEY}/api/members/email/verify`,
       { authKey: data.code, email: data.email }
     );
+    return res;
   } catch (error) {
     console.error(error);
   }

@@ -135,7 +135,7 @@ function ChattingRoom() {
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (
-                <div className="text-xs text-gray-400 text-center py-1">
+                <div className="text-xs text-black font-semibold text-center py-1">
                   {item.sender} 님이 입장했습니다.
                 </div>
               ) : item.type === "TEXT" && item.sender === userNickname ? (
@@ -144,7 +144,7 @@ function ChattingRoom() {
                     <div className="mb-1 font-semibold text-end">
                       {userNickname}
                     </div>
-                    <div className="py-1.5 px-2 rounded-lg bg-gray-700 text-white shadow mb-2 w-fit ">
+                    <div className="py-2 px-3 rounded-lg bg-green-700 font-semibold text-white shadow mb-2 w-fit ">
                       {item.content}
                     </div>
                   </div>
@@ -156,7 +156,7 @@ function ChattingRoom() {
                       {item.sender}
                     </div>
                     <div className="flex flex-row-reverse">
-                      <div className="py-1 px-2 rounded-lg bg-gray-200 shadow mb-2 ml-2 w-fit">
+                      <div className="py-2 px-4 rounded-lg bg-gray-200 font-semibold shadow mb-2 ml-2 w-fit">
                         {item.content}
                       </div>
                       <img
@@ -174,17 +174,28 @@ function ChattingRoom() {
         </div>
         <div className="border-t-2 border-b-none py-2 flex items-center font-semibold">
           <form onSubmit={sendMessage}>
-            <input
-              type="text"
-              id="chat"
-              className="border-2 rounded-lg mx-3 w-[300px] h-[37px]"
-              placeholder=" 내용을 입력하세요"
-              value={inputMessage}
-              onChange={onChange}
-            />
-            <button className="w-[55px] h-[35px] bg-gray-800 text-white rounded-lg">
-              보내기
-            </button>
+            <div className="flex">
+              <input
+                type="text"
+                id="chat"
+                className="border-none bg-gray-100 rounded-lg mx-3 w-[300px] h-[37px]"
+                placeholder=" 내용을 입력하세요"
+                value={inputMessage}
+                onChange={onChange}
+              />
+              <button className="w-[55px] h-[35px] bg-green-700 flex items-center justify-center rounded-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="0.75em"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    fill="white"
+                    d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480V396.4c0-4 1.5-7.8 4.2-10.7L331.8 202.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8 17.7 316.6C7.1 311.3 .3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4z"
+                  />
+                </svg>
+              </button>
+            </div>
           </form>
         </div>
       </div>

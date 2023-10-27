@@ -39,27 +39,42 @@ const RegisterUser = () => {
 
   const checkMembernameHandler = async () => {
     const valMembername = getValues("membername");
-    await checkMembernameApi(valMembername);
-    setIsMembernameCheck(true);
+    const res = await checkMembernameApi(valMembername);
+    if (res?.status === 200) {
+      setIsMembernameCheck(true);
+    } else {
+      toast.error("이미 존재하는 아이디 입니다.");
+    }
   };
   const checkNicknameHandler = async () => {
     const valNickname = getValues("nickname");
-    await checkNicknameApi(valNickname);
-    setIsNicknameCheck(true);
+    const res = await checkNicknameApi(valNickname);
+    if (res?.status === 200) {
+      setIsNicknameCheck(true);
+    } else {
+      toast.error("이미 존재하는 닉네임 입니다.");
+    }
   };
   const onValidEmailHandler = async () => {
     const valEmail = getValues("email");
-    await sendValidateEmailApi(valEmail);
-    setIsValidEmailSent(true);
+    const res = await sendValidateEmailApi(valEmail);
+    if (res?.status === 200) {
+      setIsValidEmailSent(true);
+    } else {
+      toast.error("이미 존재하는 이메일 이거나, 잘못된 형식입니다.");
+    }
   };
   const onValCodeHandler = async () => {
     const valCode = validateCode;
     const valEmail = getValues("email");
     const codeData = { code: valCode, email: valEmail };
-    await checkValidateCodeApi(codeData);
-    setIsValCodeSent(true);
-    if (isValCodeSent) {
+    const res = await checkValidateCodeApi(codeData);
+
+    if (res?.status === 200) {
+      setIsValCodeSent(true);
       toast.success("이메일 인증에 성공하였습니다.");
+    } else {
+      toast.error("인증코드가 맞지 않습니다.");
     }
   };
 
@@ -82,7 +97,12 @@ const RegisterUser = () => {
       toast.error("비밀번호가 서로 다릅니다.");
       return;
     }
-    if (isValCodeSent && isMembernameCheck && isNicknameCheck) {
+    if (
+      isValCodeSent &&
+      isMembernameCheck &&
+      isNicknameCheck &&
+      isValidEmailSent
+    ) {
       await userRegisterApi(data);
       if (data) {
         toast.success("회원가입에 성공하였습니다.");
@@ -125,7 +145,11 @@ const RegisterUser = () => {
               ✔︎
             </button>
           ) : (
-            <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
+            <button
+              className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
+                errors.membername ? "bg-red-500" : "bg-green-400"
+              }`}
+            >
               ✔︎
             </button>
           )}
@@ -158,7 +182,11 @@ const RegisterUser = () => {
               ✔︎
             </button>
           ) : (
-            <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
+            <button
+              className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
+                errors.nickname ? "bg-red-500" : "bg-green-400"
+              }`}
+            >
               ✔︎
             </button>
           )}
@@ -202,7 +230,11 @@ const RegisterUser = () => {
                 id="email"
                 className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
               />
-              <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
+              <button
+                className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
+                  errors.email ? "bg-red-500" : "bg-green-400"
+                }`}
+              >
                 ✔︎
               </button>
             </div>
@@ -269,7 +301,10 @@ const RegisterUser = () => {
           </p>
         )}
         <div>
-          {!isValCodeSent || !isMembernameCheck || !isNicknameCheck ? (
+          {!isMembernameCheck ||
+          !isNicknameCheck ||
+          !isValidEmailSent ||
+          !isValCodeSent ? (
             <></>
           ) : (
             <>
