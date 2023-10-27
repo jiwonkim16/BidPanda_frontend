@@ -72,7 +72,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
               </Link>
               <div className="px-3">
                 <Link to={`/items/detail/${item.id}`}>
-                  <h5 className="text-lg font-bold text-gray-900 mb-1">
+                  <h5 className="text-lg font-bold text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
                     {item.title}
                   </h5>
                 </Link>
