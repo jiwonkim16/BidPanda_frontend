@@ -36,8 +36,7 @@ const Login = () => {
       localStorage.setItem("authorization", accessToken);
       localStorage.setItem("authorization_refresh", refreshToken);
       toast.success("로그인에 성공하였습니다.");
-      navigate("/");
-      window.location.reload();
+      window.location.href = "/";
     } else {
       toast.error("로그인에 실패했습니다.");
     }
