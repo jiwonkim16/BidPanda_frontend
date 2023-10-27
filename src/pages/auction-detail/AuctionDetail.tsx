@@ -6,7 +6,7 @@ import {
   bidInfo,
   favoriteItem,
 } from "../../apis/auction-detail/AuctionDetail";
-import DetailTimer from "./DetailTimer";
+
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
@@ -14,6 +14,7 @@ import jwtDecode from "jwt-decode";
 import Loading from "../../components/assets/Loading";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import CountdownTimer from "../auction-list/ListTimer";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -170,7 +171,7 @@ function AuctionDetail() {
                   {detailItem.title}
                 </h5>
                 <div>
-                  <DetailTimer endTime={detailItem.auctionEndTime} />
+                  <CountdownTimer endTime={detailItem.auctionEndTime} />
                 </div>
               </div>
             </div>

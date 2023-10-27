@@ -56,11 +56,11 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] mt-4 ml-2 flex flex-wrap">
+      <div className="rounded-[15px] mt-2 grid grid-cols-2 items-center justify-center">
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
-            className="bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
+            className="bg-white border border-gray-200 mx-1 my-1 rounded-lg shadow"
           >
             <div className="w-[168px] h-[240px]">
               <Link to={`/items/detail/${item.id}`}>
