@@ -11,6 +11,8 @@ interface IChatList {
   partner: string;
   recordId: string;
   title: string;
+  partnerProfileUrl: string;
+  item_image: string;
 }
 
 /**
@@ -38,19 +40,27 @@ function ChattingList() {
   return (
     <div className="h-[100%]">
       <div>
-        <div className="flex flex-col justify-center items-center">
+        <div>
           {data?.map((item: IChatList) => (
-            <div
-              key={item.itemId}
-              className="w-[370px] h-[100px] mt-2 p-3 py-7 mb-2 bg-white rounded-lg shadow"
-            >
-              <div>
-                <span>{item.partner}</span>
-                <span className="font-bold text-lg ml-2">{item.title}</span>
+            <div className="flex justify-center items-center">
+              <div className="rounded-full w-[50px] h-[50px]">
+                <img src={item.partnerProfileUrl} />
               </div>
-              <button onClick={enterChat} value={item.itemId}>
-                ▶︎ Enter
-              </button>
+              <div
+                key={item.itemId}
+                className="w-[370px] h-[100px] mt-2 p-3 py-7 mb-2 bg-white rounded-lg shadow"
+              >
+                <div>
+                  <span>{item.partner}</span>
+                  <span className="font-bold text-lg ml-2">{item.title}</span>
+                </div>
+                <button onClick={enterChat} value={item.itemId}>
+                  ▶︎ Enter
+                </button>
+              </div>
+              <div>
+                <img src={item.item_image} />
+              </div>
             </div>
           ))}
         </div>
