@@ -39,9 +39,18 @@ function CountdownTimer({ endTime, bidCount, itemId }: any) {
   const format = `${days}days 
   ${duration.hours()}:${duration.minutes()}:${duration.seconds()}`;
 
-  if (remainingTime === 0) {
-    closeAlarm(itemId);
-  }
+  useEffect(() => {
+    // 페이지 렌더링 시 remainingTime이 0인 경우 API 호출, 세션스토리지에 값이 없으면 추가 및 api 호출
+    if (remainingTime === 0) {
+      const storedHasAlarm = sessionStorage.getItem("hasAlarm");
+      console.log(storedHasAlarm);
+      if (storedHasAlarm !== "false") {
+        sessionStorage.setItem("hasAlarm", "false");
+        closeAlarm(itemId);
+      }
+    }
+  }, [remainingTime, itemId]);
+
   return (
     <>
       <div>
