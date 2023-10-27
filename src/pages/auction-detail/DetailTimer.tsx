@@ -38,27 +38,35 @@ function CountdownTimer({ endTime, bidCount }: any) {
 
   return (
     <>
-      {remainingTime !== 0 ? (
-        <div>
-          {days === 0 ? (
-            <div className="bg-red-500 text-white px-3 w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
-              {format}
+      <div>
+        {remainingTime !== 0 ? (
+          <div className="flex justify-between">
+            <div className="flex flex-row w-fit text-sm items-center p-1 px-1 bg-gray-100 text-gray-800  rounded-xl shadow-md font-semibold">
+              <div className="bg-green-500 w-[10px] h-[10px] shadow-sm rounded-full mr-1" />
+              <div>진행중</div>
             </div>
-          ) : (
-            <div className="bg-[#009432] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
-              {format}
-            </div>
-          )}
-        </div>
-      ) : bidCount === 0 ? (
-        <div className="bg-[#6f45ee] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
-          유찰
-        </div>
-      ) : (
-        <div className="bg-[#ed433e] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
-          낙찰
-        </div>
-      )}
+            {duration.hours() <= 12 && days <= 0 ? (
+              <div className="bg-red-500 text-white -mt-[230px] ml-[145px] px-3 w-16 h-16 flex flex-col items-center justify-center text-xs rounded-full shadow-md font-semibold">
+                {format}
+              </div>
+            ) : (
+              <div className="bg-green-500 text-gray-800 -mt-[230px] ml-[145px] px-[10px] w-16 h-16 flex flex-col items-center justify-center text-xs rounded-full shadow-md font-semibold">
+                {format}
+              </div>
+            )}
+          </div>
+        ) : bidCount === 0 ? (
+          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md  font-semibold">
+            <div className="bg-red-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <span>유찰</span>
+          </div>
+        ) : (
+          <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md  font-semibold">
+            <div className="bg-blue-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <span>낙찰</span>
+          </div>
+        )}
+      </div>
     </>
   );
 }

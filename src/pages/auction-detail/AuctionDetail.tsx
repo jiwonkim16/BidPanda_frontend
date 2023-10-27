@@ -6,7 +6,7 @@ import {
   bidInfo,
   favoriteItem,
 } from "../../apis/auction-detail/AuctionDetail";
-import CountdownTimer from "../../components/modules/CountdownTimer";
+import DetailTimer from "./DetailTimer";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
@@ -122,13 +122,13 @@ function AuctionDetail() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="w-[360px] h-[95%] py-4 ml-4 justify-center items-center">
+        <div className="w-[370px] h-[95%] py-4 ml-4 justify-center items-center">
           <div>
             <div className="flex">
               <button onClick={prevBtn}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  height="2em"
+                  height="2.0em"
                   viewBox="0 0 320 512"
                 >
                   <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
@@ -165,17 +165,19 @@ function AuctionDetail() {
               </button>
             </div>
             <div className="flex flex-col mt-4 ">
-              <div className="flex flex-row items-center mb-3">
-                <h5 className=" mr-3 text-2xl font-bold tracking-tight text-gray-900">
+              <div className="flex items-center mb-3">
+                <h5 className="mr-3 w-fit text-xl font-bold text-gray-900">
                   {detailItem.title}
                 </h5>
-                <CountdownTimer endTime={detailItem.auctionEndTime} />
+                <div>
+                  <DetailTimer endTime={detailItem.auctionEndTime} />
+                </div>
               </div>
             </div>
             <div>
               <div className="flex flex-col">
                 <span className=" text-gray-800 font-semibold">
-                  실시간 최고 입찰가 :: {detailItem.presentPrice} 원
+                  실시간 최고 입찰가 : {detailItem.presentPrice} 원
                 </span>
                 <div className="flex flex-row font-semibold">
                   <input
@@ -196,11 +198,10 @@ function AuctionDetail() {
                   </button>
                 </div>
               </div>
-
               <div className="flex flex-row-reverse gap-2 font-semibold">
                 <button
                   onClick={likeBtn}
-                  className="w-[110px] h-[39px] bg-red-500 text-white rounded-lg mt-2 "
+                  className="w-[110px] h-[39px] bg-red-500 text-white rounded-lg mt-2 mr-[9px] "
                 >
                   관심 목록
                 </button>
