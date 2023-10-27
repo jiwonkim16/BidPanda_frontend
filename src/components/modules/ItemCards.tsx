@@ -25,9 +25,9 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       {topItems.map((item: TopItemType) => (
         <SwiperSlide
           key={item.id}
-          className="bg-white border border-gray-200 mt-1 mr-3 rounded-lg shadow"
+          className="bg-white border border-gray-200 mt-1 mr-3 rounded-xl"
         >
-          <div className="w-[168px] h-[240px]">
+          <div className="w-[168px] h-[235px] shadow-md rounded-xl">
             <Link to={`/items/detail/${item.id}`}>
               <img
                 className="p-2 rounded-lg w-[170px] h-[140px] object-cover"
@@ -47,7 +47,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                 </span>
               </div>
               <div className="relative">
-                <div className="absolute -top-[200px] -right-[20px]">
+                <div className="absolute -top-[200px] -right-[15px]">
                   <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
