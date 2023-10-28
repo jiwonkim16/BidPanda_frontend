@@ -85,7 +85,7 @@ function AuctionList() {
           scrollbar={{
             hide: true,
           }}
-          slidesPerView={5}
+          slidesPerView={6}
           centeredSlides={false}
           modules={[Scrollbar]}
           className="flex w-full mySwiper"
@@ -101,9 +101,7 @@ function AuctionList() {
                   selectCategory === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
                     : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
-
                 } text-bold  `}
-
               >
                 {item}
               </button>
@@ -158,7 +156,6 @@ function AuctionList() {
                     <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}
-                      itemId={item.id}
                     />
                   </div>
                 </div>

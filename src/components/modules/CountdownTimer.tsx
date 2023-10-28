@@ -2,9 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { auctionStatus } from "../../atoms/auctionStatus";
 import moment from "moment";
-import { closeAlarm } from "./../../apis/timer/closeAlarm";
 
-function CountdownTimer({ endTime, bidCount, itemId }: any) {
+function CountdownTimer({ endTime, bidCount }: any) {
   // 진행 여부에 관한 Recoil state
   const [progress, setProgress] = useRecoilState(auctionStatus);
   const end = useMemo(() => moment(endTime), [endTime]);
@@ -38,18 +37,6 @@ function CountdownTimer({ endTime, bidCount, itemId }: any) {
   // 00days hh:mm:ss 형식으로 포맷팅
   const format = `${days}days 
   ${duration.hours()}:${duration.minutes()}:${duration.seconds()}`;
-
-  useEffect(() => {
-    // 페이지 렌더링 시 remainingTime이 0인 경우 API 호출, 세션스토리지에 값이 없으면 추가 및 api 호출
-    if (remainingTime === 0) {
-      const storedHasAlarm = sessionStorage.getItem("hasAlarm");
-      console.log(storedHasAlarm);
-      if (storedHasAlarm !== "false") {
-        sessionStorage.setItem("hasAlarm", "false");
-        closeAlarm(itemId);
-      }
-    }
-  }, [remainingTime, itemId]);
 
   return (
     <>
