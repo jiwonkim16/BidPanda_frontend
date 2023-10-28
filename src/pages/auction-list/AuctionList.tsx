@@ -146,7 +146,7 @@ function AuctionList() {
                   <span className="text-sm">{item.content}</span>
                 </div>
                 <div className="flex flex-col items-start justify-center">
-                  <div className="text-gray-500">현재 입찰가</div>
+                  <div className="text-gray-500 text-sm">현재 입찰가</div>
                   <span className="text-md font-bold text-gray-900">
                     {item.presentPrice.toLocaleString()}
                   </span>

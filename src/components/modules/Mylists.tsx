@@ -78,7 +78,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
                 </Link>
                 <div className="flex items-center justify-between">
                   <span className=" font-semibold text-gray-900">
-                    {item.presentPrice}원
+                    {item.presentPrice.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex mt-1">
