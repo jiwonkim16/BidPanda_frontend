@@ -241,7 +241,7 @@ function RegisterProduct() {
           })}
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
-          className="w-[350px] h-[80px] border-none bg-[#b8e994] text-black text-center rounded-lg my-2 overflow-y-auto"
+          className="w-[350px] h-[80px] border-none bg-[#b8e994] text-black text-center rounded-lg my-2 overflow-y-hidden"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
