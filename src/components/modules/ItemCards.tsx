@@ -43,7 +43,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
               </Link>
               <div className="flex items-center justify-between">
                 <span className=" font-semibold text-gray-900">
-                  {item.presentPrice}원
+                  {item.presentPrice.toLocaleString()}
                 </span>
               </div>
               <div className="relative">
