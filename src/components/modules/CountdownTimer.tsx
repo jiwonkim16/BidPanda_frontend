@@ -19,7 +19,6 @@ function CountdownTimer({ endTime, bidCount }: any) {
       setRemainingTime(newRemainingTime);
 
       if (newRemainingTime === 0) {
-        console.log(progress);
         setProgress(false);
         // closeAlarm(itemId);
       }
