@@ -173,9 +173,12 @@ function AuctionDetail() {
                   <CountdownTimer endTime={detailItem.auctionEndTime} />
                 </div>
               </div>
+              <div className="mt-2">
+                <span>{detailItem.content}</span>
+              </div>
             </div>
             <div>
-              <div className="flex flex-col">
+              <div className="flex flex-col mt-3">
                 <span className=" text-gray-800 font-semibold">
                   실시간 최고 입찰가 : {detailItem.presentPrice} 원
                 </span>
