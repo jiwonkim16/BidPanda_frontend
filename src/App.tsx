@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     if (isToken) {
       let eventSource: any;
-      const fetchSSE = async () => {
+      const fetchSSE = () => {
         try {
           eventSource = new EventSource(
             `${import.meta.env.VITE_REACT_API_KEY}/api/notification/subscribe`,
@@ -27,28 +27,19 @@ function App() {
                 Authorization_Refresh:
                   localStorage.getItem("authorization_refresh") || "",
               },
+              heartbeatTimeout: 3600000,
             }
           );
+          eventSource.addEventListener("sseData", async (event: any) => {
+            const data = JSON.parse(event.data);
+            console.log(data);
+          });
 
-          eventSource.onmessage = async (event: any) => {
-            const res = await event.data;
-            if (!res.includes("EventStream Created.")) console.log(res);
-          };
-
-          eventSource.onerror = async (event: any) => {
-            if (!event.error.message.includes("No activity"))
-              eventSource.close();
-          };
-        } catch (error) {
-          console.error(error);
-        }
-        fetchSSE();
-        return () => {
-          if (eventSource) {
-            eventSource.close();
-          }
-        };
+          eventSource.addEventListener("close", () => eventSource.close());
+          return () => eventSource.close();
+        } catch {}
       };
+      fetchSSE();
     }
   }, []);
 
