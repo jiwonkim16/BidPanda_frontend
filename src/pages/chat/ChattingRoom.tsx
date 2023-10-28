@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
+import { useNavigate } from "react-router";
 
 interface IDecodeToken {
   nickname: string;
@@ -14,7 +15,7 @@ function ChattingRoom() {
   const [partnerURL, setPartnerURL] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
   const messagesEndRef = useRef<any>(null);
-
+  const navigate = useNavigate();
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
@@ -132,6 +133,23 @@ function ChattingRoom() {
     <>
       <div>
         <div className="h-[619px] mt-4 mx-3 overflow-y-auto scrollbar-hide">
+          <div className="flex items-center justify-center font-semibold text-xl mb-4">
+            <div className="flex items-center justify-start">
+              <button onClick={() => navigate(-1)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1.25em"
+                  viewBox="0 0 320 512"
+                >
+                  <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex items-center justify-center w-full">
+              <span>상대방 이름</span>
+            </div>
+          </div>
+          <hr />
           {history?.map((item: any, index: number) => (
             <div key={index}>
               {item.type === "ENTER" ? (

@@ -90,6 +90,17 @@ function RegisterProduct() {
     }
   };
 
+  const removeImage = (index: number) => {
+    const newImages = [...images];
+    const newPreviews = [...imagePreviews];
+
+    newImages.splice(index, 1);
+    newPreviews.splice(index, 1);
+
+    setImages(newImages);
+    setImagePreviews(newPreviews);
+  };
+
   // 데이터가 유효할 경우 호출
   const onValid = async (data: IForm) => {
     // 카테고리를 선택하지 않았다면 warning, return
@@ -130,16 +141,16 @@ function RegisterProduct() {
           scrollbar={{
             hide: true,
           }}
-          slidesPerView={5}
+          slidesPerView={6}
           centeredSlides={false}
           modules={[Scrollbar]}
           className="flex w-full mb-3 mySwiper"
         >
           {categoryLi.map((item) => (
-            <SwiperSlide>
+            <SwiperSlide key={item}>
               <button
                 type="button"
-                key={item}
+                // key={item}
                 value={item}
                 onClick={onClickCategory}
                 className={`${
@@ -195,12 +206,19 @@ function RegisterProduct() {
         {/* 이미지 미리보기 섹션 */}
         <div className="w-[350px] h-32 bg-gray-50 border-none my-2 flex justify-center items-center rounded-xl">
           {imagePreviews.map((preview, index) => (
-            <img
-              key={index}
-              src={preview}
-              alt={`미리보기 ${index + 1}`}
-              className="max-w-[115px] h-[128px] object-cover"
-            />
+            <div key={index + 1} className="relative">
+              <img
+                src={preview}
+                alt={`미리보기 ${index + 1}`}
+                className="max-w-[115px] h-[128px] object-cover"
+              />
+              <button
+                className="absolute top-2 right-2 text-red-500 cursor-pointer"
+                onClick={() => removeImage(index)}
+              >
+                x
+              </button>
+            </div>
           ))}
         </div>
         <input
@@ -213,7 +231,7 @@ function RegisterProduct() {
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.title?.message as string}
         </span>
-        <input
+        <textarea
           {...register("content", {
             required: "제품 설명은 필수입니다.",
             minLength: {
@@ -221,7 +239,6 @@ function RegisterProduct() {
               value: 10,
             },
           })}
-          type="text"
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
           className="w-[350px] h-[80px] border-none bg-[#b8e994] text-black text-center rounded-lg my-2 overflow-y-auto"
