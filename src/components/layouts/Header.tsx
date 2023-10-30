@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
- * @returns : 클라이언트 네비게이션 바 구현
+ * @returns : 클라이언트 네비게이션 바 구현. 로그인/ 로그아웃에 따른 화면 분기, 알림 수신 상태에 따른 분기.
  */
 
 function Header() {
