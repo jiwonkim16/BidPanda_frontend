@@ -93,7 +93,7 @@ function AuctionCard() {
           scrollbar={{
             hide: true,
           }}
-          slidesPerView={6}
+          slidesPerView={5.5}
           centeredSlides={false}
           modules={[Scrollbar]}
           className="flex w-full mySwiper"

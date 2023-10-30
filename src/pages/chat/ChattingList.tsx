@@ -41,15 +41,15 @@ function ChattingList() {
     <div className="h-[100%]">
       <div>
         {data?.map((item: IChatList) => (
-          <div className="w-[100%] h-[100px] p-3 flex items-center justify-between bg-white rounded-lg border-b-4 border-r-4 shadow-lg mt-3">
+          <div
+            key={item.itemId}
+            className="w-[100%] h-[100px] p-3 flex items-center justify-between bg-white rounded-lg border-b-4 border-r-4 shadow-lg mt-3"
+          >
             <img
               className="rounded-full w-[60px] h-[60px] mr-[20px]"
               src={item.partnerProfileUrl}
             />
-            <div
-              key={item.itemId}
-              className="flex flex-col items-start justify-center mr-[100px]"
-            >
+            <div className="flex flex-col items-start justify-center mr-[100px]">
               <div>
                 <span className="font-bold text-2xl">{item.partner}</span>
                 <br />
