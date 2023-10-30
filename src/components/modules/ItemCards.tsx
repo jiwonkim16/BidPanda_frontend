@@ -17,7 +17,8 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       scrollbar={{
         hide: true,
       }}
-      slidesPerView={2.2}
+      slidesPerView={2.1}
+      loop={true}
       centeredSlides={false}
       modules={[Scrollbar]}
       className="mySwiper w-full flex flex-row"
