@@ -25,6 +25,7 @@ interface IAuctionDetail {
   minBidPrice: number;
   presentPrice: number;
   title: string;
+  bidCount: number;
 }
 
 interface IDecodeToken {
@@ -67,6 +68,7 @@ function AuctionDetail() {
     auctionDetail(Number(itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
+  console.log(detailItem);
 
   // 입찰가격 value
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -170,7 +172,10 @@ function AuctionDetail() {
                   {detailItem.title}
                 </h5>
                 <div>
-                  <CountdownTimer endTime={detailItem.auctionEndTime} />
+                  <CountdownTimer
+                    endTime={detailItem.auctionEndTime}
+                    bidCount={detailItem.bidCount}
+                  />
                 </div>
               </div>
               <div className="mt-2">
