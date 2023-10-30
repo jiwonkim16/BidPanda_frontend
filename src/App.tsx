@@ -57,7 +57,7 @@ function App() {
               </Suspense>
             </div>
           </div>
-          <div className="h-[12%]">
+          <div className="h-[12%] fixed w-[390px]">
             <Footer />
           </div>
         </div>

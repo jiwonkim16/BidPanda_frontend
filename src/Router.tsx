@@ -108,6 +108,7 @@ const router = createBrowserRouter([
       {
         path: "chattingList/:nickname",
         element: <ChattingList />,
+        errorElement: <NotFound />,
       },
       {
         path: "chattingRoom/:item_id",
