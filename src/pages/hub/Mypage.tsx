@@ -8,9 +8,11 @@ import Mylists from "../../components/modules/Mylists";
 import { useQuery } from "react-query";
 
 interface UserData {
-  nickname: string;
-  profileImageUrl: string;
-  intro: string;
+  data: {
+    nickname: string;
+    profileImageUrl: string;
+    intro: string;
+  };
 }
 
 /**
@@ -19,10 +21,8 @@ interface UserData {
  */
 
 const Mypage = () => {
-  const { data } = useQuery("userData", getUserInfoApi);
+  const { data } = useQuery<UserData | undefined>("userData", getUserInfoApi);
   const imageRef = useRef<HTMLInputElement>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [profileImage, setProfileImage] = useState("");
   const [selectedTab, setSelectedTab] = useState("interest");
   const isToken = localStorage.getItem("authorization");
   const navigate = useNavigate();
@@ -31,16 +31,6 @@ const Mypage = () => {
     if (!isToken) {
       toast.error("로그인이 필요합니다.");
       navigate("/login");
-    }
-
-    /**
-     * @includes : 유저 정보 Get.
-     */
-
-    if (data) {
-      setUserData(data.data);
-      const imageData = data.data.profileImageUrl;
-      setProfileImage(imageData);
     }
   }, []);
 
@@ -78,11 +68,11 @@ const Mypage = () => {
         <div className="flex justify-center items-center font-bold">
           <div>
             <div className="bg-white rounded-[15px] mt-2 w-[370px] h-[200px] flex flex-row justify-center items-center">
-              {userData && (
+              {data && (
                 <>
                   <img
                     className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
-                    src={profileImage}
+                    src={data.data.profileImageUrl}
                     alt=""
                     onClick={handleImageClick}
                   />
@@ -97,18 +87,16 @@ const Mypage = () => {
               )}
               <div>
                 <div className="ml-[5px] text-gray-800">
-                  {userData && (
+                  {data && (
                     <div className="flex flex-col mx-1">
                       <div className="flex items-center ml-2">
-                        <p>{userData ? userData.nickname : null}</p>
+                        <p>{data ? data.data.nickname : null}</p>
                         <Link to="/mypage/edit" style={{ marginLeft: "5px" }}>
                           <AiOutlineEdit />
                         </Link>
                       </div>
                       <>
-                        <p className="ml-2">
-                          {userData ? userData.intro : null}
-                        </p>
+                        <p className="ml-2">{data ? data.data.intro : null}</p>
                       </>
                       <div>
                         <button className=" bg-gray-800 text-white shadow-md rounded-md m-1 p-1">
@@ -156,5 +144,4 @@ const Mypage = () => {
     </div>
   );
 };
-
 export default Mypage;
