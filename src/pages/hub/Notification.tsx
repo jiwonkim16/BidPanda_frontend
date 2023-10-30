@@ -43,7 +43,7 @@ const Notification = () => {
         const hasUnreadNotifications = updatedNotifications.some(
           (noti: any) => !noti.isRead
         );
-        setIsRead(!hasUnreadNotifications);
+        setIsRead(hasUnreadNotifications);
       } catch (error) {
         console.error("알림 읽기 실패: ", error);
       }

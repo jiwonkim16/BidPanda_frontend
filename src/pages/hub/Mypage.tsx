@@ -1,16 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { AiOutlineEdit } from "react-icons/ai";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import Mylists from "../../components/modules/Mylists";
-import { useQuery } from "react-query";
+import {
+  BsFillChatHeartFill,
+  BsFillLightningFill,
+  BsFillPatchPlusFill,
+} from "react-icons/bs";
 
 interface UserData {
-  nickname: string;
-  profileImageUrl: string;
-  intro: string;
+  data: {
+    nickname: string;
+    profileImageUrl: string;
+    intro: string;
+  };
 }
 
 /**
@@ -19,10 +26,8 @@ interface UserData {
  */
 
 const Mypage = () => {
-  const { data } = useQuery("userData", getUserInfoApi);
+  const { data } = useQuery<UserData | undefined>("userData", getUserInfoApi);
   const imageRef = useRef<HTMLInputElement>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [profileImage, setProfileImage] = useState("");
   const [selectedTab, setSelectedTab] = useState("interest");
   const isToken = localStorage.getItem("authorization");
   const navigate = useNavigate();
@@ -31,16 +36,6 @@ const Mypage = () => {
     if (!isToken) {
       toast.error("로그인이 필요합니다.");
       navigate("/login");
-    }
-
-    /**
-     * @includes : 유저 정보 Get.
-     */
-
-    if (data) {
-      setUserData(data.data);
-      const imageData = data.data.profileImageUrl;
-      setProfileImage(imageData);
     }
   }, []);
 
@@ -77,12 +72,12 @@ const Mypage = () => {
       <div>
         <div className="flex justify-center items-center font-bold">
           <div>
-            <div className="bg-white rounded-[15px] mt-2 w-[370px] h-[200px] flex flex-row justify-center items-center">
-              {userData && (
+            <div className="bg-white rounded-[15px] w-[370px] h-[180px] flex flex-row justify-center items-center">
+              {data && (
                 <>
                   <img
                     className="w-[100px] h-[100px] mr-3 cursor-pointer rounded-full object-cover"
-                    src={profileImage}
+                    src={data.data.profileImageUrl}
                     alt=""
                     onClick={handleImageClick}
                   />
@@ -97,18 +92,16 @@ const Mypage = () => {
               )}
               <div>
                 <div className="ml-[5px] text-gray-800">
-                  {userData && (
+                  {data && (
                     <div className="flex flex-col mx-1">
                       <div className="flex items-center ml-2">
-                        <p>{userData ? userData.nickname : null}</p>
+                        <p>{data ? data.data.nickname : null}</p>
                         <Link to="/mypage/edit" style={{ marginLeft: "5px" }}>
                           <AiOutlineEdit />
                         </Link>
                       </div>
                       <>
-                        <p className="ml-2">
-                          {userData ? userData.intro : null}
-                        </p>
+                        <p className="ml-2">{data ? data.data.intro : null}</p>
                       </>
                       <div>
                         <button className=" bg-gray-800 text-white shadow-md rounded-md m-1 p-1">
@@ -125,30 +118,39 @@ const Mypage = () => {
         </div>
       </div>
       <div className="text-gray-800 font-semibold w-[380px] flex justify-center flex-row">
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1 ${
+        <div
+          onClick={() => setSelectedTab("liked")}
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
             selectedTab === "liked" ? "bg-gray-800 text-white " : ""
           }`}
-          onClick={() => setSelectedTab("liked")}
         >
-          찜한 상품
-        </p>
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
-            selectedTab === "bid" ? "bg-gray-800 text-white" : ""
-          }`}
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillChatHeartFill />
+          </div>
+          <p>관심 상품</p>
+        </div>
+        <div
           onClick={() => setSelectedTab("bid")}
-        >
-          참여 상품
-        </p>
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
-            selectedTab === "posted" ? "bg-gray-800 text-white" : ""
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
+            selectedTab === "bid" ? "bg-gray-800 text-white " : ""
           }`}
-          onClick={() => setSelectedTab("posted")}
         >
-          등록 상품
-        </p>
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillLightningFill />
+          </div>
+          <p>참여 상품</p>
+        </div>
+        <div
+          onClick={() => setSelectedTab("posted")}
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
+            selectedTab === "posted" ? "bg-gray-800 text-white " : ""
+          }`}
+        >
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillPatchPlusFill />
+          </div>
+          <p>등록 상품</p>
+        </div>
       </div>
       <div className="h-[500px] flex flex-col">
         <Mylists selectedTab={selectedTab} />
@@ -156,5 +158,4 @@ const Mypage = () => {
     </div>
   );
 };
-
 export default Mypage;
