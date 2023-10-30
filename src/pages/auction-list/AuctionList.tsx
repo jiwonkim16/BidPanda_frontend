@@ -80,7 +80,7 @@ function AuctionList() {
 
   return (
     <div>
-      <div className="flex justify-center w-full my-2 mt-4">
+      <div className="flex justify-center fixed w-[390px]">
         <Swiper
           scrollbar={{
             hide: true,
@@ -88,7 +88,7 @@ function AuctionList() {
           slidesPerView={5.5}
           centeredSlides={false}
           modules={[Scrollbar]}
-          className="flex w-full mySwiper"
+          className="flex w-full mySwiper -top-12"
         >
           {categoryLi.map((item) => (
             <SwiperSlide key={item}>
@@ -100,7 +100,7 @@ function AuctionList() {
                 className={`${
                   selectCategory === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
-                    : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950"
+                    : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950 bg-white"
                 } text-bold`}
               >
                 {item}
@@ -109,7 +109,7 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="item-center justify-center ml-4 mt-4 w-[90%] grid grid-cols-2 gap-2">
+      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 gap-2">
         {auctionItem.map((item, index) => (
           <React.Fragment key={index}>
             <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-lg shadow ">
