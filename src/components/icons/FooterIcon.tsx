@@ -31,7 +31,7 @@ const FooterIcon = () => {
   };
 
   return (
-    <div className="bg-white font-semibold flex justify-center w-[100%] border-t-[1.5px] border-b-none py-4 rounded-t-[23px]">
+    <div className="bg-white font-semibold flex justify-center w-[100%] border-b-none py-3 ">
       <Link to="/">
         <div>
           <button className="w-[57px] h-[57px] bg-white shadow-md border rounded-xl mx-2">
