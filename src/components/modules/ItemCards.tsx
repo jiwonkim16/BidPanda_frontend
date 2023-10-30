@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { TopItemType } from "src/pages/hub/Mainpage";
 import ListTimer from "../../pages/auction-list/ListTimer";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Scrollbar } from "swiper/modules";
+import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
 
@@ -17,10 +17,14 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       scrollbar={{
         hide: true,
       }}
-      slidesPerView={2.1}
+      slidesPerView={2}
       loop={true}
+      autoplay={{
+        delay: 2000,
+        disableOnInteraction: false,
+      }}
       centeredSlides={false}
-      modules={[Scrollbar]}
+      modules={[Scrollbar, Autoplay]}
       className="mySwiper w-full flex flex-row"
     >
       {topItems.map((item: TopItemType) => (
