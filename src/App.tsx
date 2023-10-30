@@ -45,19 +45,19 @@ function App() {
 
   return (
     <>
-      <div className="w-[390px] h-[844px] flex m-auto justify-center p-1">
+      <div className="w-[390px] h-[100vh] flex m-auto justify-center p-1">
         <div className="bg-white w-[390px] ">
-          <div className="h-[5.5%] z-30 relative">
+          <div className="h-[8vh] z-30 relative">
             <Header />
           </div>
-          <div className="h-[82.5%] relative overflow-hidden">
+          <div className="h-[70vh] relative overflow-hidden">
             <div className="overflow-y-scroll overflow-x-hidden max-h-full scrollbar-hide">
               <Suspense fallback={<Loading />}>
                 <Outlet />
               </Suspense>
             </div>
           </div>
-          <div className="h-[12%] fixed w-[390px]">
+          <div className="h-[20vh] fixed w-[390px]">
             <Footer />
           </div>
         </div>
