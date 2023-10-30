@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { AiOutlineEdit } from "react-icons/ai";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import Mylists from "../../components/modules/Mylists";
-import { useQuery } from "react-query";
+import {
+  BsFillChatHeartFill,
+  BsFillLightningFill,
+  BsFillPatchPlusFill,
+} from "react-icons/bs";
 
 interface UserData {
   data: {
@@ -67,7 +72,7 @@ const Mypage = () => {
       <div>
         <div className="flex justify-center items-center font-bold">
           <div>
-            <div className="bg-white rounded-[15px] mt-2 w-[370px] h-[200px] flex flex-row justify-center items-center">
+            <div className="bg-white rounded-[15px] w-[370px] h-[180px] flex flex-row justify-center items-center">
               {data && (
                 <>
                   <img
@@ -113,30 +118,39 @@ const Mypage = () => {
         </div>
       </div>
       <div className="text-gray-800 font-semibold w-[380px] flex justify-center flex-row">
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1 ${
+        <div
+          onClick={() => setSelectedTab("liked")}
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
             selectedTab === "liked" ? "bg-gray-800 text-white " : ""
           }`}
-          onClick={() => setSelectedTab("liked")}
         >
-          찜한 상품
-        </p>
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
-            selectedTab === "bid" ? "bg-gray-800 text-white" : ""
-          }`}
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillChatHeartFill />
+          </div>
+          <p>관심 상품</p>
+        </div>
+        <div
           onClick={() => setSelectedTab("bid")}
-        >
-          참여 상품
-        </p>
-        <p
-          className={`m-1 bg-gray-100 shadow-md rounded-md p-1  ${
-            selectedTab === "posted" ? "bg-gray-800 text-white" : ""
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
+            selectedTab === "bid" ? "bg-gray-800 text-white " : ""
           }`}
-          onClick={() => setSelectedTab("posted")}
         >
-          등록 상품
-        </p>
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillLightningFill />
+          </div>
+          <p>참여 상품</p>
+        </div>
+        <div
+          onClick={() => setSelectedTab("posted")}
+          className={`flex flex-col mx-2 p-1 rounded-lg ${
+            selectedTab === "posted" ? "bg-gray-800 text-white " : ""
+          }`}
+        >
+          <div className="flex justify-center items-center text-2xl mb-1">
+            <BsFillPatchPlusFill />
+          </div>
+          <p>등록 상품</p>
+        </div>
       </div>
       <div className="h-[500px] flex flex-col">
         <Mylists selectedTab={selectedTab} />
