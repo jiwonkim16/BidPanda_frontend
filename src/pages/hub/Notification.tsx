@@ -48,7 +48,6 @@ const Notification = () => {
         console.error("알림 읽기 실패: ", error);
       }
     };
-
     return editData(notificationId);
   });
 
@@ -90,5 +89,4 @@ const Notification = () => {
     </div>
   );
 };
-
 export default memo(Notification);

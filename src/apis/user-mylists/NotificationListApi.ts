@@ -19,7 +19,7 @@ export const NotificationListApi = async () => {
 
 export const checkNotificationApi = async (notificationId: number) => {
   try {
-    const res = await axios.put(
+    await axios.put(
       `${
         import.meta.env.VITE_REACT_API_KEY
       }/api/notification/read-notification/${notificationId}`,
@@ -30,7 +30,6 @@ export const checkNotificationApi = async (notificationId: number) => {
         },
       }
     );
-    console.log(res);
   } catch (error) {
     console.error(error);
   }

@@ -5,6 +5,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { profileImageApi } from "../../apis/user-mypage/UserImageApi";
 import { getUserInfoApi } from "../../apis/user-mypage/UserInfoApi";
 import Mylists from "../../components/modules/Mylists";
+import { useQuery } from "react-query";
 
 interface UserData {
   nickname: string;
@@ -14,14 +15,15 @@ interface UserData {
 
 /**
  * @author : Goya Gim
- * @returns : 마이페이지. useRef를 이용한 프로필 이미지 등록,
+ * @returns : 마이페이지. useRef를 이용한 프로필 이미지 등록, useQuery를 이용한 유저 정보 요청.
  */
 
 const Mypage = () => {
+  const { data } = useQuery("userData", getUserInfoApi);
+  const imageRef = useRef<HTMLInputElement>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [profileImage, setProfileImage] = useState("");
   const [selectedTab, setSelectedTab] = useState("interest");
-  const imageRef = useRef<HTMLInputElement>(null);
   const isToken = localStorage.getItem("authorization");
   const navigate = useNavigate();
 
@@ -30,19 +32,16 @@ const Mypage = () => {
       toast.error("로그인이 필요합니다.");
       navigate("/login");
     }
-    return;
-  }, []);
 
-  /**
-   * @includes : 유저 정보 Get.
-   */
+    /**
+     * @includes : 유저 정보 Get.
+     */
 
-  useEffect(() => {
-    getUserInfoApi().then((data) => {
+    if (data) {
       setUserData(data.data);
       const imageData = data.data.profileImageUrl;
       setProfileImage(imageData);
-    });
+    }
   }, []);
 
   /**
