@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import {
   chattingListApi,
@@ -22,8 +22,9 @@ interface IChatList {
 
 function ChattingList() {
   const navigate = useNavigate();
+  const cache = useQueryClient();
   const { data } = useQuery("chattingRoom", chattingListApi);
-
+  console.log(cache);
   // 채팅방 입장
   const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const itemId = Number(event.currentTarget.value);

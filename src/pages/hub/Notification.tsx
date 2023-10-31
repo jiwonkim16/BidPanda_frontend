@@ -7,12 +7,14 @@ import {
   NotificationListApi,
   checkNotificationApi,
 } from "../../apis/user-mylists/NotificationListApi";
+import { Link } from "react-router-dom";
 
 interface notiList {
   notificationId: number;
   content: string;
   notificationType: string;
   isRead: boolean;
+  url: string;
 }
 
 /**
@@ -73,7 +75,9 @@ const Notification = () => {
                   {noti.notificationType}
                 </div>
                 <div className="w-full flex justify-between items-center">
-                  <div className="text-gray-800 text-sm">{noti.content}</div>
+                  <Link to={noti.url}>
+                    <div className="text-gray-800 text-sm">{noti.content}</div>
+                  </Link>
                   {!noti.isRead ? (
                     <>
                       <div className="text-red-500 text-sm">●</div>

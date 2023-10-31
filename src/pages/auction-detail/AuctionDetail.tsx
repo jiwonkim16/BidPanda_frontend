@@ -26,6 +26,7 @@ interface IAuctionDetail {
   presentPrice: number;
   title: string;
   bidCount: number;
+  bidderProfileImageUrls: string[];
 }
 
 interface IDecodeToken {
@@ -68,7 +69,6 @@ function AuctionDetail() {
     auctionDetail(Number(itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
-
   // 입찰가격 value
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBidAmount(event.target.value);
@@ -186,14 +186,35 @@ function AuctionDetail() {
               </div>
               <div className="flex items-center justify-between mt-4 ml-4">
                 <div className="flex flex-row relative">
-                  <div className="w-8 h-8 rounded-full bg-gray-300 absolute -top-3">
-                    1
+                  <div className="w-8 h-8 rounded-full border-gray-300 border absolute flex items-center justify-center -top-3">
+                    <img
+                      src={
+                        detailItem.bidderProfileImageUrls[0] === undefined
+                          ? "/비드 판다 로고.webp"
+                          : detailItem.bidderProfileImageUrls[0]
+                      }
+                      className="w-full h-full object-cover rounded-full"
+                    />
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-gray-500 absolute left-5 -top-3">
-                    2
+                  <div className="w-8 h-8 rounded-full absolute left-5 -top-3 border-gray-300 border">
+                    <img
+                      className="w-full h-full object-cover rounded-full"
+                      src={
+                        detailItem.bidderProfileImageUrls[1] === undefined
+                          ? "/비드 판다 로고.webp"
+                          : detailItem.bidderProfileImageUrls[1]
+                      }
+                    />
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-gray-700 absolute left-10 -top-3">
-                    3
+                  <div className="w-8 h-8 rounded-full absolute left-10 -top-3 border-gray-300 border">
+                    <img
+                      className="w-full h-full object-cover rounded-full"
+                      src={
+                        detailItem.bidderProfileImageUrls[2] === undefined
+                          ? "/비드 판다 로고.webp"
+                          : detailItem.bidderProfileImageUrls[2]
+                      }
+                    />
                   </div>
                   <span className="absolute left-20 -top-2 font-semibold">
                     +{detailItem.bidCount}
