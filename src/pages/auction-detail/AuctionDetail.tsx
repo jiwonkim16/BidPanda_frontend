@@ -68,7 +68,6 @@ function AuctionDetail() {
     auctionDetail(Number(itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
-  console.log(detailItem);
 
   // 입찰가격 value
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

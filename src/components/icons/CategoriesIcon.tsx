@@ -15,7 +15,6 @@ const CategoriesIcon = () => {
   const navigate = useNavigate();
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.currentTarget.value.slice(12, 14);
-    console.log(select);
     if (select === "전체") {
       navigate(`/items/list`);
     } else {
