@@ -28,7 +28,6 @@ function ChattingList() {
   const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const itemId = Number(event.currentTarget.value);
     const response = await enterChattingRoom(itemId);
-
     if (response?.status === 200) {
       localStorage.setItem("record_id", response?.data.recordId);
       toast.success("채팅방 입장");
@@ -46,21 +45,23 @@ function ChattingList() {
             className="w-[100%] h-[100px] p-3 flex items-center justify-between bg-white rounded-lg border-b-4 border-r-4 shadow-lg mt-3"
           >
             <img
-              className="rounded-full w-[60px] h-[60px] mr-[20px]"
+              className="rounded-full w-[40px] h-[40px] mr-[15px]"
               src={item.partnerProfileUrl}
             />
-            <div className="flex flex-col items-start justify-center mr-[100px]">
+            <div className="flex flex-col items-start justify-center mr-[30px]">
               <div>
-                <span className="font-bold text-2xl">{item.partner}</span>
+                <span className="font-bold text-lg">{item.partner}</span>
                 <br />
                 <span className="font-bold text-lg">{item.title}</span>
               </div>
             </div>
-            <div className="flex justify-end m-auto">
-              <img
-                className="rounded-xl w-[70px] h-[60px] mr-[15px]"
-                src={item.item_image}
-              />
+            <div className="flex justify-end">
+              <div className="flex items-center justify-center rounded-full w-[60px] h-[60px] mr-2">
+                <img
+                  className="object-cover rounded-full w-full h-full"
+                  src={item.item_image}
+                />
+              </div>
               <button onClick={enterChat} value={item.itemId}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
