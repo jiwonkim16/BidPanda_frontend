@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useNavigate } from "react-router";
+
 import { useRecoilState } from "recoil";
 import { isReadState } from "../../atoms/isReadState";
 import { useQuery, useMutation } from "react-query";
@@ -22,7 +22,7 @@ interface notiList {
 
 const Notification = () => {
   const [, setIsRead] = useRecoilState<boolean>(isReadState);
-  const navigate = useNavigate();
+
   const { data } = useQuery("notification", NotificationListApi);
   const notifications = data?.data || [];
 
@@ -40,6 +40,7 @@ const Notification = () => {
           if (noti.notificationId === notificationId) {
             return { ...noti, isRead: true };
           }
+          console.log(res);
           return noti;
         });
         const hasUnreadNotifications = updatedNotifications.some(
@@ -55,7 +56,6 @@ const Notification = () => {
 
   const checkNotiHandler = (notificationId: number) => {
     markAsRead.mutate(notificationId);
-    // navigate(`${}`)
   };
 
   return (
@@ -66,16 +66,14 @@ const Notification = () => {
             <div
               key={noti.notificationId}
               onClick={() => checkNotiHandler(noti.notificationId)}
-              className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-100 rounded-lg shadow-md"
+              className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-50 rounded-lg shadow font-extralight text-gray-800"
             >
               <div className="flex flex-row justify-start items-center">
-                <div className="font-semibold text-lg px-1 mr-3 bg-gray-800 text-gray-100 rounded-lg">
+                <div className=" px-1 mr-3 bg-[#278374] text-white rounded-lg">
                   {noti.notificationType}
                 </div>
                 <div className="w-full flex justify-between items-center">
-                  <div className="text-gray-800 font-semibold text-sm">
-                    {noti.content}
-                  </div>
+                  <div className="text-gray-800 text-sm">{noti.content}</div>
                   {!noti.isRead ? (
                     <>
                       <div className="text-red-500 text-sm">●</div>
