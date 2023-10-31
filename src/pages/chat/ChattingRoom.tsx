@@ -46,11 +46,12 @@ function ChattingRoom() {
             },
           }
         );
+        console.log(response);
         setHistory(response.data.history);
         setPartnerURL(response.data.partnerProfileUrl);
         connectWebSocket();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     chatHistory();
@@ -103,6 +104,7 @@ function ChattingRoom() {
 
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
+    console.log(recv);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,7 +151,7 @@ function ChattingRoom() {
           </div>
           <hr />
           {history?.map((item: any, index: number) => (
-            <div key={index}>
+            <div key={index} className="mt-3">
               {item.type === "ENTER" ? (
                 <div className="text-xs text-black font-semibold text-center py-1">
                   {item.sender} 님이 입장했습니다.
