@@ -126,7 +126,9 @@ function RegisterProduct() {
         navigate("/items/list");
         reset();
       } else {
-        toast.error("이미지를 첨부해주세요~");
+        toast.error("이미지 용량이 초과했습니다.😥");
+        setImages([]);
+        setImagePreviews([]);
       }
     }
   };
@@ -150,7 +152,6 @@ function RegisterProduct() {
             <SwiperSlide key={item}>
               <button
                 type="button"
-                // key={item}
                 value={item}
                 onClick={onClickCategory}
                 className={`${
@@ -226,7 +227,7 @@ function RegisterProduct() {
           type="text"
           id="title"
           placeholder="상품 이름"
-          className="w-[350px] h-[35px] border-none bg-[#b8e994] text-black rounded-lg my-2 text-center"
+          className="w-[350px] h-[35px] border-none bg-gray-300 text-black font-bold rounded-lg my-2 text-center"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.title?.message as string}
@@ -241,7 +242,7 @@ function RegisterProduct() {
           })}
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
-          className="w-[350px] h-[80px] border-none bg-[#b8e994] text-black text-center rounded-lg my-2 overflow-y-hidden"
+          className="w-[350px] h-[80px] border-none bg-gray-300 text-black font-bold text-center rounded-lg my-2 overflow-y-hidden"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
@@ -257,7 +258,7 @@ function RegisterProduct() {
               id="dueDate"
               min="1"
               max="5"
-              className="mt-2 w-[280px] h-2 bg-gray-500 rounded-lg appearance-none cursor-pointer"
+              className="mt-2 w-[280px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
             />
             <span className="font-semibold mx-2">{watch("deadline")} Days</span>
           </div>
@@ -266,7 +267,7 @@ function RegisterProduct() {
           </span>
         </div>
         <div className="flex flex-col justify-center w-[350px] my-2">
-          <span>경매 시작 가격</span>
+          <span className="font-semibold">경매 시작 가격</span>
           <input
             {...register("startPrice", {
               required: "시작 경매가는 필수입니다.",
@@ -278,7 +279,7 @@ function RegisterProduct() {
             className="w-[350px] h-[35px] border-2 rounded-lg mx-1"
           />
           <div className="my-3">
-            <span>경매가 최소 단위</span>
+            <span className="font-semibold">경매가 최소 단위</span>
             <input
               {...register("minBidPrice", {
                 required: "경매가 단위는 필수입니다.",
@@ -295,7 +296,7 @@ function RegisterProduct() {
           {errors.startPrice?.message as string}
         </span>
         <div className="flex justify-center items-center">
-          <button className="w-[350px] h-[40px] bg-[#009432] text-white font-semibold rounded-lg mr-2 ">
+          <button className="w-[350px] h-[40px] bg-[#278374] text-white font-semibold rounded-lg mr-2 ">
             경매 시작하기
           </button>
         </div>

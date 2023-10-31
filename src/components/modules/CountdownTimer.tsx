@@ -41,10 +41,10 @@ function CountdownTimer({ endTime, bidCount }: any) {
     <>
       <div>
         {remainingTime !== 0 ? (
-          <div className="flex justify-between">
-            <div className="flex flex-row w-fit h-fit text-sm items-center px-2 bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
+          <div className="flex justify-center items-center w-32">
+            <div className="flex text-sm items-center justify-center bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
               <div className="bg-green-500 w-[10px] h-[10px] shadow-sm rounded-full mr-1" />
-              <div>{format}</div>
+              <span>{format}</span>
             </div>
           </div>
         ) : bidCount === 0 ? (

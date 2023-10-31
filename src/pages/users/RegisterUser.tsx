@@ -147,7 +147,7 @@ const RegisterUser = () => {
           ) : (
             <button
               className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
-                errors.membername ? "bg-red-500" : "bg-green-400"
+                errors.membername ? "bg-red-500 " : "bg-[#278374]"
               }`}
             >
               ✔︎
@@ -184,7 +184,7 @@ const RegisterUser = () => {
           ) : (
             <button
               className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
-                errors.nickname ? "bg-red-500" : "bg-green-400"
+                errors.nickname ? "bg-red-500 " : "bg-[#278374] "
               }`}
             >
               ✔︎
@@ -232,7 +232,7 @@ const RegisterUser = () => {
               />
               <button
                 className={`w-[35px] h-[35px] rounded-l-none rounded-lg ${
-                  errors.email ? "bg-red-500" : "bg-green-400"
+                  errors.email ? "bg-red-500" : "bg-[#278374]"
                 }`}
               >
                 ✔︎
@@ -255,7 +255,7 @@ const RegisterUser = () => {
                   ✔︎
                 </button>
               ) : (
-                <button className="bg-green-400 w-[35px] h-[35px] rounded-l-none rounded-lg">
+                <button className="bg-[#278374] w-[35px] h-[35px] rounded-l-none rounded-lg">
                   ✔︎
                 </button>
               )}
@@ -308,7 +308,7 @@ const RegisterUser = () => {
             <></>
           ) : (
             <>
-              <button className="w-[250px] h-[40px] bg-green-500 text-gray-800  rounded-lg mt-10 mr-2 ">
+              <button className="w-[250px] h-[40px] bg-[#278374] text-white  rounded-lg mt-10 mr-2 ">
                 회원가입
               </button>
             </>

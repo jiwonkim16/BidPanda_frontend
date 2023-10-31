@@ -45,17 +45,17 @@ function CountdownTimer({ endTime, bidCount }: any) {
               {format}
             </div>
           ) : (
-            <div className="bg-[#009432] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+            <div className="bg-[#71eab9] text-gray-800 px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
               {format}
             </div>
           )}
         </div>
       ) : bidCount === 0 ? (
-        <div className="bg-[#6f45ee] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+        <div className="bg-red-500 text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
           유찰
         </div>
       ) : (
-        <div className="bg-[#ed433e] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+        <div className="bg-[#278374] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
           낙찰
         </div>
       )}

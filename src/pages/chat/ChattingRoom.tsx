@@ -162,7 +162,7 @@ function ChattingRoom() {
                     <div className="mb-1 font-semibold text-end">
                       {userNickname}
                     </div>
-                    <div className="py-2 px-3 rounded-lg bg-green-700 font-semibold text-white shadow mb-2 w-fit ">
+                    <div className="py-2 px-3 rounded-lg bg-[#278374] font-semibold text-white shadow mb-2 w-fit ">
                       {item.content}
                     </div>
                   </div>
@@ -201,7 +201,7 @@ function ChattingRoom() {
                 value={inputMessage}
                 onChange={onChange}
               />
-              <button className="w-[55px] h-[35px] bg-green-700 flex items-center justify-center rounded-full">
+              <button className="w-[55px] h-[35px] bg-[#278374] flex items-center justify-center rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="0.75em"

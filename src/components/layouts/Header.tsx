@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 /**
  * @author : Goya Gim
- * @returns : 클라이언트 네비게이션 바 구현
+ * @returns : 클라이언트 네비게이션 바 구현. 로그인/ 로그아웃에 따른 화면 분기, 알림 수신 상태에 따른 분기.
  */
 
 function Header() {
@@ -64,7 +64,7 @@ function Header() {
         <nav className="items-center bg-white w-[390px] h-[105%] flex py-1 justify-between border-b-2 rounded-b-[15px]">
           <div className="flex justify-start">
             <Link to={"/"}>
-              <img src="/textlogo.webp" alt="logo" className="w-[140px]" />
+              <img src="/textlogo.webp" alt="logo" className="w-[140px] ml-1" />
             </Link>
           </div>
           <div className="flex flex-row items-center justify-between gap-[15px]">
@@ -76,7 +76,7 @@ function Header() {
               >
                 <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
               </svg>
-              {readData === false ? (
+              {readData === true ? (
                 <>
                   <div className="rounded-full w-2.5 h-2.5 bg-red-500 absolute right-[97px] top-[12px]" />
                 </>

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useQuery } from "react-query";
 import { getTopTenListApi } from "../../apis/auction-list/TopTenList";
 import ItemCards from "../../components/modules/ItemCards";
 import Categories from "../../components/modules/Categories";
@@ -18,16 +19,21 @@ export interface TopItemType {
 
 /**
  * @author : Goya Gim
- * @returns : 메인페이지.
+ * @returns : 메인페이지. 데이터 중복 요청을 방지하기 위해 useQuery 사용.
  */
 
 const Main = () => {
+  const { data } = useQuery("topTen", getTopTenListApi);
   const [topItems, setTopItems] = useState<TopItemType[]>([]);
   const [showSplash, setShowSplash] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const isIn = sessionStorage.getItem("isIn");
 
   useEffect(() => {
+    /**
+     * @includes : 스플래쉬 화면을 첫 1회에만 노출하기 위해, isIn이라는 key value를 세션 스토리지에 삽입.
+     */
+
     sessionStorage.setItem("isIn", "true");
     if (showSplash) {
       const timer = setTimeout(() => {
@@ -35,20 +41,25 @@ const Main = () => {
       }, 3000);
       clearTimeout(timer);
     }
-  }, []);
 
-  useEffect(() => {
+    /**
+     * @includes : 배너 비디오를 재생하기 위한 useRef.
+     */
+
     if (videoRef.current) {
       videoRef.current.play();
     }
-    const fetchData = async () => {
-      const data: TopItemType[] = await getTopTenListApi();
-      if (data) {
-        setTopItems(data);
-      }
-    };
-    fetchData();
   }, []);
+
+  /**
+   * @includes : useQuery를 이용해 요청한 데이터를 state에 적용.
+   */
+
+  useEffect(() => {
+    if (data) {
+      setTopItems(data as TopItemType[]);
+    }
+  }, [data]);
 
   return (
     <>
@@ -85,5 +96,4 @@ const Main = () => {
     </>
   );
 };
-
 export default Main;

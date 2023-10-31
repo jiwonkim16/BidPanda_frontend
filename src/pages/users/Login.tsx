@@ -58,7 +58,7 @@ const Login = () => {
           id="username"
           value={membername}
           onChange={(e) => setMembername(e.target.value)}
-          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
+          className="w-[250px] h-[35px] border-gray-400 border-[1.5px] rounded-lg mt-1 mb-3"
         />
         <label htmlFor="password">비밀번호</label>
         <input
@@ -66,23 +66,23 @@ const Login = () => {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-7"
+          className="w-[250px] h-[35px] border-gray-400 border-[1.5px] rounded-lg mt-1 mb-8"
         />
         <div>
           <button
             onClick={onLoginHandler}
-            className="w-[120px] h-[40px] bg-black text-white rounded-lg mt-2 mr-2 "
+            className="w-[120px] h-[40px] bg-[#278374] text-white rounded-lg mr-2.5 "
           >
             로그인
           </button>
-          <button className="w-[120px] h-[40px] bg-gray-200 text-black rounded-lg mt-2 ">
+          <button className="w-[120px] h-[40px] bg-gray-100 border-gray-400 border-[1.5px] text-black rounded-lg ">
             <Link to={"/register"}>회원가입</Link>
           </button>
         </div>
       </div>
       <button
         onClick={kakaoLogin}
-        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-2 font-bold"
+        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-3 font-bold"
       >
         <img
           src="/kakaoLogin.png"
