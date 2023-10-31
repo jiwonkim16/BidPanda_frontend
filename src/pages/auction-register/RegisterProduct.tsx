@@ -258,7 +258,7 @@ function RegisterProduct() {
               id="dueDate"
               min="1"
               max="5"
-              className="mt-2 w-[280px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
+              className="mt-2 w-[270px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
             />
             <span className="font-semibold mx-2">{watch("deadline")} Days</span>
           </div>
