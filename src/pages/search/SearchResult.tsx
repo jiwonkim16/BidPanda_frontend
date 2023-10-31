@@ -5,7 +5,6 @@ function SearchResult({ data }: any) {
   const onClick = (result: any) => {
     window.location.href = `/items/detail/${result.id}`;
   };
-  console.log(data);
 
   return (
     <>

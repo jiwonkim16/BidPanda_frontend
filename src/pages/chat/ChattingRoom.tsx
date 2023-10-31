@@ -46,7 +46,6 @@ function ChattingRoom() {
             },
           }
         );
-        console.log(response);
         setHistory(response.data.history);
         setPartnerURL(response.data.partnerProfileUrl);
         connectWebSocket();
@@ -104,7 +103,6 @@ function ChattingRoom() {
 
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
-    console.log(recv);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
