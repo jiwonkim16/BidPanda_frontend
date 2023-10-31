@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
 import ListTimer from "../auction-list/ListTimer";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
@@ -26,8 +26,7 @@ function AuctionCard() {
   const navigate = useNavigate();
   const categoryIcon: any = params?.category;
   const categoryLi = useRecoilValue(categoryList);
-  const [selectCategory, setSelectCategory] = useRecoilState(category);
-
+  const setSelectCategory = useSetRecoilState(category);
   const target = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(false);
   const page = useRef(1);
@@ -88,7 +87,7 @@ function AuctionCard() {
 
   return (
     <>
-      <div className="flex justify-center fixed w-[390px]">
+      <div className="flex justify-center fixed w-[390px] z-20">
         <Swiper
           scrollbar={{
             hide: true,
@@ -106,7 +105,7 @@ function AuctionCard() {
                 value={item}
                 onClick={onClickCategory}
                 className={`${
-                  selectCategory === item
+                  categoryIcon === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
                     : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950 bg-white"
                 } text-bold `}
@@ -146,7 +145,7 @@ function AuctionCard() {
                 </span>
               </div>
               <div className="relative">
-                <div className="absolute -top-[270px] -right-[40px]">
+                <div className="absolute -top-[260px] -right-[35px] z-10">
                   <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}

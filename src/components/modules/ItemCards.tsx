@@ -42,7 +42,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
             </Link>
             <div className="px-3">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-lg font-extralight mb-2 text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
+                <h5 className="text-lg font-extralight mb-1 text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
                   {item.title}
                 </h5>
               </Link>
@@ -58,7 +58,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                 </span>
               </div>
               <div className="relative">
-                <div className="absolute -top-[220px] -right-[20px]">
+                <div className="absolute -top-[215px] -right-[20px]">
                   <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}

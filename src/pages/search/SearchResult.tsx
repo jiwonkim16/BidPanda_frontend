@@ -25,7 +25,7 @@ function SearchResult({ data }: any) {
               {data.title}
             </h5>
             <div>
-              <span className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold">
+              <span className="overflow-hidden text-ellipsis text-gray-500 whitespace-nowrap font-semibold">
                 {data.content}
               </span>
             </div>
