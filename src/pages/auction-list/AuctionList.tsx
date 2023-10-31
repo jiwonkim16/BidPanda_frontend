@@ -2,8 +2,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import ListTimer from "./ListTimer";
 import { Link, useNavigate } from "react-router-dom";
-import { auctionStatus } from "../../atoms/auctionStatus";
-import jwtDecode from "jwt-decode";
 import React, { useEffect, useRef, useState } from "react";
 import { auctionList } from "./../../apis/auction-list/AuctionList";
 import Loading from "./../../components/assets/Loading";
@@ -23,20 +21,10 @@ interface IAuction {
   title: string;
 }
 
-interface IDecodeToken {
-  nickname: string;
-}
-
 function AuctionList() {
   const categoryLi = useRecoilValue(categoryList);
   const setSelectCategory = useSetRecoilState(category);
   const navigate = useNavigate();
-  const status = useRecoilValue(auctionStatus);
-  // jwt 디코딩
-  const token: string | null = localStorage.getItem("authorization");
-  const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
-  const userNickname: string = decodedToken ? decodedToken.nickname : "";
-  // -----------------------------------
   const target = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(false);
   const page = useRef(1);
@@ -113,15 +101,7 @@ function AuctionList() {
         {auctionItem.map((item, index) => (
           <React.Fragment key={index}>
             <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-lg shadow ">
-              <Link
-                to={
-                  item.nickname === userNickname
-                    ? status
-                      ? `/items/detail/${item.id}`
-                      : `/items/modifier/${item.id}`
-                    : `/items/detail/${item.id}`
-                }
-              >
+              <Link to={`/items/detail/${item.id}`}>
                 <img
                   className="p-2 m-auto rounded-3xl w-[150px] h-[150px] object-cover"
                   src={item.itemImages[0]}
@@ -129,15 +109,7 @@ function AuctionList() {
                 />
               </Link>
               <div className="px-5 pb-5">
-                <Link
-                  to={
-                    item.nickname === userNickname
-                      ? status
-                        ? `/items/detail/${item.id}`
-                        : `/items/modifier/${item.id}`
-                      : `/items/detail/${item.id}`
-                  }
-                >
+                <Link to={`/items/detail/${item.id}`}>
                   <h5 className="text-lg font-semibold tracking-tight overflow-hidden text-ellipsis whitespace-nowrap text-gray-900">
                     {item.title}
                   </h5>

@@ -8,7 +8,7 @@ import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
 import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
 import { useQuery } from "react-query";
 import { auctionDetail } from "../../apis/auction-detail/AuctionDetail";
-import { auctionStatus } from "../../atoms/auctionStatus";
+// import { auctionStatus } from "../../atoms/auctionStatus";
 import imageCompression from "browser-image-compression";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
@@ -163,8 +163,7 @@ function ModifierProduct() {
     setImagePreviews(newPreviews);
   };
 
-  const status = useRecoilValue(auctionStatus);
-  console.log(status);
+  // const status = useRecoilValue(auctionStatus);
 
   return (
     <div className="flex flex-col py-3">
@@ -291,7 +290,7 @@ function ModifierProduct() {
               id="dueDate"
               min="1"
               max="5"
-              className="mt-2 w-[280px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
+              className="mt-2 w-[270px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
             />
             <span className="font-semibold mx-2">{watch("deadline")} Days</span>
           </div>
