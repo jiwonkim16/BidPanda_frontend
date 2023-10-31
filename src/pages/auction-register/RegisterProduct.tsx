@@ -296,7 +296,7 @@ function RegisterProduct() {
           {errors.startPrice?.message as string}
         </span>
         <div className="flex justify-center items-center">
-          <button className="w-[350px] h-[40px] bg-[#278374] text-white font-semibold rounded-lg mr-2 ">
+          <button className="w-[350px] h-[40px] bg-[#278374] text-white font-semibold rounded-lg">
             경매 시작하기
           </button>
         </div>
