@@ -47,7 +47,7 @@ function App() {
     <>
       <div className="w-[390px] h-[100vh] flex m-auto justify-center p-1">
         <div className="bg-white w-[390px]">
-          <div className="h-[8vh] z-30 relative">
+          <div className="h-[5vh] z-30 relative">
             <Header />
           </div>
           <div className="h-[82vh] relative overflow-hidden">
