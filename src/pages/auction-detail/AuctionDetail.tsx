@@ -182,7 +182,7 @@ function AuctionDetail() {
             <div>
               <div className="flex ml-4">
                 <span className="text-2xl text-gray-800 font-semibold">
-                  {detailItem.presentPrice} 원
+                  {detailItem.presentPrice.toLocaleString()}
                 </span>
               </div>
               <div className="flex items-center justify-between mt-4 ml-4">

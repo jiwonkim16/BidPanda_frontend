@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ToastContainer
           position="top-center"
           style={{
-            width: "100%",
+            width: "45%",
             fontFamily: "semibold",
           }}
           autoClose={2500}
@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           rtl={false}
           pauseOnFocusLoss
           draggable
-          theme="light"
+          theme="colored"
         />
         <RouterProvider router={router} />
       </QueryClientProvider>
