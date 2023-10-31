@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { isReadState } from "../../atoms/isReadState";
 import { useQuery, useMutation } from "react-query";
@@ -21,6 +22,7 @@ interface notiList {
 
 const Notification = () => {
   const [, setIsRead] = useRecoilState<boolean>(isReadState);
+  const navigate = useNavigate();
   const { data } = useQuery("notification", NotificationListApi);
   const notifications = data?.data || [];
 
@@ -33,7 +35,7 @@ const Notification = () => {
   const markAsRead = useMutation((notificationId: number) => {
     const editData = async (notificationId: number) => {
       try {
-        await checkNotificationApi(notificationId);
+        const res = await checkNotificationApi(notificationId);
         const updatedNotifications = notifications.map((noti: any) => {
           if (noti.notificationId === notificationId) {
             return { ...noti, isRead: true };
@@ -53,6 +55,7 @@ const Notification = () => {
 
   const checkNotiHandler = (notificationId: number) => {
     markAsRead.mutate(notificationId);
+    // navigate(`${}`)
   };
 
   return (
