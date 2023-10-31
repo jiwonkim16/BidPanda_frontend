@@ -123,9 +123,9 @@ function AuctionDetail() {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="w-[370px] h-[95%] py-4 ml-4 justify-center items-center">
+        <div className="w-[370px] h-[95%] py-4 justify-center items-center">
           <div>
-            <div className="flex">
+            <div className="flex justify-center items-center ml-4">
               <button onClick={prevBtn}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -165,12 +165,12 @@ function AuctionDetail() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-col mt-6 ">
+            <div className="flex flex-col mt-6 justify-center">
               <div className="flex items-center mb-2 justify-between">
                 <h5 className="ml-4 w-fit text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {detailItem.title}
                 </h5>
-                <div>
+                <div className="mr-2">
                   <CountdownTimer
                     endTime={detailItem.auctionEndTime}
                     bidCount={detailItem.bidCount}
@@ -199,7 +199,7 @@ function AuctionDetail() {
                     +{detailItem.bidCount}
                   </span>
                 </div>
-                <div className="font-bold">
+                <div className="font-bold mr-2">
                   {detailItem.bidCount}명이 입찰 중
                 </div>
               </div>

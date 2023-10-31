@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import ListTimer from "./ListTimer";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ interface IDecodeToken {
 
 function AuctionList() {
   const categoryLi = useRecoilValue(categoryList);
-  const [selectCategory, setSelectCategory] = useRecoilState(category);
+  const setSelectCategory = useSetRecoilState(category);
   const navigate = useNavigate();
   const status = useRecoilValue(auctionStatus);
   // jwt 디코딩
@@ -80,7 +80,7 @@ function AuctionList() {
 
   return (
     <div>
-      <div className="flex justify-center fixed w-[390px]">
+      <div className="flex justify-center fixed w-[390px] z-20">
         <Swiper
           scrollbar={{
             hide: true,
@@ -98,7 +98,7 @@ function AuctionList() {
                 value={item}
                 onClick={onClickCategory}
                 className={`${
-                  selectCategory === item
+                  "전체" === item
                     ? "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-white bg-gray-950"
                     : "flex-row rounded-2xl m-0.5 p-1 border-2 w-[60px] cursor-pointer text-sm text-gray-950 bg-white"
                 } text-bold`}
@@ -152,7 +152,7 @@ function AuctionList() {
                   </span>
                 </div>
                 <div className="relative">
-                  <div className="absolute -top-[270px] -right-[40px]">
+                  <div className="absolute -top-[260px] -right-[35px] z-10">
                     <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}
