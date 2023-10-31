@@ -41,21 +41,21 @@ function CountdownTimer({ endTime, bidCount }: any) {
       {remainingTime !== 0 ? (
         <div>
           {days === 0 ? (
-            <div className="bg-red-500 text-white px-3 w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+            <div className="bg-red-500 font-extralight text-white px-3 w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md ">
               {format}
             </div>
           ) : (
-            <div className="bg-[#71eab9] text-gray-800 px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+            <div className="bg-[#71eab9] font-extralight text-gray-800 px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md ">
               {format}
             </div>
           )}
         </div>
       ) : bidCount === 0 ? (
-        <div className="bg-red-500 text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+        <div className="bg-red-500 text-white font-extralight px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md ">
           유찰
         </div>
       ) : (
-        <div className="bg-[#278374] text-white px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md font-semibold">
+        <div className="bg-[#278374] text-white font-extralight px-[10px] w-16 h-16 flex items-center justify-center text-xs rounded-full shadow-md ">
           낙찰
         </div>
       )}

@@ -86,7 +86,9 @@ const Main = () => {
                 <Categories />
               </div>
             </div>
-            <div className="ml-5 mt-5 font-bold">최고 낙찰가 상품 TOP 10</div>
+            <div className="ml-5 mt-5 font-extralight text-md text-gray-800">
+              최고 낙찰가 상품 TOP 10
+            </div>
             <div className="flex items-center justify-start mt-1 font-bold text-gray-800">
               <ItemCards topItems={topItems} />
             </div>

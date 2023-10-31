@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col h-[78vh] justify-center items-center">
-      <div className="flex flex-col items-center font-bold">
+      <div className="flex flex-col items-center font-extralight text-sm">
         <label htmlFor="username">아이디</label>
         <input
           type="text"
@@ -75,14 +75,14 @@ const Login = () => {
           >
             로그인
           </button>
-          <button className="w-[120px] h-[40px] bg-gray-100 border-gray-400 border-[1.5px] text-black rounded-lg ">
+          <button className="w-[120px] h-[40px] bg-gray-100 border-gray-400 border-[1.5px] text-gray-800 rounded-lg ">
             <Link to={"/register"}>회원가입</Link>
           </button>
         </div>
       </div>
       <button
         onClick={kakaoLogin}
-        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-black rounded-lg mt-3 font-bold"
+        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-gray-800 text-sm rounded-lg mt-3 font-extralight"
       >
         <img
           src="/kakaoLogin.png"

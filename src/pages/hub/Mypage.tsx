@@ -70,7 +70,7 @@ const Mypage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div>
-        <div className="flex justify-center items-center font-bold">
+        <div className="flex justify-center items-center font-extralight">
           <div>
             <div className="bg-white rounded-[15px] w-[370px] h-[180px] flex flex-row justify-center items-center">
               {data && (
@@ -91,7 +91,7 @@ const Mypage = () => {
                 </>
               )}
               <div>
-                <div className="ml-[5px] text-gray-800">
+                <div className="ml-[5px] text-gray-700">
                   {data && (
                     <div className="flex flex-col mx-1">
                       <div className="flex items-center ml-2">
@@ -101,10 +101,12 @@ const Mypage = () => {
                         </Link>
                       </div>
                       <>
-                        <p className="ml-2">{data ? data.data.intro : null}</p>
+                        <p className="ml-2 text-sm">
+                          {data ? data.data.intro : null}
+                        </p>
                       </>
                       <div>
-                        <button className=" bg-gray-800 text-white shadow-md rounded-md m-1 p-1">
+                        <button className=" bg-gray-700 text-white text-xs shadow-md rounded-md m-1 p-1">
                           <Link to="/mypage/password">회원 정보 설정</Link>
                         </button>
                       </div>
@@ -117,10 +119,10 @@ const Mypage = () => {
           </div>
         </div>
       </div>
-      <div className="text-gray-800 font-semibold w-[380px] flex justify-center flex-row">
+      <div className="text-gray-700 font-semibold w-[380px] flex justify-center flex-row">
         <div
           onClick={() => setSelectedTab("liked")}
-          className={`flex flex-col mx-2 p-1 rounded-lg ${
+          className={`flex flex-col mx-2 p-1 rounded-lg text-sm font-extralight ${
             selectedTab === "liked" ? "bg-gray-800 text-white " : ""
           }`}
         >
@@ -131,7 +133,7 @@ const Mypage = () => {
         </div>
         <div
           onClick={() => setSelectedTab("bid")}
-          className={`flex flex-col mx-2 p-1 rounded-lg ${
+          className={`flex flex-col mx-2 p-1 rounded-lg text-sm font-extralight ${
             selectedTab === "bid" ? "bg-gray-800 text-white " : ""
           }`}
         >
@@ -142,7 +144,7 @@ const Mypage = () => {
         </div>
         <div
           onClick={() => setSelectedTab("posted")}
-          className={`flex flex-col mx-2 p-1 rounded-lg ${
+          className={`flex flex-col mx-2 p-1 rounded-lg text-sm font-extralight ${
             selectedTab === "posted" ? "bg-gray-800 text-white " : ""
           }`}
         >
