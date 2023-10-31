@@ -19,17 +19,20 @@ export const NotificationListApi = async () => {
 
 export const checkNotificationApi = async (notificationId: number) => {
   try {
-    await axios.put(
+    const res = await axios.put(
       `${
         import.meta.env.VITE_REACT_API_KEY
-      }/api/notification/read-notification/${notificationId}`,
+      }/api/notification/${notificationId}`,
       notificationId,
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
+          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
+    console.log(res.data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }
