@@ -145,7 +145,7 @@ function AuctionDetail() {
                       animate="visible"
                       exit="exit"
                       key={i}
-                      className="object-cover w-[320px] rounded-lg h-56"
+                      className="object-cover w-[336px] rounded-lg h-96"
                       src={
                         detailItem.itemImages && detailItem.itemImages[i]
                           ? detailItem.itemImages[i]
@@ -166,9 +166,9 @@ function AuctionDetail() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-col mt-4 ">
-              <div className="flex items-center mb-3">
-                <h5 className="mr-3 w-fit text-xl font-bold text-gray-900">
+            <div className="flex flex-col mt-6 ">
+              <div className="flex items-center mb-2 justify-between">
+                <h5 className="ml-4 w-fit text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {detailItem.title}
                 </h5>
                 <div>
@@ -178,44 +178,63 @@ function AuctionDetail() {
                   />
                 </div>
               </div>
-              <div className="mt-2">
-                <span>{detailItem.content}</span>
-              </div>
             </div>
             <div>
-              <div className="flex flex-col mt-3">
-                <span className=" text-gray-800 font-semibold">
-                  실시간 최고 입찰가 : {detailItem.presentPrice} 원
+              <div className="flex ml-4">
+                <span className="text-2xl text-gray-800 font-semibold">
+                  {detailItem.presentPrice} 원
                 </span>
-                <div className="flex flex-row font-semibold">
-                  <input
-                    className="w-[243px] h-[40px] border-2 rounded-lg text-sm mt-2"
-                    type="number"
-                    id="bid"
-                    placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다`}
-                    value={bidAmount}
-                    step={detailItem.minBidPrice}
-                    onChange={onChange}
-                  />
-                  <button
-                    type="submit"
-                    onClick={onSubmit}
-                    className="w-[110px] h-[39px] bg-gray-800 text-white rounded-lg ml-2 mt-2 "
-                  >
-                    입찰하기
-                  </button>
+              </div>
+              <div className="flex items-center justify-between mt-4 ml-4">
+                <div className="flex flex-row relative">
+                  <div className="w-8 h-8 rounded-full bg-gray-300 absolute -top-3">
+                    1
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-500 absolute left-5 -top-3">
+                    2
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-gray-700 absolute left-10 -top-3">
+                    3
+                  </div>
+                  <span className="absolute left-20 -top-2 font-semibold">
+                    +{detailItem.bidCount}
+                  </span>
+                </div>
+                <div className="font-bold">
+                  {detailItem.bidCount}명이 입찰 중
                 </div>
               </div>
-              <div className="flex flex-row-reverse gap-2 font-semibold">
+              <div className="flex flex-col font-semibold mt-4 ml-4">
+                <div className="bg-gray-300 rounded-md h-60 flex items-center justify-center mt-4 overflow-hidden overflow-y-scroll scrollbar-hide">
+                  <span>{detailItem.content}</span>
+                </div>
+                <input
+                  className="w-full h-[40px] border-2 rounded-lg text-sm mt-4"
+                  type="number"
+                  id="bid"
+                  placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다`}
+                  value={bidAmount}
+                  step={detailItem.minBidPrice}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="flex items-center justify-center gap-2 font-semibold ml-4 mt-4">
                 <button
                   onClick={likeBtn}
-                  className="w-[110px] h-[39px] bg-red-500 text-white rounded-lg mt-2 mr-[9px] "
+                  className="w-[20%] h-[39px] bg-white text-[#278374] rounded-lg border-2 border-[#278374]"
                 >
-                  관심 목록
+                  ❤
+                </button>
+                <button
+                  type="submit"
+                  onClick={onSubmit}
+                  className="w-[80%] h-[39px] bg-[#278374] text-white rounded-lg"
+                >
+                  입찰하기
                 </button>
                 {userNickname === detailItem.nickname && !status ? (
                   <Link to={`/items/modifier/${itemId}`}>
-                    <button className="w-[110px] h-[39px] bg-gray-600 text-white rounded-lg mt-2">
+                    <button className="w-[110px] h-[39px] bg-red-500 text-white rounded-lg">
                       수정하기
                     </button>
                   </Link>

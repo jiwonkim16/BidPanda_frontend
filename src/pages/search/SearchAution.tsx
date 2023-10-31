@@ -62,7 +62,7 @@ function SearchAution() {
             placeholder="검색어를 입력하세요"
             required
           />
-          <button className="text-white absolute right-5 bottom-5 bg-gray-800 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm px-4 py-2">
+          <button className="text-white absolute right-5 bottom-5 bg-[#278374] focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm px-4 py-2">
             Search
           </button>
         </div>
