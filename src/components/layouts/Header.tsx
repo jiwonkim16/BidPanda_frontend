@@ -64,7 +64,7 @@ function Header() {
         <nav className="items-center bg-white w-[390px] h-[105%] flex py-1 justify-between border-b-2 rounded-b-[15px]">
           <div className="flex justify-start">
             <Link to={"/"}>
-              <img src="/textlogo.webp" alt="logo" className="w-[140px]" />
+              <img src="/textlogo.webp" alt="logo" className="w-[140px] ml-1" />
             </Link>
           </div>
           <div className="flex flex-row items-center justify-between gap-[15px]">

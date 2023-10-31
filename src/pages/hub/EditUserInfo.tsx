@@ -51,7 +51,7 @@ const EditUserInfo = () => {
             })}
             type="text"
             id="nickname"
-            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-1 mb-4"
           />
           {errors.nickname && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -72,7 +72,7 @@ const EditUserInfo = () => {
             })}
             type="text"
             id="intro"
-            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
+            className="w-[250px] h-[115px] border-2 rounded-lg mt-1 mb-2"
           />
           {errors.intro && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -80,7 +80,7 @@ const EditUserInfo = () => {
             </p>
           )}
         </div>
-        <button className="w-[250px] h-[40px] bg-green-500 text-gray-800 rounded-lg mt-10 mr-2 ">
+        <button className="w-[250px] h-[40px]  bg-[#278374] text-white rounded-lg mt-6 mr-2 ">
           수정 완료
         </button>
       </form>

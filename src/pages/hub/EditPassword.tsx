@@ -82,7 +82,7 @@ const EditPassword = () => {
             })}
             type="password"
             id="newPassword"
-            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-1 mb-3"
           />
         </div>
         <label htmlFor="password">비밀번호</label>
@@ -98,7 +98,7 @@ const EditPassword = () => {
             })}
             type="password"
             id="password"
-            className="w-[250px] h-[35px] border-2 rounded-lg mt-2 mb-2"
+            className="w-[250px] h-[35px] border-2 rounded-lg mt-1"
           />
           {errors.password && (
             <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -106,13 +106,13 @@ const EditPassword = () => {
             </p>
           )}
         </div>
-        <button className="w-[250px] h-[40px] bg-green-500 text-gray-800 rounded-lg mt-10 ">
+        <button className="w-[250px] h-[40px] bg-[#278374] text-white rounded-lg mt-10 ">
           수정 완료
         </button>
       </form>
       <button
         onClick={askUserDelete}
-        className="w-[250px] h-[40px] mt-2 font-semibold bg-red-500 text-white shadow-md rounded-md m-1 p-1"
+        className="w-[250px] h-[40px] mt-2 font-semibold bg-white text-red-500 border-[1.5px] border-red-500 shadow-md rounded-md m-1 p-1"
       >
         회원 탈퇴
       </button>
