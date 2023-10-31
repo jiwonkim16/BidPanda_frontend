@@ -27,7 +27,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       modules={[Scrollbar, Autoplay]}
       className="mySwiper w-[90%] flex flex-row"
     >
-      {topItems.map((item: TopItemType) => (
+      {topItems.map((item: TopItemType, index) => (
         <SwiperSlide
           key={item.id}
           className="mt-1 rounded-xl border-gray-200 border shadow-lg mr-3"
@@ -50,9 +50,10 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                 <span>{item.content}</span>
               </div>
               <div className="flex items-center justify-between mt-1">
-                <span className=" font-semibold text-sm text-gray-900">
-                  입찰가 : {item.presentPrice.toLocaleString()}
+                <span className=" font-semibold text-sm text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
+                  {item.presentPrice.toLocaleString()}
                 </span>
+                <span className="text-sm ml-2 text-red-400">{index + 1}위</span>
               </div>
               <div className="relative">
                 <div className="absolute -top-[215px] -right-[20px]">

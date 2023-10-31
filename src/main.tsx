@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <ToastContainer
-          position="top-center"
+          position="top-right"
           style={{
             width: "45%",
             fontFamily: "semibold",
