@@ -41,10 +41,16 @@ function CountdownTimer({ endTime, bidCount }: any) {
     <>
       <div>
         {remainingTime !== 0 ? (
-          <div className="flex justify-center items-center w-32">
-            <div className="flex text-sm items-center justify-center bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
-              <div className="bg-green-500 w-[10px] h-[10px] shadow-sm rounded-full mr-1" />
-              <span>{format}</span>
+          <div className="flex justify-center items-center w-36">
+            <div className="flex text-sm items-center w-full justify-center bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1.25em"
+                viewBox="0 0 448 512"
+              >
+                <path d="M176 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h16V98.4C92.3 113.8 16 200 16 304c0 114.9 93.1 208 208 208s208-93.1 208-208c0-41.8-12.3-80.7-33.5-113.2l24.1-24.1c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L355.7 143c-28.1-23-62.2-38.8-99.7-44.6V64h16c17.7 0 32-14.3 32-32s-14.3-32-32-32H224 176zm72 192V320c0 13.3-10.7 24-24 24s-24-10.7-24-24V192c0-13.3 10.7-24 24-24s24 10.7 24 24z" />
+              </svg>
+              <span className="ml-2">{format}</span>
             </div>
           </div>
         ) : bidCount === 0 ? (
@@ -54,7 +60,7 @@ function CountdownTimer({ endTime, bidCount }: any) {
           </div>
         ) : (
           <div className="flex flex-row w-fit text-sm items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md  font-semibold">
-            <div className="bg-blue-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
+            <div className="bg-[#278374] w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>낙찰</span>
           </div>
         )}
