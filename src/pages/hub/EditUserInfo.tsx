@@ -42,11 +42,14 @@ const EditUserInfo = () => {
         <div>
           <input
             {...register("nickname", {
-              required: true,
-              minLength: 1,
-              pattern: {
-                value: /^[A-za-z0-9가-힣]{1,10}$/,
-                message: "닉네임은 10자 이하로 만들어 주세요.",
+              required: "닉네임은 필수 입니다.",
+              minLength: {
+                value: 2,
+                message: "닉네임은 2자 이상으로 작성해주세요.",
+              },
+              maxLength: {
+                value: 10,
+                message: "닉네임은 10자 이하로 짧게 작성해주세요.",
               },
             })}
             type="text"
@@ -61,16 +64,18 @@ const EditUserInfo = () => {
         </div>
         <label htmlFor="intro">사용자 소개</label>
         <div>
-          <input
+          <textarea
             {...register("intro", {
               required: false,
-              minLength: 1,
-              pattern: {
-                value: /^[A-za-z0-9가-힣]{1,30}$/,
+              minLength: {
+                value: 2,
+                message: "자기소개는 2자 이상으로 작성해주세요.",
+              },
+              maxLength: {
+                value: 30,
                 message: "자기소개는 30자 이하로 짧게 작성해주세요.",
               },
             })}
-            type="text"
             id="intro"
             className="w-[250px] h-[115px] border-2 rounded-lg mt-1 mb-2"
           />
