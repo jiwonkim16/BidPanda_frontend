@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ToastContainer
           position="top-right"
           style={{
-            width: "45%",
+            width: "95%",
             fontFamily: "semibold",
           }}
           autoClose={2500}
