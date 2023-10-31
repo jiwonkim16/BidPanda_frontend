@@ -118,7 +118,7 @@ const RegisterUser = () => {
   return (
     <div className="flex flex-col h-[650px] justify-center">
       <form
-        className="flex flex-col items-center font-bold"
+        className="flex flex-col items-center text-sm font-extralight text-gray-800"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="membername">아이디</label>
@@ -308,7 +308,7 @@ const RegisterUser = () => {
             <></>
           ) : (
             <>
-              <button className="w-[250px] h-[40px] bg-[#278374] text-white  rounded-lg mt-10 mr-2 ">
+              <button className="w-[250px] h-[40px] bg-[#278374] text-white text-sm font-extralight rounded-lg mt-10 mr-2 ">
                 회원가입
               </button>
             </>

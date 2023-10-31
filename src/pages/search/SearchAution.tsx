@@ -38,7 +38,7 @@ function SearchAution() {
         <div className="relative p-3">
           <div className="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none">
             <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              className="w-4 h-4 text-gray-400 text-sm font-extralight "
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -58,11 +58,11 @@ function SearchAution() {
             id="default-search"
             value={search}
             onChange={searchInfo}
-            className="block w-full p-4 pl-10 text-sm font-semibold text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
+            className="block w-full p-4 pl-10 text-sm font-extralight text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
             placeholder="검색어를 입력하세요"
             required
           />
-          <button className="text-white absolute right-5 bottom-5 bg-[#278374] focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm px-4 py-2">
+          <button className="text-white absolute right-5 bottom-5 bg-[#278374] focus:ring-4 focus:outline-none focus:ring-white font-extralight rounded-lg text-sm px-4 py-2">
             Search
           </button>
         </div>
