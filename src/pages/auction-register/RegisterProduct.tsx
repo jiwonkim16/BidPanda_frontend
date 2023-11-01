@@ -227,7 +227,7 @@ function RegisterProduct() {
           type="text"
           id="title"
           placeholder="상품 이름"
-          className="w-[350px] h-[35px] border-none bg-gray-300 text-black font-bold rounded-lg my-2 text-center"
+          className="w-[350px] h-[35px] border-none bg-gray-300 text-black font-pretendard text-xl font-extrabold rounded-lg my-2 text-center"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.title?.message as string}
@@ -242,12 +242,12 @@ function RegisterProduct() {
           })}
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
-          className="w-[350px] h-[80px] border-none bg-gray-300 text-black font-bold text-center rounded-lg my-2 overflow-y-hidden"
+          className="w-[350px] h-[80px] border-none bg-gray-300 text-black font-pretendard text-lg font-extrabold text-center rounded-lg my-2 overflow-y-hidden"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
         </span>
-        <div className="flex flex-col justify-center w-[350px] font-semibold my-2">
+        <div className="flex flex-col justify-center w-[350px] font-pretendard text-xl font-extrabold my-2">
           <div>마감기한 설정</div>
           <div>
             <input
@@ -260,14 +260,18 @@ function RegisterProduct() {
               max="5"
               className="mt-2 w-[270px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
             />
-            <span className="font-semibold mx-2">{watch("deadline")} Days</span>
+            <span className="font-pretendard text-xl font-extrabold mx-2">
+              {watch("deadline")} Days
+            </span>
           </div>
           <span className="text-red-500 font-semibold text-[14px]">
             {errors.deadline?.message as string}
           </span>
         </div>
         <div className="flex flex-col justify-center w-[350px] my-2">
-          <span className="font-semibold">경매 시작 가격</span>
+          <span className="font-pretendard text-xl font-extrabold mb-2">
+            경매 시작 가격
+          </span>
           <input
             {...register("startPrice", {
               required: "시작 경매가는 필수입니다.",
@@ -276,10 +280,12 @@ function RegisterProduct() {
             type="number"
             id="valueForStart"
             placeholder=" 경매 시작가"
-            className="w-[350px] h-[35px] border-2 rounded-lg mx-1"
+            className="w-[350px] h-[35px] border-2 rounded-lg mx-1 font-pretendard text-md font-extrabold"
           />
           <div className="my-3">
-            <span className="font-semibold">경매가 최소 단위</span>
+            <span className="font-pretendard text-xl font-extrabold mb-2">
+              경매가 최소 단위
+            </span>
             <input
               {...register("minBidPrice", {
                 required: "경매가 단위는 필수입니다.",
@@ -288,7 +294,7 @@ function RegisterProduct() {
               type="number"
               id="valuePerBid"
               placeholder=" 경매가 단위"
-              className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1"
+              className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1 font-pretendard text-md font-extrabold"
             />
           </div>
         </div>

@@ -3,7 +3,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jalnan: ["Jalnan"],
+        pretendard: ["Pretendard-Regular"],
+      },
+    },
   },
   plugins: [require("tailwind-scrollbar-hide")],
 };

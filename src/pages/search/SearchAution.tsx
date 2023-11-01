@@ -58,11 +58,11 @@ function SearchAution() {
             id="default-search"
             value={search}
             onChange={searchInfo}
-            className="block w-full p-4 pl-10 text-sm font-extralight text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
+            className="block w-full p-3 pl-10 font-pretendard text-md font-extralight text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
             placeholder="검색어를 입력하세요"
             required
           />
-          <button className="text-white absolute right-5 bottom-5 bg-[#278374] focus:ring-4 focus:outline-none focus:ring-white font-extralight rounded-lg text-sm px-4 py-2">
+          <button className="text-white absolute right-5 bottom-[18px] bg-[#278374] focus:ring-4 focus:outline-none focus:ring-white font-extralight rounded-lg text-sm px-4 py-2">
             Search
           </button>
         </div>
