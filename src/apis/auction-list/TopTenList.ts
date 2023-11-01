@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import axios from "axios";
 
 export const getTopTenListApi = async () => {
@@ -14,6 +13,6 @@ export const getTopTenListApi = async () => {
     );
     return res.data;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    console.error(error);
   }
 };
