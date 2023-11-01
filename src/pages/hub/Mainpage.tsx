@@ -82,11 +82,11 @@ const Main = () => {
                   playsInline
                 />
               </nav>
-              <div className="flex justify-center mt-[13px] flex-wrap">
+              <div className="flex justify-center m-auto mt-[13px] flex-wrap w-[80%]">
                 <Categories />
               </div>
             </div>
-            <div className="ml-5 mt-5 font-extralight text-md text-gray-800">
+            <div className="ml-5 mt-3 font-extralight text-md text-gray-800">
               최고 낙찰가 상품 TOP 10
             </div>
             <div className="flex items-center justify-start mt-1 font-bold text-gray-800">
