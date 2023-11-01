@@ -50,9 +50,13 @@ function ChattingList() {
             />
             <div className="flex flex-col items-start justify-center mr-[30px]">
               <div>
-                <span className="font-bold text-lg">{item.partner}</span>
+                <span className="font-pretendard text-xl font-extrabold">
+                  {item.partner}
+                </span>
                 <br />
-                <span className="font-bold text-lg">{item.title}</span>
+                <span className="font-pretendard text-lg font-extrabold">
+                  {item.title}
+                </span>
               </div>
             </div>
             <div className="flex justify-end">

@@ -14,6 +14,8 @@ export const getTopTenListApi = async () => {
     );
     return res.data;
   } catch (error) {
-    toast.error("잠시 후 다시 시도해주세요.");
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("authorization_refresh");
+    toast.error("다시 로그인 해주세요");
   }
 };
