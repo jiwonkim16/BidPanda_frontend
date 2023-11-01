@@ -6,7 +6,7 @@ const CategoriesIcon = () => {
     "/icons/신발.webp",
     "/icons/테크.webp",
     "/icons/패션.webp",
-    "/icons/애견.webp",
+    "/icons/반려.webp",
     "/icons/유아.webp",
     "/icons/리빙.webp",
     "/icons/취미.webp",
