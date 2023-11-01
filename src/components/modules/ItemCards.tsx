@@ -51,17 +51,17 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                 <span>{item.content}</span>
               </div>
               <div className="flex items-center justify-between mt-1">
-                <span className="text-sm text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
+                <span className="text-md text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
                   {item.presentPrice.toLocaleString()}
                 </span>
-                <span className="text-xs ml-2  text-red-500">
+                <span className="text-sm ml-2  text-red-500">
                   {index + 1}위
                 </span>
               </div>
               <div className="relative">
                 <div
                   style={{ fontFamily: "jalnan" }}
-                  className="absolute -top-[215px] -right-[20px] font-extralight"
+                  className="absolute -top-[225px] -right-[20px] font-extralight"
                 >
                   <ListTimer
                     endTime={item.auctionEndTime}

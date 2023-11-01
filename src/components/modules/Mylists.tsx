@@ -84,7 +84,7 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
                     {item.presentPrice.toLocaleString()}
                   </span>
                 </div>
-                <div className="flex mt-1 font-bold">
+                <div className="flex mt-1 font-bold font-jalnan">
                   <span>
                     <CountdownTimer
                       endTime={item.auctionEndTime}
