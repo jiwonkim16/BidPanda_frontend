@@ -61,7 +61,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
               <div className="relative">
                 <div
                   style={{ fontFamily: "jalnan" }}
-                  className="absolute -top-[215px] -right-[20px] font-extralight"
+                  className="absolute -top-[220px] -right-[20px] font-extralight"
                 >
                   <ListTimer
                     endTime={item.auctionEndTime}
