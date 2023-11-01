@@ -1,5 +1,7 @@
 import { Suspense, useEffect } from "react";
 import { Outlet } from "react-router";
+import { useSetRecoilState } from "recoil";
+import { isReadState } from "../src/atoms/isReadState";
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
 import Loading from "./components/assets/Loading";
@@ -13,6 +15,7 @@ import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 function App() {
   const EventSource = EventSourcePolyfill || NativeEventSource;
   const isToken = localStorage.getItem("authorization");
+  const setReadDate = useSetRecoilState(isReadState);
 
   useEffect(() => {
     if (isToken) {
@@ -30,14 +33,22 @@ function App() {
               heartbeatTimeout: 3600000,
             }
           );
-          eventSource.addEventListener("sseData", async (event: any) => {
-            const data = JSON.parse(event.data);
-            console.log(data);
+          console.log(eventSource);
+          eventSource.onopen = async (e: any) => {
+            console.log(e);
+          };
+          eventSource.addEventListener("sse", async (e: any) => {
+            const res = await JSON.parse(e.data);
+            console.log("Received SSE data:", res);
+            if (res) {
+              setReadDate(true);
+            }
           });
-
-          eventSource.addEventListener("close", () => eventSource.close());
-          return () => eventSource.close();
-        } catch {}
+          eventSource.addEventListener("error", async (e: any) => {
+            if (!e.error.message.includes("No activity")) eventSource.close();
+            console.error("SSE connection error:", e);
+          });
+        } catch (error) {}
       };
       fetchSSE();
     }

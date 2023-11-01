@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import {
   chattingListApi,
@@ -22,9 +22,8 @@ interface IChatList {
 
 function ChattingList() {
   const navigate = useNavigate();
-  const cache = useQueryClient();
   const { data } = useQuery("chattingRoom", chattingListApi);
-  console.log(cache);
+
   // 채팅방 입장
   const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const itemId = Number(event.currentTarget.value);
@@ -46,7 +45,7 @@ function ChattingList() {
             className="w-[100%] h-[100px] p-3 flex items-center justify-between bg-white rounded-lg border-b-4 border-r-4 shadow-lg mt-3"
           >
             <img
-              className="rounded-full w-[40px] h-[40px] mr-[15px]"
+              className="rounded-full w-[60px] h-[60px]"
               src={item.partnerProfileUrl}
             />
             <div className="flex flex-col items-start justify-center mr-[30px]">

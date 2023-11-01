@@ -1,5 +1,4 @@
 import { memo } from "react";
-
 import { useRecoilState } from "recoil";
 import { isReadState } from "../../atoms/isReadState";
 import { useQuery, useMutation } from "react-query";
@@ -24,7 +23,6 @@ interface notiList {
 
 const Notification = () => {
   const [, setIsRead] = useRecoilState<boolean>(isReadState);
-
   const { data } = useQuery("notification", NotificationListApi);
   const notifications = data?.data || [];
 
@@ -37,12 +35,11 @@ const Notification = () => {
   const markAsRead = useMutation((notificationId: number) => {
     const editData = async (notificationId: number) => {
       try {
-        const res = await checkNotificationApi(notificationId);
+        await checkNotificationApi(notificationId);
         const updatedNotifications = notifications.map((noti: any) => {
           if (noti.notificationId === notificationId) {
             return { ...noti, isRead: true };
           }
-          console.log(res);
           return noti;
         });
         const hasUnreadNotifications = updatedNotifications.some(
@@ -50,7 +47,7 @@ const Notification = () => {
         );
         setIsRead(hasUnreadNotifications);
       } catch (error) {
-        console.error("알림 읽기 실패: ", error);
+        console.error(error);
       }
     };
     return editData(notificationId);
@@ -64,31 +61,35 @@ const Notification = () => {
     <div className="h-[100%]">
       <div>
         <div className="flex flex-col justify-center items-center mt-1">
-          {notifications?.map((noti: notiList) => (
-            <div
-              key={noti.notificationId}
-              onClick={() => checkNotiHandler(noti.notificationId)}
-              className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-50 rounded-lg shadow font-extralight text-gray-800"
-            >
-              <div className="flex flex-row justify-start items-center">
-                <div className=" px-1 mr-3 bg-[#278374] text-white rounded-lg">
-                  {noti.notificationType}
-                </div>
-                <div className="w-full flex justify-between items-center">
-                  <Link to={noti.url}>
-                    <div className="text-gray-800 text-sm">{noti.content}</div>
-                  </Link>
-                  {!noti.isRead ? (
-                    <>
-                      <div className="text-red-500 text-sm">●</div>
-                    </>
-                  ) : (
-                    <></>
-                  )}
+          {notifications
+            .sort((a: any, b: any) => b.timestamp - a.timestamp)
+            .map((noti: notiList) => (
+              <div
+                key={noti.notificationId}
+                onClick={() => checkNotiHandler(noti.notificationId)}
+                className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-50 rounded-lg shadow font-extralight text-gray-800"
+              >
+                <div className="flex flex-row justify-start items-center">
+                  <div className=" px-1 mr-3 bg-[#278374] text-white rounded-lg">
+                    {noti.notificationType}
+                  </div>
+                  <div className="w-full flex justify-between items-center">
+                    <Link to={noti.url}>
+                      <div className="text-gray-800 text-sm">
+                        {noti.content}
+                      </div>
+                    </Link>
+                    {!noti.isRead ? (
+                      <>
+                        <div className="text-red-500 text-sm">●</div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
