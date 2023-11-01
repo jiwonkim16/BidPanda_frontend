@@ -8,7 +8,7 @@ const CategoriesIcon = () => {
     "/icons/fashion.webp",
     "/icons/pet.webp",
     "/icons/kids.webp",
-    "/icons/liv.webp",
+    "/icons/living.webp",
     "/icons/hobby.webp",
   ];
 
