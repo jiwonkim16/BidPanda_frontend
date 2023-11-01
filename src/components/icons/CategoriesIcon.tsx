@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 const CategoriesIcon = () => {
   const categoryLi = [
-    "/categories/전체.webp",
-    "/categories/신발.webp",
-    "/categories/테크.webp",
-    "/categories/패션.webp",
-    "/categories/애견.webp",
-    "/categories/유아.webp",
-    "/categories/리빙.webp",
-    "/categories/취미.webp",
+    "/icons/total.webp",
+    "/icons/sneakers.webp",
+    "/icons/tech.webp",
+    "/icons/fashion.webp",
+    "/icons/pet.webp",
+    "/icons/kids.webp",
+    "/icons/living.webp",
+    "/icons/hobby.webp",
   ];
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const CategoriesIcon = () => {
         <button
           key={index}
           value={item}
-          className="w-[76px] h-[76px] shadow-md border p-[7px] border-gray-200 rounded-full font-semibold m-1"
+          className="w-[77px] h-[77px] shadow border p-[7px] border-gray-200 rounded-full m-1"
           onClick={onClickCategory}
         >
           <img src={item} className="rounded-2xl w-[60px] h-[60px]" />

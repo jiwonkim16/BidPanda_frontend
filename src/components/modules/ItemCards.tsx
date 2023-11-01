@@ -25,14 +25,14 @@ const ItemCards = ({ topItems }: TopItemProps) => {
       }}
       centeredSlides={false}
       modules={[Scrollbar, Autoplay]}
-      className="mySwiper w-[90%] flex flex-row"
+      className="mySwiper w-[90%] h-[235px] flex flex-row"
     >
       {topItems.map((item: TopItemType, index) => (
         <SwiperSlide
           key={item.id}
-          className="mt-1 rounded-xl border-gray-200 border shadow-md mr-3"
+          className="mt-1 rounded-xl h-[225px] border-gray-200 mr-3"
         >
-          <div className="w-full h-[225px] shadow-md rounded-xl">
+          <div className="w-full h-[225px] shadow-md border-[1.5px] rounded-xl">
             <Link to={`/items/detail/${item.id}`}>
               <img
                 className="p-2 rounded-3xl w-[170px] h-[140px] object-cover"

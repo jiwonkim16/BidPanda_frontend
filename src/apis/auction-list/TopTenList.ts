@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import axios from "axios";
 
 export const getTopTenListApi = async () => {
