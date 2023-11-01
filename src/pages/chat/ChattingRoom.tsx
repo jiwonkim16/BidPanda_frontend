@@ -13,6 +13,7 @@ function ChattingRoom() {
   const [inputMessage, setInputMessage] = useState("");
   const [history, setHistory] = useState<any[]>([]);
   const [partnerURL, setPartnerURL] = useState("");
+  const [partnerNickname, setPartnerNickname] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
   const messagesEndRef = useRef<any>(null);
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ function ChattingRoom() {
         );
         console.log(response);
         setHistory(response.data.history);
+        setPartnerNickname(response.data.partnerNickname);
         setPartnerURL(response.data.partnerProfileUrl);
         connectWebSocket();
       } catch (error) {
@@ -70,7 +72,7 @@ function ChattingRoom() {
       const recv = JSON.parse(message.body);
       receiveMessage(recv);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -104,7 +106,6 @@ function ChattingRoom() {
 
   const receiveMessage = (recv: any) => {
     setHistory((prev) => [...prev, recv]);
-    console.log(recv);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,7 +147,7 @@ function ChattingRoom() {
               </button>
             </div>
             <div className="flex items-center justify-center w-full">
-              <span>상대방 이름</span>
+              <span>{partnerNickname}</span>
             </div>
           </div>
           <hr />
