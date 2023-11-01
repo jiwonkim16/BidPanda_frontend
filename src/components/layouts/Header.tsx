@@ -46,7 +46,7 @@ function Header() {
       {!isToken ? (
         <nav className="items-center bg-white w-[390px] h-[105%] flex justify-between border-b-2 rounded-b-[15px]">
           <Link to={"/"}>
-            <img src="/textlogo.webp" alt="logo" className="w-[140px]" />
+            <h4 className="text-xl text-gray-800 ml-2">BID PANDA</h4>
           </Link>
           <button className="text-gray-600 mt-6 text-lg">
             <Link to={"/login"} className="mr-[40px]">
