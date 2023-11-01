@@ -56,11 +56,14 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
 
   return (
     <>
-      <div className="rounded-[15px] mt-2 grid grid-cols-2 items-center justify-center">
+      <div
+        style={{ fontFamily: "Pretendard-Bold" }}
+        className="rounded-[15px] mt-2 grid grid-cols-2 items-center justify-center"
+      >
         {itemsData.map((item: Items) => (
           <div
             key={item.id}
-            className="bg-white border border-gray-200 mx-1 my-1 rounded-lg shadow"
+            className="bg-white border border-gray-200 font-bold mx-1 my-1 rounded-lg shadow"
           >
             <div className="w-[168px] h-[240px]">
               <Link to={`/items/detail/${item.id}`}>
@@ -72,16 +75,16 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
               </Link>
               <div className="px-3">
                 <Link to={`/items/detail/${item.id}`}>
-                  <h5 className="text-lg font-bold text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                  <h5 className="text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                     {item.title}
                   </h5>
                 </Link>
                 <div className="flex items-center justify-between">
-                  <span className=" font-semibold text-gray-900">
+                  <span className=" font-bold text-gray-900">
                     {item.presentPrice.toLocaleString()}
                   </span>
                 </div>
-                <div className="flex mt-1">
+                <div className="flex mt-1 font-bold">
                   <span>
                     <CountdownTimer
                       endTime={item.auctionEndTime}

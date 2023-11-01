@@ -94,19 +94,27 @@ const Mypage = () => {
                 <div className="ml-[5px] text-gray-700">
                   {data && (
                     <div className="flex flex-col mx-1">
-                      <div className="flex items-center ml-2">
-                        <p>{data ? data.data.nickname : null}</p>
+                      <div className="flex items-center ml-2 text-lg font-extrabold">
+                        <p style={{ fontFamily: "Pretendard-Bold" }}>
+                          {data ? data.data.nickname : null}
+                        </p>
                         <Link to="/mypage/edit" style={{ marginLeft: "5px" }}>
                           <AiOutlineEdit />
                         </Link>
                       </div>
                       <>
-                        <p className="ml-2 text-sm">
+                        <p
+                          style={{ fontFamily: "Pretendard-Bold" }}
+                          className="ml-2 text-sm font-bold"
+                        >
                           {data ? data.data.intro : null}
                         </p>
                       </>
                       <div>
-                        <button className=" bg-gray-700 text-white text-xs shadow-md rounded-md m-1 p-1">
+                        <button
+                          style={{ fontFamily: "Pretendard-Bold" }}
+                          className="bg-gray-800 font-bold text-white text-sm shadow rounded-md m-1 px-1 p-1"
+                        >
                           <Link to="/mypage/password">회원 정보 설정</Link>
                         </button>
                       </div>
