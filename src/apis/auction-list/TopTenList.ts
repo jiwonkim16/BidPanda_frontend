@@ -13,6 +13,8 @@ export const getTopTenListApi = async () => {
     );
     return res.data;
   } catch (error) {
-    console.error(error);
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("authorization_refresh");
+    toast.error("다시 로그인 해주세요");
   }
 };

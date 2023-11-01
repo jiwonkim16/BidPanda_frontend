@@ -167,7 +167,7 @@ function AuctionDetail() {
             </div>
             <div className="flex flex-col mt-6 justify-center">
               <div className="flex items-center mb-2 justify-between">
-                <h5 className="ml-4 w-fit text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
+                <h5 className="ml-4 w-fit font-pretendard text-2xl font-extrabold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
                   {detailItem.title}
                 </h5>
                 <div className="mr-2">
@@ -180,7 +180,7 @@ function AuctionDetail() {
             </div>
             <div>
               <div className="flex ml-4">
-                <span className="text-2xl text-gray-800 font-semibold">
+                <span className="font-pretendard text-2xl font-extrabold text-gray-800">
                   {detailItem.presentPrice.toLocaleString()}
                 </span>
               </div>
@@ -216,20 +216,22 @@ function AuctionDetail() {
                       }
                     />
                   </div>
-                  <span className="absolute left-20 -top-2 font-semibold">
+                  <span className="absolute left-20 -top-2 font-pretendard text-lg font-extrabold">
                     +{detailItem.bidCount}
                   </span>
                 </div>
-                <div className="font-bold mr-2">
+                <div className="font-pretendard text-lg font-extrabold mr-2">
                   {detailItem.bidCount}명이 입찰 중
                 </div>
               </div>
               <div className="flex flex-col font-semibold mt-4 ml-4">
                 <div className="bg-gray-300 rounded-md h-60 flex items-center justify-center mt-4 overflow-hidden overflow-y-scroll scrollbar-hide">
-                  <span>{detailItem.content}</span>
+                  <span className="font-pretendard text-xl font-extrabold">
+                    {detailItem.content}
+                  </span>
                 </div>
                 <input
-                  className="w-full h-[40px] border-2 rounded-lg text-sm mt-4"
+                  className="w-full h-[40px] border-2 rounded-lg font-pretendard text-md font-extrabold mt-4"
                   type="number"
                   id="bid"
                   placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다`}
@@ -241,14 +243,14 @@ function AuctionDetail() {
               <div className="flex items-center justify-center gap-2 font-semibold ml-4 mt-4">
                 <button
                   onClick={likeBtn}
-                  className="w-[20%] h-[39px] bg-white text-[#278374] rounded-lg border-2 border-[#278374]"
+                  className="w-[20%] h-[39px] bg-white text-[#278374] text-2xl rounded-lg border-2 border-[#278374]"
                 >
                   ❤
                 </button>
                 <button
                   type="submit"
                   onClick={onSubmit}
-                  className="w-[80%] h-[39px] bg-[#278374] text-white rounded-lg"
+                  className="w-[80%] h-[39px] bg-[#278374] text-white rounded-lg text-lg"
                 >
                   입찰하기
                 </button>
