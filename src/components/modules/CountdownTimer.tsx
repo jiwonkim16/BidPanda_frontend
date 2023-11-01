@@ -41,7 +41,10 @@ function CountdownTimer({ endTime, bidCount }: any) {
     <>
       <div>
         {remainingTime !== 0 ? (
-          <div className="flex justify-center items-center w-36">
+          <div
+            style={{ fontFamily: "Pretendard-Bold" }}
+            className="flex justify-center items-center w-36"
+          >
             <div className="flex text-sm items-center w-full justify-center bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

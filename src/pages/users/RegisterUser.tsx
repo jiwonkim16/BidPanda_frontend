@@ -116,9 +116,12 @@ const RegisterUser = () => {
   };
 
   return (
-    <div className="flex flex-col h-[650px] justify-center">
+    <div
+      style={{ fontFamily: "pretendard-bold" }}
+      className="flex flex-col h-[650px] justify-center"
+    >
       <form
-        className="flex flex-col items-center text-sm font-extralight text-gray-800"
+        className="flex flex-col items-center text-md font-bold text-gray-800"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="membername">아이디</label>

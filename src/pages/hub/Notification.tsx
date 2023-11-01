@@ -59,7 +59,7 @@ const Notification = () => {
 
   return (
     <div className="h-[100%]">
-      <div>
+      <div style={{ fontFamily: "pretendard-bold" }}>
         <div className="flex flex-col justify-center items-center mt-1">
           {notifications
             .sort((a: any, b: any) => b.timestamp - a.timestamp)
@@ -67,7 +67,7 @@ const Notification = () => {
               <div
                 key={noti.notificationId}
                 onClick={() => checkNotiHandler(noti.notificationId)}
-                className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-50 rounded-lg shadow font-extralight text-gray-800"
+                className="w-[370px] h-[60px] p-2 items-center my-1 bg-gray-50 rounded-lg shadow font-bold text-gray-800"
               >
                 <div className="flex flex-row justify-start items-center">
                   <div className=" px-1 mr-3 bg-[#278374] text-white rounded-lg">

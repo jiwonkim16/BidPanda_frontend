@@ -33,9 +33,12 @@ const EditUserInfo = () => {
   };
 
   return (
-    <div className="flex flex-col h-[650px] justify-center">
+    <div
+      style={{ fontFamily: "Pretendard-Bold" }}
+      className="flex flex-col h-[650px] justify-center font-bold"
+    >
       <form
-        className="flex flex-col items-center font-bold"
+        className="flex flex-col items-center "
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="nickname">닉네임</label>
