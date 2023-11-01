@@ -163,7 +163,7 @@ function ChattingRoom() {
                     <div className="mb-1 font-semibold text-end">
                       {userNickname}
                     </div>
-                    <div className="py-2 px-3 rounded-lg bg-[#278374] font-semibold text-white shadow mb-2 w-fit ">
+                    <div className="py-2 px-3 rounded-lg bg-[#278374] font-pretendard text-md font-extrabold text-white shadow mb-2 w-fit ">
                       {item.content}
                     </div>
                   </div>
@@ -175,7 +175,7 @@ function ChattingRoom() {
                       {item.sender}
                     </div>
                     <div className="flex flex-row-reverse">
-                      <div className="py-2 px-4 rounded-lg bg-gray-200 font-semibold shadow mb-2 ml-2 w-fit">
+                      <div className="py-2 px-4 rounded-lg bg-gray-200 font-pretendard text-md font-extrabold shadow mb-2 ml-2 w-fit">
                         {item.content}
                       </div>
                       <img
@@ -197,7 +197,7 @@ function ChattingRoom() {
               <input
                 type="text"
                 id="chat"
-                className="border-none bg-gray-100 rounded-lg mx-3 w-[300px] h-[37px]"
+                className="font-pretendard text-lg font-extrabold border-none bg-gray-100 rounded-lg mx-3 w-[300px] h-[37px]"
                 placeholder=" 내용을 입력하세요"
                 value={inputMessage}
                 onChange={onChange}

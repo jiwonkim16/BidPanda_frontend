@@ -66,9 +66,12 @@ const EditPassword = () => {
     }
   };
   return (
-    <div className="flex flex-col h-[650px] justify-center items-center">
+    <div
+      style={{ fontFamily: "Pretendard-Bold" }}
+      className="flex flex-col h-[650px] font-bold justify-center items-center"
+    >
       <form
-        className="flex flex-col items-center justify-center font-semibold"
+        className="flex flex-col items-center justify-center"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="newPassword">새 비밀번호</label>

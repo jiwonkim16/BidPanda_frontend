@@ -21,11 +21,11 @@ function SearchResult({ data }: any) {
         </Link>
         <div className="px-5 pb-5 flex flex-col items-start justify-center">
           <button onClick={() => onClick(data)}>
-            <h5 className="text-xl font-semibold text-gray-800 flex justify-start mb-2">
+            <h5 className="font-pretendard text-2xl font-extrabold text-gray-800 flex justify-start mb-2">
               {data.title}
             </h5>
             <div>
-              <span className="overflow-hidden text-ellipsis text-gray-500 whitespace-nowrap font-semibold">
+              <span className="font-pretendard text-xl font-extrabold overflow-hidden text-ellipsis text-gray-500 whitespace-nowrap">
                 {data.content}
               </span>
             </div>
@@ -39,15 +39,15 @@ function SearchResult({ data }: any) {
             </div>
           </button>
           <div className="flex flex-row w-full justify-between items-center mt-3">
-            <span className="text-md font-bold text-gray-800 ">
+            <span className="font-pretendard text-xl font-extrabold text-gray-800 ">
               현재 입찰가 : {data.presentPrice.toLocaleString()}
             </span>
-            <span className="text-md font-bold text-gray-800">
+            <span className="font-pretendard text-lg font-extrabold text-gray-800">
               {data.bidCount}명 입찰 중
             </span>
           </div>
           <div className="mt-2">
-            <span className="text-md font-bold text-gray-800">
+            <span className="font-pretendard text-xl font-extrabold text-gray-800">
               최소 입찰 단위 : {data.minBidPrice.toLocaleString()}
             </span>
           </div>
