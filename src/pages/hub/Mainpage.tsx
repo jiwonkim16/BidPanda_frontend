@@ -34,12 +34,12 @@ const Main = () => {
      * @includes : 스플래쉬 화면을 첫 1회에만 노출하기 위해, isIn이라는 key value를 세션 스토리지에 삽입.
      */
 
-    sessionStorage.setItem("isIn", "true");
-    if (showSplash) {
+    if (!isIn) {
       const timer = setTimeout(() => {
+        sessionStorage.setItem("isIn", "true");
         setShowSplash(false);
       }, 3000);
-      clearTimeout(timer);
+      return () => clearTimeout(timer);
     }
 
     /**
