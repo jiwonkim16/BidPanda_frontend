@@ -41,13 +41,8 @@ function CountdownTimer({ endTime, bidCount }: any) {
     <>
       <div>
         {remainingTime !== 0 ? (
-
-          <div
-            style={{ fontFamily: "Pretendard-Bold" }}
-            className="flex justify-center items-center w-36"
-          >
+          <div className="flex justify-center items-center w-36">
             <div className="flex text-sm items-center w-full justify-center bg-gray-100 text-gray-800 p-1 rounded-xl shadow-md font-semibold">
-
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="1.25em"
@@ -59,12 +54,12 @@ function CountdownTimer({ endTime, bidCount }: any) {
             </div>
           </div>
         ) : bidCount === 0 ? (
-          <div className="flex flex-row w-fit font-pretendard text-lg font-extrabold items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md ">
+          <div className="flex flex-row w-fit text-md font-extrabold items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md ">
             <div className="bg-red-500 w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>유찰</span>
           </div>
         ) : (
-          <div className="flex flex-row w-fit font-pretendard text-lg font-extrabold items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md ">
+          <div className="flex flex-row w-fit text-md font-extrabold items-center px-2 bg-gray-100 text-gray-800  p-1 rounded-xl shadow-md ">
             <div className="bg-[#278374] w-[10px] h-[10px] shadow rounded-full mr-1" />
             <span>낙찰</span>
           </div>
