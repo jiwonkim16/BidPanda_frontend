@@ -116,7 +116,7 @@ function AuctionCard() {
           ))}
         </Swiper>
       </div>
-      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 gap-2">
+      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 font-pretendard gap-2">
         {auctionData.map((item: IAuction) => (
           <div
             key={item.id}
@@ -131,21 +131,21 @@ function AuctionCard() {
             </Link>
             <div className="px-5 pb-5">
               <Link to={`/items/detail/${item.id}`}>
-                <h5 className="text-lg font-semibold tracking-tight overflow-hidden text-ellipsis whitespace-nowrap text-gray-900">
+                <h5 className="text-lg tracking-tight overflow-hidden text-ellipsis whitespace-nowrap font-bold text-gray-800">
                   {item.title}
                 </h5>
               </Link>
               <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                <span className="text-sm">{item.content}</span>
+                <span className="text-sm mt-1">{item.content}</span>
               </div>
               <div className="flex flex-col items-start justify-center">
-                <div className="text-gray-500">현재 입찰가</div>
+                <div className="text-gray-500 text-sm">현재 입찰가</div>
                 <span className="text-md font-bold text-gray-900">
                   {item.presentPrice.toLocaleString()}
                 </span>
               </div>
               <div className="relative">
-                <div className="absolute -top-[260px] -right-[35px] z-10">
+                <div className="absolute -top-[260px] -right-[35px] z-10 font-jalnan">
                   <ListTimer
                     endTime={item.auctionEndTime}
                     bidCount={item.bidCount}
