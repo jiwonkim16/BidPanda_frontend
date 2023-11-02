@@ -5,7 +5,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import { useNavigate, useParams } from "react-router";
 import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
-import { auctionDelete } from "../../apis/auction-detail/AuctionDelete";
 import { useQuery } from "react-query";
 import { auctionDetail } from "../../apis/auction-detail/AuctionDetail";
 // import { auctionStatus } from "../../atoms/auctionStatus";
@@ -43,7 +42,6 @@ function ModifierProduct() {
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
   const params = useParams();
-  const itemId = params.itemId;
   const {
     register,
     handleSubmit,
@@ -133,21 +131,10 @@ function ModifierProduct() {
       const response = await auctionModifier(params.itemId, formData);
       if (response?.status === 200) {
         // 성공 알림
-        toast.success("상품이 등록되었습니다🔥");
+        toast.success("상품이 수정 되었습니다🔥");
         // 리스트 페이지로 이동
         navigate("/items/list");
         reset();
-      }
-    }
-  };
-
-  // 삭제하기 버튼 클릭
-  const deleteItem = async () => {
-    if (itemId !== undefined) {
-      const response = await auctionDelete(itemId);
-      if (response?.status === 200) {
-        toast.error("삭제 완료");
-        navigate("/keyword");
       }
     }
   };
@@ -330,12 +317,6 @@ function ModifierProduct() {
         <div className="flex items-center justify-center mt-[10px]">
           <button className="text-white bg-[#278378] hover:bg-[#1e534d] focus:ring-4 focus:outline-none focus:ring-[#BFE2B3] rounded-lg text-sm px-5 py-2.5 text-center font-semibold">
             수정하기
-          </button>
-          <button
-            onClick={deleteItem}
-            className="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center ml-[10px]"
-          >
-            삭제하기
           </button>
         </div>
       </form>

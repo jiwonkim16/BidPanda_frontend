@@ -14,6 +14,7 @@ import Loading from "../../components/assets/Loading";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import CountdownTimer from "./../../components/modules/CountdownTimer";
+import { auctionDelete } from "./../../apis/auction-detail/AuctionDelete";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -97,6 +98,17 @@ function AuctionDetail() {
       const response = await favoriteItem(itemId);
       if (response?.status === 200) {
         toast.success("찜하기 완료");
+      }
+    }
+  };
+
+  // 삭제하기 버튼 클릭
+  const deleteItem = async () => {
+    if (itemId !== undefined) {
+      const response = await auctionDelete(itemId);
+      if (response?.status === 200) {
+        toast.error("삭제 완료");
+        navigate("/keyword");
       }
     }
   };
@@ -255,18 +267,26 @@ function AuctionDetail() {
                 <button
                   type="submit"
                   onClick={onSubmit}
-                  className="w-[80%] h-[39px] bg-[#278374] text-white rounded-lg text-lg"
+                  className="w-[100%] h-[39px] bg-[#278374] text-white rounded-lg text-lg"
                 >
                   입찰하기
                 </button>
-                {userNickname === detailItem.nickname && !status ? (
+              </div>
+              {userNickname === detailItem.nickname && !status ? (
+                <div className="flex items-center justify-between mt-3 ml-8">
                   <Link to={`/items/modifier/${itemId}`}>
-                    <button className="w-[110px] h-[39px] bg-red-500 text-white rounded-lg">
+                    <button className="w-[170px] h-[39px] bg-yellow-500 text-white rounded-lg mr-4">
                       수정하기
                     </button>
                   </Link>
-                ) : null}
-              </div>
+                  <button
+                    onClick={deleteItem}
+                    className="text-white w-[170px] h-[39px] bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-semibold rounded-lg px-5 py-2.5 text-center"
+                  >
+                    삭제하기
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
