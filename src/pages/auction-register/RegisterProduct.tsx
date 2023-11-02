@@ -227,7 +227,7 @@ function RegisterProduct() {
           type="text"
           id="title"
           placeholder="상품 이름"
-          className="w-[350px] h-[35px] border-none bg-gray-300 text-black font-pretendard text-xl font-extrabold rounded-lg my-2 text-center"
+          className="w-[350px] h-[35px] border-none bg-gray-200 text-gray-800 font-pretendard text-md font-bold rounded-lg my-2 text-center"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.title?.message as string}
@@ -242,12 +242,12 @@ function RegisterProduct() {
           })}
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
-          className="w-[350px] h-[80px] border-none bg-gray-300 text-black font-pretendard text-lg font-extrabold text-center rounded-lg my-2 overflow-y-hidden"
+          className="w-[350px] h-[80px] p-1 border-none bg-gray-200 text-gray-800 font-pretendard text-md font-bold text-center rounded-lg my-2 overflow-y-hidden"
         />
         <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
         </span>
-        <div className="flex flex-col justify-center w-[350px] font-pretendard text-xl font-extrabold my-2">
+        <div className="flex flex-col justify-center w-[350px] font-pretendard text-md font-bold my-2">
           <div>마감기한 설정</div>
           <div>
             <input
@@ -260,7 +260,7 @@ function RegisterProduct() {
               max="5"
               className="mt-2 w-[270px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
             />
-            <span className="font-pretendard text-xl font-extrabold mx-2">
+            <span className="font-pretendard text-md font-extrabold mx-4">
               {watch("deadline")} Days
             </span>
           </div>
@@ -269,7 +269,7 @@ function RegisterProduct() {
           </span>
         </div>
         <div className="flex flex-col justify-center w-[350px] my-2">
-          <span className="font-pretendard text-xl font-extrabold mb-2">
+          <span className="font-pretendard text-md font-extrabold mb-2">
             경매 시작 가격
           </span>
           <input
@@ -280,10 +280,10 @@ function RegisterProduct() {
             type="number"
             id="valueForStart"
             placeholder=" 경매 시작가"
-            className="w-[350px] h-[35px] border-2 rounded-lg mx-1 font-pretendard text-md font-extrabold"
+            className="w-[350px] h-[35px] border-2 rounded-lg font-pretendard text-md font-bold"
           />
           <div className="my-3">
-            <span className="font-pretendard text-xl font-extrabold mb-2">
+            <span className="font-pretendard text-md font-bold mb-2">
               경매가 최소 단위
             </span>
             <input
@@ -294,7 +294,7 @@ function RegisterProduct() {
               type="number"
               id="valuePerBid"
               placeholder=" 경매가 단위"
-              className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 mx-1 font-pretendard text-md font-extrabold"
+              className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 font-pretendard text-md font-bold"
             />
           </div>
         </div>
@@ -302,7 +302,7 @@ function RegisterProduct() {
           {errors.startPrice?.message as string}
         </span>
         <div className="flex justify-center items-center">
-          <button className="w-[350px] h-[40px] bg-[#278374] text-white font-semibold rounded-lg">
+          <button className="w-[350px] h-[40px] bg-[#278374] font-pretendard text-white font-bold rounded-lg">
             경매 시작하기
           </button>
         </div>

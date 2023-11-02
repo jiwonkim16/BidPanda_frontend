@@ -24,9 +24,11 @@ const EditUserInfo = () => {
 
   const formToRegister = async (data: EditInfoType) => {
     try {
-      await editUserInfoApi(data);
-      toast.success("회원정보가 정상적으로 수정 되었습니다.");
-      navigate("/mypage");
+      const res = await editUserInfoApi(data);
+      if (res?.status === 200) {
+        toast.success("회원정보가 정상적으로 수정 되었습니다.");
+        navigate("/mypage");
+      }
     } catch (error) {
       console.error(error);
     }

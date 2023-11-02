@@ -29,14 +29,14 @@ const CategoriesIcon = () => {
           <button
             key={index}
             value={item}
-            className="w-[70px] h-[70px] shadow border p-[7px] border-gray-200 rounded-2xl m-1 mb-6"
+            className="w-[70px] h-[70px] shadow border p-[7px] border-gray-200 rounded-2xl mx-1 mb-7"
             onClick={onClickCategory}
           >
             <img
               src={item}
               className="rounded-2xl w-full h-full mb-[10px] object-cover"
             />
-            <span className="font-pretendard font-extrabold">
+            <span className="font-pretendard font-bold text-gray-800">
               {item.slice(7, 9)}
             </span>
           </button>
