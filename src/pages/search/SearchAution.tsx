@@ -58,7 +58,7 @@ function SearchAution() {
             id="default-search"
             value={search}
             onChange={searchInfo}
-            className="block w-full p-3 pl-10 font-pretendard text-md font-extralight text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
+            className="block w-full p-3 pl-10 font-pretendard text-md font-semibold text-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white"
             placeholder="검색어를 입력하세요"
             required
           />

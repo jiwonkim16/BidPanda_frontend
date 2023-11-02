@@ -6,7 +6,7 @@ export default {
     extend: {
       fontFamily: {
         jalnan: ["Jalnan"],
-        pretendard: ["Pretendard-Regular"],
+        pretendard: ["Pretendard-Bold"],
       },
     },
   },

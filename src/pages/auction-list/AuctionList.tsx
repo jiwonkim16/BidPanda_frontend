@@ -97,34 +97,34 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 gap-2">
+      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 gap-2 font-pretendard">
         {auctionItem.map((item, index) => (
           <React.Fragment key={index}>
-            <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-lg shadow ">
+            <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-xl shadow ">
               <Link to={`/items/detail/${item.id}`}>
                 <img
-                  className="p-2 m-auto rounded-3xl w-[150px] h-[150px] object-cover"
+                  className="p-2 mt-2 m-auto rounded-3xl w-[150px] h-[150px] object-cover"
                   src={item.itemImages[0]}
                   alt="product image"
                 />
               </Link>
               <div className="px-5 pb-5">
                 <Link to={`/items/detail/${item.id}`}>
-                  <h5 className="text-lg font-semibold tracking-tight overflow-hidden text-ellipsis whitespace-nowrap text-gray-900">
+                  <h5 className="text-lg tracking-tight font-bold overflow-hidden text-ellipsis whitespace-nowrap text-gray-800">
                     {item.title}
                   </h5>
                 </Link>
                 <div className="overflow-hidden text-ellipsis whitespace-nowrap">
-                  <span className="text-sm">{item.content}</span>
+                  <span className="text-sm mt-1">{item.content}</span>
                 </div>
-                <div className="flex flex-col items-start justify-center">
+                <div className="flex flex-col items-start justify-center mt-2">
                   <div className="text-gray-500 text-sm">현재 입찰가</div>
-                  <span className="text-md font-bold text-gray-900">
+                  <span className="text-md font-bold text-gray-800">
                     {item.presentPrice.toLocaleString()}
                   </span>
                 </div>
                 <div className="relative">
-                  <div className="absolute -top-[260px] -right-[35px] z-10">
+                  <div className="absolute -top-[270px] -right-[33px] z-10 font-jalnan">
                     <ListTimer
                       endTime={item.auctionEndTime}
                       bidCount={item.bidCount}

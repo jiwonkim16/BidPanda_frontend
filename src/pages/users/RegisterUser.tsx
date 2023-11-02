@@ -311,7 +311,7 @@ const RegisterUser = () => {
             <></>
           ) : (
             <>
-              <button className="w-[250px] h-[40px] bg-[#278374] text-white text-sm font-extralight rounded-lg mt-10 mr-2 ">
+              <button className="w-[250px] h-[40px] bg-[#278374] text-white text-md rounded-lg mt-10 mr-2 ">
                 회원가입
               </button>
             </>
