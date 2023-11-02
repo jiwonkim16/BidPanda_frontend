@@ -44,7 +44,7 @@ const Login = () => {
 
   const kakaoLogin: () => void = () => {
     const REST_API_KEY = "fbc4abc5fd980187c0270233cea954bc";
-    const REDIRECT_URI = "https://bid-panda-frontend.vercel.app/kakao";
+    const REDIRECT_URI = "https://bidpanda.app/kakao";
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
   };
