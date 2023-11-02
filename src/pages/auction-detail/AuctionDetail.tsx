@@ -76,6 +76,11 @@ function AuctionDetail() {
 
   // 입찰하기 버튼 클릭
   const onSubmit = async () => {
+    if (Number(bidAmount) >= 100000000) {
+      toast.warning("최대 입찰가격 초과");
+      setBidAmount("");
+      return;
+    }
     if (itemId !== undefined) {
       const response = await bidInfo({ bidAmount, itemId });
       if (response?.status === 200) {

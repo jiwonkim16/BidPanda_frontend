@@ -79,6 +79,10 @@ function AuctionCard() {
 
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.currentTarget.value;
+    if (select === categoryIcon) {
+      // 선택한 카테고리가 현재 카테고리와 같을 경우 아무 작업도 하지 않음
+      return;
+    }
     setSelectCategory(select);
     page.current = 1;
     setAuctionData([]);
