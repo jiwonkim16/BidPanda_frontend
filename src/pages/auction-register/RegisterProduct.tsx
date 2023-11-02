@@ -244,7 +244,7 @@ function RegisterProduct() {
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
           className="w-[350px] h-[80px] p-1 border-none bg-gray-200 text-gray-800 font-pretendard text-md font-bold text-center rounded-lg my-2 overflow-y-hidden"
         />
-        <span className="text-red-500 font-semibold text-[14px]">
+        <span className="text-red-500 font-pretendard font-bold text-[14px]">
           {errors.content?.message as string}
         </span>
         <div className="flex flex-col justify-center w-[350px] font-pretendard text-md font-bold my-2">
@@ -264,7 +264,7 @@ function RegisterProduct() {
               {watch("deadline")} Days
             </span>
           </div>
-          <span className="text-red-500 font-semibold text-[14px]">
+          <span className="text-red-500 font-pretendard font-bold text-[14px]">
             {errors.deadline?.message as string}
           </span>
         </div>
@@ -298,7 +298,7 @@ function RegisterProduct() {
             />
           </div>
         </div>
-        <span className="text-red-500 font-semibold text-[14px]">
+        <span className="text-red-500 font-pretendard font-bold text-[14px]">
           {errors.startPrice?.message as string}
         </span>
         <div className="flex justify-center items-center">
