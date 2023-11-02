@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { isReadState } from "../../atoms/isReadState";
 import { useQuery, useMutation } from "react-query";
@@ -26,6 +26,9 @@ const Notification = () => {
   const { data } = useQuery("notification", NotificationListApi);
   const notifications = data?.data || [];
 
+  useEffect(() => {
+    setIsRead(false);
+  }, []);
   /**
    * @includes : RQ의 useMutation을 사용하여 useQuery로 받아온 데이터의 수정 사항을 적용.
    *             checkNotificationApi로 읽음 상태를 수정하는 통신을 마치고, notification이라는 query key
@@ -40,14 +43,13 @@ const Notification = () => {
           if (noti.notificationId === notificationId) {
             return { ...noti, isRead: true };
           }
+
           return noti;
         });
         const hasUnreadNotifications = updatedNotifications.some(
           (noti: any) => !noti.isRead
         );
-        if (data) {
-          setIsRead(hasUnreadNotifications);
-        }
+        setIsRead(hasUnreadNotifications);
       } catch (error) {
         console.error(error);
       }
