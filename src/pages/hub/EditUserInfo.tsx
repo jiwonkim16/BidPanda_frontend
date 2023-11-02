@@ -40,7 +40,7 @@ const EditUserInfo = () => {
       className="flex flex-col h-[650px] justify-center font-bold"
     >
       <form
-        className="flex flex-col items-center "
+        className="flex flex-col items-center"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="nickname">닉네임</label>
