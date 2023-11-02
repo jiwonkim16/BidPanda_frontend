@@ -49,7 +49,7 @@ function Header() {
           <Link to={"/"}>
             <h4 className="text-xl text-gray-800 ml-2">BID PANDA</h4>
           </Link>
-          <button className="text-gray-600 mt-6 text-lg">
+          <button className="text-gray-600 mt-6 -mr-2 text-lg">
             <Link to={"/login"} className="mr-[40px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
