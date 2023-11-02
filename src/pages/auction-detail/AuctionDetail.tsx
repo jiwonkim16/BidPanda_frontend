@@ -190,7 +190,7 @@ function AuctionDetail() {
                     <img
                       src={
                         detailItem.bidderProfileImageUrls[0] === undefined
-                          ? "/비드 판다 로고.webp"
+                          ? "/defalut.webp"
                           : detailItem.bidderProfileImageUrls[0]
                       }
                       className="w-full h-full object-cover rounded-full"
@@ -201,7 +201,7 @@ function AuctionDetail() {
                       className="w-full h-full object-cover rounded-full"
                       src={
                         detailItem.bidderProfileImageUrls[1] === undefined
-                          ? "/비드 판다 로고.webp"
+                          ? "/defalut.webp"
                           : detailItem.bidderProfileImageUrls[1]
                       }
                     />
@@ -211,7 +211,7 @@ function AuctionDetail() {
                       className="w-full h-full object-cover rounded-full"
                       src={
                         detailItem.bidderProfileImageUrls[2] === undefined
-                          ? "/비드 판다 로고.webp"
+                          ? "/defalut.webp"
                           : detailItem.bidderProfileImageUrls[2]
                       }
                     />
