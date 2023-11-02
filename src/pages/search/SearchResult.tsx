@@ -24,13 +24,13 @@ function SearchResult({ data }: any) {
             <h5 className="font-pretendard text-xl font-bold text-gray-800 flex justify-start mb-2">
               {data.title}
             </h5>
-            <div>
-              <span className="font-pretendard font-semibold text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap w-[320px] text-gray-400">
+              <span className="font-pretendard font-semibold text-gray-400">
                 {data.content}
               </span>
             </div>
             <div className="relative">
-              <div className="absolute -top-[245px] left-[260px]">
+              <div className="absolute -top-[260px] left-[280px]">
                 <ListTimer
                   endTime={data.auctionEndTime}
                   bidCount={data.bidCount}
