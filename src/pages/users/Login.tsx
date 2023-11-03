@@ -85,7 +85,7 @@ const Login = () => {
       </div>
       <button
         onClick={kakaoLogin}
-        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-gray-800 text-sm rounded-lg mt-3"
+        className="w-[250px] h-[40px] flex items-center justify-center bg-yellow-300 text-gray-800 text-md rounded-lg mt-3"
       >
         <img
           src="/kakaoLogin.png"
