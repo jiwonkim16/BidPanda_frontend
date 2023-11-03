@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { useEffect } from "react";
 const Kakao = () => {
   const code = new URL(window.location.href);
   const codeValue = code.searchParams.get("code");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
