@@ -251,6 +251,7 @@ function AuctionDetail() {
                   className="w-full h-[40px] border-2 rounded-lg font-pretendard text-md font-bold mt-4"
                   type="number"
                   id="bid"
+                  min={0}
                   placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다`}
                   value={bidAmount}
                   step={detailItem.minBidPrice}
