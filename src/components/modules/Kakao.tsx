@@ -16,6 +16,7 @@ const Kakao = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("1");
         const res = await axios.get(
           `${
             import.meta.env.VITE_REACT_API_KEY
@@ -26,13 +27,17 @@ const Kakao = () => {
             },
           }
         );
+        console.log("2");
         if (res.status === 200) {
+          console.log("3");
           toast.success("카카오 계정을 통해 로그인 되었습니다.");
+          console.log(res.headers.authorization);
           localStorage.setItem("authorization", res.headers.authorization);
-          navigate("/");
+          // navigate("/");
         }
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
+        console.log("4");
         toast.error("카카오 로그인에 문제가 생겼습니다.");
       }
     };
