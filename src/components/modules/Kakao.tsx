@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -11,12 +11,11 @@ import { useEffect } from "react";
 const Kakao = () => {
   const code = new URL(window.location.href);
   const codeValue = code.searchParams.get("code");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("1");
         const res = await axios.get(
           `${
             import.meta.env.VITE_REACT_API_KEY
@@ -27,17 +26,15 @@ const Kakao = () => {
             },
           }
         );
-        console.log("2");
+
         if (res.status === 200) {
-          console.log("3");
           toast.success("카카오 계정을 통해 로그인 되었습니다.");
           console.log(res.headers.authorization);
           localStorage.setItem("authorization", res.headers.authorization);
-          // navigate("/");
         }
-        // window.location.reload();
+        navigate("/");
+        window.location.reload();
       } catch (error) {
-        console.log("4");
         toast.error("카카오 로그인에 문제가 생겼습니다.");
       }
     };
