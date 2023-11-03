@@ -51,7 +51,7 @@ const ItemCards = ({ topItems }: TopItemProps) => {
                 <span>{item.content}</span>
               </div>
               <div className="flex items-center justify-between mt-1">
-                <span className="text-md text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
+                <span className="text-md w-[80%] text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
                   {item.presentPrice.toLocaleString()}
                 </span>
                 <span className="text-sm ml-2  text-red-500">

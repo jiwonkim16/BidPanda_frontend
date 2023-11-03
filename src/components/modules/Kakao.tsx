@@ -26,11 +26,9 @@ const Kakao = () => {
             },
           }
         );
-
         if (res.status === 200) {
           toast.success("카카오 계정을 통해 로그인 되었습니다.");
           localStorage.setItem("authorization", res.headers.authorization);
-
           navigate("/");
         }
         window.location.reload();
