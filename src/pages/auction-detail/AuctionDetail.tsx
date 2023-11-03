@@ -187,19 +187,19 @@ function AuctionDetail() {
                 <h5 className="ml-4 w-fit font-pretendard text-2xl font-extrabold text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
                   {detailItem.title}
                 </h5>
+              </div>
+            </div>
+            <div>
+              <div className="flex ml-4 items-center justify-between">
+                <span className="font-pretendard text-xl font-extrabold -mt-1 text-gray-800">
+                  {detailItem.presentPrice.toLocaleString()}
+                </span>
                 <div className="mx-2 mb-1">
                   <CountdownTimer
                     endTime={detailItem.auctionEndTime}
                     bidCount={detailItem.bidCount}
                   />
                 </div>
-              </div>
-            </div>
-            <div>
-              <div className="flex ml-4">
-                <span className="font-pretendard text-xl font-extrabold -mt-1 text-gray-800">
-                  {detailItem.presentPrice.toLocaleString()}
-                </span>
               </div>
               <div className="flex items-center justify-between mt-4 ml-4">
                 <div className="flex flex-row relative">
