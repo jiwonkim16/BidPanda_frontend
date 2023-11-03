@@ -80,7 +80,7 @@ function Header() {
               </svg>
               {readData && readData === true ? (
                 <>
-                  <div className="rounded-full w-2.5 h-2.5 bg-red-500 absolute right-[93px] top-[11px]" />
+                  <div className="rounded-full w-2.5 h-2.5 bg-red-500 absolute right-[93px] top-[10px]" />
                 </>
               ) : (
                 <></>
