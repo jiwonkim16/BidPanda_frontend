@@ -135,6 +135,10 @@ function ModifierProduct() {
         // 리스트 페이지로 이동
         navigate("/items/list");
         reset();
+      } else {
+        toast.error("입력값을 확인해주세요!😥");
+        setImages([]);
+        setImagePreviews([]);
       }
     }
   };
@@ -277,7 +281,7 @@ function ModifierProduct() {
               id="dueDate"
               min="1"
               max="5"
-              className="mt-2 w-[270px] h-2 bg-[#278374] rounded-lg appearance-none cursor-pointer"
+              className="mt-2 w-[270px] h-2 accent-[#278374] rounded-lg cursor-pointer"
             />
             <span className="font-semibold mx-2">{watch("deadline")} Days</span>
           </div>

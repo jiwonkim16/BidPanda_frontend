@@ -22,13 +22,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             width: "100%",
             fontFamily: "semibold",
           }}
-          autoClose={2500}
+          autoClose={1500}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
           rtl={false}
-          pauseOnFocusLoss
+          pauseOnFocusLoss={true}
           draggable
+          limit={1}
           theme="colored"
         />
         <RouterProvider router={router} />
