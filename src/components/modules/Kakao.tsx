@@ -10,7 +10,6 @@ import { useEffect } from "react";
 const Kakao = () => {
   const code = new URL(window.location.href);
   const codeValue = code.searchParams.get("code");
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +24,6 @@ const Kakao = () => {
             },
           }
         );
-
         if (res.status === 200) {
           toast.success("카카오 계정을 통해 로그인 되었습니다.");
           localStorage.setItem("authorization", res.headers.authorization);

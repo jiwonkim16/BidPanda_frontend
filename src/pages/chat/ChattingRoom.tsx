@@ -47,7 +47,7 @@ function ChattingRoom() {
             },
           }
         );
-        console.log(response);
+        // console.log(response);
         setHistory(response.data.history);
         setPartnerNickname(response.data.partnerNickname);
         setPartnerURL(response.data.partnerProfileUrl);

@@ -12,6 +12,8 @@ import { loginApi } from "../../apis/user-log/UserLoginApi";
 const Login = () => {
   const [membername, setMembername] = useState("");
   const [password, setPassword] = useState("");
+  const [, setAccessToken] = useState("");
+  const [, setRefreshToken] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,34 @@ const Login = () => {
       navigate("/");
     }
   }, []);
+
+  /**
+   * @includes : 액세스 토큰의 만료 기한을 2분 앞둔 시간에 재발급 요청을 하는 코드.
+   */
+
+  const refreshTokens = async () => {
+    const res = await loginApi({ membername, password });
+    const newAccessToken = res?.headers.authorization;
+    const newRefreshToken = res?.headers.authorization_refresh;
+
+    if (res?.status === 200) {
+      setAccessToken(newAccessToken);
+      setRefreshToken(newRefreshToken);
+      localStorage.setItem("authorization", newAccessToken);
+      localStorage.setItem("authorization_refresh", newRefreshToken);
+      startTokenRefreshTimer();
+      window.location.href = "/";
+    }
+  };
+
+  let tokenRefreshTimer: any;
+  const refreshAccessToken = async () => {
+    await refreshTokens();
+  };
+
+  const startTokenRefreshTimer = () => {
+    tokenRefreshTimer = setInterval(refreshAccessToken, 58 * 60 * 1000);
+  };
 
   /**
    * @includes : 로그인, 카카오 소셜 로그인 기능
@@ -40,6 +70,8 @@ const Login = () => {
     } else {
       toast.error("로그인에 실패했습니다.");
     }
+    clearInterval(tokenRefreshTimer);
+    refreshTokens();
   };
 
   const kakaoLogin: () => void = () => {
@@ -47,6 +79,8 @@ const Login = () => {
     const REDIRECT_URI = import.meta.env.VITE_REACT_KAKAO_URI;
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
+    clearInterval(tokenRefreshTimer);
+    refreshTokens();
   };
 
   return (
