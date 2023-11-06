@@ -126,7 +126,7 @@ function RegisterProduct() {
         navigate("/items/list");
         reset();
       } else {
-        toast.error("입력값을 확인해주세요!😥");
+        toast.error("사진과 모든 내용을 작성하셔야 합니다.😥");
         setImages([]);
         setImagePreviews([]);
       }
@@ -211,7 +211,7 @@ function RegisterProduct() {
               <img
                 src={preview}
                 alt={`미리보기 ${index + 1}`}
-                className="max-w-[115px] h-[128px] object-cover"
+                className="max-w-[120px] h-[128px] object-cover mx-2"
               />
               <button
                 className="absolute top-2 right-2 text-red-500 cursor-pointer"
@@ -242,9 +242,9 @@ function RegisterProduct() {
           })}
           id="desc"
           placeholder="상품 설명은 최소 10자 이상 작성해야 합니다."
-          className="w-[350px] h-[80px] p-1 border-none bg-gray-200 text-gray-800 font-pretendard text-md font-bold text-center rounded-lg my-2 overflow-y-hidden"
+          className="w-[350px] h-[80px] p-1 border-none bg-gray-200 text-gray-800 font-pretendard text-md font-bold rounded-lg my-2 overflow-y-hidden"
         />
-        <span className="text-red-500 font-pretendard font-bold text-[14px]">
+        <span className="text-red-500 font-semibold text-[14px]">
           {errors.content?.message as string}
         </span>
         <div className="flex flex-col justify-center w-[350px] font-pretendard text-md font-bold my-2">
@@ -264,7 +264,7 @@ function RegisterProduct() {
               {watch("deadline")} Days
             </span>
           </div>
-          <span className="text-red-500 font-pretendard font-bold text-[14px]">
+          <span className="text-red-500 font-semibold text-[14px]">
             {errors.deadline?.message as string}
           </span>
         </div>
@@ -278,10 +278,14 @@ function RegisterProduct() {
               min: { message: "최소 경매가는 1원입니다.", value: "1" },
             })}
             type="number"
+            min={0}
             id="valueForStart"
             placeholder=" 경매 시작가"
             className="w-[350px] h-[35px] border-2 rounded-lg font-pretendard text-md font-bold"
           />
+          <span className="text-red-500 font-semibold text-[14px] mt-2">
+            {errors.startPrice?.message as string}
+          </span>
           <div className="my-3">
             <span className="font-pretendard text-md font-bold mb-2">
               경매가 최소 단위
@@ -292,15 +296,16 @@ function RegisterProduct() {
                 min: { message: "최소 단위는 1원입니다.", value: "1" },
               })}
               type="number"
+              min={0}
               id="valuePerBid"
               placeholder=" 경매가 단위"
               className="w-[350px] h-[35px] border-2 rounded-lg mt-1 mb-2 font-pretendard text-md font-bold"
             />
+            <span className="text-red-500 font-semibold text-[14px] mt-2">
+              {errors.minBidPrice?.message as string}
+            </span>
           </div>
         </div>
-        <span className="text-red-500 font-pretendard font-bold text-[14px]">
-          {errors.startPrice?.message as string}
-        </span>
         <div className="flex justify-center items-center">
           <button className="w-[350px] h-[40px] bg-[#278374] font-pretendard text-white font-bold rounded-lg">
             경매 시작하기

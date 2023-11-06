@@ -113,9 +113,15 @@ const EditPassword = () => {
           수정 완료
         </button>
       </form>
+      <button className="w-[250px] h-[40px] bg-gray-800 text-white rounded-lg mt-2 ">
+        뒤로 가기
+      </button>
+      <span className="text-red-500 text-sm mt-6 text-center">
+        회원 탈퇴는 신중하게 진행 해 주시길 부탁드립니다.
+      </span>
       <button
         onClick={askUserDelete}
-        className="w-[250px] h-[40px] mt-2 font-semibold bg-white text-red-500 border-[1.5px] border-red-500 shadow-md rounded-md m-1 p-1"
+        className="w-[250px] h-[40px] font-semibold bg-white text-red-500 border-[1.5px] border-red-500 shadow-md rounded-md m-1 p-1"
       >
         회원 탈퇴
       </button>

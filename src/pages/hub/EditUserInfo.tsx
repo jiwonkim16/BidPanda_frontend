@@ -37,7 +37,7 @@ const EditUserInfo = () => {
   return (
     <div
       style={{ fontFamily: "Pretendard-Bold" }}
-      className="flex flex-col h-[650px] justify-center font-bold"
+      className="flex flex-col h-[650px] justify-center items-center font-bold"
     >
       <form
         className="flex flex-col items-center"
@@ -90,10 +90,13 @@ const EditUserInfo = () => {
             </p>
           )}
         </div>
-        <button className="w-[250px] h-[40px]  bg-[#278374] text-white rounded-lg mt-6 mr-2 ">
+        <button className="w-[250px] h-[40px] bg-[#278374] text-white rounded-lg mt-6 mr-2 ">
           수정 완료
         </button>
       </form>
+      <button className="w-[250px] h-[40px] bg-gray-800 text-white rounded-lg mt-2 mr-2 ">
+        뒤로 가기
+      </button>
     </div>
   );
 };

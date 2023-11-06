@@ -68,7 +68,7 @@ function AuctionList() {
 
   return (
     <div>
-      <div className="flex justify-center fixed w-[390px] z-20">
+      <div className="flex justify-center fixed w-[390px] z-20 h-16">
         <Swiper
           scrollbar={{
             hide: true,
@@ -76,7 +76,7 @@ function AuctionList() {
           slidesPerView={5.5}
           centeredSlides={false}
           modules={[Scrollbar]}
-          className="flex w-full mySwiper -top-12"
+          className="flex w-full mySwiper -top-[62px] bg-white"
         >
           {categoryLi.map((item) => (
             <SwiperSlide key={item}>

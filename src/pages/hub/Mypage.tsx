@@ -28,7 +28,7 @@ interface UserData {
 const Mypage = () => {
   const { data } = useQuery<UserData | undefined>("userData", getUserInfoApi);
   const imageRef = useRef<HTMLInputElement>(null);
-  const [selectedTab, setSelectedTab] = useState("interest");
+  const [selectedTab, setSelectedTab] = useState("liked");
   const isToken = localStorage.getItem("authorization");
   const navigate = useNavigate();
 
@@ -98,7 +98,10 @@ const Mypage = () => {
                         <p style={{ fontFamily: "Pretendard-Bold" }}>
                           {data ? data.data.nickname : null}
                         </p>
-                        <Link to="/mypage/edit" style={{ marginLeft: "5px" }}>
+                        <Link
+                          to="/mypage/edit"
+                          style={{ marginLeft: "4px", fontSize: "22px" }}
+                        >
                           <AiOutlineEdit />
                         </Link>
                       </div>
@@ -113,7 +116,7 @@ const Mypage = () => {
                       <div>
                         <button
                           style={{ fontFamily: "Pretendard-Bold" }}
-                          className="bg-gray-800 font-bold text-white text-sm shadow rounded-md m-1 py-1 px-2"
+                          className="bg-gray-800 font-bold text-white text-sm shadow rounded-md m-1 ml-3 py-1 px-2"
                         >
                           <Link to="/mypage/password">회원 정보 설정</Link>
                         </button>

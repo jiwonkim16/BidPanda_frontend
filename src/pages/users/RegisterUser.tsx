@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { throttle } from "lodash";
 import { toast } from "react-toastify";
 import {
   userRegisterApi,
@@ -40,22 +41,31 @@ const RegisterUser = () => {
   const checkMembernameHandler = async () => {
     const valMembername = getValues("membername");
     const res = await checkMembernameApi(valMembername);
-    if (res?.status === 200) {
-      setIsMembernameCheck(true);
-    } else {
-      toast.error("이미 존재하는 아이디 입니다.");
+    if (!valMembername) {
+      toast.error("아이디를 입력해 주세요.");
+      if (res?.status === 200) {
+        setIsMembernameCheck(true);
+        toast.success("사용 가능한 아이디 입니다.");
+      } else {
+        toast.error("이미 존재하는 아이디 입니다.");
+      }
     }
   };
   const checkNicknameHandler = async () => {
     const valNickname = getValues("nickname");
     const res = await checkNicknameApi(valNickname);
-    if (res?.status === 200) {
-      setIsNicknameCheck(true);
-    } else {
-      toast.error("이미 존재하는 닉네임 입니다.");
+    if (!valNickname) {
+      toast.error("닉네임을 입력해 주세요.");
+      if (res?.status === 200) {
+        setIsNicknameCheck(true);
+      } else {
+        toast.error("이미 존재하는 닉네임 입니다.");
+      }
     }
   };
-  const onValidEmailHandler = async () => {
+
+  const throttledEmailHandler = throttle(async () => {
+    toast.success("인증번호가 전송 되었습니다. 메일함을 확인해주세요.");
     const valEmail = getValues("email");
     const res = await sendValidateEmailApi(valEmail);
     if (res?.status === 200) {
@@ -63,13 +73,13 @@ const RegisterUser = () => {
     } else {
       toast.error("이미 존재하는 이메일 이거나, 잘못된 형식입니다.");
     }
-  };
+  }, 5000);
+
   const onValCodeHandler = async () => {
     const valCode = validateCode;
     const valEmail = getValues("email");
     const codeData = { code: valCode, email: valEmail };
     const res = await checkValidateCodeApi(codeData);
-
     if (res?.status === 200) {
       setIsValCodeSent(true);
       toast.success("이메일 인증에 성공하였습니다.");
@@ -121,7 +131,7 @@ const RegisterUser = () => {
       className="flex flex-col h-[650px] justify-center"
     >
       <form
-        className="flex flex-col items-center text-md font-bold text-gray-800"
+        className="flex flex-col items-center text-md font-semibold text-gray-800"
         onSubmit={handleSubmit(formToRegister)}
       >
         <label htmlFor="membername">아이디</label>
@@ -138,7 +148,8 @@ const RegisterUser = () => {
             })}
             type="text"
             id="membername"
-            className="w-[215px] h-[35px] border-2 rounded-lg rounded-r-none mt-2 mb-2"
+            placeholder=" 4자 이상, 숫자를 하나 이상 포함"
+            className="w-[215px] h-[35px] border-2 rounded-lg rounded-r-none mt-2 mb-2 text-sm"
           />
           {!isMembernameCheck ? (
             <button
@@ -175,7 +186,8 @@ const RegisterUser = () => {
             })}
             type="text"
             id="nickname"
-            className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
+            placeholder=" 10자 이하 입니다"
+            className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg text-sm mt-2 mb-2"
           />
           {!isNicknameCheck ? (
             <button
@@ -214,13 +226,14 @@ const RegisterUser = () => {
                 })}
                 type="text"
                 id="email"
-                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
+                placeholder=" example@gmail.com"
+                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg text-sm mt-2 mb-2"
               />
               <button
-                onClick={onValidEmailHandler}
+                onClick={throttledEmailHandler}
                 className="bg-gray-100 w-[35px] h-[35px] rounded-l-none rounded-lg"
               >
-                ✔︎
+                ✔
               </button>
             </div>
           </>
@@ -248,7 +261,8 @@ const RegisterUser = () => {
                 onChange={(e) => setValidateCode(e.target.value)}
                 type="text"
                 id="validateCode"
-                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg mt-2 mb-2"
+                placeholder=" 인증코드를 정확히 입력해 주세요"
+                className="w-[215px] h-[35px] border-2 rounded-r-none rounded-lg text-sm mt-2 mb-2"
               />
               {!isValCodeSent ? (
                 <button
@@ -283,7 +297,8 @@ const RegisterUser = () => {
           })}
           type="password"
           id="password"
-          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
+          placeholder=" 6자 이상, 영문 대문자 1개 포함"
+          className="w-[250px] h-[35px] border-2  rounded-lg text-sm mt-2 mb-2"
         />
         {errors.password && (
           <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -296,7 +311,8 @@ const RegisterUser = () => {
           id="checkPassword"
           value={checkedPw}
           onChange={(e) => setCheckedPw(e.target.value)}
-          className="w-[250px] h-[35px] border-2  rounded-lg mt-2 mb-2"
+          placeholder=" 비밀번호가 서로 같아야 합니다"
+          className="w-[250px] h-[35px] border-2  rounded-lg text-sm mt-2 mb-2"
         />
         {errors.checkPassword && (
           <p className="text-sm w-[250px] text-red-500 mb-2">
@@ -308,7 +324,11 @@ const RegisterUser = () => {
           !isNicknameCheck ||
           !isValidEmailSent ||
           !isValCodeSent ? (
-            <></>
+            <>
+              <button className="w-[250px] h-[40px] bg-gray-200 text-white text-md rounded-lg mt-10 mr-2 ">
+                회원가입
+              </button>
+            </>
           ) : (
             <>
               <button className="w-[250px] h-[40px] bg-[#278374] text-white text-md rounded-lg mt-10 mr-2 ">

@@ -7,14 +7,14 @@ import {
   favoriteItem,
 } from "../../apis/auction-detail/AuctionDetail";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
-import { auctionStatus } from "../../atoms/auctionStatus";
 import jwtDecode from "jwt-decode";
 import Loading from "../../components/assets/Loading";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
 import CountdownTimer from "./../../components/modules/CountdownTimer";
 import { auctionDelete } from "./../../apis/auction-detail/AuctionDelete";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar, Autoplay } from "swiper/modules";
+import "swiper/css/scrollbar";
+import "swiper/css";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -45,18 +45,10 @@ function AuctionDetail() {
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
-  const status = useRecoilValue(auctionStatus);
 
-  const [visible, setVisible] = useState(0);
-  const nextBtn = () => {
-    setVisible((prev) => (prev === 2 ? 2 : prev + 1));
-  };
-  const prevBtn = () => {
-    setVisible((prev) => (prev === 0 ? 0 : prev - 1));
-  };
+  const [toggle, setToggle] = useState(false);
 
   // 로그인 유저가 아니면 로그인 페이지로~
-
   useEffect(() => {
     const accessToken = localStorage.getItem("authorization");
     if (!accessToken) {
@@ -70,15 +62,23 @@ function AuctionDetail() {
     auctionDetail(Number(itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
+
   // 입찰가격 value
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setBidAmount(event.target.value);
+    const inputValue = event.target.value;
+    // 콤마(,)를 제거하고 숫자만 추출합니다.
+    const numericValue = inputValue.replace(/[^0-9]/g, "");
+    setBidAmount(numericValue);
   };
+  // 입찰가 입력 시 숫자 + ,로 포맷팅
+  const formattedBidAmount = Number(
+    bidAmount.replace(/[^0-9]/g, "")
+  ).toLocaleString();
 
   // 입찰하기 버튼 클릭
   const onSubmit = async () => {
-    if (Number(bidAmount) >= 100000000) {
-      toast.warning("최대 입찰가격 초과");
+    if (Number(bidAmount) > 100000000) {
+      toast.warning("최대 입찰가격은 100,000,000 입니다.");
       setBidAmount("");
       return;
     }
@@ -95,9 +95,11 @@ function AuctionDetail() {
   // 찜하기 버튼 클릭
   const likeBtn = async () => {
     if (itemId !== undefined) {
+      setToggle((prev) => !prev);
       const response = await favoriteItem(itemId);
+      console.log(response);
       if (response?.status === 200) {
-        toast.success("찜하기 완료");
+        toast.info(response.data.message);
       }
     }
   };
@@ -113,28 +115,6 @@ function AuctionDetail() {
     }
   };
 
-  const box = {
-    invisible: {
-      x: 500,
-      opacity: 0.3,
-      scale: 0.5,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-      },
-    },
-    exit: {
-      x: -400,
-      opacity: 0.3,
-      scale: 0.5,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
     <>
       {isLoading ? (
@@ -143,48 +123,32 @@ function AuctionDetail() {
         <div className="w-[370px] h-[95%] py-4 justify-center items-center">
           <div>
             <div className="flex justify-center items-center ml-4">
-              <button onClick={prevBtn}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="2.0em"
-                  viewBox="0 0 320 512"
-                >
-                  <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {[0, 1, 2].map((i) =>
-                  i === visible ? (
-                    <motion.img
-                      variants={box}
-                      initial="invisible"
-                      animate="visible"
-                      exit="exit"
-                      key={i}
-                      className="object-cover w-[336px] rounded-lg h-96"
-                      src={
-                        detailItem.itemImages && detailItem.itemImages[i]
-                          ? detailItem.itemImages[i]
-                          : "/noimage.png"
-                      }
-                      alt=""
-                    />
-                  ) : null
-                )}
-              </AnimatePresence>
-              <button onClick={nextBtn}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="2em"
-                  viewBox="0 0 320 512"
-                >
-                  <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                </svg>
-              </button>
+              <Swiper
+                scrollbar={{
+                  hide: true,
+                }}
+                slidesPerView={1}
+                centeredSlides={false}
+                autoplay={{
+                  delay: 1500,
+                  disableOnInteraction: false,
+                }}
+                modules={[Scrollbar, Autoplay]}
+                className="mySwiper"
+              >
+                {detailItem.itemImages.map((item, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className="object-cover w-[336px] rounded-lg h-96"
+                  >
+                    <img src={item} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
             <div className="flex flex-col mt-6 justify-center">
               <div className="flex items-center mb-2 justify-between">
-                <h5 className="ml-4 w-fit font-pretendard text-2xl font-extrabold text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap">
+                <h5 className="ml-4 w-fit font-pretendard text-2xl font-extrabold text-gray-800">
                   {detailItem.title}
                 </h5>
               </div>
@@ -192,7 +156,7 @@ function AuctionDetail() {
             <div>
               <div className="flex ml-4 items-center justify-between">
                 <span className="font-pretendard text-xl font-extrabold -mt-1 text-gray-800">
-                  {detailItem.presentPrice.toLocaleString()}
+                  닉네임 : {detailItem.presentPrice.toLocaleString()}
                 </span>
                 <div className="mx-2 mb-1">
                   <CountdownTimer
@@ -249,32 +213,49 @@ function AuctionDetail() {
                 </div>
                 <input
                   className="w-full h-[40px] border-2 rounded-lg font-pretendard text-md font-bold mt-4"
-                  type="number"
+                  type="text"
                   id="bid"
                   min={0}
-                  placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice}원 입니다`}
-                  value={bidAmount}
-                  step={detailItem.minBidPrice}
+                  placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원 입니다`}
+                  value={formattedBidAmount}
+                  // step={detailItem.minBidPrice}
                   onChange={onChange}
                 />
               </div>
               <div className="flex items-center justify-center gap-2 font-semibold ml-4 mt-4">
-                <button
-                  onClick={likeBtn}
-                  className="w-[20%] h-[39px] bg-white font-jalnan text-[#278374] text-2xl rounded-lg border-2 border-[#278374]"
-                >
-                  ♥︎
-                </button>
-                <button
-                  type="submit"
-                  onClick={onSubmit}
-                  className="w-[100%] h-[39px] bg-[#278374] text-white rounded-lg text-lg"
-                >
-                  입찰하기
-                </button>
+                {toggle === false ? (
+                  <button
+                    onClick={likeBtn}
+                    className="w-[20%] h-[39px] bg-[#278374] font-jalnan text-white text-2xl rounded-lg border-2 border-[#278374]"
+                  >
+                    ♥︎
+                  </button>
+                ) : (
+                  <button
+                    onClick={likeBtn}
+                    className="w-[20%] h-[39px] bg-[#278374] font-jalnan text-red-500 text-2xl rounded-lg border-2 border-[#278374]"
+                  >
+                    ♥︎
+                  </button>
+                )}
+                {userNickname === detailItem.nickname ? (
+                  <button className="w-[100%] h-[39px] bg-[#278374] text-white rounded-lg text-lg">
+                    내가 등록한 상품입니다
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    onClick={onSubmit}
+                    className="w-[100%] h-[39px] bg-[#278374] text-white rounded-lg text-lg"
+                  >
+                    입찰하기
+                  </button>
+                )}
               </div>
-              {userNickname === detailItem.nickname && !status ? (
-                <div className="flex items-center justify-between mt-3 ml-8">
+              {userNickname === detailItem.nickname ? (
+                <div className="flex items-center justify-between mt-3 ml-4">
                   <Link to={`/items/modifier/${itemId}`}>
                     <button className="w-[170px] h-[39px] bg-yellow-500 text-white rounded-lg mr-4">
                       수정하기

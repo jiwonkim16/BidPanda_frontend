@@ -31,7 +31,7 @@ export const checkNotificationApi = async (notificationId: number) => {
         },
       }
     );
-    console.log(res.data);
+
     return res.data;
   } catch (error) {
     console.error(error);

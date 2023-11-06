@@ -19,10 +19,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ToastContainer
           position="top-right"
           style={{
-            width: "100%",
+            width: "390px",
             fontFamily: "semibold",
           }}
-          autoClose={1500}
+          autoClose={1000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

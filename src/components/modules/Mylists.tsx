@@ -60,42 +60,48 @@ const Mylists: React.FC<MypageProps> = ({ selectedTab }) => {
         style={{ fontFamily: "Pretendard-Bold" }}
         className="rounded-[15px] mt-2 grid grid-cols-2 items-center justify-center"
       >
-        {itemsData.map((item: Items) => (
-          <div
-            key={item.id}
-            className="bg-white border border-gray-200 font-bold mx-1 my-1 rounded-lg shadow"
-          >
-            <div className="w-[168px] h-[240px]">
-              <Link to={`/items/detail/${item.id}`}>
-                <img
-                  className="p-2 rounded-lg w-[170px] h-[140px] object-cover"
-                  src={item.itemImages[0]}
-                  alt="product image"
-                />
-              </Link>
-              <div className="px-3">
+        {itemsData.length === 0 ? (
+          <div className="font-semibold text-sm text-gray-600 absolute top-[66%] left-[33%]">
+            <span>리스트가 비어 있습니다.</span>
+          </div>
+        ) : (
+          itemsData.map((item: Items) => (
+            <div
+              key={item.id}
+              className="bg-white border border-gray-200 font-bold mx-1 my-1 rounded-lg shadow"
+            >
+              <div className="w-[168px] h-[240px]">
                 <Link to={`/items/detail/${item.id}`}>
-                  <h5 className="text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
-                    {item.title}
-                  </h5>
+                  <img
+                    className="p-2 rounded-lg w-[170px] h-[140px] object-cover"
+                    src={item.itemImages[0]}
+                    alt="product image"
+                  />
                 </Link>
-                <div className="flex items-center justify-between">
-                  <span className=" font-bold text-gray-900">
-                    {item.presentPrice.toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex mt-1 font-bold font-jalnan">
-                  <span>
-                    <CountdownTimer
-                      endTime={item.auctionEndTime}
-                      bidCount={item.bidCount}
-                    />
-                  </span>
+                <div className="px-3">
+                  <Link to={`/items/detail/${item.id}`}>
+                    <h5 className="text-lg font-bold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">
+                      {item.title}
+                    </h5>
+                  </Link>
+                  <div className="flex items-center justify-between">
+                    <span className=" font-bold text-gray-900">
+                      {item.presentPrice.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="flex mt-1 font-bold font-jalnan">
+                    <span>
+                      <CountdownTimer
+                        endTime={item.auctionEndTime}
+                        bidCount={item.bidCount}
+                      />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </>
   );
