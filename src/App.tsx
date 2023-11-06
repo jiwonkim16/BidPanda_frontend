@@ -33,13 +33,11 @@ function App() {
               heartbeatTimeout: 3600000,
             }
           );
-          console.log(eventSource);
-          eventSource.onopen = async (e: any) => {
-            console.log(e);
-          };
+
+          eventSource.onopen = async () => {};
           eventSource.addEventListener("sse", async (e: any) => {
             const res = await JSON.parse(e.data);
-            console.log("Received SSE data:", res);
+
             if (res) {
               setReadDate(true);
             }
