@@ -5,7 +5,7 @@ import Main from "./pages/hub/Mainpage";
 import App from "./App";
 import Splash from "./pages/hub/Splash";
 import Kakao from "./components/modules/Kakao";
-import BidInfo from "./pages/hub/bidInfo";
+import BidInfo from "./pages/hub/BidInfo";
 
 const Login = React.lazy(() => import("./pages/users/Login"));
 const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
