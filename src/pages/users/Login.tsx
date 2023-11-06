@@ -43,8 +43,8 @@ const Login = () => {
   };
 
   const kakaoLogin: () => void = () => {
-    const REST_API_KEY = "fbc4abc5fd980187c0270233cea954bc";
-    const REDIRECT_URI = "https://bidpanda.app/kakao";
+    const REST_API_KEY = import.meta.env.VITE_REACT_KAKAO_API;
+    const REDIRECT_URI = import.meta.env.VITE_REACT_KAKAO_URI;
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = kakaoURL;
   };
