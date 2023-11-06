@@ -5,6 +5,7 @@ import Main from "./pages/hub/Mainpage";
 import App from "./App";
 import Splash from "./pages/hub/Splash";
 import Kakao from "./components/modules/Kakao";
+import BidInfo from "./pages/hub/bidInfo";
 
 const Login = React.lazy(() => import("./pages/users/Login"));
 const RegisterUser = React.lazy(() => import("./pages/users/RegisterUser"));
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
       {
         path: "chattingRoom/:item_id",
         element: <ChattingRoom />,
+      },
+      {
+        path: "info",
+        element: <BidInfo />,
       },
     ],
     errorElement: <NotFound />,

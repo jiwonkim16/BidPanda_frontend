@@ -14,6 +14,6 @@ export const auctionDelete = async (id: string) => {
     );
     return response;
   } catch (error: any) {
-    toast.warning(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 };

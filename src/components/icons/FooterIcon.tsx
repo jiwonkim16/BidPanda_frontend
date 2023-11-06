@@ -6,6 +6,7 @@ import {
   AiOutlineSearch,
   AiFillPlusCircle,
   AiFillMessage,
+  AiFillInfoCircle,
 } from "react-icons/ai";
 
 interface IDecodeToken {
@@ -74,6 +75,17 @@ const FooterIcon = () => {
           </div>
         </button>
       </div>
+      <Link to="info">
+        <div>
+          <button className="w-[57px] h-[57px] bg-white shadow-md border rounded-xl mx-2">
+            <div className="flex justify-center items-center">
+              <AiFillInfoCircle
+                style={{ width: " 35px", height: "35px", color: "#292929" }}
+              />
+            </div>
+          </button>
+        </div>
+      </Link>
     </div>
   );
 };
