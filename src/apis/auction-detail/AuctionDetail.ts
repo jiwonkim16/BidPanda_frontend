@@ -23,7 +23,7 @@ export const bidInfo = async (data: IBidInfo) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
@@ -42,7 +42,7 @@ export const favoriteItem = async (itemId: any) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
@@ -59,7 +59,7 @@ export const auctionFavorite = async (id: number) => {
     {
       headers: {
         Authorization: localStorage.getItem("authorization"),
-        Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+        Refresh: localStorage.getItem("authorization_refresh"),
       },
     }
   );

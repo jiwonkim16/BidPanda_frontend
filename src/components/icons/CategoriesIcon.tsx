@@ -16,7 +16,7 @@ const CategoriesIcon = () => {
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.currentTarget.value.slice(7, 9);
     if (select === "전체") {
-      navigate(`/items/list`);
+      navigate(`/items/public-search`);
     } else {
       navigate(`/items/list/${select}`);
     }

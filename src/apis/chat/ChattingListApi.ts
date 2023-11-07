@@ -8,7 +8,7 @@ export const chattingListApi = async () => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
@@ -27,7 +27,7 @@ export const enterChattingRoom = async (item_id: number) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
