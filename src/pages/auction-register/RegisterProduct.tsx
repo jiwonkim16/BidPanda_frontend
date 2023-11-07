@@ -61,7 +61,9 @@ function RegisterProduct() {
   // 이미지 관련 로직
   // 이미지 onChange 함수
   const addImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (images.length === 3) {
+    const currentImageCount = images.length;
+
+    if (currentImageCount >= 3) {
       toast.warning("등록 가능한 이미지 갯수를 초과했습니다.");
       return;
     }
@@ -71,6 +73,10 @@ function RegisterProduct() {
       const newImages = [...images];
       const previews = imagePreviews.slice(); // 이미지 미리보기 배열의 복사본
       for (let i = 0; i < imageFiles.length; i++) {
+        if (currentImageCount + i >= 3) {
+          toast.warning("등록 가능한 이미지 갯수를 초과했습니다.");
+          break;
+        }
         try {
           // 이미지를 상태에 추가하기 전에 이미지를 압축합니다.
           const compressedImage = await imageCompression(imageFiles[i], {
