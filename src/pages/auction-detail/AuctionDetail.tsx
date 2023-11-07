@@ -217,7 +217,7 @@ function AuctionDetail() {
                   placeholder={` 최소 입찰 단위는 ${detailItem.minBidPrice
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원 입니다`}
-                  value={formattedBidAmount}
+                  value={bidAmount !== "" ? formattedBidAmount : ""}
                   // step={detailItem.minBidPrice}
                   onChange={onChange}
                 />
