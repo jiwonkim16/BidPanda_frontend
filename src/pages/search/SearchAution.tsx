@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { searchAuction } from "../../apis/search/SearchAuction";
 import SearchResult from "./SearchResult";
 import { toast } from "react-toastify";
@@ -25,8 +24,8 @@ function SearchAution() {
     event.preventDefault();
     // 서버로 search state 보내는 역할
     const response = await searchAuction(search);
-    if (response.length > 0) {
-      setResult(response);
+    if (response.content.length > 0) {
+      setResult(response.content);
     } else {
       toast.error("검색 결과가 없습니다.");
     }

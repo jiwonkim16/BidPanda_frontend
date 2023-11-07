@@ -9,7 +9,7 @@ export const auctionRegister = async (data: any) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
