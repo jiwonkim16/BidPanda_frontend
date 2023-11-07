@@ -39,7 +39,7 @@ function ChattingList() {
   return (
     <div className="h-[100%]">
       <div>
-        {data.length === 0 ? (
+        {data && data.length === 0 ? (
           <div className="flex items-center justify-center h-[80vh]">
             상품을 낙찰받으시면 채팅방이 자동 생성됩니다!
           </div>
