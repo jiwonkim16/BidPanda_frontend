@@ -29,7 +29,7 @@ export const getBidListApi = async () => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
@@ -46,7 +46,7 @@ export const getPostedListApi = async () => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
