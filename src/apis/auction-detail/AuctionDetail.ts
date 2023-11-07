@@ -48,6 +48,20 @@ export const favoriteItem = async (itemId: any) => {
     );
     return response;
   } catch (error: any) {
-    toast.warning(error.response.data.message);
+    toast.warning("로그인 후 이용 가능합니다.");
   }
+};
+
+// 찜하기 여부 확인
+export const auctionFavorite = async (id: number) => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_REACT_API_KEY}/api/favorite/${id}`,
+    {
+      headers: {
+        Authorization: localStorage.getItem("authorization"),
+        Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+      },
+    }
+  );
+  return response;
 };

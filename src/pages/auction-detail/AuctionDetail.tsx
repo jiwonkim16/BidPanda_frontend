@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   auctionDetail,
+  auctionFavorite,
   bidInfo,
   favoriteItem,
 } from "../../apis/auction-detail/AuctionDetail";
@@ -55,6 +56,12 @@ function AuctionDetail() {
   );
   const detailItem: IAuctionDetail = data?.data;
 
+  // 아이템 관심 등록 여부
+  const { data: favoriteData } = useQuery("auctionFavorite", () =>
+    auctionFavorite(Number(itemId))
+  );
+  const favorite = favoriteData?.data;
+
   // 입찰가격 value
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -92,10 +99,10 @@ function AuctionDetail() {
   // 찜하기 버튼 클릭
   const likeBtn = async () => {
     if (itemId !== undefined) {
-      setToggle((prev) => !prev);
       const response = await favoriteItem(itemId);
-      console.log(response);
+
       if (response?.status === 200) {
+        setToggle((prev) => !prev);
         toast.info(response.data.message);
       }
     }
@@ -218,12 +225,11 @@ function AuctionDetail() {
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원 입니다`}
                   value={bidAmount !== "" ? formattedBidAmount : ""}
-                  // step={detailItem.minBidPrice}
                   onChange={onChange}
                 />
               </div>
               <div className="flex items-center justify-center gap-2 font-semibold ml-4 mt-4">
-                {toggle === false ? (
+                {toggle === false && favorite === false ? (
                   <button
                     onClick={likeBtn}
                     className="w-[20%] h-[39px] bg-[#278374] font-jalnan text-white text-2xl rounded-lg border-2 border-[#278374]"
