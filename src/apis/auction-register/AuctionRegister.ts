@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { toast } from "react-toastify";
 
 // 상품 등록
 export const auctionRegister = async (data: any) => {
