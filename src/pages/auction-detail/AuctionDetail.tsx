@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -28,6 +28,7 @@ interface IAuctionDetail {
   title: string;
   bidCount: number;
   bidderProfileImageUrls: string[];
+  winnerNickname: string;
 }
 
 interface IDecodeToken {
@@ -47,15 +48,6 @@ function AuctionDetail() {
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
   const [toggle, setToggle] = useState(false);
-
-  // 로그인 유저가 아니면 로그인 페이지로~
-  useEffect(() => {
-    const accessToken = localStorage.getItem("authorization");
-    if (!accessToken) {
-      toast.error("로그인 후 이용가능합니다.");
-      navigate("/login");
-    }
-  }, []);
 
   // 리액트 쿼리 사용해서 데이터 get
   const { data, isLoading } = useQuery("auctionDetail", () =>
@@ -77,9 +69,14 @@ function AuctionDetail() {
 
   // 입찰하기 버튼 클릭
   const onSubmit = async () => {
+    const accessToken = localStorage.getItem("authorization");
     if (Number(bidAmount) > 100000000) {
       toast.warning("최대 입찰가격은 100,000,000 입니다.");
       setBidAmount("");
+      return;
+    }
+    if (!accessToken) {
+      toast.error("로그인 후 이용가능합니다.");
       return;
     }
     if (itemId !== undefined) {
@@ -156,7 +153,8 @@ function AuctionDetail() {
             <div>
               <div className="flex ml-4 items-center justify-between">
                 <span className="font-pretendard text-xl font-extrabold -mt-1 text-gray-800">
-                  닉네임 : {detailItem.presentPrice.toLocaleString()}
+                  {detailItem.winnerNickname}:{" "}
+                  {detailItem.presentPrice.toLocaleString()}
                 </span>
                 <div className="mx-2 mb-1">
                   <CountdownTimer
