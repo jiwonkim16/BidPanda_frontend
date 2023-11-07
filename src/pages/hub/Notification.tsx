@@ -29,6 +29,7 @@ const Notification = () => {
   useEffect(() => {
     setIsRead(false);
   }, []);
+
   /**
    * @includes : RQ의 useMutation을 사용하여 useQuery로 받아온 데이터의 수정 사항을 적용.
    *             checkNotificationApi로 읽음 상태를 수정하는 통신을 마치고, notification이라는 query key

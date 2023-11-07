@@ -10,7 +10,7 @@ export const userDeleteApi = async () => {
     await axios.delete(`${import.meta.env.VITE_REACT_API_KEY}/api/members`, {
       headers: {
         Authorization: localStorage.getItem("authorization"),
-        Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+        Refresh: localStorage.getItem("authorization_refresh"),
       },
     });
   } catch (error) {
