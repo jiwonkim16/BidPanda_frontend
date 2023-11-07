@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         element: <SearchAution />,
       },
       {
-        path: "items/list",
+        path: "items/public-search",
         element: <AuctionList />,
       },
       {

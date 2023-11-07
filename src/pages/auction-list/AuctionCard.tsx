@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { auctionCategory } from "../../apis/auction-list/AuctionList";
 import ListTimer from "../auction-list/ListTimer";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -30,13 +30,24 @@ function AuctionCard() {
   const target = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(false);
   const page = useRef(1);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
+  const onClickOrder = (newOrder: string) => {
+    // 버튼 클릭 시 URL 변경
+    navigate(`?auctionIng=true&order=${newOrder}`);
+    // 새로고침
+    window.location.href = `?auctionIng=true&order=${newOrder}`;
+  };
+
+  // 쿼리 문자열에서 동적 값 추출
+  const order = queryParams.get("order");
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await auctionCategory(categoryIcon, page.current);
-      if (response.length >= auctionData.length) {
-        setAuctionData((prev) => [...prev, ...response]);
+      const response = await auctionCategory(categoryIcon, page.current, order);
+      if (response.content.length >= auctionData.length) {
+        setAuctionData((prev) => [...prev, ...response.content]);
       } else {
         // 페이지가 끝나면, observer 연결 해제
         observer.disconnect();
@@ -50,7 +61,7 @@ function AuctionCard() {
 
   useEffect(() => {
     if (categoryIcon === "전체") {
-      navigate(`/items/list`);
+      navigate(`/items/public-search`);
     }
   }, [categoryIcon]);
 
@@ -120,7 +131,53 @@ function AuctionCard() {
           ))}
         </Swiper>
       </div>
-      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 font-pretendard gap-2">
+      <div className="fixed top-[87px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
+        <button
+          onClick={() => onClickOrder("price_asc")}
+          className={`${
+            order === "price_asc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          낮은 가격순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("price_desc")}
+          className={`${
+            order === "price_desc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          높은 가격순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("date")}
+          className={`${
+            order === "date" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          최신순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("end_time_asc")}
+          className={`${
+            order === "end_time_asc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          마감임박순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("bid_count_desc")}
+          className={`${
+            order === "bid_count_desc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          입찰 횟수 순
+        </button>
+      </div>
+      <div className="item-center justify-center ml-4 mt-[85px] w-[93%] grid grid-cols-2 font-pretendard gap-2">
         {auctionData.map((item: IAuction) => (
           <div
             key={item.id}

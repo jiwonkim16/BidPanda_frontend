@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { category, categoryList } from "../../atoms/category";
 import ListTimer from "./ListTimer";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import { auctionList } from "./../../apis/auction-list/AuctionList";
 import Loading from "./../../components/assets/Loading";
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
+import { useQuery, useQueryClient } from "react-query";
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;
@@ -26,37 +27,55 @@ function AuctionList() {
   const setSelectCategory = useSetRecoilState(category);
   const navigate = useNavigate();
   const target = useRef<HTMLDivElement | null>(null);
-  const [loading, setLoading] = useState(false);
   const page = useRef(1);
   const [auctionItem, setAuctionItem] = useState<IAuction[]>([]);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (target.current) {
-      observer.observe(target.current);
-    }
-  }, []);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  const getItems = async () => {
-    setLoading(true);
-    const response = await auctionList(page.current);
-    if (!(response.totalElement >= auctionItem.length)) {
-      setAuctionItem((prev) => [...prev, ...response.content]);
-      setLoading(false);
-    } else {
-      // 페이지가 끝났으면 observer를 disconnect하여 더 이상 호출되지 않도록 함
-      observer.disconnect();
-    }
+  // 쿼리 문자열에서 동적 값 추출
+  const order = queryParams.get("order");
+
+  const { data, isLoading } = useQuery(["getItems", order], () =>
+    auctionList(page.current, order)
+  );
+
+  const onClickOrder = (newOrder: string) => {
+    // 버튼 클릭 시 URL 변경
+    navigate(`?auctionIng=true&order=${newOrder}`);
+    // 새로고침
+    window.location.href = `?auctionIng=true&order=${newOrder}`;
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
-      if (loading) return;
+      if (isLoading || data?.last) return;
 
-      getItems();
+      queryClient.refetchQueries("getItems");
       page.current += 1;
     });
   });
+
+  useEffect(() => {
+    if (target.current) {
+      observer.observe(target.current);
+    }
+
+    return () => {
+      if (target.current) {
+        observer.disconnect();
+      }
+    };
+  }, [target, observer]);
+
+  useEffect(() => {
+    if (data) {
+      // 새로운 데이터로 상태를 업데이트합니다.
+      setAuctionItem((prev) => [...prev, ...data.content]);
+    }
+  }, [data, setAuctionItem]);
 
   const onClickCategory = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -68,7 +87,7 @@ function AuctionList() {
 
   return (
     <div>
-      <div className="flex justify-center fixed w-[390px] z-20 h-16">
+      <div className="flex justify-center fixed w-[390px] z-20 h-11">
         <Swiper
           scrollbar={{
             hide: true,
@@ -76,7 +95,7 @@ function AuctionList() {
           slidesPerView={5.5}
           centeredSlides={false}
           modules={[Scrollbar]}
-          className="flex w-full mySwiper -top-[62px] bg-white"
+          className="flex w-full mySwiper -top-[83px] bg-white"
         >
           {categoryLi.map((item) => (
             <SwiperSlide key={item}>
@@ -97,7 +116,53 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="item-center justify-center ml-4 mt-16 w-[93%] grid grid-cols-2 gap-2 font-pretendard">
+      <div className="fixed top-[87px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
+        <button
+          onClick={() => onClickOrder("price_asc")}
+          className={`${
+            order === "price_asc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          낮은 가격순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("price_desc")}
+          className={`${
+            order === "price_desc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          높은 가격순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("date")}
+          className={`${
+            order === "date" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          최신순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("end_time_asc")}
+          className={`${
+            order === "end_time_asc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          마감임박순
+        </button>
+
+        <button
+          onClick={() => onClickOrder("bid_count_desc")}
+          className={`${
+            order === "bid_count_desc" ? "text-blue-400" : "text-black"
+          } font-pretendard font-extrabold text-sm`}
+        >
+          입찰 횟수 순
+        </button>
+      </div>
+      <div className="item-center justify-center ml-4 mt-[85px] w-[93%] grid grid-cols-2 gap-2 font-pretendard">
         {auctionItem.map((item, index) => (
           <React.Fragment key={index}>
             <div className="flex flex-col justify-center mt-2 w-[170px] bg-white border border-gray-200 rounded-xl shadow ">
@@ -137,7 +202,7 @@ function AuctionList() {
         ))}
       </div>
       <div ref={target}>
-        {loading ? <Loading /> : <span className="text-white">dd</span>}
+        {isLoading ? <Loading /> : <span className="text-white">dd</span>}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export const editUserInfoApi = async (data: EditUserData) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );
@@ -40,7 +40,7 @@ export const editUserPasswordApi = async (data: EditPasswordData) => {
       {
         headers: {
           Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
+          Refresh: localStorage.getItem("authorization_refresh"),
         },
       }
     );

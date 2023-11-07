@@ -4,13 +4,7 @@ import { toast } from "react-toastify";
 export const getTopTenListApi = async () => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_REACT_API_KEY}/api/items/top-price`,
-      {
-        headers: {
-          Authorization: localStorage.getItem("authorization"),
-          Authorization_Refresh: localStorage.getItem("authorization_refresh"),
-        },
-      }
+      `${import.meta.env.VITE_REACT_API_KEY}/api/items/top-price`
     );
     return res.data;
   } catch (error) {
