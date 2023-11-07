@@ -16,6 +16,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { favoriteItems } from "../../atoms/auctionStatus";
 
 interface IAuctionDetail {
   auctionEndTime: string;
@@ -28,6 +30,7 @@ interface IAuctionDetail {
   presentPrice: number;
   title: string;
   bidCount: number;
+  bidderCount: number;
   bidderProfileImageUrls: string[];
   winnerNickname: string;
 }
@@ -48,7 +51,8 @@ function AuctionDetail() {
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
-  const [toggle, setToggle] = useState(false);
+  const toggle = useRecoilValue(favoriteItems);
+  const setToggle = useSetRecoilState(favoriteItems);
 
   // 리액트 쿼리 사용해서 데이터 get
   const { data, isLoading } = useQuery("auctionDetail", () =>
@@ -103,10 +107,12 @@ function AuctionDetail() {
 
       if (response?.status === 200) {
         setToggle((prev) => !prev);
+        queryClient.refetchQueries("auctionFavorite");
         toast.info(response.data.message);
       }
     }
   };
+  console.log(toggle);
 
   // 삭제하기 버튼 클릭
   const deleteItem = async () => {
@@ -203,11 +209,11 @@ function AuctionDetail() {
                     />
                   </div>
                   <span className="absolute left-20 -top-2 text-gray-500 font-pretendard text-lg font-bold">
-                    +{detailItem.bidCount}
+                    +{detailItem.bidderCount}
                   </span>
                 </div>
                 <div className="font-jalnan text-xs text-red-500 font-bold mr-2">
-                  {detailItem.bidCount}명이 입찰 중
+                  {detailItem.bidderCount}명이 입찰 중
                 </div>
               </div>
               <div className="flex flex-col font-semibold mt-4 ml-4">
