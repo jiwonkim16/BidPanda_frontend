@@ -133,7 +133,7 @@ function ModifierProduct() {
         // 성공 알림
         toast.success("상품이 수정 되었습니다🔥");
         // 리스트 페이지로 이동
-        navigate("/items/list");
+        navigate("/items/public-search");
         reset();
       } else {
         toast.error("입력값을 확인해주세요!😥");

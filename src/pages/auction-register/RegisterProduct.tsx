@@ -129,7 +129,7 @@ function RegisterProduct() {
         // 성공 알림
         toast.success("상품이 등록되었습니다🔥");
         // 리스트 페이지로 이동
-        navigate("/items/list");
+        navigate("/items/public-search");
         reset();
       } else {
         toast.error("사진과 모든 내용을 작성하셔야 합니다.😥");
