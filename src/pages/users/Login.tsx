@@ -30,7 +30,6 @@ const Login = () => {
 
   const refreshTokens = async () => {
     const res = await loginApi({ membername, password });
-
     const newAccessToken = res?.headers.authorization;
     const newRefreshToken = res?.headers.refresh;
 

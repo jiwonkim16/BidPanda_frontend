@@ -2,7 +2,7 @@ import axios from "axios";
 
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 마이 페이지의 조건별 리스트 api.
  */
 
 export const getLikedListApi = async () => {

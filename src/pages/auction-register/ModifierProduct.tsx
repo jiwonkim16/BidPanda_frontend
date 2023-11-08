@@ -7,12 +7,17 @@ import { useNavigate, useParams } from "react-router";
 import { auctionModifier } from "../../apis/auction-modifier/AuctionModifier";
 import { useQuery } from "react-query";
 import { auctionDetail } from "../../apis/auction-detail/AuctionDetail";
-// import { auctionStatus } from "../../atoms/auctionStatus";
 import imageCompression from "browser-image-compression";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
+
+/**
+ * @author : Jiwon Kim
+ * @returns : 상품 수정페이지, 기존에 있던 상품 정보 표시 및 새로 수정한 정보와 이미지를 서버로 전송하며,
+ * 이때, 이미지는 압축을 통해 용량을 줄이고 react-hook-form 및 formData를 활용해서 데이터를 서버로 전송한다.
+ */
 
 interface IForm {
   title: string;
@@ -37,7 +42,10 @@ interface IAuctionDetail {
 }
 
 function ModifierProduct() {
+  // 이미지 파일을 담기 위한 state 생성
   const [images, setImages] = useState<File[]>([]);
+
+  // Recoil의 category 상태와 해당 상태를 업데이트 하는 함수를 생성
   const [selectCategory, setSelectCategory] = useRecoilState(category);
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
@@ -153,8 +161,6 @@ function ModifierProduct() {
     setImages(newImages);
     setImagePreviews(newPreviews);
   };
-
-  // const status = useRecoilValue(auctionStatus);
 
   return (
     <div className="flex flex-col py-3">

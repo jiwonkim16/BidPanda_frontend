@@ -18,6 +18,10 @@ function App() {
   const setReadDate = useSetRecoilState(isReadState);
 
   useEffect(() => {
+    /**
+     * @includes : SSE 핸드쉐이크.
+     */
+
     if (isToken) {
       let eventSource: any;
       const fetchSSE = () => {
@@ -32,6 +36,11 @@ function App() {
               heartbeatTimeout: 3600000,
             }
           );
+
+          /**
+           * @includes : JS eventSource를 이용해, 연결을 확정하고, 서버에서 전송되는 알림을
+           *             addEventListener 함수를 통해 변수에 저장 후 클라이언트에서 사용.
+           */
 
           eventSource.onopen = async () => {};
           eventSource.addEventListener("sse", async (e: any) => {

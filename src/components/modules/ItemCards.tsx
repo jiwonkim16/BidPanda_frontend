@@ -7,6 +7,11 @@ import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
 
+/**
+ * @author : Jiwon Kim
+ * @returns : 메인페이지 아이템 카드에 대한 캐러셀 기능 구현 및 커스텀 (Swiper 활용)
+ */
+
 interface TopItemProps {
   topItems: TopItemType[];
 }

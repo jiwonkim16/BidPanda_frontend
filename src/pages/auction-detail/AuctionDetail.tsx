@@ -19,6 +19,13 @@ import "swiper/css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { favoriteItems } from "../../atoms/auctionStatus";
 
+/**
+ * @author : Jiwon Kim
+ * @returns : 상품 상세페이지 구현. 세부기능은 아래와 같습니다.
+ * 이미지 슬라이드 기능 및 커스텀, 관심상품 등록 기능, 입찰가격 실시간 업데이트, 유저 피드백을 통해 입찰가 입력 시 단위 구분,
+ * 토큰 값 비교를 통해 입찰권한 부여 등
+ */
+
 interface IAuctionDetail {
   auctionEndTime: string;
   auctionStatus: string;
@@ -40,45 +47,50 @@ interface IDecodeToken {
 }
 
 function AuctionDetail() {
+  // 현재 경로의 URL 매개변수 할당
   const params = useParams();
   const itemId = params.itemId;
+
+  // 입찰가격에 대한 state
   const [bidAmount, setBidAmount] = useState("");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  // jwt 디코딩
+  // JWT 디코딩
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
+  // Recoil을 활용한 관심상품 등록을 위한 상태 및 상태 업데이트
   const toggle = useRecoilValue(favoriteItems);
   const setToggle = useSetRecoilState(favoriteItems);
 
-  // 리액트 쿼리 사용해서 데이터 get
+  // 리액트 쿼리를 활용한 상품 정보 데이터 fetching
   const { data, isLoading } = useQuery("auctionDetail", () =>
     auctionDetail(Number(itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
 
-  // 아이템 관심 등록 여부
+  // 리액트 쿼리 활용, 아이템 관심 등록 여부에 대한 api 요청
   const { data: favoriteData } = useQuery("auctionFavorite", () =>
     auctionFavorite(Number(itemId))
   );
   const favorite = favoriteData?.data;
 
-  // 입찰가격 value
+  // 입찰가 입력 시 입력값을 , 제거 및 숫자로 변환하여 상태를 업데이트
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    // 콤마(,)를 제거하고 숫자만 추출합니다.
     const numericValue = inputValue.replace(/[^0-9]/g, "");
     setBidAmount(numericValue);
   };
+
   // 입찰가 입력 시 숫자 + ,로 포맷팅
   const formattedBidAmount = Number(
     bidAmount.replace(/[^0-9]/g, "")
   ).toLocaleString();
 
-  // 입찰하기 버튼 클릭
+  // 최대 입찰 조건을 확인하고 로그인 상태를 체크한 뒤 입찰 정보를 서버에 전송하고
+  // refetchQueries로 쿼리를 다시 실행하여 최신정보를 받아옴
   const onSubmit = async () => {
     const accessToken = localStorage.getItem("authorization");
     if (Number(bidAmount) > 100000000) {
@@ -95,12 +107,12 @@ function AuctionDetail() {
       if (response?.status === 200) {
         toast.success("입찰 완료");
         setBidAmount("");
-        queryClient.refetchQueries("auctionDetail"); // 쿼리를 다시 실행해서 최신정보를 가져오도록 함.
+        queryClient.refetchQueries("auctionDetail");
       }
     }
   };
 
-  // 찜하기 버튼 클릭
+  // 관심상품 등록 / 최소하기 기능 수행과 refetchQueries로 최신 데이터를 받아옴.
   const likeBtn = async () => {
     if (itemId !== undefined) {
       const response = await favoriteItem(itemId);
@@ -113,7 +125,7 @@ function AuctionDetail() {
     }
   };
 
-  // 삭제하기 버튼 클릭
+  // 삭제하기 버튼 글릭 시 delete 요청을 통해 아이템을 삭제하고 페이지 이동
   const deleteItem = async () => {
     if (itemId !== undefined) {
       const response = await auctionDelete(itemId);
@@ -164,9 +176,8 @@ function AuctionDetail() {
             </div>
             <div>
               <div className="flex ml-4 items-center justify-between">
-                <span className="font-pretendard text-xl font-extrabold -mt-1 text-gray-800">
-                  {detailItem.winnerNickname}:{" "}
-                  {detailItem.presentPrice.toLocaleString()}
+                <span className="font-pretendard text-lg font-extrabold -mt-1 text-gray-800">
+                  최고 입찰자 : {detailItem.winnerNickname}
                 </span>
                 <div className="mx-2 mb-1">
                   <CountdownTimer
@@ -174,6 +185,11 @@ function AuctionDetail() {
                     bidCount={detailItem.bidCount}
                   />
                 </div>
+              </div>
+              <div className="ml-4">
+                <span className="text-xl font-bold -mt-1 text-gray-800">
+                  {detailItem.presentPrice.toLocaleString()}
+                </span>
               </div>
               <div className="flex items-center justify-between mt-4 ml-4">
                 <div className="flex flex-row relative">
