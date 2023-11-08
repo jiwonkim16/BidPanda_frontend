@@ -9,6 +9,13 @@ import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
 import Loading from "./../../components/assets/Loading";
+
+/**
+ * @author : Jiwon Kim
+ * @returns : 각 카테고리별 상품 리스트 페이지로 세부 기능은 아래와 같습니다.
+ * 인피니티 스크롤링, 쿼리dsl을 적용해서 쿼리스트링의 값으로 필터링 기능, 카테고리 버튼 케러셀 기능, 카테고리별 아이템 조회 구현
+ */
+
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;
@@ -21,27 +28,40 @@ interface IAuction {
 }
 
 function AuctionCard() {
+  // 상품들의 정보를 관리하는 state
   const [auctionData, setAuctionData] = useState<IAuction[]>([]);
   const params = useParams();
   const navigate = useNavigate();
-  const categoryIcon: any = params?.category;
+
+  // URL에서 category 값을 추출해서 할당
+  const categoryIcon: string | undefined = params?.category;
+
+  // Recoil의 categoryList 상태를 가져와서 할당하고 catergory 상태를 업데이트 하는 함수 생성
   const categoryLi = useRecoilValue(categoryList);
   const setSelectCategory = useSetRecoilState(category);
+
+  // 무한스크롤 구현을 위해 사용한 Intersection Observer의 대상이 될 요소를 참조하는 target 생성
   const target = useRef<HTMLDivElement | null>(null);
+
   const [loading, setLoading] = useState(false);
+
+  // 페이지 번호를 관리하는 page를 참조하는 ref를 생성하고 초기값 설정
   const page = useRef(1);
+
+  // 현재 URL의 위치를 구독하고 이를 통해 현재 URL의 쿼리 매개변수를 가져옴
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
+  // 정렬버튼 클릭 시 URL을 변경하고 페이지를 새로고침함.(UI 리렌더링을 강제함)
   const onClickOrder = (newOrder: string) => {
-    // 버튼 클릭 시 URL 변경
     navigate(`?auctionIng=true&order=${newOrder}`);
-    // 새로고침
     window.location.href = `?auctionIng=true&order=${newOrder}`;
   };
 
-  // 쿼리 문자열에서 동적 값 추출
+  // 현재 URL에서 order 쿼리 매개변수 값을 추출
   const order = queryParams.get("order");
+
+  // 상품 리스트를 가져오는 함수로, 페이지 수와 정렬 순서, 카테고리에 따라 데이터를 가져오고 상태를 업데이트
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -59,23 +79,24 @@ function AuctionCard() {
     }
   };
 
+  // categoryIcon 값이 변경될 때마다 실행하며, 전체 카테고리 선택 시 경로를 변경
   useEffect(() => {
     if (categoryIcon === "전체") {
       navigate(`/items/public-search`);
     }
   }, [categoryIcon]);
 
+  // categoryIcon 값이 변경될 때마다 실행하며, intersection observer를 등록하고 컴포넌트 언마운트 시 observer를 해제
   useEffect(() => {
     if (target.current) {
       observer.observe(target.current);
     }
-
     return () => {
-      // 컴포넌트 언마운트시 observer disconnect
       observer.disconnect();
     };
   }, [categoryIcon]);
 
+  // intersection observer를 생성하고 무한 스크롤을 구현하는 함수를 정의
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -88,6 +109,7 @@ function AuctionCard() {
     });
   });
 
+  // 카테고리 버튼 클릭 시 선택한 카테고리에 따라 페이지를 이동하고 상태를 업데이트
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const select = event.currentTarget.value;
     if (select === categoryIcon) {

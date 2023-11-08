@@ -60,12 +60,13 @@ const EditPassword = () => {
   const handleUserDelete = async () => {
     if (isToken) {
       const res: any = await userDeleteApi();
-      if (res?.message === "회원 탈퇴 성공") {
+      if (res?.status === 200) {
         toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
         navigate("/");
         removeToken();
       } else {
-        toast.error(res?.message);
+        toast.error("경매 진행중인 상품이 존재해 회원 탈퇴가 불가능합니다.");
+        return;
       }
     }
   };

@@ -16,7 +16,7 @@ export const auctionList = async (pageParam: number, order: string | null) => {
 
 // 카테고리 별 상품 조회
 export const auctionCategory = async (
-  category: string,
+  category: string | undefined,
   pageParam: number,
   order: string | null
 ) => {

@@ -10,6 +10,13 @@ import { Scrollbar } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
 import { useQuery, useQueryClient } from "react-query";
+
+/**
+ * @author : Jiwon Kim
+ * @returns : 전체 상품 리스트 페이지로 세부 기능은 아래와 같습니다.
+ * 인피니티 스크롤링, 쿼리dsl을 적용해서 쿼리스트링의 값으로 필터링 기능, 카테고리 버튼 케러셀 기능, 카테고리별 아이템 조회 구현
+ */
+
 interface IAuction {
   auctionEndTime: string;
   bidCount: number;
@@ -23,31 +30,40 @@ interface IAuction {
 }
 
 function AuctionList() {
+  // Recoil의 categoryList 상태를 가지고 오며, category 상태를 업데이트 하는 함수 생성
   const categoryLi = useRecoilValue(categoryList);
   const setSelectCategory = useSetRecoilState(category);
+
+  // Intersection Observer의 대상이 될 요소를 참조하는 target을 생성
   const navigate = useNavigate();
   const target = useRef<HTMLDivElement | null>(null);
+
+  // 페이지 번호를 관리하는 page를 참조하는 Ref를 생성하고 초기값을 1로 설정
   const page = useRef(1);
+
+  // 상품 리스트 데이터를 저장하고 관리하기 위한 state 생성
   const [auctionItem, setAuctionItem] = useState<IAuction[]>([]);
   const queryClient = useQueryClient();
 
+  // 현재 URL의 위치를 나타내는 location 객체를 가져오며, 이를 통해 현재 URL의 쿼리 매개변수 가져옴
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  // 쿼리 문자열에서 동적 값 추출
+  // 현재 URL에서 order 쿼리 매개변수 값을 추출
   const order = queryParams.get("order");
 
+  // 리액트 쿼리를 사용하여 getItems라는 키와 order를 의존성으로 하는 쿼리를 실행
   const { data, isLoading } = useQuery(["getItems", order], () =>
     auctionList(page.current, order)
   );
 
+  // 필터링 버튼 클릭 시 URL을 변경하고 페이지를 새로고침 (UI 리렌더링 강제)
   const onClickOrder = (newOrder: string) => {
-    // 버튼 클릭 시 URL 변경
     navigate(`?auctionIng=true&order=${newOrder}`);
-    // 새로고침
     window.location.href = `?auctionIng=true&order=${newOrder}`;
   };
 
+  // Intersection Observer를 생성하고, 무한 스크롤을 구현하는 함수를 정의 (refetchQuery 활용 데이터 최신화)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -58,11 +74,11 @@ function AuctionList() {
     });
   });
 
+  // target이나 observer가 변경될 때마다 실행되며, Intersection Observer를 등록하고 컴포넌트 언마운트 시 observer를 해제
   useEffect(() => {
     if (target.current) {
       observer.observe(target.current);
     }
-
     return () => {
       if (target.current) {
         observer.disconnect();
@@ -70,13 +86,14 @@ function AuctionList() {
     };
   }, [target, observer]);
 
+  // data가 변경될 때마다 실행되며, 새로운 데이터가 있으면 상태를 업데이트
   useEffect(() => {
     if (data) {
-      // 새로운 데이터로 상태를 업데이트합니다.
       setAuctionItem((prev) => [...prev, ...data.content]);
     }
   }, [data, setAuctionItem]);
 
+  // 카테고리 버튼을 클릭했을 때 호출되는 함수로, 선택한 카테고리에 따라 페이지를 이동하고 상태를 업데이트
   const onClickCategory = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
