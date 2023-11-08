@@ -2,7 +2,7 @@ import axios from "axios";
 
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 프로필 이미지, 유저 정보 api.
  */
 
 export const getUserInfoApi = async () => {

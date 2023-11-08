@@ -1,7 +1,7 @@
 import axios from "axios";
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 회원 탈퇴 기능 api.
  */
 
 export const userDeleteApi = async () => {
