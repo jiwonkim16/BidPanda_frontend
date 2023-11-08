@@ -95,7 +95,7 @@ function AuctionList() {
           slidesPerView={5.5}
           centeredSlides={false}
           modules={[Scrollbar]}
-          className="flex w-full mySwiper -top-[83px] bg-white"
+          className="flex w-full mySwiper -top-[91px] mt-2 bg-white"
         >
           {categoryLi.map((item) => (
             <SwiperSlide key={item}>
@@ -116,12 +116,12 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="fixed top-[87px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
+      <div className="fixed top-[84px] w-[390px] h-8 flex gap-[8px] justify-end items-center z-20 bg-white">
         <button
           onClick={() => onClickOrder("price_asc")}
           className={`${
-            order === "price_asc" ? "text-blue-400" : "text-black"
-          } font-pretendard font-extrabold text-sm`}
+            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+          } font-pretendard font-bold text-sm`}
         >
           낮은 가격순
         </button>
@@ -129,8 +129,8 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("price_desc")}
           className={`${
-            order === "price_desc" ? "text-blue-400" : "text-black"
-          } font-pretendard font-extrabold text-sm`}
+            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+          } font-pretendard font-bold text-sm`}
         >
           높은 가격순
         </button>
@@ -138,8 +138,8 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("date")}
           className={`${
-            order === "date" ? "text-blue-400" : "text-black"
-          } font-pretendard font-extrabold text-sm`}
+            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+          } font-pretendard font-bold text-sm`}
         >
           최신순
         </button>
@@ -147,8 +147,8 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("end_time_asc")}
           className={`${
-            order === "end_time_asc" ? "text-blue-400" : "text-black"
-          } font-pretendard font-extrabold text-sm`}
+            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+          } font-pretendard font-bold text-sm`}
         >
           마감임박순
         </button>
@@ -156,8 +156,8 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("bid_count_desc")}
           className={`${
-            order === "bid_count_desc" ? "text-blue-400" : "text-black"
-          } font-pretendard font-extrabold text-sm`}
+            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+          } font-pretendard font-bold text-sm`}
         >
           입찰 횟수 순
         </button>
