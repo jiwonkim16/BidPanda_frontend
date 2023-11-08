@@ -68,7 +68,6 @@ function AuctionList() {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       if (isLoading || data?.last) return;
-
       queryClient.refetchQueries("getItems");
       page.current += 1;
     });
@@ -133,7 +132,7 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="fixed top-[84px] w-[390px] h-8 flex gap-[8px] justify-end items-center z-20 bg-white">
+      <div className="fixed top-[88px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
         <button
           onClick={() => onClickOrder("price_asc")}
           className={`${

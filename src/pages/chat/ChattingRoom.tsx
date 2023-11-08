@@ -5,32 +5,46 @@ import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import { useNavigate } from "react-router";
 
+/**
+ * @author : Jiwon Kim
+ * @returns : 채팅애플리케이션 기능 구현 / StompJS 및 Sock.js 활용 실시간 채팅기능 구현, 이전 채팅기록은 HTTP프로토콜을
+ * 사용했으며, 그 외 채팅과 관련된 기능은 webSocket 프로토콜 사용
+ */
+
 interface IDecodeToken {
   nickname: string;
 }
 
 function ChattingRoom() {
+  // 사용자가 입력하는 메세지, 채팅기록, 프로필 정보(닉네임, 이미지), WebSocket 연결 객체를 관리하기 위한 state 생성
   const [inputMessage, setInputMessage] = useState("");
   const [history, setHistory] = useState<any[]>([]);
   const [partnerURL, setPartnerURL] = useState("");
   const [partnerNickname, setPartnerNickname] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
+
+  // 채팅방에 message가 추가될 때마다 스크롤을 아래로 이동하게끔 구현하기 위해 ref 설정
   const messagesEndRef = useRef<any>(null);
   const navigate = useNavigate();
+
+  // JWT 토큰에 닉네임 정보 추출
   const token: string | null = localStorage.getItem("authorization");
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
+
+  // 로컬 스토리지에서 채팅방을 식별하기 위한 record_id 추출
   const record_id = localStorage.getItem("record_id");
 
   // 메시지가 추가될 때마다 스크롤을 아래로 이동
   useEffect(() => {
     scrollToBottom();
   }, [history]);
-
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  // 컴포넌트가 마운트 될 때 채팅기록을 가져오는 함수를 호출하고 WebSocket 연결을 초기화.
+  // 컴포넌트가 언마운트 될 때에는 WebSocket 연결을 해제하고 record_id를 로컬스토리지에서 제거.
   useEffect(() => {
     const chatHistory = async () => {
       try {
@@ -47,7 +61,6 @@ function ChattingRoom() {
             },
           }
         );
-        // console.log(response);
         setHistory(response.data.history);
         setPartnerNickname(response.data.partnerNickname);
         setPartnerURL(response.data.partnerProfileUrl);
@@ -58,7 +71,6 @@ function ChattingRoom() {
     };
     chatHistory();
     return () => {
-      // 컴포넌트 언마운트 시 stompClient 연결 해제
       if (stompClient) {
         stompClient.disconnect();
         localStorage.removeItem("record_id");
@@ -66,7 +78,8 @@ function ChattingRoom() {
     };
   }, []);
 
-  // subscribe 프레임 2번째 인자......
+  // WebSocket에서 메세지를 받아와서 채팅 기록을 업데이트 하며, 받아온 메세지의 body를 receive함수를 통해
+  // history에 기존 채팅 기록에 추가
   const getMessageCallback = (message: any) => {
     try {
       const recv = JSON.parse(message.body);
@@ -75,21 +88,32 @@ function ChattingRoom() {
       console.error(error);
     }
   };
+  const receiveMessage = (recv: any) => {
+    setHistory((prev) => [...prev, recv]);
+  };
 
+  // WebSocket 연결을 초기화 하고 채팅방에 참여하거나 메시지를 보내는 등의 동작을 수행
   const connectWebSocket = () => {
+    // sock.js 객체를 생성하고 이를 통해 서버와의 WebSocket 연결을 설정
     const socket = new SockJS(`${import.meta.env.VITE_REACT_API_KEY}/ws/chat`);
+
+    // Stomp 라이브러리를 사용해서 WebSocket 연결을 관리하며, 이때 stomp는 WebSocket 위에서 동작하는
+    // 메시지 전달 프로토콜임.
     const newStompClient = Stomp.over(() => socket);
+
+    // WebSocket 연결에서 오류가 발생하면 콘솔에 오류 메시지를 출력하도록 설정
     newStompClient.onStompError = (frame: any) => {
       console.error("웹소켓 오류:", frame);
-      // 오류 처리, 예를 들어 다시 연결 시도
     };
+
+    // WebSocket 연결을 시작. 연결이 성공적으로 이루어지면 특정 uri를 구독하며, enter 타입의 메시지를 서버에 전송.
+    // 즉 구독 및 send 관련 로직
     newStompClient.connect({}, (frame: any) => {
       console.log("연결 성공", frame);
       newStompClient.subscribe(
         `/topic/chat/room/${record_id}`,
         getMessageCallback
       );
-
       newStompClient.send(
         `/app/chat/message/${record_id}`,
         {},
@@ -100,18 +124,17 @@ function ChattingRoom() {
         })
       );
 
+      // stompClient 상태를 업데이트하며, 이후 메시지 전송 등에서 사용할 수 있게 함
       setStompClient(newStompClient);
     });
   };
 
-  const receiveMessage = (recv: any) => {
-    setHistory((prev) => [...prev, recv]);
-  };
-
+  // 메시지 입력 필드의 값을 state에 업데이트
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputMessage(event.currentTarget.value);
   };
 
+  // 사용자가 입력한 메시지를 WebSocket을 통해 서버로 전송하며, 이후 입력 필드 초기화
   const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     stompClient.onStompError = (frame: any) => {

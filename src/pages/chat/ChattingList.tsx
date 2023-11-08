@@ -6,6 +6,11 @@ import {
 } from "../../apis/chat/ChattingListApi";
 import { toast } from "react-toastify";
 
+/**
+ * @author : Jiwon Kim
+ * @returns : 사용자의 채팅방 목록 페이지, 채팅방 목록 조회 및 각 채팅방의 아이템 아이디를 기준으로 입장 시 recordId 저장
+ */
+
 interface IChatList {
   itemId: number;
   partner: string;
@@ -15,16 +20,14 @@ interface IChatList {
   item_image: string;
 }
 
-/**
- * @author : Jiwon Kim, Goya Gim
- * @returns :
- */
-
 function ChattingList() {
   const navigate = useNavigate();
+
+  // 리액트 쿼리 사용해서 채팅방에 대한 데이터를 fetching
   const { data } = useQuery("chattingRoom", chattingListApi);
-  console.log(data);
-  // 채팅방 입장
+
+  // 채팅방 입장 시 실행되는 함수로 해당 채팅방의 아이템 아이디를 가지고 api 요청을 보내서
+  // recordId 값을 받아서 로컬 스토리지에 저장한 후 페이지 이동.
   const enterChat = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const itemId = Number(event.currentTarget.value);
     const response = await enterChattingRoom(itemId);
