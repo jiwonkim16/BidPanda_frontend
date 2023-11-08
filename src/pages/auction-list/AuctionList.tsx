@@ -120,7 +120,7 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("price_asc")}
           className={`${
-            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+            order === "price_asc" ? "text-blue-400" : "text-gray-800"
           } font-pretendard font-bold text-sm`}
         >
           낮은 가격순
@@ -129,7 +129,7 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("price_desc")}
           className={`${
-            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+            order === "price_desc" ? "text-blue-400" : "text-gray-800"
           } font-pretendard font-bold text-sm`}
         >
           높은 가격순
@@ -138,7 +138,7 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("date")}
           className={`${
-            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+            order === "date" ? "text-blue-400" : "text-gray-800"
           } font-pretendard font-bold text-sm`}
         >
           최신순
@@ -147,7 +147,7 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("end_time_asc")}
           className={`${
-            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+            order === "end_time_asc" ? "text-blue-400" : "text-gray-800"
           } font-pretendard font-bold text-sm`}
         >
           마감임박순
@@ -156,7 +156,7 @@ function AuctionList() {
         <button
           onClick={() => onClickOrder("bid_count_desc")}
           className={`${
-            order === "price_asc" ? "text-blue-300" : "text-gray-800"
+            order === "bid_count_desc" ? "text-blue-400" : "text-gray-800"
           } font-pretendard font-bold text-sm`}
         >
           입찰 횟수 순
