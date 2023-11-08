@@ -1,11 +1,11 @@
 function BidInfo() {
   return (
     <div>
-      <div className="flex items-center justify-center mt-4 text-2xl">
+      <div className="flex items-center justify-center mt-3 text-md">
         <h1>경매 진행 방식 설명</h1>
       </div>
-      <div className="mt-6 ml-4">
-        <details className="select-none text-lg font-pretendard font-extrabold open:bg-gray-200 open:text-black rounded-lg mb-4">
+      <div className="mt-6 ml-2">
+        <details className="select-none text-md font-pretendard font-bold open:bg-gray-200 open:text-gray-800 rounded-lg mb-1 p-2">
           <summary className="cursor-pointer mb-2">상품 등록</summary>
           <ul>
             <li>
@@ -21,7 +21,7 @@ function BidInfo() {
             <li>&nbsp;&nbsp;🔥 최대 입찰금액은 1억원입니다.</li>
           </ul>
         </details>
-        <details className="select-none text-lg font-pretendard font-extrabold open:bg-gray-200 open:text-black rounded-lg mb-4">
+        <details className="select-none text-md font-pretendard font-bold open:bg-gray-200  open:text-gray-800 rounded-lg mb-1 p-2">
           <summary className="cursor-pointer mb-2">경매 진행 방식</summary>
           <ul>
             <li>
@@ -57,7 +57,7 @@ function BidInfo() {
             </li>
           </ul>
         </details>
-        <details className="select-none text-lg font-pretendard font-extrabold open:bg-gray-200 open:text-black rounded-lg mb-4">
+        <details className="select-none text-md font-pretendard font-bold open:bg-gray-200 open:text-gray-800 rounded-lg mb-1 p-2">
           <summary className="cursor-pointer mb-2">회원 탈퇴</summary>
           <ul>
             <li>
