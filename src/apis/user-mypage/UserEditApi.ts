@@ -11,7 +11,7 @@ interface EditPasswordData {
 
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 회원정보 수정 api.
  */
 
 export const editUserInfoApi = async (data: EditUserData) => {

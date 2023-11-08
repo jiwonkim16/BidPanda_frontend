@@ -1,5 +1,10 @@
 import axios from "axios";
 
+/**
+ * @author : Goya Gim
+ * @returns : 실시간 알림 관련 api.
+ */
+
 export const NotificationListApi = async () => {
   try {
     const res = await axios.get(
@@ -31,7 +36,6 @@ export const checkNotificationApi = async (notificationId: number) => {
         },
       }
     );
-
     return res.data;
   } catch (error) {
     console.error(error);

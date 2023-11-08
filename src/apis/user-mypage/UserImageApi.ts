@@ -2,7 +2,7 @@ import axios from "axios";
 
 /**
  * @author : Goya Gim
- * @returns :
+ * @returns : 프로필 이미지 변경 api.
  */
 
 export const profileImageApi = async (data: any) => {
