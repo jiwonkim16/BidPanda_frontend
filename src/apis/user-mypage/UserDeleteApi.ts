@@ -1,5 +1,4 @@
 import axios from "axios";
-
 /**
  * @author : Goya Gim
  * @returns :
@@ -18,6 +17,6 @@ export const userDeleteApi = async () => {
     );
     return res;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
