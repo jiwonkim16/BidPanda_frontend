@@ -112,7 +112,6 @@ function AuctionDetail() {
       }
     }
   };
-  console.log(toggle);
 
   // 삭제하기 버튼 클릭
   const deleteItem = async () => {
@@ -235,7 +234,7 @@ function AuctionDetail() {
                 />
               </div>
               <div className="flex items-center justify-center gap-2 font-semibold ml-4 mt-4">
-                {toggle === false && favorite === false ? (
+                {(toggle === false && favorite === false) || token === null ? (
                   <button
                     onClick={likeBtn}
                     className="w-[20%] h-[39px] bg-[#278374] font-jalnan text-white text-2xl rounded-lg border-2 border-[#278374]"

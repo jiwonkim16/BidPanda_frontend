@@ -30,8 +30,9 @@ const Login = () => {
 
   const refreshTokens = async () => {
     const res = await loginApi({ membername, password });
+
     const newAccessToken = res?.headers.authorization;
-    const newRefreshToken = res?.headers.authorization_refresh;
+    const newRefreshToken = res?.headers.refresh;
 
     if (res?.status === 200) {
       setAccessToken(newAccessToken);
@@ -60,7 +61,7 @@ const Login = () => {
     e.preventDefault();
     const res = await loginApi({ membername, password });
     const accessToken = res?.headers.authorization;
-    const refreshToken = res?.headers.authorization_refresh;
+    const refreshToken = res?.headers.refresh;
 
     if (res?.status === 200) {
       localStorage.setItem("authorization", accessToken);
