@@ -64,6 +64,10 @@ const RegisterUser = () => {
     }
   };
 
+  /**
+   * @includes : 쓰로틀링을 사용하여, 여러번 클릭하는 마우스 습관을 가진 유저를 미연에 예방.
+   */
+
   const throttledEmailHandler = throttle(async () => {
     toast.success("인증번호가 전송 되었습니다. 메일함을 확인해주세요.");
     const valEmail = getValues("email");

@@ -60,7 +60,6 @@ const EditPassword = () => {
   const handleUserDelete = async () => {
     if (isToken) {
       const res: any = await userDeleteApi();
-      console.log(res.data);
       if (res?.message === "회원 탈퇴 성공") {
         toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
         navigate("/");
