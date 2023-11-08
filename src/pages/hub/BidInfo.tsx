@@ -1,3 +1,8 @@
+/**
+ * @author : Jiwon Kim
+ * @returns : 경매 방식에 대한 이해가 부족한 유저를 돕기 위한 사용 설명서와 같은 페이지로, HTML 태그 중 details, summary 태그 활용
+ */
+
 function BidInfo() {
   return (
     <div>

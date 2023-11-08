@@ -124,7 +124,7 @@ function AuctionCard() {
 
   return (
     <>
-      <div className="flex justify-center fixed w-[390px] z-20 h-14">
+      <div className="flex justify-center fixed w-[390px] z-20 h-14 top-[49px]">
         <Swiper
           scrollbar={{
             hide: true,
@@ -153,7 +153,7 @@ function AuctionCard() {
           ))}
         </Swiper>
       </div>
-      <div className="fixed top-[87px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
+      <div className="fixed top-[89px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
         <button
           onClick={() => onClickOrder("price_asc")}
           className={`${

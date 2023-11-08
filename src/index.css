@@ -1,3 +1,5 @@
+/* tailwind 설정 및 기본 폰트 설정 / 커스텀 폰트 적용 */
+
 @import url("https://webfontworld.github.io/goodchoice/Jalnan.css");
 @tailwind base;
 @tailwind components;
