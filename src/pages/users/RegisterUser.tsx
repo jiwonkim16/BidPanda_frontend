@@ -43,12 +43,12 @@ const RegisterUser = () => {
     const res = await checkMembernameApi(valMembername);
     if (!valMembername) {
       toast.error("아이디를 입력해 주세요.");
-      if (res?.status === 200) {
-        setIsMembernameCheck(true);
-        toast.success("사용 가능한 아이디 입니다.");
-      } else {
-        toast.error("이미 존재하는 아이디 입니다.");
-      }
+    }
+    if (res?.status === 200) {
+      setIsMembernameCheck(true);
+      toast.success("사용 가능한 아이디 입니다.");
+    } else {
+      toast.error("이미 존재하는 아이디 입니다.");
     }
   };
   const checkNicknameHandler = async () => {
@@ -56,11 +56,11 @@ const RegisterUser = () => {
     const res = await checkNicknameApi(valNickname);
     if (!valNickname) {
       toast.error("닉네임을 입력해 주세요.");
-      if (res?.status === 200) {
-        setIsNicknameCheck(true);
-      } else {
-        toast.error("이미 존재하는 닉네임 입니다.");
-      }
+    }
+    if (res?.status === 200) {
+      setIsNicknameCheck(true);
+    } else {
+      toast.error("이미 존재하는 닉네임 입니다.");
     }
   };
 
