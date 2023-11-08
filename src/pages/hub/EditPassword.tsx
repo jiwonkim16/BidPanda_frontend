@@ -59,10 +59,15 @@ const EditPassword = () => {
 
   const handleUserDelete = async () => {
     if (isToken) {
-      await userDeleteApi();
-      toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
-      navigate("/");
-      removeToken();
+      const res = await userDeleteApi();
+      console.log(res);
+      if (res?.data === null) {
+        toast.success("탈퇴 되었습니다. 다시 만나길 바랍니다.");
+        navigate("/");
+        removeToken();
+      } else {
+        toast.error("진행 중인 경매가 있을 경우, 탈퇴할 수 없습니다.");
+      }
     }
   };
   return (
