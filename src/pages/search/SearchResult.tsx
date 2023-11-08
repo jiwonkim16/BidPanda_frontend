@@ -1,8 +1,29 @@
 import { Link } from "react-router-dom";
 import ListTimer from "../auction-list/ListTimer";
 
-function SearchResult({ data }: any) {
-  const onClick = (result: any) => {
+/**
+ * @author : Jiwon Kim
+ * @returns : 검색 페이지 / 키워드를 통한 검색 기능 구현을 통해 SearchResult 컴포넌트로 데이터 전달, 쿼리 dsl 적용
+ */
+
+interface IResult {
+  auctionEndTime: string;
+  bidCount: number;
+  bidderCount: number;
+  bidderProfileImageUrls: string[];
+  nickname: string;
+  winnerNickname: string;
+  content: string;
+  id: number;
+  itemImages: string[];
+  minBidPrice: number;
+  presentPrice: number;
+  title: string;
+}
+
+function SearchResult({ data }: { data: IResult }) {
+  // 이미지 또는 제목 클릭 시 해당 아이템의 상세페이지로 이동, 리렌더링 강제
+  const onClick = (result: IResult) => {
     window.location.href = `/items/detail/${result.id}`;
   };
 

@@ -3,8 +3,18 @@ import { searchAuction } from "../../apis/search/SearchAuction";
 import SearchResult from "./SearchResult";
 import { toast } from "react-toastify";
 
+/**
+ * @author : Jiwon Kim
+ * @returns : 검색 페이지 / 키워드를 통한 검색 기능 구현을 통해 SearchResult 컴포넌트로 데이터 전달
+ */
+
 interface IResult {
   auctionEndTime: string;
+  bidCount: number;
+  bidderCount: number;
+  bidderProfileImageUrls: string[];
+  nickname: string;
+  winnerNickname: string;
   content: string;
   id: number;
   itemImages: string[];
@@ -14,15 +24,18 @@ interface IResult {
 }
 
 function SearchAution() {
+  // 사용자가 입력하는 검색어를 저장하는 state와 검색 결과를 저장하는 result라는 state 생성
   const [search, setSearch] = useState("");
   const [result, setResult] = useState<IResult[]>();
+
+  // 사용자가 검색어를 입력할 때 호출되며, 사용자가 입력한 검색어를 search state에 저장
   const searchInfo = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // state에 검색어 저장
     setSearch(event.target.value);
   };
+
+  // 사용자가 검색어를 제출할 때 호출되며, form의 기본 이벤트를 차단하고 검색어를 서버로 전송
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // 서버로 search state 보내는 역할
     const response = await searchAuction(search);
     if (response.content.length > 0) {
       setResult(response.content);

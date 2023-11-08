@@ -16,7 +16,8 @@ import "swiper/css";
 /**
  * @author : Jiwon Kim
  * @returns : 상품 수정페이지, 기존에 있던 상품 정보 표시 및 새로 수정한 정보와 이미지를 서버로 전송하며,
- * 이때, 이미지는 압축을 통해 용량을 줄이고 react-hook-form 및 formData를 활용해서 데이터를 서버로 전송한다.
+ * 이때, 이미지는 압축을 통해 용량을 줄이고 react-hook-form를 사용해서 각종 유효성 검사를 진행하고
+ * formData를 활용해서 데이터를 서버로 전송한다.
  */
 
 interface IForm {
@@ -47,9 +48,14 @@ function ModifierProduct() {
 
   // Recoil의 category 상태와 해당 상태를 업데이트 하는 함수를 생성
   const [selectCategory, setSelectCategory] = useRecoilState(category);
+
+  // Recoil의 categoryList를 불러옴
   const categoryLi = useRecoilValue(categoryList);
   const navigate = useNavigate();
   const params = useParams();
+
+  // React-Hook-Form을 사용해서 form의 상태와 메서드를 가져오며, onBlur 모드를 사용해서 각 입력 필드에서 포커스를 벗어날때마다
+  // 유효성 검사를 수행.
   const {
     register,
     handleSubmit,
@@ -62,16 +68,16 @@ function ModifierProduct() {
     mode: "onBlur",
   });
 
-  // 리액트 쿼리 사용해서 데이터 get
+  // 리액트 쿼리를 사용해서 상품의 수정 전 데이터를 fetching
   const { data } = useQuery("auctionDetail", () =>
     auctionDetail(Number(params.itemId))
   );
   const detailItem: IAuctionDetail = data?.data;
 
-  // 이미지 미리보기 관련 state
+  // 이미지 미리보기 URL을 담는 state와 modifier 함수 생성
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-  // 로그인 유저가 아니면 로그인 페이지로~
+  // 컴포넌트 마운트 시 로그인 여부에 따라 페이지 이동
   useEffect(() => {
     const accessToken = localStorage.getItem("authorization");
     if (!accessToken) {
@@ -80,33 +86,31 @@ function ModifierProduct() {
     }
   }, []);
 
-  // 카테고리 등록
+  // 카테고리 버튼 클릭 시 선택한 카테고리를 업데이트하고 form의 category 필드에 해당 값을 설정
   const onClickCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
     const category = event.currentTarget.value;
     setSelectCategory(category);
     setValue("category", category);
   };
 
-  // 이미지 관련 로직
-  // 이미지 onChange 함수
+  // 이미지를 추가하는 함수로, 선택된 이미지 파일을 상태에 추가하기 전에 이미지를 압축하고 미리보기 URL를 생성,
+  // 이미지 갯수가 3개를 초과 시 알림창 설정, browser-image-compression 사용 이미지 압축
   const addImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length === 3) {
       toast.warning("등록 가능한 이미지 갯수를 초과했습니다.");
       return;
     }
     const imageFiles: FileList | null = event.target.files;
-
     if (imageFiles) {
       const newImages = [...images];
       const previews = imagePreviews.slice(); // 이미지 미리보기 배열의 복사본
       for (let i = 0; i < imageFiles.length; i++) {
         try {
-          // 이미지를 상태에 추가하기 전에 이미지를 압축합니다.
+          // 이미지를 상태에 추가하기 전에 이미지를 압축
           const compressedImage = await imageCompression(imageFiles[i], {
-            maxSizeMB: 0.5, // 필요에 따라 최대 크기를 조정하세요.
-            maxWidthOrHeight: 800, // 필요에 따라 최대 너비 또는 높이를 조정하세요.
+            maxSizeMB: 0.5, // 필요에 따라 최대 크기를 조정
+            maxWidthOrHeight: 800, // 필요에 따라 최대 너비 또는 높이를 조정
           });
-
           newImages.push(compressedImage);
           previews.push(URL.createObjectURL(compressedImage)); // 이미지 미리보기 URL 생성
         } catch (error) {
@@ -119,14 +123,13 @@ function ModifierProduct() {
     }
   };
 
-  // 데이터가 유효할 경우 호출
+  // form 데이터가 유효할 경우 실행되는 함수로 카테고리를 선택하지 않았거나 '전체'를 선택한 경우 경고창을 띄우고
+  // 선택한 카테고리와 이미지를 서버로 전송
   const onValid = async (data: IForm) => {
-    // 카테고리를 선택하지 않았다면 warning, return
     if (!data.category || data.category === "전체") {
       toast.warning("카테고리를 선택해주세요!");
       return;
     } else {
-      // 서버로 데이터를 전달
       const formData = new FormData();
       formData.append(
         "itemRequestDto",
@@ -135,12 +138,9 @@ function ModifierProduct() {
       for (let i = 0; i < images.length; i++) {
         formData.append("images", images[i]);
       }
-      // 서버로부터 응답
       const response = await auctionModifier(params.itemId, formData);
       if (response?.status === 200) {
-        // 성공 알림
         toast.success("상품이 수정 되었습니다🔥");
-        // 리스트 페이지로 이동
         navigate("/items/public-search");
         reset();
       } else {
@@ -151,6 +151,7 @@ function ModifierProduct() {
     }
   };
 
+  // 이미지 미리보기 칸에서 이미지를 제거하기 위한 함수로, 해당 인덱스의 이미지와 미리보기를 state에서 제거
   const removeImage = (index: number) => {
     const newImages = [...images];
     const newPreviews = [...imagePreviews];
