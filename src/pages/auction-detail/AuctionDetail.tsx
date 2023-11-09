@@ -16,8 +16,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { favoriteItems } from "../../atoms/auctionStatus";
 
 /**
  * @author : Jiwon Kim
@@ -61,9 +59,8 @@ function AuctionDetail() {
   const decodedToken: IDecodeToken | null = token ? jwtDecode(token) : null;
   const userNickname: string = decodedToken ? decodedToken.nickname : "";
 
-  // Recoil을 활용한 관심상품 등록을 위한 상태 및 상태 업데이트
-  const toggle = useRecoilValue(favoriteItems);
-  const setToggle = useSetRecoilState(favoriteItems);
+  // useState를 활용한 관심상품 등록을 위한 상태 및 상태 업데이트
+  const [toggle, setToggle] = useState(false);
 
   // 리액트 쿼리를 활용한 상품 정보 데이터 fetching
   const { data, isLoading } = useQuery("auctionDetail", () =>
