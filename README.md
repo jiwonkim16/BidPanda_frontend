@@ -1,12 +1,15 @@
 # BidPanda 프로젝트
 [🐼 비드판다 사이트 이동하기](https://bidpanda.app/)
 
-<img src="./bidpanda.png" />
+![bpwall](https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/4867d6fb-b2e0-4dd3-8153-13fba88b9894)
+
+
+<img width="1353" alt="sample" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/32510dd3-3a7e-4956-ab79-25d426aeca8a">
 
 ## 프로젝트 소개
 ### 서비스 개요
 ```
-    BidPanda 서비스는 판매자와 구매자간 커뮤니케이션 리소스를 최소화 하기 위해
+    BID PANDA 서비스는 판매자와 구매자간 커뮤니케이션 리소스를 최소화 하기 위해
     경매 방식 거래 서비스를 도입하는게 어떨까?라는 아이디어에서 시작된 서비스입니다.
 
     사이트에 가입된 유저은 팔고자하는 물건을 지정한 기한을 정해서 경매 방식으로 판매 가능합니다.
@@ -23,8 +26,11 @@
 
 ####  1.회원가입, 로그인 기능
 
-- 이메일, 아이디로 가입하는 회원가입 기능
-- 카카오 회원가입 기능
+- 이메일 인증 기능이 있는 회원가입
+  
+- 리프레쉬 토큰을 통한 액세스 토큰 재발급 기능
+  
+- 카카오 소셜 로그인 기능
 
 #### 2.경매 물품 관련 기능
 
@@ -63,7 +69,10 @@
 #### 5. 회원 정보 수정
 
 - 회원 정보 수정
- 
+
+- 회원 탈퇴 기능
+
+- 프로필 이미지 변경 기능
 
 ### 아키텍쳐 구성도
 
@@ -71,14 +80,10 @@
 
 <img src="./bidpanda_archt.png" />
 
-### ERD
-
-<img src="./erd.png" />
-
 ### 사용 기술 스택
 
 |목록|사용 기술|
-### 🐼Language
+### 🐼 Language
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
@@ -86,14 +91,14 @@
 <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>  <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=React Query&logoColor=white"/>
 <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=Tailwind CSS&logoColor=white"/>
 
-### 🌐Tools
+### 🌐 Tools
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>  <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white"/>
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"/>
 
-### 📚Library
+### 📚 Library
 
 <img src="https://img.shields.io/badge/React Hook Form-09D3AC?style=flat&logo=Create React App&logoColor=white"/>  <img src="https://img.shields.io/badge/React Toasitfy-38096C?style=flat&logo=Taco Bell&logoColor=white"/>
 <img src="https://img.shields.io/badge/StompJS-F5455C?style=flat&logo=Rocket.Chat&logoColor=white"/>
@@ -119,7 +124,7 @@
 
 |이름|역할|구현 기능|Contect|
 |:-----:|:-----:|:------------|:-----|
-|김고야|`LEAD`<br>`FE`|경매 종료시 판매자와 낙찰자에게 SSE 알림 발송 ( Cron-Job에서 호출시)<br>알림 목록 조회<br>이미지 관리 AWS S3( 프로필 이미지, 상품 이미지)<br>회원탈퇴(Soft Delete)<br>응답 포맷 형식,<br>CI/CD<br>Swagger적용|📧 ksw270@gmail.com<br>✨ [https://github.com/dewey-89](https://github.com/dewey-89)|
+|김고야|`LEAD`<br>`FE`|User ( 로그인 / 회원가입 / 소셜로그인 / 마이페이지 등 ),<br>Layout ( 메인페이지, 상단 Nav 등 ),<br>디자이너와 UI/UX 및 디자인 와이어프레임 관련 커뮤니케이션,<br>실시간 알림 기능 구현 ( SSE ),<br>React lazy 코드 스플리팅|📧[gim.goya@gmail.com](gim.goya@gmail.com)<br>✨ [https://github.com/goyka](https://github.com/goyka)|
 |김지원|`FE`|경매 상품(등록, 조회<querydsl 동적쿼리 적용>, 입찰),<br>채팅방 조회 및 실시간 1:1 채팅기능,<br>상품 수정 및 삭제 기능,<br>상품 찜하기 및 취소 기능,<br>CI/CD,<br>인피니티 스크롤링, 페이지 라우팅|📧 [stayby16@tistory.com](https://hi-wonn.tistory.com/)<br>✨https://github.com/jiwonkim16
 
 ## 트러블 슈팅 🚀 
