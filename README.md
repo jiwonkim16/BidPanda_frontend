@@ -1,10 +1,11 @@
-# BidPanda 프로젝트
-[🐼 비드판다 사이트 이동하기](https://bidpanda.app/)
+# BID PANDA
+
 
 ![bpwall](https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/4867d6fb-b2e0-4dd3-8153-13fba88b9894)
 
-
 <img width="1353" alt="sample" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/32510dd3-3a7e-4956-ab79-25d426aeca8a">
+
+[🐼 서비스 이용하기!](https://bidpanda.app/)
 
 ## 프로젝트 소개
 ### 서비스 개요
@@ -16,11 +17,8 @@
     판매물건이 낙찰 확정되면, 판매자-낙찰자간 알림을 전송하고, 채팅을 할 수 있습니다.
 ```
 
-#### 프로젝트 기간
+#### 🗓 프로젝트 기간
 2023.10.04 ~ 2023.11.15
-
-#### 프로젝트 팀원
-프론트엔드 2명 백엔드 4명
 
 ### 구현 기능
 
@@ -76,13 +74,11 @@
 
 ### 아키텍쳐 구성도
 
-<!-- 여기에 이미지 -->
-
-<img src="./bidpanda_archt.png" />
+<img width="3794" alt="Arch" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/8f91edd8-43d1-4a7e-810f-a605b305d878">
 
 ### 사용 기술 스택
 
-### 🐼 Language
+### ⚙️ Language
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
@@ -90,7 +86,7 @@
 <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>  <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=React Query&logoColor=white"/>
 <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=Tailwind CSS&logoColor=white"/>
 
-### 🌐 Tools
+### 🛠 Tools
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>  <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
@@ -119,14 +115,14 @@
 |React-query| 서버 상태 관리 |데이터 fetching과 서버상태관리를 효율적으로 처리할 수 있음|
 
 
-### 프로젝트 팀원 소개
+### 👨🏻‍💻🧑🏻‍💻 프로젝트 팀원 소개
 
 |이름|역할|구현 기능|Contect|
 |:-----:|:-----:|:------------|:-----|
 |김고야|`LEAD`<br>`FE`|User ( 로그인 / 회원가입 / 소셜로그인 / 마이페이지 등 ),<br>Layout ( 메인페이지, 상단 Nav 등 ),<br>디자이너와 UI/UX 및 디자인 와이어프레임 관련 커뮤니케이션,<br>실시간 알림 기능 구현 ( SSE ),<br>React lazy 코드 스플리팅|📧[gim.goya@gmail.com](gim.goya@gmail.com)<br>✨ [https://github.com/goyka](https://github.com/goyka)|
 |김지원|`FE`|경매 상품(등록, 조회<querydsl 동적쿼리 적용>, 입찰),<br>채팅방 조회 및 실시간 1:1 채팅기능,<br>상품 수정 및 삭제 기능,<br>상품 찜하기 및 취소 기능,<br>CI/CD,<br>인피니티 스크롤링, 페이지 라우팅|📧 [stayby16@tistory.com](https://hi-wonn.tistory.com/)<br>✨https://github.com/jiwonkim16
 
-## 트러블 슈팅 🚀 
+### 🚀 트러블 슈팅 
 
 
 ### 모바일 웹 브라우저 UI 대응
@@ -163,6 +159,24 @@
 
 2\. 타이머 ID(setInterval로 생성된 ID)로 각 상품에 대한 타이머 ID를 저장하는 배열을 만들고 각 상품에 대한 타이머를 동적으로 생성했다.
 
+</div>
+</details>
+
+### React lazy로 번들 사이즈 개선
+
+<details>
+<summary>해결 과정</summary>
+<div>
+
+#### 문제상황
+
+첫 페이지 로딩의 소요 시간이 너무 길어, 최적화가 필요한 상황.
+
+#### 해결
+
+1\. Router 파일에서 각 페이지와 컴포넌트에 React lazy로 코드 스플리팅을 적용 시킴.
+
+2\. 번들 사이즈를 35.7% 개선(7865.7kB > 5058.2kB)
 </div>
 </details>
 
