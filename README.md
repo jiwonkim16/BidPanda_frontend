@@ -82,7 +82,6 @@
 
 ### 사용 기술 스택
 
-|목록|사용 기술|
 ### 🐼 Language
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
@@ -138,29 +137,32 @@
 
 #### 문제상황
 
-현재 상품 데이터베이스에는 경매 종료 시간 필드가 존재하므로,<br>경매 종료시간에 맞춰서 
-판매자와 낙찰자에게 SSE 알림을 보내려는 계획이었다.<br>
-
-어떤 시간에 경매 종료가 일어나는지 알 수 없는 상황<br>(상품 등록자는 원하는 종료 시간을 자유롭게 선택 가능)
-
-하지만, 경매 종료 시간에 딱 맞춰서 이벤트를 발생시키는 것이 어려웠다.
+모바일 브라우저를 기반으로 기획하여 실제 모바일 디바이스의 화면처럼 고정된 header와 footer를<br>가지고 있어야 하며, 각각 컴포넌트에 하나하나 붙이는건 비효율적이었다.<br>
 
 #### 해결
 
-1\. BackEnd 서버에서 EVENT 발생시키기
+1\. 리액트 라우터 중 createBrowserRouter 함수를 사용해서 outlet에 화면비를 고정시키고 그 위아래로 header와 footer를 적용함으로서<br>
+컴포넌트를 상, 하로 배치하였다. 
 
-Schedular를 이용해 DB쿼리를 매초 날려 경매종료시간이 지났는지 확인해서 지났으면 SSE알림을 보내게 한다. 
+</div>
+</details>
 
+### 타이머 기능 동기적 실행
 
-2\.FrontEnd 페이지에서 EVENT 발생시키기
+<details>
+<summary>해결 과정</summary>
+<div>
 
+#### 문제상황
 
-프론트 페이지에서 경매시간이 초단위로 카운팅 되면서 줄어들고 있다.남은시간이 0이 되었을 때,<br>
-해당 itemId를 가지고 판매자와 낙찰자에게 종료 SSE알림을 보내는 백엔드 서버로 요청을 보내서<br>
-SSE알림을 보내게 한다.
+남은 경매시간 타이머 기능 구현 시 남은 시간이 1초 단위로 변하는 것이 아니라 각각의 상품에 딜레이가 발생하게 됨.<br>moment.js를 활용해서 남은 시간 계산 시 불필요한 계산코드가 있었고 상품 각각 개별적인 타이머 관리가 되지 않았다.
 
+#### 해결
 
-3\. 외부 Open API를 사용해 EVENT 발생시키기
+1\. useMemo를 이용해서 객체를 캐싱함으로서 endTime 이라는 데이터가 변경될 때만 새로 생성되도록 함으로서 기존 캐시된 값이 사용되므로 불필요한 리렌더링을 방지했으며,
+
+2\. 타이머 ID(setInterval로 생성된 ID)로 각 상품에 대한 타이머 ID를 저장하는 배열을 만들고 각 상품에 대한 타이머를 동적으로 생성했다.
+
 </div>
 </details>
 
