@@ -56,39 +56,47 @@ function AuctionList() {
   const { data, isLoading } = useQuery(["getItems", order], () =>
     auctionList(page.current, order)
   );
-
+  console.log(data)
   // 필터링 버튼 클릭 시 URL을 변경하고 페이지를 새로고침 (UI 리렌더링 강제)
   const onClickOrder = (newOrder: string) => {
     navigate(`?auctionIng=true&order=${newOrder}`);
     window.location.href = `?auctionIng=true&order=${newOrder}`;
   };
 
-  // Intersection Observer를 생성하고, 무한 스크롤을 구현하는 함수를 정의 (refetchQuery 활용 데이터 최신화)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      if (isLoading || data?.last) return;
-      queryClient.refetchQueries("getItems");
-      page.current += 1;
-    });
-  });
-
-  // target이나 observer가 변경될 때마다 실행되며, Intersection Observer를 등록하고 컴포넌트 언마운트 시 observer를 해제
+  // useEffect 내에서 데이터가 변경될 때만 Intersection Observer를 생성하고, 무한 스크롤을 구현하는 함수를 정의 (refetchQuery 활용 데이터 최신화)
   useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio <= 0) return;
+        if (isLoading || data?.last) return;
+        queryClient.refetchQueries("getItems");
+        page.current += 1;
+      });
+    });
+  
+    // target이나 observer가 변경될 때마다 실행되며, Intersection Observer를 등록하고 컴포넌트 언마운트 시 observer를 해제
     if (target.current) {
       observer.observe(target.current);
     }
+  
     return () => {
       if (target.current) {
         observer.disconnect();
       }
     };
-  }, [target, observer]);
+  }, [data, isLoading, queryClient, target]);
+  
 
   // data가 변경될 때마다 실행되며, 새로운 데이터가 있으면 상태를 업데이트
   useEffect(() => {
     if (data) {
-      setAuctionItem((prev) => [...prev, ...data.content]);
+      setAuctionItem((prev) => {
+        // 중복된 데이터를 필터링하여 새로운 상태로 업데이트
+        const filteredData = data.content.filter(
+          (newItem:any) => !prev.some((item) => item.id === newItem.id)
+        );
+        return [...prev, ...filteredData];
+      });
     }
   }, [data, setAuctionItem]);
 
@@ -100,7 +108,7 @@ function AuctionList() {
     setSelectCategory(select);
     navigate(`/items/list/${select}`);
   };
-
+  
   return (
     <div>
       <div className="flex justify-center fixed w-[390px] z-20 h-11">
@@ -132,7 +140,7 @@ function AuctionList() {
           ))}
         </Swiper>
       </div>
-      <div className="fixed top-[88px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
+      <div className="fixed top-[86px] w-[390px] h-10 flex gap-[10px] justify-end items-center z-20 bg-white">
         <button
           onClick={() => onClickOrder("price_asc")}
           className={`${
