@@ -1,92 +1,29 @@
-# BID PANDA
+### 🐼 BID PANDA { FE }
+판매 스트레스가 없는 경매 방식으로 당신의 애장품과 물건에 새로운 쓰임을 !
 
+### 🔍 Service view samples
+<img width="1353" alt="sample" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/07f3ac7e-b838-4963-904a-59bf72851651">
 
-![bpwall](https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/4867d6fb-b2e0-4dd3-8153-13fba88b9894)
-
-<img width="1353" alt="sample" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/32510dd3-3a7e-4956-ab79-25d426aeca8a">
-
-[🐼 서비스 이용하기!](https://bidpanda.app/)
-
-## 프로젝트 소개
-### 서비스 개요
-```
-    BID PANDA 서비스는 판매자와 구매자간 커뮤니케이션 리소스를 최소화 하기 위해
-    경매 방식 거래 서비스를 도입하는게 어떨까?라는 아이디어에서 시작된 서비스입니다.
-
-    사이트에 가입된 유저은 팔고자하는 물건을 지정한 기한을 정해서 경매 방식으로 판매 가능합니다.
-    판매물건이 낙찰 확정되면, 판매자-낙찰자간 알림을 전송하고, 채팅을 할 수 있습니다.
-```
-
-#### 🗓 프로젝트 기간
-2023.10.04 ~ 2023.11.15
-
-### 구현 기능
-
-####  1.회원가입, 로그인 기능
-
-- 이메일 인증 기능이 있는 회원가입
-  
-- 리프레쉬 토큰을 통한 액세스 토큰 재발급 기능
-  
-- 카카오 소셜 로그인 기능
-
-#### 2.경매 물품 관련 기능
-
-- 물품 등록
-
-- 물품 정보 수정 / 삭제
-  
-- 물품 입찰 (입찰가 등록)
-
-- 물품 검색 / 필터링
-
-- 물품 좋아요
-
-#### 3.알림 기능
-
-- 경매 마감 30분전, 입찰을 했던 회원에게 알림 메시지 기능 
-
-- 경매 마감시간에, 판매자와 낙찰자에게 알림창에서 알림 보내는 기능
-
-- 회원 알림 읽음 처리 기능
-
-#### 4.채팅 기능
-
-- 회원 채팅방 조회
-
-- 회원 채팅방 입장
-    - 채팅방 입장에 대한 인증, 인가 적용 
-    - 채팅방 입장시,최신 채팅 메시지 20개 조회
-
-- 회원간 채팅 기능
-    - STOMP가 적용된 웹소켓 채팅 기능 구현
-    - 회원 채팅 참여 유무를 서버 캐시에 기록
-    - 상대 회원이 채팅에 참여하지 않은 경우, 채팅 내용 기록 구현
-    - 채팅방에 없는 회원에게 메시지 알림 전송 기능 동작
-
-#### 5. 회원 정보 수정
-
-- 회원 정보 수정
-
-- 회원 탈퇴 기능
-
-- 프로필 이미지 변경 기능
-
-### 아키텍쳐 구성도
-
+### 🦺 System Architecture
 <img width="3794" alt="Arch" src="https://github.com/jiwonkim16/BidPanda_frontend/assets/112574979/8f91edd8-43d1-4a7e-810f-a605b305d878">
 
-### 사용 기술 스택
 
-### ⚙️ Language
+### 👨🏻‍💻🧑🏻‍💻 Team
+- **김고야 ( Goya Gim )**<br/>  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://velog.io/@gimgoya) <br/>
+- **김지원 ( Jiwon Kim )**<br/>  [![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://soo-vely-dev.tistory.com/)](https://hi-wonn.tistory.com/)
+
+### ⚙️ Skills
+
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/React Router-CA4245?style=flat&logo=React Router&logoColor=white"/>
 <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=Axios&logoColor=white"/>
-
 <img src="https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white"/>  <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=React Query&logoColor=white"/>
 <img src="https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=Tailwind CSS&logoColor=white"/>
 
+
+
 ### 🛠 Tools
+
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white"/>  <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=Vercel&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
